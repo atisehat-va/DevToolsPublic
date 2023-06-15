@@ -119,8 +119,7 @@ function updateOptionSetValues(control) {
 	});   
 }
 
-function openUrl(environment, pageType) {
-debugger;    
+function openUrl(environment, pageType) {  
     var crmUrl;
     var clientUrl = Xrm.Page.context.getClientUrl();
     var windowName;
