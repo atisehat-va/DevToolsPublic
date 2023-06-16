@@ -1,7 +1,7 @@
 var lastUpdatedFormId = null;
-var logicalNameBtnClickStatus = true;
-var unlockAllFieldsBtnClickStatus = true;
-var showAllTabsAndSectionsBtnClickStatus = true;
+var logicalNameBtnClickStatus = false;
+var unlockAllFieldsBtnClickStatus = false;
+var showAllTabsAndSectionsBtnClickStatus = false;
 
 function fetchEntityFields() {
 	var entityName = Xrm.Page.data.entity.getEntityName();
