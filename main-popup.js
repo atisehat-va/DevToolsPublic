@@ -130,7 +130,7 @@ function showContent(url) {
   containerDiv.classList.add('expanded');
 }*/
 //new
-function showContent(contentType, content) {
+function showContent(contentType, url) {
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
   var iframeContainer = document.getElementById('iframe-container');
@@ -140,15 +140,15 @@ function showContent(contentType, content) {
 
   switch (contentType) {
     case 'iframe':
-      content += (content.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      contentDiv.innerHTML = `<iframe src="${content}" width="100%" height="500" frameborder="0"></iframe>`;
+      url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
+      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
       iframeContainer.style.display = 'block'; // Show iframe container
       break;
     case 'alert':
-      contentDiv.innerHTML = `<div class="alert-message">${content}</div>`; // Show an alert with the given message
+      contentDiv.innerHTML = `<div class="alert-message">${url}</div>`; // Show an alert with the given message
       break;
     case 'html':
-      contentDiv.innerHTML = content; // Insert HTML content
+      contentDiv.innerHTML = url; // Insert HTML content
       break;
     default:
       console.error('Invalid content type');
