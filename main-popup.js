@@ -4,10 +4,11 @@ var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
 //new
+const baseUrl = 'https://atisehat-va.github.io/DevToolsPublic/';
 // Function to load external scripts dynamically
 function loadScript(src, callback) {
   const script = document.createElement('script');
-  script.src = src;
+  script.src = baseUrl + src;
   script.onload = callback;
   document.head.appendChild(script);
 }
