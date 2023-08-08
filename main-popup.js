@@ -16,6 +16,7 @@ function loadScript(src, callback) {
 // Load the separate JavaScript files for button functionality
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
 loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
+loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 // ... Load other scripts as needed
 
 //EndNew
@@ -78,11 +79,11 @@ function openPopup() {
 				</div>            
 				<div class="button-row">
 					<button onclick="fetchEntityFields();">Entity Info & Fields</button>
-					<button onclick="unlockAllFields();">Unlock All Fields</button>
+     					<button onclick="renameTabsSectionsFields();">LogicalNames</button>					
 				</div>
 				<div class="button-row">
 					<button onclick="showAllTabsAndSections();">Show Hidden Items</button>
-					<button onclick="renameTabsSectionsFields();">LogicalNames</button>
+					<button onclick="unlockAllFields();">Unlock All Fields</button>
 				</div>
 				<div class="button-row">
 					<button onclick="showDirtyFields();">Show Modified Fields</button>
