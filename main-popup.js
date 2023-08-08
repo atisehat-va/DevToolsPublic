@@ -113,7 +113,7 @@ function openPopup() {
   
   makePopupMovable(popupDiv);
 }
-
+/*
 function showContent(url) {
   url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
   
@@ -127,7 +127,38 @@ function showContent(url) {
 
   // horizontal expansion
   containerDiv.classList.add('expanded');
+}*/
+//new
+function showContent(contentType, url) {
+  var contentDiv = document.getElementById('popupContent');
+  var containerDiv = document.getElementById('container');
+  var iframeContainer = document.getElementById('iframe-container');
+
+  // Clear previous content
+  contentDiv.innerHTML = '';
+
+  switch (contentType) {
+    case 'iframe':
+      url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
+      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
+      iframeContainer.style.display = 'block'; // Show iframe container
+      break;
+    case 'alert':
+      alert(url); // Show an alert with the given message
+      break;
+    case 'html':
+      contentDiv.innerHTML = url; // Insert HTML content
+      break;
+    default:
+      console.error('Invalid content type');
+      return;
+  }
+
+  // horizontal expansion
+  containerDiv.classList.add('expanded');
+  contentDiv.style.display = 'block'; // Show content
 }
+//end New
 
 function closeIframe(url) { 
   var contentDiv = document.getElementById('popupContent');
