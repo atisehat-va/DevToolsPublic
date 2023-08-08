@@ -34,6 +34,7 @@ function showAllTabsAndSections() {
 				}
 			});
 		});
+		showContent('alert', 'Show (Tabs, Section & Fields) button has already been clicked!!');		
 	});
     showAllTabsAndSectionsBtnClickStatus = true;
     lastUpdatedFormId = currentFormId;
