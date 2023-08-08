@@ -29,7 +29,7 @@ function openUrl(environment, pageType) {
     } else if (pageType === "userProvision") {
         var entityName = "vhacrm_userprovision";
         var formUrl = crmUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord"; 
-        showContent(formUrl);
+        showContent('iframe', formUrl);
         //window.open(formUrl, "New " + entityName + " Record", "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,titlebar=no,toolbar=no");
         toggleDropdownMenu('dropdown-content');       
     }
