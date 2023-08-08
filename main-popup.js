@@ -146,7 +146,7 @@ function showContent(contentType, url) {
       iframeContainer.style.display = 'block'; // Show iframe container
       break;
     case 'alert':
-      contentDiv.innerHTML = `<div>${url}</div>`; // Show an alert with the given message
+      contentDiv.innerHTML = `<div class="alert-message">${url}</div>`; // Show an alert with the given message
       break;
     case 'html':
       contentDiv.innerHTML = url; // Insert HTML content
