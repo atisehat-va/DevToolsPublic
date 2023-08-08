@@ -33,9 +33,9 @@ function showAllTabsAndSections() {
 					control.setVisible(true);
 				}
 			});
-		});
-		showContent('alert', 'Show (Tabs, Section & Fields) button has already been clicked!!');		
+		});		
 	});
+    showContent('alert', 'Show (Tabs, Section & Fields) button has already been clicked!!');
     showAllTabsAndSectionsBtnClickStatus = true;
     lastUpdatedFormId = currentFormId;
     
