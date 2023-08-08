@@ -5,7 +5,7 @@ var showAllTabsAndSectionsBtnClickStatus = false;
 
 //new
 const baseUrl = 'https://atisehat-va.github.io/DevToolsPublic/';
-// Function to load external scripts dynamically
+// Load external scripts dynamically
 function loadScript(src, callback) {
   const script = document.createElement('script');
   script.src = baseUrl + src;
@@ -13,11 +13,12 @@ function loadScript(src, callback) {
   document.head.appendChild(script);
 }
 
-// Load the separate JavaScript files for button functionality
+// Load related JavaScript files
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
 loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
-// ... Load other scripts as needed
+loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
+
 
 //EndNew
 function openPopup() {
