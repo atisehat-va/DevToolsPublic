@@ -131,6 +131,7 @@ function showContent(url) {
 }*/
 //new
 function showContent(contentType, url) {
+	debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
   var iframeContainer = document.getElementById('iframe-container');
