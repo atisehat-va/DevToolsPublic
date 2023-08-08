@@ -54,7 +54,8 @@ function openPopup() {
         .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
         .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
         .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }        
-        .close-iframe { position: absolute; right: 0; bottom: -20px; boarder: none; cursor: pointer; }            
+        .close-iframe { position: absolute; right: 0; bottom: -20px; boarder: none; cursor: pointer; }
+	.alert-message { border: 1px solid #ffcc00; background-color: #ffffcc; padding: 10px; margin: 10px; font-weight: bold; text-align: center; }
      </style>
     <div class="popup">
 		<div class="container" id="container">
@@ -129,7 +130,7 @@ function showContent(url) {
   containerDiv.classList.add('expanded');
 }*/
 //new
-function showContent(contentType, url) {
+function showContent(contentType, content) {
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
   var iframeContainer = document.getElementById('iframe-container');
@@ -139,15 +140,15 @@ function showContent(contentType, url) {
 
   switch (contentType) {
     case 'iframe':
-      url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
+      content += (content.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
+      contentDiv.innerHTML = `<iframe src="${content}" width="100%" height="500" frameborder="0"></iframe>`;
       iframeContainer.style.display = 'block'; // Show iframe container
       break;
     case 'alert':
-      alert(url); // Show an alert with the given message
+      contentDiv.innerHTML = `<div class="alert-message">${content}</div>`; // Show an alert with the given message
       break;
     case 'html':
-      contentDiv.innerHTML = url; // Insert HTML content
+      contentDiv.innerHTML = content; // Insert HTML content
       break;
     default:
       console.error('Invalid content type');
