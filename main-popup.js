@@ -15,7 +15,7 @@ function loadScript(src, callback) {
 
 // Load the separate JavaScript files for button functionality
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
-//loadScript('user-provision.js', () => console.log('User provision loaded!'));
+loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
 // ... Load other scripts as needed
 
 //EndNew
