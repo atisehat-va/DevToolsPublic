@@ -17,7 +17,8 @@ function unlockAllFields() {
 
 function showAllTabsAndSections() {
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-    if (lastUpdatedFormId === currentFormId && showAllTabsAndSectionsBtnClickStatus) {        
+    if (lastUpdatedFormId === currentFormId && showAllTabsAndSectionsBtnClickStatus) {
+	showContent('alert', 'Show (Tabs, Section & Fields) button has already been clicked!!');
         return;
     }
 	Xrm.Page.ui.tabs.forEach(function(tab) {
@@ -34,8 +35,7 @@ function showAllTabsAndSections() {
 				}
 			});
 		});		
-	});
-    showContent('alert', 'Show (Tabs, Section & Fields) button has already been clicked!!');
+	});    
     showAllTabsAndSectionsBtnClickStatus = true;
     lastUpdatedFormId = currentFormId;
     
