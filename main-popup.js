@@ -19,6 +19,7 @@ loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
+loadScript('alerts.html', () => console.log('Rest Builder loaded!'));
 
 
 //EndNew
