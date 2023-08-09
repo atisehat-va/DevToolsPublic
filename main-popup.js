@@ -130,7 +130,7 @@ function showContent(url) {
   containerDiv.classList.add('expanded');
 }*/
 //new
-function showContent(contentType, content) {
+function showContent(contentType, url) {
 	debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
@@ -141,11 +141,11 @@ function showContent(contentType, content) {
 
     switch (contentType) {
     case 'iframe':
-      content += (content.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      contentDiv.innerHTML = `<iframe src="${content}" width="100%" height="500" frameborder="0"></iframe>`;
+      url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
+      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
       break;
     case 'alert':
-      var alertUrl = 'alert.html?message=' + encodeURIComponent(content);
+      var alertUrl = 'alert.html?message=' + encodeURIComponent(url);
       contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;
       break;
     case 'html':
