@@ -134,32 +134,37 @@ function showContent(contentType, url) {
 	debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');
+  //var iframeContainer = document.getElementById('iframe-container');
 
   // Clear previous content
   contentDiv.innerHTML = '';
 
-  switch (contentType) {
+  var iframeContent = '';
+
+    switch (contentType) {
     case 'iframe':
-      url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
-      iframeContainer.style.display = 'block'; // Show iframe container
+      content += (content.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
+      iframeContent = content;
       break;
     case 'alert':
-      contentDiv.innerHTML = `<div width="100%" height="500" frameborder="0">${url}</div>`; // Show an alert with the given message
+      iframeContent = 'alerts.html?message=${encodeURIComponent(content)}'; // Path to your alert HTML file
       break;
     case 'html':
-      contentDiv.innerHTML = url; // Insert HTML content
+      iframeContent = 'customContent.html'; // Path to your custom HTML content
       break;
     default:
       console.error('Invalid content type');
       return;
   }
 
+  // Insert iframe with the appropriate content
+  contentDiv.innerHTML = `<iframe src="${iframeContent}" width="100%" height="500" frameborder="0"></iframe>`;
+
   // horizontal expansion
   containerDiv.classList.add('expanded');
   contentDiv.style.display = 'block'; // Show content
 }
+
 //end New
 
 function closeIframe(url) { 
