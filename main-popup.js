@@ -134,7 +134,7 @@ function showContent(contentType, content) {
 	debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');
+  //var iframeContainer = document.getElementById('iframe-container');
 
   // Clear previous content
   contentDiv.innerHTML = ''; 
