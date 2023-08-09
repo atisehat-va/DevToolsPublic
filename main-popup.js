@@ -143,8 +143,7 @@ function showContent(contentType, url) {
     case 'iframe':
       url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
       contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
-      var containerDiv = document.getElementById('container');
-      var iframeContainer = document.getElementById('iframe-container');
+      iframeContainer.style.display = 'block'; // Show iframe container
       break;
     case 'alert':
       var alertUrl = 'alert.html?message=' + encodeURIComponent(url);
