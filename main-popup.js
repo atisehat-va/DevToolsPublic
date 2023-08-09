@@ -134,7 +134,7 @@ function showContent(contentType, url) {
 	debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
-  //var iframeContainer = document.getElementById('iframe-container');
+  var iframeContainer = document.getElementById('iframe-container');
 
   // Clear previous content
   contentDiv.innerHTML = ''; 
@@ -143,6 +143,8 @@ function showContent(contentType, url) {
     case 'iframe':
       url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
       contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
+      var containerDiv = document.getElementById('container');
+      var iframeContainer = document.getElementById('iframe-container');
       break;
     case 'alert':
       var alertUrl = 'alert.html?message=' + encodeURIComponent(url);
