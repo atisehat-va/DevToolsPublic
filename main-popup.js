@@ -134,23 +134,22 @@ function showContent(contentType, content) {
 	debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
-  //var iframeContainer = document.getElementById('iframe-container');
+  var iframeContainer = document.getElementById('iframe-container');
 
   // Clear previous content
-  contentDiv.innerHTML = '';
-
-  var iframeContent = '';
+  contentDiv.innerHTML = ''; 
 
     switch (contentType) {
     case 'iframe':
       content += (content.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      iframeContent = content;
+      contentDiv.innerHTML = `<iframe src="${content}" width="100%" height="500" frameborder="0"></iframe>`;
       break;
     case 'alert':
-      iframeContent = 'alerts.html?message=${encodeURIComponent(content)}'; // Path to your alert HTML file
+      var alertUrl = 'alert.html?message=' + encodeURIComponent(content);
+      contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;
       break;
     case 'html':
-      iframeContent = 'customContent.html'; // Path to your custom HTML content
+      contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;
       break;
     default:
       console.error('Invalid content type');
@@ -158,7 +157,7 @@ function showContent(contentType, content) {
   }
 
   // Insert iframe with the appropriate content
-  contentDiv.innerHTML = `<iframe src="${iframeContent}" width="100%" height="500" frameborder="0"></iframe>`;
+  //contentDiv.innerHTML = `<iframe src="${iframeContent}" width="100%" height="500" frameborder="0"></iframe>`;
 
   // horizontal expansion
   containerDiv.classList.add('expanded');
