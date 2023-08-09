@@ -130,7 +130,7 @@ function showContent(url) {
   containerDiv.classList.add('expanded');
 }*/
 //new
-function showContent(contentType, url) {
+function showContent(contentType, content) {
 	debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
