@@ -22,21 +22,12 @@
   </style>
 </head>
 <body>
-  <div class="alert-message" id="alertMessage"></div> <!-- Leave this empty, we'll fill it with JavaScript -->
+  <body>
+  <div class="alert-message" id="alertMessage"></div>
 
   <script>
-    // Function to get URL parameters
-    function getUrlParameter(name) {
-      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-      var results = regex.exec(location.search);
-      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-
-    // Get the "message" parameter from the URL
-    var message = getUrlParameter('message');
-
-    // Insert the message into the alert message div
+    var urlParams = new URLSearchParams(window.location.search);
+    var message = urlParams.get('message');
     document.getElementById('alertMessage').innerText = message;
   </script>
 </body>
