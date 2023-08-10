@@ -140,7 +140,7 @@ function showContent(contentType, url) {
       iframeContainer.style.display = 'block';
       containerDiv.classList.add('expanded-alert');
       break;
-    case 'html':
+    case 'html': 
       var htmlDiv = document.createElement('div');      
       htmlDiv.className = 'html';      
       htmlDiv.innerHTML = url;
