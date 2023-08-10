@@ -40,10 +40,10 @@ function fetchEntityFields() {
                 var results = JSON.parse(this.responseText);
                 var fieldList = results.value
                     .filter(function(field) {
-                        return field.AttributeType !== 'Virtual';
+                        return field.AttributeType !== 'Virtual' && field.DisplayName && field.DisplayName.UserLocalizedLabel && field.DisplayName.UserLocalizedLabel.Label;
                     })
                     .map(function(field, index) {
-                        var displayName = field.DisplayName && field.DisplayName.UserLocalizedLabel ? field.DisplayName.UserLocalizedLabel.Label : 'N/A';
+                        var displayName = field.DisplayName.UserLocalizedLabel.Label;
                         return '<div>' + (index + 1) + '. ' + displayName +
                                '<div style="margin-left: 20px;"><div>Name: ' + field.LogicalName + '</div>' +
                                '<div>Type: ' + field.AttributeType + '</div></div></div>';
