@@ -131,13 +131,14 @@ function showContent(url) {
 }*/
 //new
 function showContent(contentType, url) {
-containerDiv.classList.remove('expanded-iframe');
-containerDiv.classList.remove('expanded-alert');
   debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
   var iframeContainer = document.getElementById('iframe-container');
 
+  containerDiv.classList.remove('expanded-iframe');
+  containerDiv.classList.remove('expanded-alert');
+	
   // Clear previous content
   contentDiv.innerHTML = ''; 
 
