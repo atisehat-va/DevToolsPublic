@@ -25,10 +25,27 @@
   <body>
   <div class="alert-message" id="alertMessage"></div>
 
-  <script>
+ <!-- <script>
     var urlParams = new URLSearchParams(window.location.search);
     var message = urlParams.get('message');
     document.getElementById('alertMessage').innerText = message;
+  </script> -->
+  <script>
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+      debugger;
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Get the "message" parameter from the URL
+    var message = getUrlParameter('message');
+
+    // Insert the message into the alert message div
+    document.getElementById('alertMessage').innerText = message;
   </script>
+
 </body>
 </html>
