@@ -57,7 +57,7 @@ function openPopup() {
         .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                
 	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
  	.html { boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
-        .scrollable-content { overflow-y: scroll; height: 450px; padding: 5px; border: 1px solid #ccc; }
+        .scrollable-content { overflow-y: scroll; height: 250px; padding: 5px; border: 1px solid #ccc; }
      </style>
     <div class="popup">
 		<div class="container" id="container">
