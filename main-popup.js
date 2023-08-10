@@ -42,7 +42,7 @@ function openPopup() {
         .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }
         .container.expanded-iframe { width: 900px; height: 500px; }
 	.container.expanded-alert { width: 900px; height: 248px;}
-        .container.expanded-html { width: 1000px; height: 500px;}
+        .container.expanded-html { width: 900px; height: 500px;}
         .button-container { width: 400px; }
         .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
         .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
@@ -130,7 +130,7 @@ function showContent(contentType, url) {
     switch (contentType) {
     case 'iframe':
       url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
+      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="400" frameborder="0"></iframe>`;
       iframeContainer.style.display = 'block'; // Show iframe container
       containerDiv.classList.add('expanded-iframe');
       break;
