@@ -1,4 +1,5 @@
 function fetchEntityFields() {
+	closeIframe();
 	var entityName = Xrm.Page.data.entity.getEntityName();
 	var entityId = Xrm.Page.data.entity.getId();
 	var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType";
@@ -29,6 +30,7 @@ function fetchEntityFields() {
 }
 
 function renameHeaderFields() {
+    closeIframe();
     var headerControls = Xrm.Page.ui.controls.get(function (control, index) {
         var controlType = control.getControlType();
         return controlType === "standard" || controlType === "optionset" || controlType === "lookup";
