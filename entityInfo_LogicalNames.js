@@ -44,7 +44,7 @@ function fetchEntityFields() {
                     })
                     .map(function(field, index) {
                         var displayName = field.DisplayName.UserLocalizedLabel.Label;
-                        return '<div>' + (index + 1) + '. ' + displayName +
+                        return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
                                '<div style="margin-left: 20px;"><div>Name: ' + field.LogicalName + '</div>' +
                                '<div>Type: ' + field.AttributeType + '</div></div></div>';
                     })
