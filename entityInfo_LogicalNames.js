@@ -45,11 +45,11 @@ function fetchEntityFields() {
                     .map(function(field, index) {
                         var displayName = field.DisplayName && field.DisplayName.UserLocalizedLabel ? field.DisplayName.UserLocalizedLabel.Label : 'N/A';
                         return '<li>' + (index + 1) + '. ' + displayName +
-                               '<ul><li>Name: ' + field.LogicalName + '</li>' +
-                               '<li>Type: ' + field.AttributeType + '</li></ul></li>';
+                               '<div style="margin-left: 20px;"><div>Name: ' + field.LogicalName + '</div>' +
+                               '<div>Type: ' + field.AttributeType + '</div></div></li>';
                     })
                     .join('');
-                var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><ul style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</ul>';
+                var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><ol style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</ol>';
                 showContent('html', html);
             } else {
                 alert("Error: " + this.statusText);
