@@ -1,4 +1,4 @@
-function openUrl(environment, pageType) {  
+function openUrl(environment, pageType) { 
     var crmUrl;
     var clientUrl = Xrm.Page.context.getClientUrl();
     var windowName;
@@ -21,12 +21,14 @@ function openUrl(environment, pageType) {
             return;
     }
     if (pageType === "advanceFind") {
+        closeIframe();
         var advancedFindPath = '/main.aspx?pagetype=advancedfind';
         var advancedFindUrl = crmUrl + advancedFindPath;        
         windowName = "Advanced Find Classic " + timestamp;        
         window.open(advancedFindUrl, windowName, windowOptions);
         toggleDropdownMenu('dropdown-content-advanced-find');
     } else if (pageType === "userProvision") {
+        closeIframe();
         var entityName = "vhacrm_userprovision";
         var formUrl = crmUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord"; 
         showContent('iframe', formUrl);
