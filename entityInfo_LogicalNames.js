@@ -44,9 +44,9 @@ function fetchEntityFields() {
                     })
                     .map(function(field, index) {
                         var displayName = field.DisplayName && field.DisplayName.UserLocalizedLabel ? field.DisplayName.UserLocalizedLabel.Label : 'N/A';
-                        return '<li>' + (index + 1) + '. ' + displayName +
+                        return '<div>' + (index + 1) + '. ' + displayName +
                                '<div style="margin-left: 20px;"><div>Name: ' + field.LogicalName + '</div>' +
-                               '<div>Type: ' + field.AttributeType + '</div></div></li>';
+                               '<div>Type: ' + field.AttributeType + '</div></div></div>';
                     })
                     .join('');
                 var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
