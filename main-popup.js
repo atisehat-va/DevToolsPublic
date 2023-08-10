@@ -130,7 +130,7 @@ function showContent(contentType, url) {
     switch (contentType) {
     case 'iframe':
       url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="400" frameborder="0"></iframe>`;
+      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="450" frameborder="0"></iframe>`;
       iframeContainer.style.display = 'block'; // Show iframe container
       containerDiv.classList.add('expanded-iframe');
       break;
