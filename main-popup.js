@@ -53,8 +53,7 @@ function openPopup() {
         .dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
         .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
         .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
-        .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }        
-        .close-iframe { position: absolute; right: 0; bottom: -20px; boarder: none; cursor: pointer; }
+        .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                
 	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
      </style>
     <div class="popup">
@@ -94,8 +93,7 @@ function openPopup() {
 				</div>      
 					<button onclick="closePopup();">Close</button>				
 			</div>
-            <div class="iframe-container" id="iframe-container">
-                <button class="close-iframe" onclick="closeIframe();">Close</button>
+            <div class="iframe-container" id="iframe-container">                
 				<div id="popupContent" class="content"></div>
 			</div>
 		</div>
