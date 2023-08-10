@@ -150,10 +150,10 @@ function showContent(contentType, url) {
      /* var alertUrl = 'alerts.html?message=' + encodeURIComponent(url);
       console.log(alertUrl);
       contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;*/
-      //var alertDiv = document.createElement('div');      
-      alertDiv.className = 'alert-message';
-      alertDiv.innerHTML = `<div style="width:100%; height: 500;">${url}</div>`;
-      //alertDiv.innerHTML = url;
+      //var alertDiv = document.createElement('div');
+      var alertDiv = document.createElement('div style="width:100%; height: 500;');      
+      alertDiv.className = 'alert-message';      
+      alertDiv.innerHTML = url;
       contentDiv.appendChild(alertDiv);      
       iframeContainer.style.display = 'block';
       break;
