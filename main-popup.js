@@ -145,7 +145,8 @@ function showContent(contentType, url) {
       var htmlDiv = document.createElement('div');      
       htmlDiv.className = 'html';      
       htmlDiv.innerHTML = url;
-      contentDiv.appendChild(htmlDiv);            
+      contentDiv.appendChild(htmlDiv);
+      iframeContainer.style.display = 'block';
       containerDiv.classList.add('expanded-html');
       break;
     default:
