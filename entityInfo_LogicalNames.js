@@ -49,7 +49,7 @@ function fetchEntityFields() {
                                '<div>Type: ' + field.AttributeType + '</div></div></li>';
                     })
                     .join('');
-                var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><ol style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</ol>';
+                var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
                 showContent('html', html);
             } else {
                 alert("Error: " + this.statusText);
