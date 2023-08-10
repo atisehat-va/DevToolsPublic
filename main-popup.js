@@ -56,7 +56,7 @@ function openPopup() {
         .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
         .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }        
         .close-iframe { position: absolute; right: 0; bottom: -20px; boarder: none; cursor: pointer; }
-	.alert-message { boarder: 1px solid #f00; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
+	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
      </style>
     <div class="popup">
 		<div class="container" id="container">
