@@ -42,7 +42,7 @@ function openPopup() {
         .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }
         .container.expanded-iframe { width: 900px; height: 500px; }
 	.container.expanded-alert { width: 900px; height: 248px;}
-        .container.expanded-html { width: 900px; height: 500px;}
+        .container.expanded-html { width: 1000px; height: 500px;}
         .button-container { width: 400px; }
         .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
         .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
