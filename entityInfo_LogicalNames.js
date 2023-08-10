@@ -49,7 +49,7 @@ function fetchEntityFields() {
 					})
 					.join('');
 				        var html = '<h2>Entity: ' + entityName + '</h2><h2>Record ID: ' + entityId + '</h2><h2>Fields:</h2><ul style="columns: 4; -webkit-columns: 4; -moz-columns: 4;">' + fieldList + '</ul>';				
-				showContent('alert', html);
+				showContent('html', html);
 			} else {
 				alert("Error: " + this.statusText);
 			}
