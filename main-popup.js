@@ -56,7 +56,7 @@ function openPopup() {
         .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
         .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                
 	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
- 	.html { overflow-y: scroll; height: 400px; boarder-radius: 5px; background-color: #fee; padding: 20px; margin: 10px font-weight: bold; color: #900; display: block; }        
+ 	.html { flex-grow: 1; overflow-y: scroll; position: relative; height: 400px; boarder-radius: 5px; background-color: #fee; padding: 20px; margin: 10px font-weight: bold; color: #900; display: none; }        
      </style>
     <div class="popup">
 		<div class="container" id="container">
@@ -119,7 +119,8 @@ function showContent(contentType, url) {
   debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');  
+  var iframeContainer = document.getElementById('iframe-container');
+  var html = document.getElementById('html');
 	
   // Clear previous content
   contentDiv.innerHTML = '';
@@ -146,7 +147,7 @@ function showContent(contentType, url) {
       htmlDiv.className = 'html';      
       htmlDiv.innerHTML = url;
       contentDiv.appendChild(htmlDiv);      
-      iframeContainer.style.display = 'block';
+      html.style.display = 'block';
       containerDiv.classList.add('expanded-html');
       break;
     default:
