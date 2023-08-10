@@ -134,13 +134,12 @@ function showContent(contentType, url) {
   debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');
-
-  containerDiv.classList.remove('expanded-iframe');
-  containerDiv.classList.remove('expanded-alert');
+  var iframeContainer = document.getElementById('iframe-container');  
 	
   // Clear previous content
-  contentDiv.innerHTML = ''; 
+  contentDiv.innerHTML = '';
+  containerDiv.classList.remove('expanded-iframe');
+  containerDiv.classList.remove('expanded-alert');
 
     switch (contentType) {
     case 'iframe':
