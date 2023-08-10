@@ -222,6 +222,7 @@ function toggleDropdownMenu(dropdownId) {
 }
 
 function closePopup() {
+	closeIframe();
 	var popupDiv = document.getElementById('bookmarkletPopup');
 	if (popupDiv) {
 		popupDiv.remove();
