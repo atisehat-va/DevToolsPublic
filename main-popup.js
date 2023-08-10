@@ -41,7 +41,7 @@ function openPopup() {
         .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; }
         .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }
         .container.expanded-iframe { width: 900px; height: 500px; }
-	.container.expanded-alert { width: 600px; height: 240px;}
+	.container.expanded-alert { width: 600px; height: 245px;}
         .button-container { width: 400px; }
         .iframe-container { display: none; flex-grow: 1; position: relative;}
         .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
