@@ -125,6 +125,7 @@ function showContent(contentType, url) {
   contentDiv.innerHTML = '';
   containerDiv.classList.remove('expanded-iframe');
   containerDiv.classList.remove('expanded-alert');
+  containerDiv.classList.remove('expanded-html');
 
     switch (contentType) {
     case 'iframe':
@@ -169,6 +170,7 @@ function closeIframe(url) {
   //containerDiv.classList.remove('expanded');
   containerDiv.classList.remove('expanded-iframe');
   containerDiv.classList.remove('expanded-alert');
+  containerDiv.classList.remove('expanded-html');
 }
 
 function makePopupMovable(popupDiv) {
