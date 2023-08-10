@@ -44,10 +44,10 @@ function fetchEntityFields() {
 						return field.AttributeType !== 'Virtual';
 					})
 					.map(function(field, index) {
-						return '<li>' + (index + 1) + '. ' + field.LogicalName + ' (' + field.AttributeType + ')</li>';
+						return '<div>' + (index + 1) + '. ' + field.LogicalName + ' (' + field.AttributeType + ')<div>';
 					})
 					.join('');
-				        var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><ol style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</ol>';				
+				        var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';				
 				showContent('html', html);
 			} else {
 				alert("Error: " + this.statusText);
