@@ -1,4 +1,5 @@
 function getDirtyFields() {
+  closeIframe();
   var attributes = Xrm.Page.data.entity.attributes.get();
   var dirtyAttributes = attributes.filter(function(attribute) {
     return attribute.getIsDirty();
