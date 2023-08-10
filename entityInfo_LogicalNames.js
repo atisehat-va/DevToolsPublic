@@ -1,33 +1,4 @@
-/*function fetchEntityFields() { 
-	closeIframe();
-	var entityName = Xrm.Page.data.entity.getEntityName();
-	var entityId = Xrm.Page.data.entity.getId();
-	var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType";
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", url);
-	xhr.onreadystatechange = function() {
-		if (this.readyState === 4) {
-			if (this.status === 200) {
-				var results = JSON.parse(this.responseText);
-				var fieldList = results.value
-					.filter(function(field) {
-						return field.AttributeType !== 'Virtual';
-					})
-					.map(function(field, index) {
-						return '<li>' + (index + 1) + '. ' + field.LogicalName + ' (' + field.AttributeType + ')</li>';
-					})
-					.join('');
-				var html = '<html><head><title>Enitity Info & Fields</title><style>ul {columns: 4; -webkit-columns: 4; -moz-columns: 4;}</style></head><body><h2>Entity: ' + entityName + '</h2><h2>Record ID: ' + entityId + '</h2><h2>Fields:</h2><ul>' + fieldList + '</ul></body></html>';
-				var newWindow = window.open();
-				newWindow.document.write(html);
-				newWindow.document.close();
-			} else {
-				alert("Error: " + this.statusText);
-			}
-		}
-	};
-	xhr.send();
-}*/
+/*
 function fetchEntityFields() {	
 	closeIframe();
 	var entityName = Xrm.Page.data.entity.getEntityName();
@@ -55,6 +26,37 @@ function fetchEntityFields() {
 		}
 	};
 	xhr.send();
+}*/
+function fetchEntityFields() {
+    closeIframe();
+    var entityName = Xrm.Page.data.entity.getEntityName();
+    var entityId = Xrm.Page.data.entity.getId();
+    var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType,DisplayName";
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                var results = JSON.parse(this.responseText);
+                var fieldList = results.value
+                    .filter(function(field) {
+                        return field.AttributeType !== 'Virtual';
+                    })
+                    .map(function(field, index) {
+                        var displayName = field.DisplayName && field.DisplayName.UserLocalizedLabel ? field.DisplayName.UserLocalizedLabel.Label : 'N/A';
+                        return '<div>' + (index + 1) + '. ' + displayName +
+                               '<ul><li>Name: ' + field.LogicalName + '</li>' +
+                               '<li>Type: ' + field.AttributeType + '</li></ul></div>';
+                    })
+                    .join('');
+                var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
+                showContent('html', html);
+            } else {
+                alert("Error: " + this.statusText);
+            }
+        }
+    };
+    xhr.send();
 }
 
 function renameHeaderFields() {
