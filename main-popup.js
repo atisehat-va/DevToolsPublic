@@ -57,6 +57,7 @@ function openPopup() {
         .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                
 	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
  	.html { boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
+        .scrollable-content { overflow-y: scroll; height: 450px; padding: 5px; border: 1px solid #ccc; }
      </style>
     <div class="popup">
 		<div class="container" id="container">
@@ -143,8 +144,13 @@ function showContent(contentType, url) {
       break;
     case 'html': 
       var htmlDiv = document.createElement('div');      
-      htmlDiv.className = 'html';      
+      htmlDiv.className = 'html';
+
+      var scrollableDiv = document.createElement('div');
+      scrollableDiv.clasName = 'scrollable-content';
       htmlDiv.innerHTML = url;
+
+      htmlDiv.appendChild(scrollableDiv);
       contentDiv.appendChild(htmlDiv);      
       iframeContainer.style.display = 'block';
       containerDiv.classList.add('expanded-html');
