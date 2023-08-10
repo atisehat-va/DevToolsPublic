@@ -140,7 +140,12 @@ function showContent(contentType, url) {
       containerDiv.classList.add('expanded-alert');
       break;
     case 'html':
-      contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;
+      var htmlDiv = document.createElement('div');      
+      htmlDiv.className = 'alert-message';      
+      htmlDiv.innerHTML = url;
+      contentDiv.appendChild(htmlDiv);      
+      iframeContainer.style.display = 'block';
+      containerDiv.classList.add('expanded-alert');
       break;
     default:
       console.error('Invalid content type');
