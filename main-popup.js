@@ -41,9 +41,9 @@ function openPopup() {
         .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; }
         .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }
         .container.expanded-iframe { width: 900px; height: 500px; }
-	.container.expanded-alert { width: 900px; height: 244px;}
+	.container.expanded-alert { width: 900px; height: 248px;}
         .button-container { width: 400px; }
-        .iframe-container { display: none; flex-grow: 1; position: relative;}
+        .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
         .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
         .button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
         .button-row button { width: calc(50% - 5px); } 
