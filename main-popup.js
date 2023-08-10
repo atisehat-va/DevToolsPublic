@@ -148,6 +148,7 @@ function showContent(contentType, url) {
       break;
     case 'alert':
       var alertUrl = 'alerts.html?message=' + encodeURIComponent(url);
+      console.log(alertUrl);
       contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;
       iframeContainer.style.display = 'block';
       break;
