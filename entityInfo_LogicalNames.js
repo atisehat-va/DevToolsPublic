@@ -29,6 +29,7 @@
 	xhr.send();
 }*/
 function fetchEntityFields() {
+	debugger;
 	closeIframe();
 	var entityName = Xrm.Page.data.entity.getEntityName();
 	var entityId = Xrm.Page.data.entity.getId();
