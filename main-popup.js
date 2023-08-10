@@ -152,7 +152,7 @@ function showContent(contentType, url) {
       contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;*/
       var alertDiv = document.createElement('div');      
       alertDiv.className = 'alert-message';      
-      alertDiv.innerHTML = `<div "${url}" width="100%" height="500" frameborder="0"></div>`;
+      alertDiv.innerHTML = url;
       contentDiv.appendChild(alertDiv);      
       iframeContainer.style.display = 'block';
       break;
