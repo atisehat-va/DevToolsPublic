@@ -165,7 +165,7 @@ containerDiv.classList.remove('expanded-alert');
   } 
 
   // horizontal expansion
-  containerDiv.classList.add('expanded');
+  //containerDiv.classList.add('expanded');
   contentDiv.style.display = 'block'; // Show content
 }
 
