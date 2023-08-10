@@ -154,7 +154,7 @@ function showContent(contentType, url) {
       alertDiv.className = 'alert-message';
       alertDiv.innerHTML = message;
       contentDiv.appendChild(alertDiv);
-      //iframeContainer.style.display = 'block';
+      iframeContainer.style.display = 'block';
       break;
     case 'html':
       contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;
