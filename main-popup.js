@@ -94,9 +94,9 @@ function openPopup() {
 					<button onclick="closePopup();">Close</button>				
 			</div>
             <div class="iframe-container" id="iframe-container">                
-				<div id="popupContent" class="content"></div>
-			</div>
+			<div id="popupContent" class="content"></div>
 		</div>
+	</div>
     </div>
   `;
   var popupDiv = document.createElement('div');
@@ -112,22 +112,7 @@ function openPopup() {
   
   makePopupMovable(popupDiv);
 }
-/*
-function showContent(url) {
-  url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-  
-  var contentDiv = document.getElementById('popupContent');
-  var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');
 
-  contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
-  contentDiv.style.display = 'block';
-  iframeContainer.style.display = 'block'; // Show iframe container
-
-  // horizontal expansion
-  containerDiv.classList.add('expanded');
-}*/
-//new
 function showContent(contentType, url) {
   debugger;
   var contentDiv = document.getElementById('popupContent');
@@ -166,8 +151,6 @@ function showContent(contentType, url) {
   containerDiv.classList.add('expanded');
   contentDiv.style.display = 'block'; // Show content
 }
-
-//end New
 
 function closeIframe(url) { 
   var contentDiv = document.getElementById('popupContent');
@@ -234,8 +217,7 @@ function closeDirtyFieldsPopup() {
   if (popup) {
     popup.remove();
   }
-}
- 
+} 
 
 window.fetchEntityFields = fetchEntityFields;
 window.unlockAllFields = unlockAllFields;
