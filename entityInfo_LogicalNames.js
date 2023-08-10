@@ -47,7 +47,7 @@ function fetchEntityFields() {
 						return '<li>' + (index + 1) + '. ' + field.LogicalName + ' (' + field.AttributeType + ')</li>';
 					})
 					.join('');
-				        var html = '<h2>Entity: ' + entityName + '</h2><h2>Record ID: ' + entityId + '</h2><h2>Fields:</h2><ul style="columns: 4; -webkit-columns: 4; -moz-columns: 4;">' + fieldList + '</ul>';				
+				        var html = '<h2 style="text-align: center;">Entity: ' + entityName + '</h2><h2 style="text-align: center;">Record ID: ' + entityId + '</h2><h2 style="text-align: center;">Fields:</h2><ul style="columns: 4; -webkit-columns: 4; -moz-columns: 4;">' + fieldList + '</ul>';				
 				showContent('html', html);
 			} else {
 				alert("Error: " + this.statusText);
