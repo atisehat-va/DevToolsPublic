@@ -19,8 +19,6 @@ loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
-loadScript('alerts.html', () => console.log('Rest Builder loaded!'));
-
 
 //EndNew
 function openPopup() {
@@ -42,7 +40,8 @@ function openPopup() {
      <style>       
         .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; }
         .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }
-        .container.expanded { width: 900px; height: 500px; }
+        .container.expanded-iframe { width: 900px; height: 500px; }
+	.container.expanded-alert { width: 400px; height: 200px; }
         .button-container { width: 400px; }
         .iframe-container { display: none; flex-grow: 1; position: relative;}
         .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
@@ -132,7 +131,9 @@ function showContent(url) {
 }*/
 //new
 function showContent(contentType, url) {
-	debugger;
+containerDiv.classList.remove('expanded-iframe');
+containerDiv.classList.remove('expanded-alert');
+  debugger;
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
   var iframeContainer = document.getElementById('iframe-container');
@@ -145,16 +146,15 @@ function showContent(contentType, url) {
       url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
       contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
       iframeContainer.style.display = 'block'; // Show iframe container
+      containerDiv.classList.add('expanded-iframe');
       break;
-    case 'alert':
-     /* var alertUrl = 'alerts.html?message=' + encodeURIComponent(url);
-      console.log(alertUrl);
-      contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;*/
+    case 'alert':     
       var alertDiv = document.createElement('div');      
       alertDiv.className = 'alert-message';      
       alertDiv.innerHTML = url;
       contentDiv.appendChild(alertDiv);      
       iframeContainer.style.display = 'block';
+      containerDiv.classList.add('expanded-alert');
       break;
     case 'html':
       contentDiv.innerHTML = `<iframe src="${alertUrl}" width="100%" height="500" frameborder="0"></iframe>`;
@@ -162,10 +162,7 @@ function showContent(contentType, url) {
     default:
       console.error('Invalid content type');
       return;
-  }
-
-  // Insert iframe with the appropriate content
-  //contentDiv.innerHTML = `<iframe src="${iframeContent}" width="100%" height="500" frameborder="0"></iframe>`;
+  } 
 
   // horizontal expansion
   containerDiv.classList.add('expanded');
