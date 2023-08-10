@@ -1,4 +1,4 @@
-/*function fetchEntityFields() {
+/*function fetchEntityFields() { 
 	closeIframe();
 	var entityName = Xrm.Page.data.entity.getEntityName();
 	var entityId = Xrm.Page.data.entity.getId();
