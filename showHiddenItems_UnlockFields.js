@@ -1,4 +1,5 @@
 function unlockAllFields() {
+    closeIframe();
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && unlockAllFieldsBtnClickStatus) {
 	showContent('alert', 'Unlock All Fields button has already been clicked!!');
@@ -16,6 +17,7 @@ function unlockAllFields() {
 }
 
 function showAllTabsAndSections() {
+    closeIframe();
 	debugger;
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && showAllTabsAndSectionsBtnClickStatus) {
