@@ -178,7 +178,9 @@ function closeIframe(url) {
   
   contentDiv.style.display = 'none';
   iframeContainer.style.display = 'none';  
-  containerDiv.classList.remove('expanded');
+  //containerDiv.classList.remove('expanded');
+  containerDiv.classList.remove('expanded-iframe');
+  containerDiv.classList.remove('expanded-alert');
 }
 
 function makePopupMovable(popupDiv) {
