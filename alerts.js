@@ -1,7 +1,9 @@
+var userId = Xrm.Utility.getGlobalContext().userSettings.userId;
+
 var entity = {};
-entity["vhacrm_systemuserid@odata.bind"] = "/systemusers(AE2280C2-84B8-ED11-83FE-001DD8070A7E)";
+entity["vhacrm_systemuserid@odata.bind"] = "/systemusers(" + userId.replace("{", "").replace("}", "") + ")";
 entity.mcs_removecurrentroles = false;
-entity["vhacrm_userprovisionroleid@odata.bind"] = "/vhacrm_userprovisionroles(AE2280C2-84B8-ED11-83FE-001DD8070A7E)";
+// Set other properties as needed
 
 var req = new XMLHttpRequest();
 req.open("POST", Xrm.Page.context.getClientUrl() + "/api/data/v9.1/vhacrm_userprovisions", true);
