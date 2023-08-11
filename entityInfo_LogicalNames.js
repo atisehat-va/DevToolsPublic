@@ -1,36 +1,8 @@
-/*
-function fetchEntityFields() {	
-	closeIframe();
-	var entityName = Xrm.Page.data.entity.getEntityName();
-	var entityId = Xrm.Page.data.entity.getId();
-	var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType";
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", url);
-	xhr.onreadystatechange = function() {
-		if (this.readyState === 4) {
-			if (this.status === 200) {
-				var results = JSON.parse(this.responseText);
-				var fieldList = results.value
-					.filter(function(field) {
-						return field.AttributeType !== 'Virtual';
-					})
-					.map(function(field, index) {
-						return '<div>' + (index + 1) + '. ' + field.LogicalName + ' (' + field.AttributeType + ')<div>';
-					})
-					.join('');
-				        var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';				
-				showContent('html', html);
-			} else {
-				alert("Error: " + this.statusText);
-			}
-		}
-	};
-	xhr.send();
-}*/
 function fetchEntityFields() {
     closeIframe();
     var entityName = Xrm.Page.data.entity.getEntityName();
-    var entityId = Xrm.Page.data.entity.getId();
+    var recordId = Xrm.Page.data.entity.getId();
+    var cleanRecordId = recordId.replace(/[{}]/g, "")
     var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType,DisplayName";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -49,7 +21,7 @@ function fetchEntityFields() {
                                '<div>Type: ' + field.AttributeType + '</div></div></div>';
                     })
                     .join('');
-                var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + entityId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
+                var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + cleanRecordId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
                 showContent('html', html);
             } else {
                 alert("Error: " + this.statusText);
