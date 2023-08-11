@@ -1,51 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+var entity = {};
+
+var req = new XMLHttpRequest();
+var serverUrl = Xrm.Page.context.getClientUrl(); // Get the server URL from Dynamics 365 context
+req.open("POST", serverUrl + "/api/data/v9.0/tasks", true);
+req.setRequestHeader("OData-MaxVersion", "4.0");
+req.setRequestHeader("OData-Version", "4.0");
+req.setRequestHeader("Accept", "application/json");
+req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+req.setRequestHeader("Prefer", "odata.include-annotations=\"*\"");
+req.setRequestHeader("MSCRMCallerID", "60FBEAFB-7724-EB11-A813-000D3A569CF5"); // Replace with the desired user ID
+
+req.onreadystatechange = function () {
+    if (this.readyState === 4) {
+        req.onreadystatechange = null;
+        if (this.status === 204) {
+            Xrm.Utility.alertDialog("New Task Record Created");
+        } else {
+            Xrm.Utility.alertDialog(this.statusText);
+        }
     }
-
-    .alert-message {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #f44336; /* Red background */
-      color: red; /* White text color */
-      border-radius: 5px; /* Rounded corners */
-      text-align: center; /* Center the text */
-      font-size: 16px; /* Font size */
-    }
-  </style>
-</head>
-<body>
-  <body>
-  <div class="alert-message" id="alertMessage"></div>
-
- <!-- <script>
-    var urlParams = new URLSearchParams(window.location.search);
-    var message = urlParams.get('message');
-    document.getElementById('alertMessage').innerText = message;
-  </script> -->
-  <script>
-    // Function to get URL parameters
-    function getUrlParameter(name) {
-      debugger;
-      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-      var results = regex.exec(location.search);
-      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-
-    // Get the "message" parameter from the URL
-    var message = getUrlParameter('message');
-
-    // Insert the message into the alert message div
-    document.getElementById('alertMessage').innerText = message;
-  </script>
-
-</body>
-</html>
+};
+req.send(JSON.stringify(entity));
