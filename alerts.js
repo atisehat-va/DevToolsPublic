@@ -24,3 +24,37 @@ req.onreadystatechange = function() {
     }
 };
 req.send(JSON.stringify(entity));
+//-------------------------------------
+// Replace these with the ID of the record and the ID of the workflow
+var recordId = "your-record-id";
+var workflowId = "your-workflow-id";
+
+// Create the URL for the workflow execution
+var url = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/workflows(" + workflowId + ")/Microsoft.Dynamics.CRM.ExecuteWorkflow";
+
+// Create the JSON object that contains the parameters for the workflow execution
+var data = {
+    "EntityId": recordId
+};
+
+// Create the XMLHttpRequest
+var req = new XMLHttpRequest();
+req.open("POST", url, true);
+req.setRequestHeader("OData-MaxVersion", "4.0");
+req.setRequestHeader("OData-Version", "4.0");
+req.setRequestHeader("Accept", "application/json");
+req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+req.onreadystatechange = function() {
+    if (this.readyState === 4) {
+        req.onreadystatechange = null;
+        if (this.status === 200) {
+            var results = JSON.parse(this.response);
+            console.log("Workflow executed successfully!", results);
+        } else {
+            console.error("Error executing workflow", this.statusText);
+        }
+    }
+};
+
+// Send the request
+req.send(JSON.stringify(data));
