@@ -31,23 +31,19 @@ var recordId = "3bc59980-9f74-ec11-8f8e-001dd8020615"; // Replace with your reco
 var workflowId = "0e178bfa-45fb-4d7f-b5e0-d6ddfa591df2"; // Replace with your workflow ID
 
 var executeWorkflowRequest = {
+    entity: {
+        entityType: "workflow",
+        id: workflowId
+    },
     EntityId: recordId, // The record you want to run the workflow against
-    WorkflowId: workflowId, // The ID of the workflow you want to run
     getMetadata: function() {
         return {
-            boundParameter: null,
+            boundParameter: "entity",
             parameterTypes: {
-                "EntityId": {
-                    "typeName": "Edm.Guid",
-                    "structuralProperty": 1
-                },
-                "WorkflowId": {
-                    "typeName": "Edm.Guid",
-                    "structuralProperty": 1
-                }
+                entity: { typeName: "mscrm.workflow", structuralProperty: 5 },
+                EntityId: { typeName: "Edm.Guid", structuralProperty: 1 }
             },
-            operationType: 0,
-            operationName: "Microsoft.Dynamics.CRM.ExecuteWorkflow"
+            operationType: 0, operationName: "ExecuteWorkflow"
         };
     }
 };
