@@ -25,27 +25,33 @@ req.onreadystatechange = function() {
 };
 req.send(JSON.stringify(entity));
 //-------------------------------------
+
+
 var recordId = "3bc59980-9f74-ec11-8f8e-001dd8020615"; // Replace with your record ID
 var workflowId = "0e178bfa-45fb-4d7f-b5e0-d6ddfa591df2"; // Replace with your workflow ID
 
-// Construct the request object
 var executeWorkflowRequest = {
     EntityId: recordId, // The record you want to run the workflow against
+    WorkflowId: workflowId, // The ID of the workflow you want to run
     getMetadata: function() {
         return {
-            boundParameter: "entity", // Binding parameter
+            boundParameter: null,
             parameterTypes: {
                 "EntityId": {
-                   entity: { typeName: "mscrm.workflow", structuralProperty: 5 },
-				   EntityId: { typeName: "Edm.Guid", structuralProperty: 1 }
+                    "typeName": "Edm.Guid",
+                    "structuralProperty": 1
+                },
+                "WorkflowId": {
+                    "typeName": "Edm.Guid",
+                    "structuralProperty": 1
                 }
             },
-            operationType: 0, operationName: "ExecuteWorkflow"
+            operationType: 0,
+            operationName: "Microsoft.Dynamics.CRM.ExecuteWorkflow"
         };
     }
 };
 
-// Execute the workflow
 Xrm.WebApi.online.execute(executeWorkflowRequest).then(
     function(result) {
         if (result.ok) {
@@ -56,4 +62,3 @@ Xrm.WebApi.online.execute(executeWorkflowRequest).then(
         console.error("Error executing workflow: ", error.message);
     }
 );
-
