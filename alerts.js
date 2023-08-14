@@ -25,8 +25,8 @@ req.onreadystatechange = function() {
 };
 req.send(JSON.stringify(entity));
 //-------------------------------------
-var recordId = "your-record-id"; // Replace with your record ID
-var workflowId = "your-workflow-id"; // Replace with your workflow ID
+var recordId = "3bc59980-9f74-ec11-8f8e-001dd8020615"; // Replace with your record ID
+var workflowId = "0e178bfa-45fb-4d7f-b5e0-d6ddfa591df2"; // Replace with your workflow ID
 
 // Construct the request object
 var executeWorkflowRequest = {
@@ -36,12 +36,11 @@ var executeWorkflowRequest = {
             boundParameter: "entity", // Binding parameter
             parameterTypes: {
                 "EntityId": {
-                    "typeName": "Edm.Guid",
-                    "structuralProperty": 1
+                   entity: { typeName: "mscrm.workflow", structuralProperty: 5 },
+				   EntityId: { typeName: "Edm.Guid", structuralProperty: 1 }
                 }
             },
-            operationType: 0,
-            operationName: "Microsoft.Dynamics.CRM.ExecuteWorkflow"
+            operationType: 0, operationName: "ExecuteWorkflow"
         };
     }
 };
