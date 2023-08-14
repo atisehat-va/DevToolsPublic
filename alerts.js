@@ -30,31 +30,26 @@ var recordId = "your-record-id";
 var workflowId = "your-workflow-id";
 
 // Create the URL for the workflow execution
-var url = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/workflows(" + workflowId + ")/Microsoft.Dynamics.CRM.ExecuteWorkflow";
+var url = "/workflows(" + workflowId + ")/Microsoft.Dynamics.CRM.ExecuteWorkflow";
 
 // Create the JSON object that contains the parameters for the workflow execution
 var data = {
     "EntityId": recordId
 };
 
-// Create the XMLHttpRequest
-var req = new XMLHttpRequest();
-req.open("POST", url, true);
-req.setRequestHeader("OData-MaxVersion", "4.0");
-req.setRequestHeader("OData-Version", "4.0");
-req.setRequestHeader("Accept", "application/json");
-req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-req.onreadystatechange = function() {
-    if (this.readyState === 4) {
-        req.onreadystatechange = null;
-        if (this.status === 200) {
-            var results = JSON.parse(this.response);
-            console.log("Workflow executed successfully!", results);
-        } else {
-            console.error("Error executing workflow", this.statusText);
-        }
+// Use Xrm.WebApi to make the request
+Xrm.WebApi.online.execute({
+    method: "POST",
+    functionName: url,
+    operationType: 0, // This indicates the type of operation; 0 corresponds to a function
+    operationName: "ExecuteWorkflow",
+    parameters: data
+}).then(
+    function (success) {
+        console.log("Workflow executed successfully!", success);
+    },
+    function (error) {
+        console.error("Error executing workflow", error.message);
     }
-};
+);
 
-// Send the request
-req.send(JSON.stringify(data));
