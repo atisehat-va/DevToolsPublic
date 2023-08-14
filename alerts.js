@@ -26,16 +26,12 @@ req.onreadystatechange = function() {
 req.send(JSON.stringify(entity));
 //-------------------------------------
 
-
 var recordId = "3bc59980-9f74-ec11-8f8e-001dd8020615"; // Replace with your record ID
 var workflowId = "0e178bfa-45fb-4d7f-b5e0-d6ddfa591df2"; // Replace with your workflow ID
 
 var executeWorkflowRequest = {
-    entity: {
-        entityType: "workflow",
-        id: workflowId
-    },
-    EntityId: recordId, // The record you want to run the workflow against
+    entity: { entityType: "workflow", id: workflowId },
+    EntityId: { guid: recordId }, // The record you want to run the workflow against
     getMetadata: function() {
         return {
             boundParameter: "entity",
@@ -48,13 +44,13 @@ var executeWorkflowRequest = {
     }
 };
 
-Xrm.WebApi.online.execute(executeWorkflowRequest).then(
-    function(result) {
-        if (result.ok) {
+Xrm.WebApi.execute(executeWorkflowRequest).then(
+    function success(response) {
+        if (response.ok) {
             console.log("Workflow executed successfully!");
         }
     },
-    function(error) {
+    function error(error) {
         console.error("Error executing workflow: ", error.message);
     }
 );
