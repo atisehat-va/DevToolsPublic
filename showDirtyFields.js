@@ -49,25 +49,28 @@ function showDirtyFields() {
 } */
 
 //NewCode
-function showDirtyFields() {
-    // Step 2: Retrieve Dirty Fields
+function getDirtyFields() {
     var entity = Xrm.Page.data.entity;
     var attributes = entity.attributes.get();
     var dirtyFields = attributes.filter(function(attribute) {
         return attribute.getIsDirty();
     });
 
-    // Step 3: Process the Dirty Fields
-    var fieldList = dirtyFields.map(function(field, index) {
-        var displayName = field.getDisplayName();
-        var name = field.getName();
-        return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
-               '<div style="margin-left: 20px;"><div>Name: ' + name + '</div></div></div>';
-    }).join('');
+    var html = '<h2 style="text-align: left;">Dirty Fields:</h2>';
 
-    // Step 4: Construct the HTML Content
-    var html = '<h2 style="text-align: left;">Dirty Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
+    if (dirtyFields.length > 0) {
+        var fieldList = dirtyFields.map(function(field, index) {
+            var displayName = field.getDisplayName();
+            var name = field.getName();
+            return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
+                   '<div style="margin-left: 20px;"><div>Name: ' + name + '</div></div></div>';
+        }).join('');
 
-    // Step 5: Display the Content
-    showContent('html', html); // Assuming 'showContent' is a function to render HTML in your environment
+        html += '<br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
+    } else {
+        html += '<div>No dirty fields found.</div>';
+    }
+
+    // Calling the showContent function with 'html' type
+    showContent('html', html);
 }
