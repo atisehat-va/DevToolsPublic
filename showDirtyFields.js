@@ -56,7 +56,7 @@ function showDirtyFields() {
         return attribute.getIsDirty();
     });
 
-    var html = '<h2 style="text-align: center;">Dirty Fields</h2>';
+    var html = '<h2 style="text-align: center;"><strong>Dirty Fields</strong></h2>';
 
     if (dirtyFields.length > 0) {
         var fieldList = dirtyFields.map(function(attribute, index) {
