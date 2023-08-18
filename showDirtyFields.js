@@ -1,3 +1,4 @@
+/*
 function getDirtyFields() {
   closeIframe();
   var attributes = Xrm.Page.data.entity.attributes.get();
@@ -45,4 +46,28 @@ function showDirtyFields() {
   document.body.appendChild(popupDiv);
   
   makePopupMovable(popupDiv);
+} */
+
+//NewCode
+function getDirtyFields() {
+    // Step 2: Retrieve Dirty Fields
+    var entity = Xrm.Page.data.entity;
+    var attributes = entity.attributes.get();
+    var dirtyFields = attributes.filter(function(attribute) {
+        return attribute.getIsDirty();
+    });
+
+    // Step 3: Process the Dirty Fields
+    var fieldList = dirtyFields.map(function(field, index) {
+        var displayName = field.getDisplayName();
+        var name = field.getName();
+        return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
+               '<div style="margin-left: 20px;"><div>Name: ' + name + '</div></div></div>';
+    }).join('');
+
+    // Step 4: Construct the HTML Content
+    var html = '<h2 style="text-align: left;">Dirty Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
+
+    // Step 5: Display the Content
+    showContent('html', html); // Assuming 'showContent' is a function to render HTML in your environment
 }
