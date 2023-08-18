@@ -95,17 +95,20 @@ function renameControlAndUpdateOptionSet(control) {
         }
     }
 }
-function updateOptionSetValues(control) {    
-    var optionSetOptions = control.getOptions();        
+
+function updateOptionSetValues(control) {
+    var optionSetOptions = control.getOptions();
     var updatedOptions = [];
-    
-    // Iterate through the existing options and prepare the updated options
+
+    // Create the updated options array without modifying the original options
     optionSetOptions.forEach(function(option) {
-        if (option.text !== "") {
+        if (option.text.indexOf("(") === -1) { // Check if the text has not been updated before
             updatedOptions.push({
                 value: option.value,
                 text: option.value.toString() + " (" + option.text + ")"
             });
+        } else {
+            updatedOptions.push(option); // Keep the option as is if it was already updated
         }
     });
 
