@@ -79,7 +79,8 @@ function updateOptionSetValues(control) {
            control.removeOption(option.value);
            control.addOption({
               value: option.value,
-              text: option.value.toString() + " (" + option.text + ")"
+	      text: option.text
+              //text: option.value.toString() + " (" + option.text + ")"
            }, option.value); 
         }
 	});   
