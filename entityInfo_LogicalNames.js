@@ -34,7 +34,7 @@ function fetchEntityFields() {
 function renameTabsSectionsFields() { 
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
 	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-	   showContent('alert', '11 Unlock All Fields button has already been clicked!!');
+	   showContent('alert', 'LogicalNames button has already been clicked!!');
 	   return;
 	}
 	Xrm.Page.ui.tabs.forEach(function(tab) {
