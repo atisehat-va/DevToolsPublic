@@ -49,7 +49,7 @@ function showDirtyFields() {
 } */
 
 //NewCode
-function showDirtyFields() {
+function getDirtyFields() {
     var entity = Xrm.Page.data.entity;
     var attributes = entity.attributes.get();
     var dirtyFields = attributes.filter(function(attribute) {
@@ -60,8 +60,11 @@ function showDirtyFields() {
 
     if (dirtyFields.length > 0) {
         var fieldList = dirtyFields.map(function(field, index) {
-            var displayName = field.getDisplayName();
             var name = field.getName();
+
+            // Since getDisplayName() is not working, we'll just use the schema name for now
+            var displayName = name; // You might replace this with code to fetch the display name from metadata
+            
             return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
                    '<div style="margin-left: 20px;"><div>Name: ' + name + '</div></div></div>';
         }).join('');
