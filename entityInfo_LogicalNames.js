@@ -75,7 +75,7 @@ function renameControlAndUpdateOptionSet(control) {
 function updateOptionSetValues(control) {    
 	var optionSetOptions = control.getOptions();        
 	optionSetOptions.forEach(function(option) {
-       if(option.text !== "") {
+       if(option.text !== "" && !option.text.includes(" (" + option.value + ")")) {
            control.removeOption(option.value);
            control.addOption({
               value: option.value,	      
