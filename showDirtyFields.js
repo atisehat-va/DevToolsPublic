@@ -64,9 +64,14 @@ function showDirtyFields() {
             var control = attribute.controls.get(0);
             var displayName = control ? control.getLabel() : logicalName;
 
-            // Set the color of the label on the form to red
             if (control) {
-                control.getLabelElement().style.color = 'red';
+                var controlElement = document.getElementById(control.getName() + '_c');
+                if (controlElement && controlElement.parentElement) {
+                    var labelElement = controlElement.parentElement.querySelector('label');
+                    if (labelElement) {
+                        labelElement.style.color = 'red';
+                    }
+                }
             }
 
             return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong></div>' +
