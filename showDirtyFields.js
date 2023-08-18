@@ -56,7 +56,7 @@ function showDirtyFields() {
         return attribute.getIsDirty();
     });
 
-    var html = '<h2 style="text-align: left;">Dirty Fields:</h2>';
+    var html = '<h2 style="text-align: center;">Dirty Fields</h2>';
 
     if (dirtyFields.length > 0) {
         var fieldList = dirtyFields.map(function(attribute, index) {
@@ -65,7 +65,7 @@ function showDirtyFields() {
             var displayName = control ? control.getLabel() : logicalName;
 
             return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong></div>' +
-                   '<div style="margin-left: 40px;">&bull; <strong>Logical Name:</strong> ' + logicalName + '</div>' '</br>';
+                   '<div style="margin-left: 40px;">&bull; <strong>Logical Name:</strong> ' + logicalName + '</div><br>';
         }).join('');
 
         html += '<div style="padding: 5px;">' + fieldList + '</div>';
