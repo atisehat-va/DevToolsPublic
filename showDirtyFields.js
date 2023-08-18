@@ -60,13 +60,11 @@ function showDirtyFields() {
 
     if (dirtyFields.length > 0) {
         var fieldList = dirtyFields.map(function(field, index) {
-            var name = field.getName();
+            var logicalName = field.getName();
+            var displayName = field.getControl().getLabel(); // Getting the label (display name) from the control
 
-            // Since getDisplayName() is not working, we'll just use the schema name for now
-            var displayName = name; // You might replace this with code to fetch the display name from metadata
-            
             return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
-                   '<div style="margin-left: 20px;"><div>Name: ' + name + '</div></div></div>';
+                   '<div style="margin-left: 20px;"><div>Logical Name: ' + logicalName + '</div></div></div>';
         }).join('');
 
         html += '<br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
