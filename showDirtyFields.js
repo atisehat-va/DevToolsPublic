@@ -65,12 +65,10 @@ function showDirtyFields() {
             var displayName = control ? control.getLabel() : logicalName;
 
             if (control) {
-                var controlElement = document.getElementById(control.getName() + '_c');
-                if (controlElement && controlElement.parentElement) {
-                    var labelElement = controlElement.parentElement.querySelector('label');
-                    if (labelElement) {
-                        labelElement.style.color = 'red';
-                    }
+                var controlName = control.getName();
+                var labelElement = document.querySelector('label[for^="' + controlName + '"]');
+                if (labelElement) {
+                    labelElement.style.color = 'red';
                 }
             }
 
