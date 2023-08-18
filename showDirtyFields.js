@@ -64,11 +64,11 @@ function showDirtyFields() {
             var control = attribute.controls.get(0);
             var displayName = control ? control.getLabel() : logicalName;
 
-            return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
-                   '<div style="margin-left: 20px;">Logical Name: ' + logicalName + '</div></div>';
+            return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong></div>' +
+                   '<div style="margin-left: 40px;">Logical Name: ' + logicalName + '</div>';
         }).join('');
 
-        html += '<div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
+        html += '<div style="padding: 5px;">' + fieldList + '</div>';
     } else {
         html += '<div>No dirty fields found.</div>';
     }
