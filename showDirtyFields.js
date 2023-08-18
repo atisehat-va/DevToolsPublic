@@ -59,9 +59,11 @@ function showDirtyFields() {
     var html = '<h2 style="text-align: left;">Dirty Fields:</h2>';
 
     if (dirtyFields.length > 0) {
-        var fieldList = dirtyFields.map(function(field, index) {
-            var logicalName = field.getName();
-            var displayName = field.getControl().getLabel(); // Getting the label (display name) from the control
+        var fieldList = dirtyFields.map(function(attribute, index) {
+            // Assuming that attribute's schema name serves as a logical name
+            var logicalName = attribute.getName();
+            var control = attribute.controls.get(0);
+            var displayName = control ? control.getLabel() : logicalName; // If control is not found, fall back to logical name
 
             return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
                    '<div style="margin-left: 20px;"><div>Logical Name: ' + logicalName + '</div></div></div>';
