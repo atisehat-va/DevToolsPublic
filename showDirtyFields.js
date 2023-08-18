@@ -65,7 +65,7 @@ function showDirtyFields() {
             var displayName = control ? control.getLabel() : logicalName;
 
             return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong></div>' +
-                   '<div style="margin-left: 40px;">&bull; <strong>Logical Name:</strong> ' + logicalName + '</div>';
+                   '<div style="margin-left: 40px;">&bull; <strong>Logical Name:</strong> ' + logicalName + '</div>' '</br>';
         }).join('');
 
         html += '<div style="padding: 5px;">' + fieldList + '</div>';
