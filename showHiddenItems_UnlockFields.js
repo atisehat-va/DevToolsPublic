@@ -21,7 +21,7 @@ function showAllTabsAndSections() {
 	debugger;
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && showAllTabsAndSectionsBtnClickStatus) {
-	showContent('alert', 'Show Hidden Items button has already been clicked!!1');
+	showContent('alert', 'Show Hidden Items button has already been clicked!!');
         //return;
     }
 	Xrm.Page.ui.tabs.forEach(function(tab) {
