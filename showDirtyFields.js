@@ -60,16 +60,15 @@ function showDirtyFields() {
 
     if (dirtyFields.length > 0) {
         var fieldList = dirtyFields.map(function(attribute, index) {
-            // Assuming that attribute's schema name serves as a logical name
             var logicalName = attribute.getName();
             var control = attribute.controls.get(0);
-            var displayName = control ? control.getLabel() : logicalName; // If control is not found, fall back to logical name
+            var displayName = control ? control.getLabel() : logicalName;
 
             return '<div>' + (index + 1) + '. <strong>' + displayName + '</strong>' +
-                   '<div style="margin-left: 20px;"><div>Logical Name: ' + logicalName + '</div></div></div>';
+                   '<div style="margin-left: 20px;">Logical Name: ' + logicalName + '</div></div>';
         }).join('');
 
-        html += '<br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
+        html += '<div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
     } else {
         html += '<div>No dirty fields found.</div>';
     }
