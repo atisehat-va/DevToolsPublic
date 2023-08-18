@@ -49,7 +49,7 @@ function showDirtyFields() {
 } */
 
 //NewCode
-function getDirtyFields() {
+function showDirtyFields() {
     // Step 2: Retrieve Dirty Fields
     var entity = Xrm.Page.data.entity;
     var attributes = entity.attributes.get();
