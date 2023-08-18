@@ -31,7 +31,12 @@ function fetchEntityFields() {
     xhr.send();
 }
 
-function renameTabsSectionsFields() {    
+function renameTabsSectionsFields() { 
+	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
+	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+	   showContent('alert', '11 Unlock All Fields button has already been clicked!!');
+	   return;
+	}
 	Xrm.Page.ui.tabs.forEach(function(tab) {
 		var logicalName = tab.getName();
 		tab.setLabel(logicalName);
@@ -41,7 +46,8 @@ function renameTabsSectionsFields() {
 			section.controls.forEach(renameControlAndUpdateOptionSet);
 		});
 	});
-    
+    logicalNameBtnClickStatus = true; 
+    lastUpdatedFormId = currentFormId;
     renameHeaderFields();   
 }
 
@@ -66,12 +72,7 @@ function renameControlAndUpdateOptionSet(control) {
 	}
 }
 
-function updateOptionSetValues(control) {
-	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-	   showContent('alert', '11 Unlock All Fields button has already been clicked!!');
-	   return;
-	}
+function updateOptionSetValues(control) {	
 	var optionSetOptions = control.getOptions();
 	optionSetOptions.forEach(function(option) {
 		if (option.text !== "") {			
@@ -83,7 +84,5 @@ function updateOptionSetValues(control) {
 				text: newText
 			}, option.value);
 		}
-	});
-    logicalNameBtnClickStatus = true; 
-    lastUpdatedFormId = currentFormId;
+	});    
 }
