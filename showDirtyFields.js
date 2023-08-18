@@ -49,7 +49,7 @@ function showDirtyFields() {
 } */
 
 //NewCode
-function getDirtyFields() {
+function showDirtyFields() {
     var entity = Xrm.Page.data.entity;
     var attributes = entity.attributes.get();
     var dirtyFields = attributes.filter(function(attribute) {
