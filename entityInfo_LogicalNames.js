@@ -31,21 +31,7 @@ function fetchEntityFields() {
     xhr.send();
 }
 
-function renameHeaderFields() {
-    closeIframe();
-    var headerControls = Xrm.Page.ui.controls.get(function (control, index) {
-        var controlType = control.getControlType();
-        return controlType === "standard" || controlType === "optionset" || controlType === "lookup";
-    });
-    headerControls.forEach(renameControlAndUpdateOptionSet);   
-}
-
-function renameTabsSectionsFields() {
-    var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-    if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-	showContent('alert', '11 Unlock All Fields button has already been clicked!!');
-        return;
-    }
+function renameTabsSectionsFields() {    
 	Xrm.Page.ui.tabs.forEach(function(tab) {
 		var logicalName = tab.getName();
 		tab.setLabel(logicalName);
@@ -56,11 +42,18 @@ function renameTabsSectionsFields() {
 		});
 	});
     
-    renameHeaderFields();
-    
-    logicalNameBtnClickStatus = true; 
-    lastUpdatedFormId = currentFormId;
+    renameHeaderFields();   
 }
+
+function renameHeaderFields() {
+    closeIframe();
+    var headerControls = Xrm.Page.ui.controls.get(function (control, index) {
+        var controlType = control.getControlType();
+        return controlType === "standard" || controlType === "optionset" || controlType === "lookup";
+    });
+    headerControls.forEach(renameControlAndUpdateOptionSet);   
+}
+
 
 function renameControlAndUpdateOptionSet(control) {
 	var attribute = control.getAttribute();
@@ -74,6 +67,11 @@ function renameControlAndUpdateOptionSet(control) {
 }
 
 function updateOptionSetValues(control) {
+	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
+	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+	   showContent('alert', '11 Unlock All Fields button has already been clicked!!');
+	   return;
+	}
 	var optionSetOptions = control.getOptions();
 	optionSetOptions.forEach(function(option) {
 		if (option.text !== "") {			
@@ -86,4 +84,6 @@ function updateOptionSetValues(control) {
 			}, option.value);
 		}
 	});
+    logicalNameBtnClickStatus = true; 
+    lastUpdatedFormId = currentFormId;
 }
