@@ -14,13 +14,12 @@ javascript: (function() {
       <div class="popup">
         <style>
           .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-          #userSelect { display: none; }
-          #searchInput, #dropdown { width: 100%; }
+          #dropdown div { cursor: pointer; }
           #dropdown { display: none; border: 1px solid #888; }
-          #dropdown div { padding: 5px; cursor: pointer; }
-          #dropdown div:hover { background-color: #f0f0f0; }
+          #searchInput { width: 100%; }
+          #userSelect { display: none; }
         </style>
-        <input type="text" id="searchInput" placeholder="Search users...">
+        <input type="text" id="searchInput" placeholder="Search Users">
         <div id="dropdown"></div>
         <select id="userSelect">`;
     users.entities.forEach(user => {
@@ -41,24 +40,16 @@ javascript: (function() {
     var searchInput = document.getElementById('searchInput');
     var dropdown = document.getElementById('dropdown');
     var userSelect = document.getElementById('userSelect');
-    users.entities.forEach(user => {
-      var optionDiv = document.createElement('div');
-      optionDiv.textContent = user.fullname;
-      optionDiv.onclick = function() {
-        dropdown.style.display = 'none';
-        searchInput.value = user.fullname;
-        userSelect.value = user.systemuserid;
-        userSelect.onchange();
-      };
-      dropdown.appendChild(optionDiv);
-    });
 
-    searchInput.onkeyup = function() {
-      var searchValue = this.value.toLowerCase();
+    function updateDropdown(searchValue) {
       dropdown.innerHTML = '';
+      if (searchValue.trim() === '') {
+        dropdown.style.display = 'none';
+        return;
+      }
       dropdown.style.display = 'block';
       users.entities.forEach(user => {
-        if (user.fullname.toLowerCase().includes(searchValue)) {
+        if (user.fullname.toLowerCase().includes(searchValue.toLowerCase())) {
           var optionDiv = document.createElement('div');
           optionDiv.textContent = user.fullname;
           optionDiv.onclick = function() {
@@ -70,6 +61,10 @@ javascript: (function() {
           dropdown.appendChild(optionDiv);
         }
       });
+    }
+
+    searchInput.onkeyup = function() {
+      updateDropdown(this.value);
     };
 
     userSelect.onchange = function() {
@@ -87,6 +82,8 @@ javascript: (function() {
         });
       });
     };
+
+    updateDropdown('');
   }
 
   fetchUsers(function(users) {
