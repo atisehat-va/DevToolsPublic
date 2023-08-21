@@ -5,10 +5,7 @@ javascript: (function() {
 
   function fetchRolesForUser(userId, callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + userId)
-      .then(roles => {
-        console.log("Fetched roles:", roles); // Logging the roles to the console
-        callback(roles);
-      })
+      .then(callback)
       .catch(error => {
         console.log("Error fetching roles:", error);
       });
