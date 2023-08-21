@@ -5,7 +5,10 @@ javascript: (function() {
 
   function fetchRolesForUser(userId, callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + userId)
-      .then(callback)
+      .then(roles => {
+        console.log("Fetched roles:", roles); // Logging the roles to the console
+        callback(roles);
+      })
       .catch(error => {
         console.log("Error fetching roles:", error);
       });
@@ -15,9 +18,9 @@ javascript: (function() {
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 500px; } /* Increased width */
+          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 500px; }
           #userSelect { width: 100%; }
-          #roles { overflow-y: auto; max-height: 100px; } /* Scrollable div for roles */
+          #roles { overflow-y: auto; max-height: 100px; }
         </style>
         <select id="userSelect">`;
     users.entities.forEach(user => {
