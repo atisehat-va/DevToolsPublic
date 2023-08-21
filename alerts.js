@@ -15,12 +15,14 @@ javascript: (function() {
       <div class="popup">
         <style>
           .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
+          #userList { width: 100%; max-height: 200px; overflow: auto; border: 1px solid #ccc; }
+          #userList li { cursor: pointer; padding: 5px; }
+          #userList li:hover { background-color: #f0f0f0; }
           #searchInput { width: 100%; }
-          #userSelect { width: 100%; }
         </style>
         <input type="text" id="searchInput" placeholder="Search Users">
-        <select id="userSelect"></select>
-        <ul id="roles"></ul>
+        <ul id="userList"></ul>
+        <div id="roles"></div>
       </div>`;
 
     var popupDiv = document.createElement('div');
@@ -34,39 +36,39 @@ javascript: (function() {
     document.body.appendChild(popupDiv);
 
     var searchInput = document.getElementById('searchInput');
-    var userSelect = document.getElementById('userSelect');
+    var userList = document.getElementById('userList');
 
     function updateOptions() {
       var searchText = searchInput.value.toLowerCase();
-      userSelect.innerHTML = '';
+      userList.innerHTML = '';
       sortedUsers.forEach(user => {
         if (user.fullname.toLowerCase().includes(searchText)) {
-          var option = document.createElement('option');
-          option.value = user.systemuserid;
-          option.textContent = user.fullname;
-          userSelect.appendChild(option);
+          var listItem = document.createElement('li');
+          listItem.textContent = user.fullname;
+          listItem.dataset.userId = user.systemuserid;
+          userList.appendChild(listItem);
+
+          listItem.addEventListener('click', function() {
+            var userId = this.dataset.userId;
+            fetchRolesForUser(userId, function(roles) {
+              var rolesDiv = document.getElementById('roles');
+              rolesDiv.innerHTML = '';
+              roles.entities.forEach(role => {
+                var roleId = role['roleid'];
+                Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
+                  var roleItem = document.createElement('div');
+                  roleItem.textContent = roleDetail.name;
+                  rolesDiv.appendChild(roleItem);
+                });
+              });
+            });
+          });
         }
       });
     }
 
     updateOptions();
     searchInput.addEventListener('input', updateOptions);
-
-    userSelect.onchange = function() {
-      var userId = this.value;
-      fetchRolesForUser(userId, function(roles) {
-        var rolesList = document.getElementById('roles');
-        rolesList.innerHTML = '';
-        roles.entities.forEach(role => {
-          var roleId = role['roleid'];
-          Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-            var listItem = document.createElement('li');
-            listItem.textContent = roleDetail.name;
-            rolesList.appendChild(listItem);
-          });
-        });
-      });
-    };
   }
 
   fetchUsers(function(users) {
