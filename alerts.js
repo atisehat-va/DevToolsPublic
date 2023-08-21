@@ -13,12 +13,12 @@ javascript: (function() {
 
   function displayPopup(users) {
     var popupHtml = `
-    <div class="popup">
-      <style>
-        .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-        #userSelect { width: 100%; } /* Set the width of the dropdown */
-      </style>
-      <select id="userSelect">`;
+      <div class="popup">
+        <style>
+          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
+          #userSelect { width: 100%; } /* Set the width of the dropdown */
+        </style>
+        <select id="userSelect">`;
     users.entities.forEach(user => {
       popupHtml += `<option value="${user.systemuserid}">${user.fullname}</option>`;
     });
@@ -36,9 +36,7 @@ javascript: (function() {
 
     document.getElementById('userSelect').onchange = function() {
       var userId = this.value;
-      console.log("Selected user ID:", userId); // Debugging line
       fetchRolesForUser(userId, function(roles) {
-        console.log("Roles fetched:", roles); // Debugging line
         document.getElementById('roles').innerHTML = roles.entities.map(role => role.name).join(', ');
       });
     };
