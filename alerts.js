@@ -1,11 +1,12 @@
 javascript: (function() {
+  debugger;
   function fetchUsersAndRoles(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname').then(function(users) {
       var userRoles = [];
       var promises = [];
 
       users.entities.forEach(function(user) {
-        var promise = Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=_systemuserid_value eq ' + user.systemuserid)
+        var promise = Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + user.systemuserid)
           .then(function(roles) {
             userRoles.push({ name: user.fullname, roles: roles.entities.map(role => role.name) });
           });
