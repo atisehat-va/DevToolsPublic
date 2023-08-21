@@ -16,7 +16,7 @@ javascript: (function() {
           #userList { max-height: 100px; overflow-y: scroll; height: 100px; }
           #searchInput { width: 100%; }
           .selected { background-color: lightblue; }
-          .user { cursor: pointer; }
+          .user { width: 100%; text-align: left; border: none; background: none; cursor: pointer; padding: 2px; outline: none; }
         </style>
         <input type="text" id="searchInput" placeholder="Search Users">
         <div id="userList"></div>
@@ -33,22 +33,22 @@ javascript: (function() {
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
 
-    var selectedUserDiv = null;
+    var selectedUserButton = null;
 
     function renderUserList(filterText = '') {
       var userListDiv = document.getElementById('userList');
       userListDiv.innerHTML = '';
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
-          var userDiv = document.createElement('div');
-          userDiv.textContent = user.fullname;
-          userDiv.className = 'user';
-          userDiv.onclick = function() {
-            if (selectedUserDiv) {
-              selectedUserDiv.classList.remove('selected');
+          var userButton = document.createElement('button');
+          userButton.textContent = user.fullname;
+          userButton.className = 'user';
+          userButton.onclick = function() {
+            if (selectedUserButton) {
+              selectedUserButton.classList.remove('selected');
             }
             this.classList.add('selected');
-            selectedUserDiv = this;
+            selectedUserButton = this;
             var rolesList = document.getElementById('roles');
             rolesList.innerHTML = '';
             fetchRolesForUser(user.systemuserid, function(roles) {
@@ -62,7 +62,7 @@ javascript: (function() {
               });
             });
           };
-          userListDiv.appendChild(userDiv);
+          userListDiv.appendChild(userButton);
         }
       });
     }
@@ -72,8 +72,8 @@ javascript: (function() {
     var searchInput = document.getElementById('searchInput');
     searchInput.onkeyup = function() {
       var searchText = this.value;
-      if (selectedUserDiv) {
-        selectedUserDiv.classList.remove('selected');
+      if (selectedUserButton) {
+        selectedUserButton.classList.remove('selected');
       }
       var rolesList = document.getElementById('roles');
       rolesList.innerHTML = '';
