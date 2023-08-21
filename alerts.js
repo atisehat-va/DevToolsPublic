@@ -4,7 +4,11 @@ javascript: (function() {
   }
 
   function fetchRolesForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + userId).then(callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + userId)
+      .then(callback)
+      .catch(error => {
+        console.log("Error fetching roles:", error);
+      });
   }
 
   function displayPopup(users) {
@@ -32,7 +36,9 @@ javascript: (function() {
 
     document.getElementById('userSelect').onchange = function() {
       var userId = this.value;
+      console.log("Selected user ID:", userId); // Debugging line
       fetchRolesForUser(userId, function(roles) {
+        console.log("Roles fetched:", roles); // Debugging line
         document.getElementById('roles').innerHTML = roles.entities.map(role => role.name).join(', ');
       });
     };
