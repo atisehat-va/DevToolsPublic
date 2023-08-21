@@ -13,19 +13,25 @@ javascript: (function() {
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { display: flex; flex-direction: column; align-items: flex-start; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-          .section { width: 100%; }
+          .popup { background-color: white; border: 1px solid #888; width: 300px; }
+          .section { padding: 20px; text-align: center; }
+          #section2, #section3, #section4 { display: inline-block; width: 33%; vertical-align: top; }
           #userList { max-height: 100px; overflow-y: scroll; }
           .selected { background-color: lightblue; }
           .user { cursor: pointer; padding: 3px; }
         </style>
         <div class="section" id="section1">
+          <h3>Section 1</h3>
           <input type="text" id="searchInput" placeholder="Search Users">
           <div id="userList"></div>
         </div>
-        <div class="section" id="section2"></div>
-        <div class="section" id="section3"></div>
-        <ul class="section" id="section4"></ul>
+        <div id="sectionsRow">
+          <div class="section" id="section2"><h3>Section 2</h3></div>
+          <div class="section" id="section3"><h3>Section 3</h3></div>
+          <div class="section" id="section4"><h3>Section 4</h3>
+            <ul></ul>
+          </div>
+        </div>
       </div>`;
 
     var popupDiv = document.createElement('div');
@@ -54,7 +60,7 @@ javascript: (function() {
       document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
       userListDiv.querySelector(`[data-id='${user.systemuserid}']`).classList.add('selected');
       fetchRolesForUser(user.systemuserid, function(roles) {
-        var rolesList = document.getElementById('section4');
+        var rolesList = document.getElementById('section4').querySelector('ul');
         rolesList.innerHTML = '';
         roles.entities.forEach(role => {
           var roleId = role['roleid'];
