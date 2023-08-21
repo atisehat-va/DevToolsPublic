@@ -13,12 +13,13 @@ javascript: (function() {
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { background-color: white; border: 1px solid #888; width: 300px; }
+          .popup { background-color: white; border: 1px solid #888; width: 900px; }
           .section { padding: 20px; text-align: center; }
-          #section2, #section3, #section4 { display: inline-block; width: 33%; vertical-align: top; }
+          #section2, #section3, #section4 { display: inline-block; width: 33%; vertical-align: top; box-sizing: border-box; }
           #userList { max-height: 100px; overflow-y: scroll; }
           .selected { background-color: lightblue; }
           .user { cursor: pointer; padding: 3px; }
+          #sectionsRow { white-space: nowrap; }
         </style>
         <div class="section" id="section1">
           <h3>Section 1</h3>
