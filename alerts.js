@@ -39,6 +39,7 @@ javascript: (function() {
       var userDiv = document.createElement('div');
       userDiv.className = 'user';
       userDiv.textContent = user.fullname;
+      userDiv.dataset.id = user.systemuserid; // Setting the data-id attribute here
       userDiv.onclick = function() {
         selectUser(user);
       };
