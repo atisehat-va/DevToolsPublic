@@ -15,6 +15,7 @@ javascript: (function() {
           .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
           #userList { max-height: 100px; overflow-y: scroll; height: 100px; }
           #searchInput { width: 100%; }
+          .userItem { cursor: pointer; padding: 5px; } /* Add this line */
         </style>
         <input type="text" id="searchInput" placeholder="Search Users">
         <div id="userList"></div>
@@ -37,9 +38,10 @@ javascript: (function() {
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
           var userDiv = document.createElement('div');
+          userDiv.className = 'userItem'; // Use the class here
           userDiv.textContent = user.fullname;
           userDiv.onclick = function() {
-            // User list remains unchanged here
+            console.log('User clicked:', user.fullname); // Debugging
             fetchRolesForUser(user.systemuserid, function(roles) {
               var rolesList = document.getElementById('roles');
               rolesList.innerHTML = '';
