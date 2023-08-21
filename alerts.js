@@ -9,9 +9,11 @@ javascript: (function() {
 
   function displayPopup(users) {
     var popupHtml = `
+    var popupHtml = `
     <div class="popup">
       <style>
         .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
+        #userSelect { width: 100%; } /* Set the width of the dropdown */
       </style>
       <select id="userSelect">`;
     users.entities.forEach(user => {
