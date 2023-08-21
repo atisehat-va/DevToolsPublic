@@ -12,22 +12,29 @@ select2style.href = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/s
 head.appendChild(select2style);
 //-------
 javascript: (function() {
-  function fetchUsers() {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(function(users) {
-      users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname)); // Sort users alphabetically
-      users.entities.forEach(user => {
-        var option = new Option(user.fullname, user.systemuserid);
-        $('#userSelect').append(option);
-      });
-    });
+  function fetchUsers(callback) {
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(callback);
   }
 
-  function displayPopup() {
+  function fetchRolesForUser(userId, callback) {
+    var userRolesUrl = `systemusers(${userId})/systemuserroles_association?$select=roleid`;
+    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
+  }
+
+  function displayPopup(users) {
+    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
     var popupHtml = `
-    <div class="popup">
-      <select id="userSelect"></select>
-      <ul id="roles"></ul>
-    </div>`;
+      <div class="popup">
+        <style>
+          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
+          #userSelect { width: 100%; }
+        </style>
+        <select id="userSelect">`;
+    users.entities.forEach(user => {
+      popupHtml += `<option value="${user.systemuserid}">${user.fullname}</option>`;
+    });
+    popupHtml += `</select><ul id="roles"></ul></div>`;
+
     var popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
     popupDiv.innerHTML = popupHtml;
@@ -37,10 +44,26 @@ javascript: (function() {
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
-    $('#userSelect').select2();
+
+    document.getElementById('userSelect').onchange = function() {
+      var userId = this.value;
+      fetchRolesForUser(userId, function(roles) {
+        var rolesList = document.getElementById('roles');
+        rolesList.innerHTML = '';
+        roles.entities.forEach(role => {
+          var roleId = role['roleid'];
+          Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
+            var listItem = document.createElement('li');
+            listItem.textContent = roleDetail.name;
+            rolesList.appendChild(listItem);
+          });
+        });
+      });
+    };
   }
 
-  displayPopup();
-  fetchUsers();
+  fetchUsers(function(users) {
+    displayPopup(users);
+  });
 })();
 
