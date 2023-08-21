@@ -13,10 +13,10 @@ javascript: (function() {
       <div class="popup">
         <style>
           .popup { display: flex; flex-direction: column; align-items: flex-start; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-          #userList { max-height: 100px; overflow-y: scroll; height: 100px; width: 100%; }
+          #userList { max-height: 100px; overflow-y: scroll; height: 100px; }
           #searchInput { width: 100%; }
-          .userDiv { cursor: pointer; padding: 5px; }
-          .userDiv.selected { background-color: #f0f0f0; }
+          .selected { background-color: lightblue; }
+          .user { cursor: pointer; }
         </style>
         <input type="text" id="searchInput" placeholder="Search Users">
         <div id="userList"></div>
@@ -33,23 +33,23 @@ javascript: (function() {
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
 
-    function renderUserList(filterText = '') {
-      var rolesList = document.getElementById('roles');
-      rolesList.innerHTML = ''; // Clear the security roles
+    var selectedUserDiv = null;
 
+    function renderUserList(filterText = '') {
       var userListDiv = document.getElementById('userList');
       userListDiv.innerHTML = '';
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
           var userDiv = document.createElement('div');
           userDiv.textContent = user.fullname;
-          userDiv.className = 'userDiv';
+          userDiv.className = 'user';
           userDiv.onclick = function() {
-            var selectedUser = document.querySelector('.userDiv.selected');
-            if (selectedUser) {
-              selectedUser.classList.remove('selected');
+            if (selectedUserDiv) {
+              selectedUserDiv.classList.remove('selected');
             }
-            userDiv.classList.add('selected');
+            this.classList.add('selected');
+            selectedUserDiv = this;
+            var rolesList = document.getElementById('roles');
             rolesList.innerHTML = '';
             fetchRolesForUser(user.systemuserid, function(roles) {
               roles.entities.forEach(role => {
@@ -72,6 +72,11 @@ javascript: (function() {
     var searchInput = document.getElementById('searchInput');
     searchInput.onkeyup = function() {
       var searchText = this.value;
+      if (selectedUserDiv) {
+        selectedUserDiv.classList.remove('selected');
+      }
+      var rolesList = document.getElementById('roles');
+      rolesList.innerHTML = '';
       renderUserList(searchText);
     };
   }
