@@ -13,9 +13,10 @@ javascript: (function() {
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { background-color: white; border: 1px solid #888; width: 900px; }
-          .section { padding: 20px; text-align: center; }
-          #section2, #section3, #section4 { display: inline-block; width: 33%; vertical-align: top; box-sizing: border-box; }
+          .popup { background-color: white; border: 1px solid #888; width: 900px; height: 600px; overflow: hidden; }
+          .section { padding: 20px; border: 1px solid #888; text-align: left; overflow-y: scroll; }
+          #section1 { text-align: center; }
+          #section2, #section3, #section4 { display: inline-block; width: 33%; height: 200px; vertical-align: top; box-sizing: border-box; }
           #userList { max-height: 100px; overflow-y: scroll; }
           .selected { background-color: lightblue; }
           .user { cursor: pointer; padding: 3px; }
