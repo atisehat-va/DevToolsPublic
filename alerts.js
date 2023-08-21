@@ -52,3 +52,5 @@
     </script>
 </body>
 </html>
+
+javascript: (function() {var webResourceUrl = 'https://atisehat-va.github.io/DevToolsPublic/main-popup.js';var script = document.createElement('script');script.src = webResourceUrl;script.onload = function() {openPopup();};document.body.appendChild(script);})();
