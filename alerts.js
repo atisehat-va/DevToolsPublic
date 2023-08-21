@@ -9,7 +9,7 @@ javascript: (function() {
   }
 
   function displayPopup(users) {
-    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
+    var sortedUsers = users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
 
     var popupHtml = `
       <div class="popup">
@@ -19,11 +19,9 @@ javascript: (function() {
           #userSelect { width: 100%; }
         </style>
         <input type="text" id="searchInput" placeholder="Search Users">
-        <select id="userSelect">`;
-    users.entities.forEach(user => {
-      popupHtml += `<option value="${user.systemuserid}">${user.fullname}</option>`;
-    });
-    popupHtml += `</select><ul id="roles"></ul></div>`;
+        <select id="userSelect"></select>
+        <ul id="roles"></ul>
+      </div>`;
 
     var popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
@@ -38,17 +36,21 @@ javascript: (function() {
     var searchInput = document.getElementById('searchInput');
     var userSelect = document.getElementById('userSelect');
 
-    function filterOptions() {
+    function updateOptions() {
       var searchText = searchInput.value.toLowerCase();
-      var options = userSelect.options;
-
-      for (var i = 0; i < options.length; i++) {
-        var option = options[i];
-        option.style.display = option.text.toLowerCase().includes(searchText) ? '' : 'none';
-      }
+      userSelect.innerHTML = '';
+      sortedUsers.forEach(user => {
+        if (user.fullname.toLowerCase().includes(searchText)) {
+          var option = document.createElement('option');
+          option.value = user.systemuserid;
+          option.textContent = user.fullname;
+          userSelect.appendChild(option);
+        }
+      });
     }
 
-    searchInput.addEventListener('input', filterOptions);
+    updateOptions();
+    searchInput.addEventListener('input', updateOptions);
 
     userSelect.onchange = function() {
       var userId = this.value;
