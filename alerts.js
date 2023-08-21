@@ -54,7 +54,7 @@
 </html>
 //------------------
 
-(function() {
+javascript: ((function() {
   function fetchUsersAndRoles(callback) {
     // Retrieve users and their security roles using CRM 365 client-side API
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname').then(function(users) {
@@ -92,6 +92,3 @@
     displayPopup(users);
   });
 })();
-
-
-
