@@ -13,14 +13,13 @@ javascript: (function() {
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; height: 300px;}
-          #userSelect { width: 100%; }
-          #userList { width: 100%; height: 100px; overflow: auto; border: 1px solid #ccc; }
-          #userList option { cursor: pointer; padding: 5px; }
-          #searchInput { width: 100%; }
+          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
+          #searchInput, #selectedUser { width: 100%; }
+          #userSelect { width: 100%; display: none; }
         </style>
         <input type="text" id="searchInput" placeholder="Search Users">
-        <select id="userSelect" size="5"></select>
+        <select id="userSelect"></select>
+        <p id="selectedUser"></p>
         <ul id="roles"></ul>
       </div>`;
 
@@ -42,8 +41,16 @@ javascript: (function() {
       userSelect.appendChild(optionItem);
     });
 
-    document.getElementById('userSelect').onchange = function() {
+    var searchInput = document.getElementById('searchInput');
+    searchInput.onfocus = function() {
+      userSelect.style.display = '';
+    };
+
+    userSelect.onchange = function() {
       var userId = this.value;
+      this.style.display = 'none';
+      var selectedUser = users.entities.find(user => user.systemuserid === userId);
+      document.getElementById('selectedUser').textContent = `Selected User: ${selectedUser.fullname}`;
       fetchRolesForUser(userId, function(roles) {
         var rolesList = document.getElementById('roles');
         rolesList.innerHTML = '';
@@ -58,7 +65,7 @@ javascript: (function() {
       });
     };
 
-    document.getElementById('searchInput').onkeyup = function() {
+    searchInput.onkeyup = function() {
       var searchText = this.value.toLowerCase();
       var options = document.querySelectorAll('#userSelect option');
       options.forEach(option => {
