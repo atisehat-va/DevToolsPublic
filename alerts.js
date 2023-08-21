@@ -34,9 +34,10 @@ javascript: (function() {
     document.body.appendChild(popupDiv);
 
     function renderUserList(filterText = '') {
-      var userListDiv = document.getElementById('userList');
       var rolesList = document.getElementById('roles');
-      rolesList.innerHTML = ''; // Clear the list of security roles
+      rolesList.innerHTML = ''; // Clear the security roles
+
+      var userListDiv = document.getElementById('userList');
       userListDiv.innerHTML = '';
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
@@ -49,7 +50,7 @@ javascript: (function() {
               selectedUser.classList.remove('selected');
             }
             userDiv.classList.add('selected');
-            rolesList.innerHTML = ''; // Clear the list of security roles
+            rolesList.innerHTML = '';
             fetchRolesForUser(user.systemuserid, function(roles) {
               roles.entities.forEach(role => {
                 var roleId = role['roleid'];
