@@ -1,21 +1,3 @@
-var head = document.head || document.getElementsByTagName('head')[0];
-
-var jqueryScript = document.createElement('script');
-jqueryScript.type = 'text/javascript';
-jqueryScript.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
-head.appendChild(jqueryScript);
-
-var select2script = document.createElement('script');
-select2script.type = 'text/javascript';
-select2script.src = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js';
-head.appendChild(select2script);
-
-var select2style = document.createElement('link');
-select2style.rel = 'stylesheet';
-select2style.type = 'text/css';
-select2style.href = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css';
-head.appendChild(select2style);
-//--------------------------
 javascript: (function() {
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(callback);
@@ -32,8 +14,14 @@ javascript: (function() {
       <div class="popup">
         <style>
           .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-          #userSelect { width: 100%; }
+          #userSelect { display: none; }
+          #searchInput, #dropdown { width: 100%; }
+          #dropdown { display: none; border: 1px solid #888; }
+          #dropdown div { padding: 5px; cursor: pointer; }
+          #dropdown div:hover { background-color: #f0f0f0; }
         </style>
+        <input type="text" id="searchInput" placeholder="Search users...">
+        <div id="dropdown"></div>
         <select id="userSelect">`;
     users.entities.forEach(user => {
       popupHtml += `<option value="${user.systemuserid}">${user.fullname}</option>`;
@@ -50,9 +38,41 @@ javascript: (function() {
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
 
-    $('#userSelect').select2(); // Initialize Select2
+    var searchInput = document.getElementById('searchInput');
+    var dropdown = document.getElementById('dropdown');
+    var userSelect = document.getElementById('userSelect');
+    users.entities.forEach(user => {
+      var optionDiv = document.createElement('div');
+      optionDiv.textContent = user.fullname;
+      optionDiv.onclick = function() {
+        dropdown.style.display = 'none';
+        searchInput.value = user.fullname;
+        userSelect.value = user.systemuserid;
+        userSelect.onchange();
+      };
+      dropdown.appendChild(optionDiv);
+    });
 
-    document.getElementById('userSelect').onchange = function() {
+    searchInput.onkeyup = function() {
+      var searchValue = this.value.toLowerCase();
+      dropdown.innerHTML = '';
+      dropdown.style.display = 'block';
+      users.entities.forEach(user => {
+        if (user.fullname.toLowerCase().includes(searchValue)) {
+          var optionDiv = document.createElement('div');
+          optionDiv.textContent = user.fullname;
+          optionDiv.onclick = function() {
+            dropdown.style.display = 'none';
+            searchInput.value = user.fullname;
+            userSelect.value = user.systemuserid;
+            userSelect.onchange();
+          };
+          dropdown.appendChild(optionDiv);
+        }
+      });
+    };
+
+    userSelect.onchange = function() {
       var userId = this.value;
       fetchRolesForUser(userId, function(roles) {
         var rolesList = document.getElementById('roles');
