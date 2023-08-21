@@ -71,6 +71,8 @@ javascript: (function() {
     searchInput.onkeyup = function() {
       var searchText = this.value;
       renderUserList(searchText);
+      var rolesList = document.getElementById('roles');
+      rolesList.innerHTML = ''; // Clear roles list when search input changes
     };
   }
 
