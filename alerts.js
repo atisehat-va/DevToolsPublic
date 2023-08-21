@@ -1,5 +1,10 @@
 var head = document.head || document.getElementsByTagName('head')[0];
 
+var jqueryScript = document.createElement('script');
+jqueryScript.type = 'text/javascript';
+jqueryScript.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
+head.appendChild(jqueryScript);
+
 var select2script = document.createElement('script');
 select2script.type = 'text/javascript';
 select2script.src = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js';
@@ -10,7 +15,7 @@ select2style.rel = 'stylesheet';
 select2style.type = 'text/css';
 select2style.href = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css';
 head.appendChild(select2style);
-//-------
+//--------------------------
 javascript: (function() {
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(callback);
@@ -45,6 +50,8 @@ javascript: (function() {
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
 
+    $('#userSelect').select2(); // Initialize Select2
+
     document.getElementById('userSelect').onchange = function() {
       var userId = this.value;
       fetchRolesForUser(userId, function(roles) {
@@ -66,4 +73,3 @@ javascript: (function() {
     displayPopup(users);
   });
 })();
-
