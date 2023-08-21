@@ -33,16 +33,14 @@ javascript: (function() {
 
     function renderUserList(filterText = '') {
       var userListDiv = document.getElementById('userList');
-      userListDiv.innerHTML = '';
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
           var userDiv = document.createElement('div');
           userDiv.textContent = user.fullname;
           userDiv.onclick = function() {
-            userListDiv.innerHTML = '';
+            var rolesList = document.getElementById('roles');
+            rolesList.innerHTML = '';
             fetchRolesForUser(user.systemuserid, function(roles) {
-              var rolesList = document.getElementById('roles');
-              rolesList.innerHTML = '';
               roles.entities.forEach(role => {
                 var roleId = role['roleid'];
                 Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
@@ -63,11 +61,9 @@ javascript: (function() {
     var searchInput = document.getElementById('searchInput');
     searchInput.onkeyup = function() {
       var searchText = this.value;
-      if (searchText) {
-        renderUserList(searchText);
-      } else {
-        renderUserList();
-      }
+      var userListDiv = document.getElementById('userList');
+      userListDiv.innerHTML = '';
+      renderUserList(searchText);
     };
   }
 
