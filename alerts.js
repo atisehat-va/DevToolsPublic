@@ -52,5 +52,46 @@
     </script>
 </body>
 </html>
+//------------------
 
-javascript: (function() {var webResourceUrl = 'https://atisehat-va.github.io/DevToolsPublic/main-popup.js';var script = document.createElement('script');script.src = webResourceUrl;script.onload = function() {openPopup();};document.body.appendChild(script);})();
+(function() {
+  function fetchUsersAndRoles(callback) {
+    // Retrieve users and their security roles using CRM 365 client-side API
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname').then(function(users) {
+      var userRoles = [];
+      users.entities.forEach(function(user) {
+        Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=_systemuserid_value eq ' + user.systemuserid).then(function(roles) {
+          userRoles.push({name: user.fullname, roles: roles.entities.map(role => role.name)});
+          if (userRoles.length === users.entities.length) {
+            callback(userRoles);
+          }
+        });
+      });
+    });
+  }
+
+  function displayPopup(users) {
+    // Create and display the popup with users and their roles
+    var html = '<select id="userSelect">';
+    users.forEach(user => {
+      html += '<option value="' + user.name + '">' + user.name + '</option>';
+    });
+    html += '</select><div id="roles"></div>';
+
+    var popup = window.open('', 'popup', 'width=300,height=200');
+    popup.document.write(html);
+
+    popup.document.getElementById('userSelect').onchange = function() {
+      var userName = this.value;
+      var roles = users.find(user => user.name === userName).roles;
+      popup.document.getElementById('roles').innerHTML = roles.join(', ');
+    };
+  }
+
+  fetchUsersAndRoles(function(users) {
+    displayPopup(users);
+  });
+})();
+
+
+
