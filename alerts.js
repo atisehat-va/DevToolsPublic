@@ -35,6 +35,8 @@ javascript: (function() {
 
     function renderUserList(filterText = '') {
       var userListDiv = document.getElementById('userList');
+      var rolesList = document.getElementById('roles');
+      rolesList.innerHTML = ''; // Clear the list of security roles
       userListDiv.innerHTML = '';
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
@@ -47,8 +49,7 @@ javascript: (function() {
               selectedUser.classList.remove('selected');
             }
             userDiv.classList.add('selected');
-            var rolesList = document.getElementById('roles');
-            rolesList.innerHTML = '';
+            rolesList.innerHTML = ''; // Clear the list of security roles
             fetchRolesForUser(user.systemuserid, function(roles) {
               roles.entities.forEach(role => {
                 var roleId = role['roleid'];
@@ -71,8 +72,6 @@ javascript: (function() {
     searchInput.onkeyup = function() {
       var searchText = this.value;
       renderUserList(searchText);
-      var rolesList = document.getElementById('roles');
-      rolesList.innerHTML = ''; // Clear roles list when search input changes
     };
   }
 
