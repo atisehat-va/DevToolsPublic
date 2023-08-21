@@ -4,23 +4,22 @@ javascript: (function() {
   }
 
   function fetchRolesForUser(userId, callback) {
+    var userRolesUrl = `systemusers(${userId})/systemuserroles_association?$select=roleid`;
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
   }
 
   function displayPopup(users) {
-    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { display: flex; flex-direction: column; align-items: flex-start; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-          #userList { max-height: 100px; overflow-y: scroll; height: 100px; }
-          #searchInput { width: 100%; }
-          .selected { background-color: lightblue; }
-          .user { width: 100%; text-align: left; border: none; background: none; cursor: pointer; padding: 2px; outline: none; }
+          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; height: 400px; overflow: hidden; }
+          #userSearch { width: 100%; }
+          .user { width: 100%; cursor: pointer; }
+          #userList { overflow-y: scroll; width: 100%; height: 200px; }
         </style>
-        <input type="text" id="searchInput" placeholder="Search Users">
+        <input id="userSearch" type="text" placeholder="Search Users">
         <div id="userList"></div>
-        <ul id="roles"></ul>
+        <div id="roles"></div>
       </div>`;
 
     var popupDiv = document.createElement('div');
@@ -33,52 +32,45 @@ javascript: (function() {
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
 
-    var selectedUserButton = null;
-
     function renderUserList(filterText = '') {
       var userListDiv = document.getElementById('userList');
       userListDiv.innerHTML = '';
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
-          var userButton = document.createElement('button');
-          userButton.textContent = user.fullname;
-          userButton.className = 'user';
-          userButton.onclick = function() {
-            if (selectedUserButton) {
-              selectedUserButton.classList.remove('selected');
-            }
-            this.classList.add('selected');
-            selectedUserButton = this;
-            var rolesList = document.getElementById('roles');
-            rolesList.innerHTML = '';
-            fetchRolesForUser(user.systemuserid, function(roles) {
+          var userDiv = document.createElement('div');
+          userDiv.className = 'user';
+          userDiv.style.width = '100%';
+          
+          var userName = document.createElement('span');
+          userName.textContent = user.fullname;
+
+          userDiv.appendChild(userName);
+          userDiv.onclick = function() {
+            var userId = user.systemuserid;
+            fetchRolesForUser(userId, function(roles) {
+              var rolesDiv = document.getElementById('roles');
+              rolesDiv.innerHTML = '';
               roles.entities.forEach(role => {
                 var roleId = role['roleid'];
                 Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-                  var listItem = document.createElement('li');
-                  listItem.textContent = roleDetail.name;
-                  rolesList.appendChild(listItem);
+                  var roleItem = document.createElement('div');
+                  roleItem.textContent = roleDetail.name;
+                  rolesDiv.appendChild(roleItem);
                 });
               });
             });
           };
-          userListDiv.appendChild(userButton);
+
+          userListDiv.appendChild(userDiv);
         }
       });
     }
 
-    renderUserList();
-
-    var searchInput = document.getElementById('searchInput');
-    searchInput.onkeyup = function() {
-      var searchText = this.value;
-      if (selectedUserButton) {
-        selectedUserButton.classList.remove('selected');
-      }
-      var rolesList = document.getElementById('roles');
-      rolesList.innerHTML = '';
-      renderUserList(searchText);
+    document.getElementById('userSearch').onkeyup = function() {
+      renderUserList(this.value);
     };
+
+    renderUserList(); // Initial render
   }
 
   fetchUsers(function(users) {
