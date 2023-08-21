@@ -3,16 +3,30 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(callback);
   }
 
-  function fetchRolesForUser(userId, callback) {
-    var query = "?$filter=_systemuserid_value eq " + userId + "&$expand=roleid($select=name)";
-    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', query)
-      .then(result => {
-        var roles = result.entities.map(entity => entity.roleid.name);
-        callback(roles);
-      })
-      .catch(error => {
-        console.log("Error fetching roles:", error);
-      });
+  function getUserSecurityRoles(userId) {
+    var userRolesUrl = `systemusers(${userId})/systemuserroles_association?$select=roleid`;
+    Xrm.WebApi.retrieveMultipleRecords("systemuserroles", `?$filter=systemuserid eq ${userId}`).then(
+      function (result) {
+        var roleDetailPromises = [];
+        result.entities.forEach(function (userRole) {
+          var roleId = userRole["roleid"];
+          roleDetailPromises.push(Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid"));
+        });
+        Promise.all(roleDetailPromises).then(
+          function (roleDetails) {
+            var rolesList = roleDetails.map(roleDetail => roleDetail.name);
+            document.getElementById('roles').innerHTML = rolesList.join(', ');
+            console.log("User's Security Roles:", rolesList);
+          },
+          function (error) {
+            console.log("Error fetching role details: " + error.message);
+          }
+        );
+      },
+      function (error) {
+        console.log("Error fetching user roles: " + error.message);
+      }
+    );
   }
 
   function displayPopup(users) {
@@ -20,7 +34,7 @@ javascript: (function() {
     <div class="popup">
       <style>
         .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-        #userSelect { width: 100%; }
+        #userSelect { width: 100%; } /* Set the width of the dropdown */
       </style>
       <select id="userSelect">`;
     users.entities.forEach(user => {
@@ -40,10 +54,7 @@ javascript: (function() {
 
     document.getElementById('userSelect').onchange = function() {
       var userId = this.value;
-      fetchRolesForUser(userId, function(roles) {
-        document.getElementById('roles').innerHTML = roles.join(', ');
-        console.log("Roles for user ID", userId, ":", roles);
-      });
+      getUserSecurityRoles(userId);
     };
   }
 
