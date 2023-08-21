@@ -1,44 +1,53 @@
 javascript: (function() {
-  debugger;
   function fetchUsersAndRoles(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname').then(function(users) {
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname,systemuserid').then(function(users) {
       var userRoles = [];
-      var promises = [];
+      var processedUsers = 0;
 
-      users.entities.forEach(function(user) {
-        var promise = Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + user.systemuserid)
+      function processUser(user) {
+        Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + user.systemuserid)
           .then(function(roles) {
             userRoles.push({ name: user.fullname, roles: roles.entities.map(role => role.name) });
+            processedUsers++;
+
+            if (processedUsers < users.entities.length) {
+              processUser(users.entities[processedUsers]);
+            } else {
+              callback(userRoles);
+            }
           });
+      }
 
-        promises.push(promise);
-      });
-
-      Promise.all(promises).then(function() {
-        callback(userRoles);
-      });
+      if (users.entities.length > 0) {
+        processUser(users.entities[0]);
+      }
     });
+  }
+
+  function makePopupMovable(popupDiv) {
+    // You can implement drag-and-drop functionality for the popup here
   }
 
   function openPopup(users) {
     var popupHtml = `
-      <style>
-        /* ... same styles as your provided popup ... */
-      </style>
-      <div class="popup">
+    <style>
+      /* Styles here */
+    </style>
+    <div class="popup">
+      <div class="container" id="container">
         <div class="button-container">
-          <select id="userSelect">
-    `;
+          <select id="userSelect">`;
+
     users.forEach(user => {
       popupHtml += '<option value="' + user.name + '">' + user.name + '</option>';
     });
+
     popupHtml += `
           </select>
           <div id="roles"></div>
-          <button onclick="document.getElementById('bookmarkletPopup').remove();">Close</button>
         </div>
       </div>
-    `;
+    </div>`;
 
     var popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
@@ -49,8 +58,9 @@ javascript: (function() {
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
     popupDiv.style.backgroundColor = 'white';
-
     document.body.appendChild(popupDiv);
+
+    makePopupMovable(popupDiv);
 
     document.getElementById('userSelect').onchange = function() {
       var userName = this.value;
