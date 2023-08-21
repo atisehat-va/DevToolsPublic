@@ -4,22 +4,23 @@ javascript: (function() {
   }
 
   function fetchRolesForUser(userId, callback) {
-    var userRolesUrl = `systemusers(${userId})/systemuserroles_association?$select=roleid`;
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
   }
 
   function displayPopup(users) {
+    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; height: 400px; overflow: hidden; }
-          #userSearch { width: 100%; }
-          .user { width: 100%; cursor: pointer; }
-          #userList { overflow-y: scroll; width: 100%; height: 200px; }
+          .popup { display: flex; flex-direction: column; align-items: flex-start; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
+          #userList { max-height: 100px; overflow-y: scroll; height: 100px; }
+          #searchInput { width: 100%; }
+          .selected { background-color: lightblue; }
+          .user { cursor: pointer; padding: 3px; width: 100%; }
         </style>
-        <input id="userSearch" type="text" placeholder="Search Users">
+        <input type="text" id="searchInput" placeholder="Search Users">
         <div id="userList"></div>
-        <div id="roles"></div>
+        <ul id="roles"></ul>
       </div>`;
 
     var popupDiv = document.createElement('div');
@@ -32,45 +33,52 @@ javascript: (function() {
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
 
+    var selectedUserDiv = null;
+
     function renderUserList(filterText = '') {
       var userListDiv = document.getElementById('userList');
       userListDiv.innerHTML = '';
       users.entities.forEach(user => {
         if (user.fullname.toLowerCase().includes(filterText.toLowerCase())) {
           var userDiv = document.createElement('div');
+          userDiv.textContent = user.fullname;
           userDiv.className = 'user';
-          userDiv.style.width = '100%';
-          
-          var userName = document.createElement('span');
-          userName.textContent = user.fullname;
-
-          userDiv.appendChild(userName);
-          userDiv.onclick = function() {
-            var userId = user.systemuserid;
-            fetchRolesForUser(userId, function(roles) {
-              var rolesDiv = document.getElementById('roles');
-              rolesDiv.innerHTML = '';
+          userDiv.addEventListener('click', function() {
+            if (selectedUserDiv) {
+              selectedUserDiv.classList.remove('selected');
+            }
+            this.classList.add('selected');
+            selectedUserDiv = this;
+            var rolesList = document.getElementById('roles');
+            rolesList.innerHTML = '';
+            fetchRolesForUser(user.systemuserid, function(roles) {
               roles.entities.forEach(role => {
                 var roleId = role['roleid'];
                 Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-                  var roleItem = document.createElement('div');
-                  roleItem.textContent = roleDetail.name;
-                  rolesDiv.appendChild(roleItem);
+                  var listItem = document.createElement('li');
+                  listItem.textContent = roleDetail.name;
+                  rolesList.appendChild(listItem);
                 });
               });
             });
-          };
-
+          });
           userListDiv.appendChild(userDiv);
         }
       });
     }
 
-    document.getElementById('userSearch').onkeyup = function() {
-      renderUserList(this.value);
-    };
+    renderUserList();
 
-    renderUserList(); // Initial render
+    var searchInput = document.getElementById('searchInput');
+    searchInput.onkeyup = function() {
+      var searchText = this.value;
+      if (selectedUserDiv) {
+        selectedUserDiv.classList.remove('selected');
+      }
+      var rolesList = document.getElementById('roles');
+      rolesList.innerHTML = '';
+      renderUserList(searchText);
+    };
   }
 
   fetchUsers(function(users) {
