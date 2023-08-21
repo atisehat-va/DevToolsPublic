@@ -14,9 +14,13 @@ javascript: (function() {
         });
         Promise.all(roleDetailPromises).then(
           function (roleDetails) {
-            var rolesList = roleDetails.map(roleDetail => roleDetail.name);
-            document.getElementById('roles').innerHTML = rolesList.join(', ');
-            console.log("User's Security Roles:", rolesList);
+            var rolesList = '<ul>';
+            roleDetails.forEach(function (roleDetail) {
+              rolesList += `<li>${roleDetail.name}</li>`;
+            });
+            rolesList += '</ul>';
+            document.getElementById('roles').innerHTML = rolesList;
+            console.log("User's Security Roles:", roleDetails.map(roleDetail => roleDetail.name));
           },
           function (error) {
             console.log("Error fetching role details: " + error.message);
