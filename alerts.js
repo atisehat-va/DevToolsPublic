@@ -12,6 +12,16 @@ select2style.href = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/s
 head.appendChild(select2style);
 //-------
 javascript: (function() {
+  function fetchUsers() {
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(function(users) {
+      users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname)); // Sort users alphabetically
+      users.entities.forEach(user => {
+        var option = new Option(user.fullname, user.systemuserid);
+        $('#userSelect').append(option);
+      });
+    });
+  }
+
   function displayPopup() {
     var popupHtml = `
     <div class="popup">
@@ -31,4 +41,6 @@ javascript: (function() {
   }
 
   displayPopup();
+  fetchUsers();
 })();
+
