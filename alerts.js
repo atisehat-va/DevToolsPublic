@@ -1,4 +1,4 @@
-(function() {
+javascript: (function() {
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(callback);
   }
@@ -32,6 +32,8 @@
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
 
+    $('#userSelect').select2(); // initialize Select2 on user dropdown
+
     document.getElementById('userSelect').onchange = function() {
       var userId = this.value;
       fetchRolesForUser(userId, function(roles) {
@@ -52,4 +54,19 @@
   fetchUsers(function(users) {
     displayPopup(users);
   });
+})();
+//---------
+javascript: (function() {
+  var head = document.head || document.getElementsByTagName('head')[0];
+
+  var select2script = document.createElement('script');
+  select2script.type = 'text/javascript';
+  select2script.src = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js';
+  head.appendChild(select2script);
+
+  var select2style = document.createElement('link');
+  select2style.rel = 'stylesheet';
+  select2style.type = 'text/css';
+  select2style.href = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css';
+  head.appendChild(select2style);
 })();
