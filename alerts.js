@@ -1,55 +1,21 @@
 javascript: (function() {
-  debugger;
-  function fetchUsersAndRoles(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname,systemuserid').then(function(users) {
-      var userRoles = [];
-      var processedUsers = 0;
-
-      function processUser(user) {
-        Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + user.systemuserid)
-          .then(function(roles) {
-            userRoles.push({ name: user.fullname, roles: roles.entities.map(role => role.name) });
-            processedUsers++;
-
-            if (processedUsers < users.entities.length) {
-              processUser(users.entities[processedUsers]);
-            } else {
-              callback(userRoles);
-            }
-          });
-      }
-
-      if (users.entities.length > 0) {
-        processUser(users.entities[0]);
-      }
-    });
+  function fetchUsers(callback) {
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname').then(callback);
+  }
+  
+  function fetchRolesForUser(userId, callback) {
+    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + userId).then(callback);
   }
 
-  function makePopupMovable(popupDiv) {
-    // You can implement drag-and-drop functionality for the popup here
-  }
-
-  function openPopup(users) {
+  function displayPopup(users) {
     var popupHtml = `
-    <style>
-      /* Styles here */
-    </style>
-    <div class="popup">
-      <div class="container" id="container">
-        <div class="button-container">
-          <select id="userSelect">`;
-
-    users.forEach(user => {
-      popupHtml += '<option value="' + user.name + '">' + user.name + '</option>';
+    <!-- Add your specific styles and HTML structure here as in the example you provided -->
+    <select id="userSelect">`;
+    users.entities.forEach(user => {
+      popupHtml += `<option value="${user.systemuserid}">${user.fullname}</option>`;
     });
-
-    popupHtml += `
-          </select>
-          <div id="roles"></div>
-        </div>
-      </div>
-    </div>`;
-
+    popupHtml += `</select><div id="roles"></div>`;
+    
     var popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
     popupDiv.innerHTML = popupHtml;
@@ -60,17 +26,16 @@ javascript: (function() {
     popupDiv.style.transform = 'translate(-50%, -50%)';
     popupDiv.style.backgroundColor = 'white';
     document.body.appendChild(popupDiv);
-
-    makePopupMovable(popupDiv);
-
+    
     document.getElementById('userSelect').onchange = function() {
-      var userName = this.value;
-      var roles = users.find(user => user.name === userName).roles;
-      document.getElementById('roles').innerHTML = roles.join(', ');
+      var userId = this.value;
+      fetchRolesForUser(userId, function(roles) {
+        document.getElementById('roles').innerHTML = roles.entities.map(role => role.name).join(', ');
+      });
     };
   }
 
-  fetchUsersAndRoles(function(users) {
-    openPopup(users);
+  fetchUsers(function(users) {
+    displayPopup(users);
   });
 })();
