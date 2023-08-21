@@ -10,17 +10,15 @@ javascript: (function() {
 
   function displayPopup(users) {
     users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
+
     var popupHtml = `
       <div class="popup">
         <style>
           .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-          #dropdown div { cursor: pointer; }
-          #dropdown { display: none; border: 1px solid #888; }
           #searchInput { width: 100%; }
-          #userSelect { display: none; }
+          #userSelect { width: 100%; }
         </style>
         <input type="text" id="searchInput" placeholder="Search Users">
-        <div id="dropdown"></div>
         <select id="userSelect">`;
     users.entities.forEach(user => {
       popupHtml += `<option value="${user.systemuserid}">${user.fullname}</option>`;
@@ -38,34 +36,19 @@ javascript: (function() {
     document.body.appendChild(popupDiv);
 
     var searchInput = document.getElementById('searchInput');
-    var dropdown = document.getElementById('dropdown');
     var userSelect = document.getElementById('userSelect');
 
-    function updateDropdown(searchValue) {
-      dropdown.innerHTML = '';
-      if (searchValue.trim() === '') {
-        dropdown.style.display = 'none';
-        return;
+    function filterOptions() {
+      var searchText = searchInput.value.toLowerCase();
+      var options = userSelect.options;
+
+      for (var i = 0; i < options.length; i++) {
+        var option = options[i];
+        option.style.display = option.text.toLowerCase().includes(searchText) ? '' : 'none';
       }
-      dropdown.style.display = 'block';
-      users.entities.forEach(user => {
-        if (user.fullname.toLowerCase().includes(searchValue.toLowerCase())) {
-          var optionDiv = document.createElement('div');
-          optionDiv.textContent = user.fullname;
-          optionDiv.onclick = function() {
-            dropdown.style.display = 'none';
-            searchInput.value = user.fullname;
-            userSelect.value = user.systemuserid;
-            userSelect.onchange();
-          };
-          dropdown.appendChild(optionDiv);
-        }
-      });
     }
 
-    searchInput.onkeyup = function() {
-      updateDropdown(this.value);
-    };
+    searchInput.addEventListener('input', filterOptions);
 
     userSelect.onchange = function() {
       var userId = this.value;
@@ -82,8 +65,6 @@ javascript: (function() {
         });
       });
     };
-
-    updateDropdown('');
   }
 
   fetchUsers(function(users) {
