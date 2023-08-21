@@ -15,8 +15,9 @@ javascript: (function() {
     var popupHtml = `
       <div class="popup">
         <style>
-          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
-          #userSelect { width: 100%; } /* Set the width of the dropdown */
+          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 500px; } /* Increased width */
+          #userSelect { width: 100%; }
+          #roles { overflow-y: auto; max-height: 100px; } /* Scrollable div for roles */
         </style>
         <select id="userSelect">`;
     users.entities.forEach(user => {
