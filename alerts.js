@@ -4,9 +4,10 @@ javascript: (function() {
   }
 
   function fetchRolesForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=systemuserid eq ' + userId)
-      .then(roles => {
-        console.log("Fetched roles:", roles); // Logging the roles to the console
+    var query = "?$filter=_systemuserid_value eq " + userId + "&$expand=roleid($select=name)";
+    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', query)
+      .then(result => {
+        var roles = result.entities.map(entity => entity.roleid.name);
         callback(roles);
       })
       .catch(error => {
@@ -16,13 +17,12 @@ javascript: (function() {
 
   function displayPopup(users) {
     var popupHtml = `
-      <div class="popup">
-        <style>
-          .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 500px; }
-          #userSelect { width: 100%; }
-          #roles { overflow-y: auto; max-height: 100px; }
-        </style>
-        <select id="userSelect">`;
+    <div class="popup">
+      <style>
+        .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; width: 300px; }
+        #userSelect { width: 100%; }
+      </style>
+      <select id="userSelect">`;
     users.entities.forEach(user => {
       popupHtml += `<option value="${user.systemuserid}">${user.fullname}</option>`;
     });
@@ -41,7 +41,8 @@ javascript: (function() {
     document.getElementById('userSelect').onchange = function() {
       var userId = this.value;
       fetchRolesForUser(userId, function(roles) {
-        document.getElementById('roles').innerHTML = roles.entities.map(role => role.name).join(', ');
+        document.getElementById('roles').innerHTML = roles.join(', ');
+        console.log("Roles for user ID", userId, ":", roles);
       });
     };
   }
