@@ -54,24 +54,29 @@
 </html>
 //------------------
 
-javascript: ((function() {
+javascript: (function() {
   function fetchUsersAndRoles(callback) {
-    // Retrieve users and their security roles using CRM 365 client-side API
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname').then(function(users) {
       var userRoles = [];
+      var promises = [];
+
       users.entities.forEach(function(user) {
-        Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=_systemuserid_value eq ' + user.systemuserid).then(function(roles) {
-          userRoles.push({name: user.fullname, roles: roles.entities.map(role => role.name)});
-          if (userRoles.length === users.entities.length) {
-            callback(userRoles);
-          }
-        });
+        var promise = Xrm.WebApi.retrieveMultipleRecords('systemuserroles', '?$filter=_systemuserid_value eq ' + user.systemuserid)
+          .then(function(roles) {
+            userRoles.push({ name: user.fullname, roles: roles.entities.map(role => role.name) });
+          });
+
+        promises.push(promise);
+      });
+
+      // Wait for all promises to resolve
+      Promise.all(promises).then(function() {
+        callback(userRoles);
       });
     });
   }
 
   function displayPopup(users) {
-    // Create and display the popup with users and their roles
     var html = '<select id="userSelect">';
     users.forEach(user => {
       html += '<option value="' + user.name + '">' + user.name + '</option>';
@@ -80,6 +85,7 @@ javascript: ((function() {
 
     var popup = window.open('', 'popup', 'width=300,height=200');
     popup.document.write(html);
+    popup.document.close(); // Close the document to allow further manipulation
 
     popup.document.getElementById('userSelect').onchange = function() {
       var userName = this.value;
@@ -92,3 +98,4 @@ javascript: ((function() {
     displayPopup(users);
   });
 })();
+
