@@ -39,7 +39,7 @@ javascript: (function() {
           var userDiv = document.createElement('div');
           userDiv.textContent = user.fullname;
           userDiv.onclick = function() {
-            userListDiv.innerHTML = '';
+            // User list remains unchanged here
             fetchRolesForUser(user.systemuserid, function(roles) {
               var rolesList = document.getElementById('roles');
               rolesList.innerHTML = '';
