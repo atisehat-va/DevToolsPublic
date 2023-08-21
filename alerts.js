@@ -1,4 +1,5 @@
 javascript: (function() {
+  debugger;
   function fetchUsersAndRoles(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=fullname,systemuserid').then(function(users) {
       var userRoles = [];
