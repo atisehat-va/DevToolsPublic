@@ -29,10 +29,13 @@ javascript: (function() {
     Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
+  let selectedUserId = null; // Variable to store the selected user ID
+
   function createPopupHtml() {
     return `
       <div class="popup">
         <style>${popupCss}</style>
+        <button id="goToProfile" style="position: absolute; right: 10px; top: 10px;">Go to Profile</button>
         <div class="section" id="section1">
           <h3>User Info</h3>
           <input type="text" id="searchInput" placeholder="Search Users">
@@ -57,6 +60,13 @@ javascript: (function() {
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
+
+    document.getElementById('goToProfile').onclick = () => {
+      if (selectedUserId) {
+        window.open(`/profile/${selectedUserId}`, '_blank');
+      }
+    };
+
     return popupDiv;
   }
 
