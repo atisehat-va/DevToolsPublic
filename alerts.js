@@ -13,7 +13,7 @@ javascript: (function() {
   `;
 
   function fetchUsers(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname&$filter=statuscode eq 1').then(callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname&$filter=(isdisabled eq false)').then(callback);
   }
 
   function fetchRolesForUser(userId, callback) {
