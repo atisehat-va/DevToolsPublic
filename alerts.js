@@ -1,4 +1,4 @@
-javascript: (function() {
+(function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 900px; height: 600px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
@@ -14,7 +14,7 @@ javascript: (function() {
   `;
 
   function fetchUsers(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,businessunitid&$filter=(isdisabled eq false)').then(callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
   }
 
   function fetchRolesForUser(userId, callback) {
@@ -59,6 +59,7 @@ javascript: (function() {
       userDiv.className = 'user';
       userDiv.textContent = user.fullname;
       userDiv.dataset.id = user.systemuserid;
+      userDiv.dataset.businessunitid = user._businessunitid_value; // Storing the business unit ID
       userDiv.onclick = () => selectUserCallback(user);
       userListDiv.appendChild(userDiv);
     });
@@ -71,7 +72,7 @@ javascript: (function() {
 
     // Displaying the Business Unit in Section 2
     const businessUnitDiv = document.getElementById('businessUnit');
-    businessUnitDiv.textContent = user.businessunitid ? user.businessunitid.name : 'N/A';
+    businessUnitDiv.textContent = user._businessunitid_value ? user._businessunitid_value : 'N/A';
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
