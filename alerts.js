@@ -2,27 +2,23 @@ javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 900px; height: 600px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; }
+    .section h3 { text-align: center; } /* Centering the section titles */
     #section1 { text-align: center; height: 200px; }
     #section1 input { margin-bottom: 10px; }
-    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
-    #section1 #userList::-webkit-scrollbar { display: none; }
-    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 300px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; } /* Hiding scrollbar */
+    #section1 #userList::-webkit-scrollbar { display: none; } /* Hiding scrollbar for Webkit browsers */
+    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 300px; vertical-align: top; box-sizing: border-box; text-align: left; } /* Text left-aligned in sections */
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
     #sectionsRow { white-space: nowrap; }
   `;
 
   function fetchUsers(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,businessunitid&$filter=statuscode eq 1').then(callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname&$filter=statuscode eq 1').then(callback);
   }
 
   function fetchRolesForUser(userId, callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
-  }
-
-  function fetchBusinessUnit(businessUnitId, callback) {
-    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
   function createPopupHtml() {
@@ -35,7 +31,7 @@ javascript: (function() {
           <div id="userList"></div>
         </div>
         <div id="sectionsRow">
-          <div class="section" id="section2"><h3>Section 2</h3><div id="businessUnit"></div></div>
+          <div class="section" id="section2"><h3>Section 2</h3></div>
           <div class="section" id="section3"><h3>Section 3</h3></div>
           <div class="section" id="section4"><h3>Section 4</h3><ul></ul></div>
         </div>
@@ -83,11 +79,6 @@ javascript: (function() {
           rolesList.appendChild(listItem);
         });
       });
-    });
-    
-    // Retrieve Business Unit and display it in Section 2
-    fetchBusinessUnit(user['businessunitid'], function(businessUnit) {
-      document.getElementById('businessUnit').textContent = 'Business Unit: ' + businessUnit.name;
     });
   }
 
