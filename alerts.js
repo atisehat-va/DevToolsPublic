@@ -2,12 +2,12 @@ javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 900px; height: 600px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; }
+    .section h3 { text-align: center; } /* Centering the section titles */
     #section1 { text-align: center; height: 250px; }
     #section1 input { margin-bottom: 10px; width: 230px;}
-    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
-    #section1 #userList::-webkit-scrollbar { display: none; }
-    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; } /* Hiding scrollbar */
+    #section1 #userList::-webkit-scrollbar { display: none; } /* Hiding scrollbar for Webkit browsers */
+    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; } /* Text left-aligned in sections */
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
     #sectionsRow { white-space: nowrap; }
@@ -21,10 +21,8 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
   }
 
-  function fetchBusinessUnitNameById(businessUnitId, callback) {
-    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(function(result) {
-      callback(result.name);
-    });
+  function fetchTeamsForUser(userId, callback) {
+    Xrm.WebApi.retrieveMultipleRecords('team', `?$filter=systemuserid eq ${userId}`).then(callback);
   }
 
   function createPopupHtml() {
@@ -38,7 +36,7 @@ javascript: (function() {
         </div>
         <div id="sectionsRow">
           <div class="section" id="section2"><h3>Section 2</h3><div id="businessUnit"></div></div>
-          <div class="section" id="section3"><h3>Section 3</h3></div>
+          <div class="section" id="section3"><h3>Section 3</h3><ul id="teamsList"></ul></div>
           <div class="section" id="section4"><h3>Section 4</h3><ul></ul></div>
         </div>
       </div>`;
@@ -65,7 +63,6 @@ javascript: (function() {
       userDiv.className = 'user';
       userDiv.textContent = user.fullname;
       userDiv.dataset.id = user.systemuserid;
-      userDiv.dataset.businessunitid = user._businessunitid_value;
       userDiv.onclick = () => selectUserCallback(user);
       userListDiv.appendChild(userDiv);
     });
@@ -75,16 +72,6 @@ javascript: (function() {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
-
-    const businessUnitDiv = document.getElementById('businessUnit');
-    if (user._businessunitid_value) {
-      fetchBusinessUnitNameById(user._businessunitid_value, function(businessUnitName) {
-        businessUnitDiv.textContent = businessUnitName;
-      });
-    } else {
-      businessUnitDiv.textContent = 'N/A';
-    }
-
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
       rolesList.innerHTML = '';
@@ -95,6 +82,15 @@ javascript: (function() {
           listItem.textContent = roleDetail.name;
           rolesList.appendChild(listItem);
         });
+      });
+    });
+    fetchTeamsForUser(user.systemuserid, function(teams) {
+      const teamsList = document.getElementById('teamsList');
+      teamsList.innerHTML = '';
+      teams.entities.forEach(team => {
+        const listItem = document.createElement('li');
+        listItem.textContent = team.name;
+        teamsList.appendChild(listItem);
       });
     });
   }
