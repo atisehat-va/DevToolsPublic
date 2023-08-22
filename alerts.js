@@ -14,7 +14,7 @@ javascript: (function() {
   `;
 
   function fetchUsers(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value,_businessunitid_value@OData.Community.Display.V1.FormattedValue&$filter=(isdisabled eq false)').then(callback);
   }
 
   function fetchRolesForUser(userId, callback) {
@@ -72,12 +72,10 @@ javascript: (function() {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
-    
-    const businessUnitList = document.getElementById('section2').querySelector('ul');
-    businessUnitList.innerHTML = '';
-    const listItem = document.createElement('li');
-    listItem.textContent = user._businessunitid_value;
-    businessUnitList.appendChild(listItem);
+
+    const businessUnitName = user['_businessunitid_value@OData.Community.Display.V1.FormattedValue'];
+    const section2Div = document.getElementById('section2');
+    section2Div.innerHTML = '<h3>Section 2</h3>' + businessUnitName;
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
