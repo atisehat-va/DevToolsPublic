@@ -34,14 +34,14 @@ javascript: (function() {
       <div class="popup">
         <style>${popupCss}</style>
         <div class="section" id="section1">
-          <h3>Section 1</h3>
+          <h3>User Info</h3>
           <input type="text" id="searchInput" placeholder="Search Users">
           <div id="userList"></div>
         </div>
         <div id="sectionsRow">
-          <div class="section" id="section2"><h3>Section 2</h3><ul></ul></div>
-          <div class="section" id="section3"><h3>Section 3</h3><ul></ul></div>
-          <div class="section" id="section4"><h3>Section 4</h3><ul></ul></div>
+          <div class="section" id="section2"><h3>Business Unit</h3><ul></ul></div>
+          <div class="section" id="section3"><h3>Teams</h3><ul></ul></div>
+          <div class="section" id="section4"><h3>Security Roles</h3><ul></ul></div>
         </div>
       </div>`;
   }
