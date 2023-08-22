@@ -29,13 +29,10 @@ javascript: (function() {
     Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
-  let selectedUserId = null; // Variable to store the selected user ID
-
   function createPopupHtml() {
     return `
       <div class="popup">
         <style>${popupCss}</style>
-        <button id="goToProfile" style="position: absolute; right: 10px; top: 10px;">Go to Profile</button>
         <div class="section" id="section1">
           <h3>User Info</h3>
           <input type="text" id="searchInput" placeholder="Search Users">
@@ -60,13 +57,6 @@ javascript: (function() {
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
-
-    document.getElementById('goToProfile').onclick = () => {
-      if (selectedUserId) {
-        window.open(`/profile/${selectedUserId}`, '_blank');
-      }
-    };
-
     return popupDiv;
   }
 
@@ -140,20 +130,3 @@ javascript: (function() {
     displayPopup(users);
   });
 })();
-// code reviewed
-//-----------
-
-function navigateToUserRecord(userId) {
-  // Construct the URL of the user's record using the client URL and user ID
-  var userRecordUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/main.aspx?etc=8&id={" + userId + "}&pagetype=entityrecord";
-
-  // Open the user's record in a new window or the same window based on your requirement
-  window.open(userRecordUrl, '_blank');
-}
-
-// Test the function by passing a valid user ID (replace this with a real user ID from your CRM 365)
-var userId = "REPLACE_WITH_USER_ID";
-navigateToUserRecord(userId);
-
-// code reviewed
-
