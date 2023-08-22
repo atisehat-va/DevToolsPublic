@@ -143,17 +143,19 @@ javascript: (function() {
 // code reviewed
 //-----------
 
-function navigateToUsersPage() {
-  // Construct the URL of the users' listing page
-  var usersPageUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/main.aspx?area=Settings&page=Users&parent=Settings";
+function navigateToUserRecord(userId) {
+  // Construct the URL of the user's record using the client URL and user ID
+  var userRecordUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/main.aspx?etc=8&extraqs=%26formid%3d<FORM_ID>%26id%3d%7b" + userId + "%7d&pagetype=entityrecord";
 
-  // Open the users' listing page
-  window.open(usersPageUrl, '_blank');
+  // Open the user's record in a new window or the same window based on your requirement
+  window.open(userRecordUrl, '_blank');
 }
 
-// Test the function to navigate to the users' listing page
-navigateToUsersPage();
+// Test the function by passing a valid user ID (replace this with a real user ID from your CRM 365)
+var userId = "REPLACE_WITH_USER_ID";
+navigateToUserRecord(userId);
 
 // code reviewed
+
 
 
