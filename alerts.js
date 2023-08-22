@@ -145,7 +145,7 @@ javascript: (function() {
 
 function navigateToUserRecord(userId) {
   // Construct the URL of the user's record using the client URL and user ID
-  var userRecordUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/main.aspx?etc=8&extraqs=%26formid%3d<FORM_ID>%26id%3d%7b" + userId + "%7d&pagetype=entityrecord";
+  var userRecordUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/main.aspx?etc=8&id={" + userId + "}&pagetype=entityrecord";
 
   // Open the user's record in a new window or the same window based on your requirement
   window.open(userRecordUrl, '_blank');
@@ -156,6 +156,4 @@ var userId = "REPLACE_WITH_USER_ID";
 navigateToUserRecord(userId);
 
 // code reviewed
-
-
 
