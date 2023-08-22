@@ -1,10 +1,10 @@
 javascript: (function() {
-  const popupCss = `
+  const CSS = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 900px; height: 600px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; margin-bottom: 10px; } /* Added margin-bottom */
+    .section h3 { text-align: center; margin-bottom: 10px; }
     #section1 { text-align: center; height: 250px; }
-    #section1 input { margin-bottom: 10px; width: 230px;}
+    #section1 input { margin-bottom: 10px; width: 230px; }
     #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     #section1 #userList::-webkit-scrollbar { display: none; }
     #section2, #section3, #section4 { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
@@ -13,40 +13,40 @@ javascript: (function() {
     #sectionsRow { white-space: nowrap; }
   `;
 
-  function fetchUsers(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
+  const POPUP_HTML = `
+    <div class="popup">
+      <style>${CSS}</style>
+      <div class="section" id="section1">
+        <h3>Section 1</h3>
+        <input type="text" id="searchInput" placeholder="Search Users">
+        <div id="userList"></div>
+      </div>
+      <div id="sectionsRow">
+        <div class="section" id="section2"><h3>Section 2</h3><ul></ul></div>
+        <div class="section" id="section3"><h3>Section 3</h3><ul></ul></div>
+        <div class="section" id="section4"><h3>Section 4</h3><ul></ul></div>
+      </div>
+    </div>
+  `;
+
+  function fetchRecords(entity, query, callback) {
+    return Xrm.WebApi.retrieveMultipleRecords(entity, query).then(callback);
   }
 
-  function fetchRolesForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
+  function appendListItem(element, textContent) {
+    const listItem = document.createElement('li');
+    listItem.textContent = textContent;
+    element.appendChild(listItem);
   }
 
-  function fetchTeamsForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
-  }
-
-  function createPopupHtml() {
-    return `
-      <div class="popup">
-        <style>${popupCss}</style>
-        <div class="section" id="section1">
-          <h3>Section 1</h3>
-          <input type="text" id="searchInput" placeholder="Search Users">
-          <div id="userList"></div>
-        </div>
-        <div id="sectionsRow">
-          <div class="section" id="section2"><h3>Section 2</h3><ul></ul></div>
-          <div class="section" id="section3"><h3>Section 3</h3><ul></ul></div>
-          <div class="section" id="section4"><h3>Section 4</h3><ul></ul></div>
-        </div>
-      </div>`;
+  function clearElement(element) {
+    element.innerHTML = '';
   }
 
   function createAndAppendPopup() {
-    const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
-    popupDiv.innerHTML = popupHtml;
+    popupDiv.innerHTML = POPUP_HTML;
     popupDiv.style.position = 'absolute';
     popupDiv.style.zIndex = '10000';
     popupDiv.style.left = '50%';
@@ -72,33 +72,26 @@ javascript: (function() {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
-    
-    const businessUnitList = document.getElementById('section2').querySelector('ul');
-    businessUnitList.innerHTML = '';
-    const listItem = document.createElement('li');
-    listItem.textContent = user._businessunitid_value;
-    businessUnitList.appendChild(listItem);
 
-    fetchRolesForUser(user.systemuserid, function(roles) {
+    const businessUnitList = document.getElementById('section2').querySelector('ul');
+    clearElement(businessUnitList);
+    appendListItem(businessUnitList, user._businessunitid_value);
+
+    fetchRecords('systemuserroles', `?$filter=systemuserid eq ${user.systemuserid}`, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
-      rolesList.innerHTML = '';
+      clearElement(rolesList);
       roles.entities.forEach(role => {
-        const roleId = role['roleid'];
-        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-          const listItem = document.createElement('li');
-          listItem.textContent = roleDetail.name;
-          rolesList.appendChild(listItem);
+        Xrm.WebApi.retrieveRecord("role", role['roleid'], "?$select=name,roleid").then(function(roleDetail) {
+          appendListItem(rolesList, roleDetail.name);
         });
       });
     });
 
-    fetchTeamsForUser(user.systemuserid, function(response) {
+    fetchRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${user.systemuserid}`, function(response) {
       const teamsList = document.getElementById('section3').querySelector('ul');
-      teamsList.innerHTML = '';
+      clearElement(teamsList);
       response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
+        appendListItem(teamsList, team.name);
       });
     });
   }
@@ -119,7 +112,7 @@ javascript: (function() {
     setupSearchFilter();
   }
 
-  fetchUsers(function(users) {
+  fetchRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)', function(users) {
     displayPopup(users);
   });
 })();
