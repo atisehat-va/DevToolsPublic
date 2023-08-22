@@ -22,7 +22,7 @@ javascript: (function() {
   }
 
   function fetchTeamsForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('team', `?$filter=teammembership_association/any(t:t/systemuserid eq ${userId})`).then(callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
   }
 
   function createPopupHtml() {
@@ -35,7 +35,7 @@ javascript: (function() {
           <div id="userList"></div>
         </div>
         <div id="sectionsRow">
-          <div class="section" id="section2"><h3>Section 2</h3></div>
+          <div class="section" id="section2"><h3>Section 2</h3><ul></ul></div>
           <div class="section" id="section3"><h3>Section 3</h3><ul></ul></div>
           <div class="section" id="section4"><h3>Section 4</h3><ul></ul></div>
         </div>
@@ -69,12 +69,16 @@ javascript: (function() {
   }
 
   function selectUser(user) {
-    // Clear previous selections
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
+    
+    const businessUnitList = document.getElementById('section2').querySelector('ul');
+    businessUnitList.innerHTML = '';
+    const listItem = document.createElement('li');
+    listItem.textContent = user._businessunitid_value;
+    businessUnitList.appendChild(listItem);
 
-    // Fetch and display roles for the selected user
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
       rolesList.innerHTML = '';
@@ -88,16 +92,10 @@ javascript: (function() {
       });
     });
 
-    // Fetch and display business unit for the selected user
-    Xrm.WebApi.retrieveRecord("businessunit", user["_businessunitid_value"], "?$select=name").then(function(businessUnit) {
-      document.getElementById('section2').innerHTML = `<h3>Section 2</h3><p>${businessUnit.name}</p>`;
-    });
-
-    // Fetch and display teams for the selected user
-    fetchTeamsForUser(user.systemuserid, function(teams) {
+    fetchTeamsForUser(user.systemuserid, function(response) {
       const teamsList = document.getElementById('section3').querySelector('ul');
       teamsList.innerHTML = '';
-      teams.entities.forEach(team => {
+      response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
         listItem.textContent = team.name;
         teamsList.appendChild(listItem);
