@@ -2,12 +2,12 @@ javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 900px; height: 600px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; } /* Centering the section titles */
+    .section h3 { text-align: center; }
     #section1 { text-align: center; height: 250px; }
     #section1 input { margin-bottom: 10px; width: 230px;}
-    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; } /* Hiding scrollbar */
-    #section1 #userList::-webkit-scrollbar { display: none; } /* Hiding scrollbar for Webkit browsers */
-    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; } /* Text left-aligned in sections */
+    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
+    #section1 #userList::-webkit-scrollbar { display: none; }
+    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
     #sectionsRow { white-space: nowrap; }
@@ -19,10 +19,6 @@ javascript: (function() {
 
   function fetchRolesForUser(userId, callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
-  }
-
-  function fetchBusinessUnitName(businessUnitId, callback) {
-    Xrm.WebApi.retrieveRecord("businessunit", businessUnitId, "?$select=name").then(callback);
   }
 
   function createPopupHtml() {
@@ -72,6 +68,12 @@ javascript: (function() {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
+
+    // Display the business unit ID in Section 2
+    const businessUnitId = user.businessunitid;
+    const section2 = document.getElementById('section2');
+    section2.innerHTML = `<h3>Section 2</h3><p>Business Unit ID: ${businessUnitId}</p>`;
+
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
       rolesList.innerHTML = '';
@@ -83,13 +85,6 @@ javascript: (function() {
           rolesList.appendChild(listItem);
         });
       });
-    });
-
-    // Fetch the business unit name and display it in Section 2
-    const businessUnitId = user.businessunitid;
-    fetchBusinessUnitName(businessUnitId, function(businessUnit) {
-      const section2 = document.getElementById('section2');
-      section2.innerHTML = `<h3>Section 2</h3><p>${businessUnit.name}</p>`;
     });
   }
 
