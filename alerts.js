@@ -3,6 +3,8 @@ javascript: (function() {
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 900px; height: 600px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; text-align: left; overflow-y: scroll; }
     #section1 { text-align: center; height: 200px; }
+    #section1 input { margin-bottom: 10px; } /* Space between Search User input and user list */
+    #section1 #userList { margin-bottom: 15px; } /* Space between user list and sections below */
     #section2, #section3, #section4 { display: inline-block; width: 33%; height: 300px; vertical-align: top; box-sizing: border-box; }
     #userList { max-height: 150px; overflow-y: scroll; }
     .selected { background-color: #f0f0f0; }
