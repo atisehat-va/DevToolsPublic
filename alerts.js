@@ -31,7 +31,7 @@ javascript: (function() {
           <div id="userList"></div>
         </div>
         <div id="sectionsRow">
-          <div class="section" id="section2"><h3>Section 2</h3></div>
+          <div class="section" id="section2"><h3>Section 2</h3><div id="businessUnit"></div></div>
           <div class="section" id="section3"><h3>Section 3</h3></div>
           <div class="section" id="section4"><h3>Section 4</h3><ul></ul></div>
         </div>
@@ -69,10 +69,9 @@ javascript: (function() {
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-    // Display the business unit ID in Section 2
-    const businessUnitId = user.businessunitid;
-    const section2 = document.getElementById('section2');
-    section2.innerHTML = `<h3>Section 2</h3><p>Business Unit ID: ${businessUnitId}</p>`;
+    // Displaying the Business Unit in Section 2
+    const businessUnitDiv = document.getElementById('businessUnit');
+    businessUnitDiv.textContent = user.businessunitid ? user.businessunitid.name : 'N/A';
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
