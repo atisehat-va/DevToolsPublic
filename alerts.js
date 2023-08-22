@@ -2,12 +2,12 @@ javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 900px; height: 600px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; margin-bottom: 15px; }
+    .section h3 { text-align: center; } /* Centering the section titles */
     #section1 { text-align: center; height: 200px; }
     #section1 input { margin-bottom: 10px; }
-    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
-    #section1 #userList::-webkit-scrollbar { display: none; }
-    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 300px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    #section1 #userList { margin-bottom: 15px; max-height: 150px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; } /* Hiding scrollbar */
+    #section1 #userList::-webkit-scrollbar { display: none; } /* Hiding scrollbar for Webkit browsers */
+    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 300px; vertical-align: top; box-sizing: border-box; text-align: left; } /* Text left-aligned in sections */
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
     #sectionsRow { white-space: nowrap; }
@@ -87,10 +87,6 @@ javascript: (function() {
       const searchValue = this.value.toLowerCase();
       document.querySelectorAll('.user').forEach(el => {
         el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-      });
-      // Clearing the text in sections 2, 3, and 4
-      ['section2', 'section3', 'section4'].forEach(id => {
-        document.getElementById(id).innerHTML = `<h3>${id.replace('section', 'Section ')}</h3>`;
       });
     };
   }
