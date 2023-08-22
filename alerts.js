@@ -21,6 +21,12 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
   }
 
+  function fetchBusinessUnitNameById(businessUnitId, callback) {
+    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(function(result) {
+      callback(result.name);
+    });
+  }
+
   function createPopupHtml() {
     return `
       <div class="popup">
@@ -59,7 +65,7 @@ javascript: (function() {
       userDiv.className = 'user';
       userDiv.textContent = user.fullname;
       userDiv.dataset.id = user.systemuserid;
-      userDiv.dataset.businessunitid = user._businessunitid_value; // Storing the business unit ID
+      userDiv.dataset.businessunitid = user._businessunitid_value;
       userDiv.onclick = () => selectUserCallback(user);
       userListDiv.appendChild(userDiv);
     });
@@ -70,9 +76,14 @@ javascript: (function() {
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-    // Displaying the Business Unit in Section 2
     const businessUnitDiv = document.getElementById('businessUnit');
-    businessUnitDiv.textContent = user._businessunitid_value ? user._businessunitid_value : 'N/A';
+    if (user._businessunitid_value) {
+      fetchBusinessUnitNameById(user._businessunitid_value, function(businessUnitName) {
+        businessUnitDiv.textContent = businessUnitName;
+      });
+    } else {
+      businessUnitDiv.textContent = 'N/A';
+    }
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section4').querySelector('ul');
