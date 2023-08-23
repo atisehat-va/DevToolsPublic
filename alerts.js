@@ -133,17 +133,11 @@ javascript: (function() {
 
 //----------------------NEW--Test-----------
 function updateUserDetails(userId, businessUnitId, teamId, roleId) {
-    // Retrieve current business unit of the user
-    Xrm.WebApi.retrieveRecord("systemuser", userId, "?$select=businessunitid").then(function(result) {
-        // Disassociate User from Current Business Unit
-        Xrm.WebApi.disassociateRecords("systemuser", userId, "businessunitid", "businessunit", result.businessunitid);
-
-        // Associate User with New Business Unit
-        var businessUnitRef = {
-            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/businessunits(" + businessUnitId + ")"
-        };
-        Xrm.WebApi.updateRecord("systemuser", userId, { "businessunitid": businessUnitRef });
-
+    // Change Business Unit
+    var data1 = {
+        "businessunitid@odata.bind": "/businessunits(" + businessUnitId + ")"
+    };
+    Xrm.WebApi.updateRecord("systemuser", userId, data1).then(function() {
         // Associate User to Specified Team
         var addTeamRef = {
             "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")"
