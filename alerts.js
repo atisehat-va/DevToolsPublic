@@ -149,11 +149,18 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         var data2 = {
             "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
         };
-        Xrm.WebApi.online.execute({
-            method: "POST",
-            uri: Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")/team_members/$ref",
-            payload: data2
-        });
+        var addUserToTeamRequest = {
+            target: data2,
+            teamId: teamId,
+            getMetadata: function() {
+                return {
+                    boundParameter: "target",
+                    operationType: 0,
+                    operationName: "AddUserToTeam"
+                };
+            }
+        };
+        Xrm.WebApi.online.execute(addUserToTeamRequest);
     });
 
     // Remove All Current Security Roles
@@ -166,11 +173,18 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         var data3 = {
             "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
         };
-        Xrm.WebApi.online.execute({
-            method: "POST",
-            uri: Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")/systemuserroles_association/$ref",
-            payload: data3
-        });
+        var addRoleToUserRequest = {
+            target: data3,
+            roleId: roleId,
+            getMetadata: function() {
+                return {
+                    boundParameter: "target",
+                    operationType: 0,
+                    operationName: "AddRoleToUser"
+                };
+            }
+        };
+        Xrm.WebApi.online.execute(addRoleToUserRequest);
     });
 }
 
