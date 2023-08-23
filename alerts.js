@@ -197,6 +197,29 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         "businessunitid@odata.bind": "/businessunits(" + businessUnitId + ")"
     };
     Xrm.WebApi.updateRecord("systemuser", userId, data1).then(function() {
+        // Disassociate User from Current Roles
+        var rolesUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association";
+        var roleRequest = new XMLHttpRequest();
+        roleRequest.open("GET", rolesUrl, true);
+        roleRequest.setRequestHeader("OData-MaxVersion", "4.0");
+        roleRequest.setRequestHeader("OData-Version", "4.0");
+        roleRequest.setRequestHeader("Accept", "application/json");
+        roleRequest.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                roleRequest.onreadystatechange = null;
+                if (this.status === 200) {
+                    var results = JSON.parse(this.response).value;
+                    results.forEach(function(result) {
+                        var disassociateUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + result.roleid + ")";
+                        var disassociateRequest = new XMLHttpRequest();
+                        disassociateRequest.open("DELETE", disassociateUrl, true);
+                        disassociateRequest.send();
+                    });
+                }
+            }
+        };
+        roleRequest.send();
+
         // Disassociate User from Current Teams
         var teamsUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association";
         var teamRequest = new XMLHttpRequest();
@@ -210,7 +233,7 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
                 if (this.status === 200) {
                     var results = JSON.parse(this.response).value;
                     results.forEach(function(result) {
-                        var disassociateUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association/$ref?$id=" + Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + result.teamid + ")";
+                        var disassociateUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")";
                         var disassociateRequest = new XMLHttpRequest();
                         disassociateRequest.open("DELETE", disassociateUrl, true);
                         disassociateRequest.send();
