@@ -146,47 +146,27 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         });
 
         // Add User to Specified Team
-        var data2 = {
-            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
+        var addTeamRef = {
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")"
         };
-        var addUserToTeamRequest = {
-            target: data2,
-            teamId: teamId,
-            getMetadata: function() {
-                return {
-                    boundParameter: "target",
-                    operationType: 0,
-                    operationName: "AddUserToTeam"
-                };
-            }
-        };
-        Xrm.WebApi.online.execute(addUserToTeamRequest);
+        Xrm.WebApi.createRecord("systemuser", userId, { "teammembership_association": [addTeamRef] });
     });
 
-    // Remove All Current Security Roles
-    Xrm.WebApi.retrieveMultipleRecords("systemuserroles", "?$filter=systemuserid eq " + userId).then(function(result) {
-        result.entities.forEach(function(entity) {
-            Xrm.WebApi.deleteRecord("systemuserroles", entity.systemuserroleid);
+    // Retrieve All Current Security Roles
+    Xrm.WebApi.retrieveMultipleRecords("systemuser", userId, "?$expand=systemuserroles_association($select=roleid)").then(function(result) {
+        result.entities[0]["systemuserroles_association"].forEach(function(role) {
+            // Disassociate Current Security Roles
+            Xrm.WebApi.deleteRecord("systemuser", userId, "systemuserroles_association(" + role.roleid + ")");
         });
 
         // Assign New Security Role
-        var data3 = {
-            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
+        var addRoleRef = {
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")"
         };
-        var addRoleToUserRequest = {
-            target: data3,
-            roleId: roleId,
-            getMetadata: function() {
-                return {
-                    boundParameter: "target",
-                    operationType: 0,
-                    operationName: "AddRoleToUser"
-                };
-            }
-        };
-        Xrm.WebApi.online.execute(addRoleToUserRequest);
+        Xrm.WebApi.createRecord("systemuser", userId, { "systemuserroles_association": [addRoleRef] });
     });
 }
 
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
+
