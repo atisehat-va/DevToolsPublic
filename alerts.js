@@ -317,11 +317,24 @@ async function updateUserDetails(userId, businessUnitId, teamId, roleId) {
     }
   });
 
+  // For Disassociating Roles
   if (roleResponse.ok) {
     const results = await roleResponse.json();
-    await Promise.all(results.value.map(result => {
+    await Promise.all(results.value.map(async (result) => {
       const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
-      return fetch(disassociateUrl, { method: "DELETE" });
+      const disassociateResponse = await fetch(disassociateUrl, {
+        method: "DELETE",
+        headers: {
+          "OData-MaxVersion": "4.0",
+          "OData-Version": "4.0",
+          Accept: "application/json",
+          "Content-Type": "application/json; charset=utf-8", // You might need to include this header
+        }
+      });
+
+      if (!disassociateResponse.ok) {
+        console.error(`Error disassociating role with URL: ${disassociateUrl}`);
+      }
     }));
   }
 
@@ -335,11 +348,24 @@ async function updateUserDetails(userId, businessUnitId, teamId, roleId) {
     }
   });
 
+  // For Disassociating Teams
   if (teamResponse.ok) {
     const results = await teamResponse.json();
-    await Promise.all(results.value.map(result => {
+    await Promise.all(results.value.map(async (result) => {
       const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${userId})`;
-      return fetch(disassociateUrl, { method: "DELETE" });
+      const disassociateResponse = await fetch(disassociateUrl, {
+        method: "DELETE",
+        headers: {
+          "OData-MaxVersion": "4.0",
+          "OData-Version": "4.0",
+          Accept: "application/json",
+          "Content-Type": "application/json; charset=utf-8", // You might need to include this header
+        }
+      });
+
+      if (!disassociateResponse.ok) {
+        console.error(`Error disassociating team with URL: ${disassociateUrl}`);
+      }
     }));
   }
 
@@ -380,4 +406,3 @@ async function updateUserDetails(userId, businessUnitId, teamId, roleId) {
 
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
-
