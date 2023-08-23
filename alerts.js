@@ -297,75 +297,92 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
 ///------------------lastNEw--------------
 
-function updateUserDetails(userId, businessUnitId, teamId, roleId) {
-    var clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
+async function updateUserDetails(userId, businessUnitId, teamId, roleId) {
+  const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
-    // Change Business Unit
-    var data1 = {
-        "businessunitid@odata.bind": "/businessunits(" + businessUnitId + ")"
-    };
+  // Change Business Unit
+  const data1 = {
+    "businessunitid@odata.bind": `/businessunits(${businessUnitId})`
+  };
 
-    Xrm.WebApi.updateRecord("systemuser", userId, data1)
-        .then(function() {
-            // Fetch the default Business Unit Team ID
-            var defaultBusinessUnitTeamUrl = clientUrl + "/api/data/v9.0/businessunits(" + businessUnitId + ")?$select=_defaultteamid_value";
-            return fetch(defaultBusinessUnitTeamUrl)
-                .then(response => response.json())
-                .then(data => {
-                    var defaultBusinessUnitTeamId = data._defaultteamid_value;
+  await Xrm.WebApi.updateRecord("systemuser", userId, data1);
 
-                    // Disassociate User from Current Teams
-                    var teamsUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association";
-                    return fetch(teamsUrl)
-                        .then(response => response.json())
-                        .then(data => {
-                            var results = data.value;
-                            return Promise.all(results.map(function(result) {
-                                if (result.teamid === defaultBusinessUnitTeamId) {
-                                    // Skip disassociation for the default business unit team
-                                    return Promise.resolve();
-                                }
-                                var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
-                                return fetch(disassociateUrl, { method: 'DELETE' })
-                                    .catch(err => console.error('Error disassociating team: ', err));
-                            }));
-                        });
-                })
-                .catch(err => console.error(err));
-        })
-        .then(function() {
-            // Disassociate User from Current Roles
-            var rolesUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association";
-            return fetch(rolesUrl)
-                .then(response => response.json())
-                .then(data => {
-                    var results = data.value;
-                    return Promise.all(results.map(function(result) {
-                        var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
-                        return fetch(disassociateUrl, { method: 'DELETE' })
-                            .catch(err => console.error('Error disassociating role: ', err));
-                    }));
-                })
-                .catch(err => console.error(err));
-        })
-        .then(function() {
-            // Associate User to Specified Team
-            var associateTeamUrl = clientUrl + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
-            var associateTeamData = {
-                "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
-            };
-            return fetch(associateTeamUrl, { method: 'POST', body: JSON.stringify(associateTeamData), headers: { "Content-Type": "application/json; charset=utf-8" } })
-                .catch(err => console.error('Error associating team: ', err));
-        })
-        .then(function() {
-            // Associate User to Specified Role
-            var associateRoleUrl = clientUrl + "/api/data/v9.0/roles(" + roleId + ")/systemuserroles_association/$ref";
-            var associateRoleData = {
-                "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
-            };
-            return fetch(associateRoleUrl, { method: 'POST', body: JSON.stringify(associateRoleData), headers: { "Content-Type": "application/json; charset=utf-8" } })
-                .catch(err => console.error('Error associating role: ', err));
-        });
+  // Disassociate User from Current Teams
+  await disassociateTeams(userId, clientUrl);
+
+  // Disassociate User from Current Roles
+  await disassociateRoles(userId, clientUrl);
+
+  // Associate User to Specified Team
+  await associateTeam(userId, teamId, clientUrl);
+
+  // Associate User to Specified Role
+  await associateRole(userId, roleId, clientUrl);
 }
+
+async function disassociateRoles(userId, clientUrl) {
+  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association`;
+  const roleResponse = await fetch(rolesUrl, getHeaders());
+
+  if (roleResponse.ok) {
+    const results = await roleResponse.json();
+    await Promise.all(results.value.map(result => {
+      const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
+      return fetch(disassociateUrl, { method: "DELETE" });
+    }));
+  }
+}
+
+async function disassociateTeams(userId, clientUrl) {
+  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/teammembership_association`;
+  const teamResponse = await fetch(teamsUrl, getHeaders());
+
+  if (teamResponse.ok) {
+    const results = await teamResponse.json();
+    await Promise.all(results.value.map(result => {
+      const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${userId})`;
+      return fetch(disassociateUrl, { method: "DELETE" });
+    }));
+  }
+}
+
+async function associateTeam(userId, teamId, clientUrl) {
+  const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref`;
+  const associateTeamData = {
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${userId})`
+  };
+
+  await fetch(associateTeamUrl, {
+    method: "POST",
+    headers: getHeaders(true),
+    body: JSON.stringify(associateTeamData)
+  });
+}
+
+async function associateRole(userId, roleId, clientUrl) {
+  const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${roleId})/systemuserroles_association/$ref`;
+  const associateRoleData = {
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${userId})`
+  };
+
+  await fetch(associateRoleUrl, {
+    method: "POST",
+    headers: getHeaders(true),
+    body: JSON.stringify(associateRoleData)
+  });
+}
+
+function getHeaders(isPost = false) {
+  const headers = {
+    "OData-MaxVersion": "4.0",
+    "OData-Version": "4.0",
+    Accept: "application/json",
+  };
+  if (isPost) {
+    headers["Content-Type"] = "application/json; charset=utf-8";
+  }
+  return { headers };
+}
+
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
