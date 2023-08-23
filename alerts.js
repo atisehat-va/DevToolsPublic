@@ -133,44 +133,30 @@ javascript: (function() {
 
 //----------------------NEW--Test-----------
 function updateUserDetails(userId, businessUnitId, teamId, roleId) {
-    // Change Business Unit
-    var data1 = {
-        "businessunitid@odata.bind": "/businessunits(" + businessUnitId + ")"
-    };
-    Xrm.WebApi.updateRecord("systemuser", userId, data1).then(function() {
-        // Remove User from All Teams
-        Xrm.WebApi.retrieveMultipleRecords("teammembership", "?$filter=systemuserid eq " + userId).then(function(result) {
-            result.entities.forEach(function(entity) {
-                Xrm.WebApi.deleteRecord("teammembership", entity.teammembershipid);
-            });
+    // Retrieve current business unit of the user
+    Xrm.WebApi.retrieveRecord("systemuser", userId, "?$select=businessunitid").then(function(result) {
+        // Disassociate User from Current Business Unit
+        Xrm.WebApi.disassociateRecords("systemuser", userId, "businessunitid", "businessunit", result.businessunitid);
 
-            // Add User to Specified Team
-            var addTeamRef = {
-                "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")"
-            };
-            Xrm.WebApi.updateRecord("systemuser", userId, { "teammembership_association": [addTeamRef] });
-        });
+        // Associate User with New Business Unit
+        var businessUnitRef = {
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/businessunits(" + businessUnitId + ")"
+        };
+        Xrm.WebApi.updateRecord("systemuser", userId, { "businessunitid": businessUnitRef });
 
-        // Retrieve User Roles
-        Xrm.WebApi.retrieveRecord("systemuser", userId, "?$expand=systemuserroles_association($select=roleid)").then(function(result) {
-            var promises = [];
+        // Associate User to Specified Team
+        var addTeamRef = {
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")"
+        };
+        Xrm.WebApi.associateRecords("systemuser", userId, "teammembership_association", "team", teamId, addTeamRef);
 
-            // Disassociate Current Security Roles
-            result.systemuserroles_association.forEach(function(role) {
-                promises.push(Xrm.WebApi.disassociateRecords("systemuser", userId, "systemuserroles_association", "role", role.roleid));
-            });
-
-            Promise.all(promises).then(function() {
-                // Associate New Security Role
-                var addRoleRef = {
-                    "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")"
-                };
-                Xrm.WebApi.associateRecords("systemuser", userId, "systemuserroles_association", "role", roleId, addRoleRef);
-            });
-        });
+        // Associate New Security Role
+        var addRoleRef = {
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")"
+        };
+        Xrm.WebApi.associateRecords("systemuser", userId, "systemuserroles_association", "role", roleId, addRoleRef);
     });
 }
 
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
-
