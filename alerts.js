@@ -214,8 +214,9 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
                         roleRequest.onreadystatechange = null;
                         if (this.status === 200) {
                             var results = JSON.parse(this.response).value;
-                            Promise.all(results.map(function(result) {
-                                var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
+                            var results = JSON.parse(this.response).value;
+                            results.forEach(function(result) {
+                                var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association(" + result.roleid + ")";
                                 var disassociateRequest = new XMLHttpRequest();
                                 disassociateRequest.open("DELETE", disassociateUrl, true);
                                 disassociateRequest.send();
@@ -243,7 +244,7 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
                         if (this.status === 200) {
                             var results = JSON.parse(this.response).value;
                             Promise.all(results.map(function(result) {
-                                var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
+                                var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association(" + userId + ")";
                                 var disassociateRequest = new XMLHttpRequest();
                                 disassociateRequest.open("DELETE", disassociateUrl, true);
                                 disassociateRequest.send();
