@@ -250,6 +250,3 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
 
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
-
-
-
