@@ -307,37 +307,77 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
 
     Xrm.WebApi.updateRecord("systemuser", userId, data1)
         .then(function() {
-            return fetch(clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association")
-                .then(response => response.json())
-                .then(results => {
-                    return Promise.all(results.value.map(function(result) {
-                        var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
-                        return fetch(disassociateUrl, { method: 'DELETE' });
-                    }));
-                });
+            return new Promise(function(resolve) {
+                // Disassociate User from Current Roles
+                var rolesUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association";
+                fetch(rolesUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        var results = data.value;
+                        Promise.all(results.map(function(result) {
+                            var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
+                            return fetch(disassociateUrl, { method: 'DELETE' })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        return response.text().then(text => {
+                                            throw new Error('Error disassociating role: ' + text);
+                                        });
+                                    }
+                                });
+                        })).then(resolve);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        resolve();
+                    });
+            });
         })
         .then(function() {
-            return fetch(clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association")
-                .then(response => response.json())
-                .then(results => {
-                    return Promise.all(results.value.map(function(result) {
-                        var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
-                        return fetch(disassociateUrl, { method: 'DELETE' });
-                    }));
-                });
+            return new Promise(function(resolve) {
+                // Disassociate User from Current Teams
+                var teamsUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association";
+                fetch(teamsUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        var results = data.value;
+                        Promise.all(results.map(function(result) {
+                            var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
+                            return fetch(disassociateUrl, { method: 'DELETE' })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        return response.text().then(text => {
+                                            throw new Error('Error disassociating team: ' + text);
+                                        });
+                                    }
+                                });
+                        })).then(resolve);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        resolve();
+                    });
+            });
         })
         .then(function() {
             // Associate User to Specified Team
-            var associateTeamUrl = clientUrl + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
-            var associateTeamData = {
-                "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
-            };
-            return fetch(associateTeamUrl, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8"
-                },
-                body: JSON.stringify(associateTeamData)
+            return new Promise(function(resolve) {
+                var associateTeamUrl = clientUrl + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
+                var associateTeamData = {
+                    "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
+                };
+                var associateTeamRequest = new XMLHttpRequest();
+                associateTeamRequest.open("POST", associateTeamUrl, true);
+                associateTeamRequest.setRequestHeader("OData-MaxVersion", "4.0");
+                associateTeamRequest.setRequestHeader("OData-Version", "4.0");
+                associateTeamRequest.setRequestHeader("Accept", "application/json");
+                associateTeamRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                associateTeamRequest.send(JSON.stringify(associateTeamData));
+                associateTeamRequest.onreadystatechange = function() {
+                    if (this.readyState === 4) {
+                        associateTeamRequest.onreadystatechange = null;
+                        resolve();
+                    }
+                };
             });
         })
         .then(function() {
@@ -346,15 +386,14 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
             var associateRoleData = {
                 "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
             };
-            return fetch(associateRoleUrl, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8"
-                },
-                body: JSON.stringify(associateRoleData)
-            });
+            var associateRoleRequest = new XMLHttpRequest();
+            associateRoleRequest.open("POST", associateRoleUrl, true);
+            associateRoleRequest.setRequestHeader("OData-MaxVersion", "4.0");
+            associateRoleRequest.setRequestHeader("OData-Version", "4.0");
+            associateRoleRequest.setRequestHeader("Accept", "application/json");
+            associateRoleRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+            associateRoleRequest.send(JSON.stringify(associateRoleData));
         });
 }
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
-// code reviewed
