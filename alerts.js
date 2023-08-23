@@ -139,18 +139,23 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
     };
     Xrm.WebApi.updateRecord("systemuser", userId, data1).then(function() {
         // Associate User to Specified Team
-        var addTeamRef = {
-            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")"
+        var teamData = {
+            "teammembership_association": [{
+                "@odata.id": "/teams(" + teamId + ")"
+            }]
         };
-        Xrm.WebApi.associateRecords("systemuser", userId, "teammembership_association", "team", teamId, addTeamRef);
+        Xrm.WebApi.updateRecord("systemuser", userId, teamData);
 
-        // Associate New Security Role
-        var addRoleRef = {
-            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")"
+        // Associate User to Specified Role
+        var roleData = {
+            "systemuserroles_association": [{
+                "@odata.id": "/roles(" + roleId + ")"
+            }]
         };
-        Xrm.WebApi.associateRecords("systemuser", userId, "systemuserroles_association", "role", roleId, addRoleRef);
+        Xrm.WebApi.updateRecord("systemuser", userId, roleData);
     });
 }
 
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
+
