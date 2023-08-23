@@ -307,78 +307,55 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
 
     Xrm.WebApi.updateRecord("systemuser", userId, data1)
         .then(function() {
-            return new Promise(function(resolve) {
-                // Disassociate User from Current Roles
-                var rolesUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association";
-                fetch(rolesUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        var results = data.value;
-                        Promise.all(results.map(function(result) {
-                            var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
-                            return fetch(disassociateUrl, { method: 'DELETE' })
-                                .then(response => {
-                                    if (!response.ok) {
-                                        return response.text().then(text => {
-                                            throw new Error('Error disassociating role: ' + text);
-                                        });
-                                    }
-                                });
-                        })).then(resolve);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        resolve();
-                    });
-            });
+            // Fetch the default Business Unit Team ID
+            var defaultBusinessUnitTeamUrl = clientUrl + "/api/data/v9.0/businessunits(" + businessUnitId + ")?$select=_defaultteamid_value";
+            return fetch(defaultBusinessUnitTeamUrl)
+                .then(response => response.json())
+                .then(data => {
+                    var defaultBusinessUnitTeamId = data._defaultteamid_value;
+
+                    // Disassociate User from Current Teams
+                    var teamsUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association";
+                    return fetch(teamsUrl)
+                        .then(response => response.json())
+                        .then(data => {
+                            var results = data.value;
+                            return Promise.all(results.map(function(result) {
+                                if (result.teamid === defaultBusinessUnitTeamId) {
+                                    // Skip disassociation for the default business unit team
+                                    return Promise.resolve();
+                                }
+                                var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
+                                return fetch(disassociateUrl, { method: 'DELETE' })
+                                    .catch(err => console.error('Error disassociating team: ', err));
+                            }));
+                        });
+                })
+                .catch(err => console.error(err));
         })
         .then(function() {
-            return new Promise(function(resolve) {
-                // Disassociate User from Current Teams
-                var teamsUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association";
-                fetch(teamsUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        var results = data.value;
-                        Promise.all(results.map(function(result) {
-                            var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
-                            return fetch(disassociateUrl, { method: 'DELETE' })
-                                .then(response => {
-                                    if (!response.ok) {
-                                        return response.text().then(text => {
-                                            throw new Error('Error disassociating team: ' + text);
-                                        });
-                                    }
-                                });
-                        })).then(resolve);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        resolve();
-                    });
-            });
+            // Disassociate User from Current Roles
+            var rolesUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association";
+            return fetch(rolesUrl)
+                .then(response => response.json())
+                .then(data => {
+                    var results = data.value;
+                    return Promise.all(results.map(function(result) {
+                        var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
+                        return fetch(disassociateUrl, { method: 'DELETE' })
+                            .catch(err => console.error('Error disassociating role: ', err));
+                    }));
+                })
+                .catch(err => console.error(err));
         })
         .then(function() {
             // Associate User to Specified Team
-            return new Promise(function(resolve) {
-                var associateTeamUrl = clientUrl + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
-                var associateTeamData = {
-                    "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
-                };
-                var associateTeamRequest = new XMLHttpRequest();
-                associateTeamRequest.open("POST", associateTeamUrl, true);
-                associateTeamRequest.setRequestHeader("OData-MaxVersion", "4.0");
-                associateTeamRequest.setRequestHeader("OData-Version", "4.0");
-                associateTeamRequest.setRequestHeader("Accept", "application/json");
-                associateTeamRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-                associateTeamRequest.send(JSON.stringify(associateTeamData));
-                associateTeamRequest.onreadystatechange = function() {
-                    if (this.readyState === 4) {
-                        associateTeamRequest.onreadystatechange = null;
-                        resolve();
-                    }
-                };
-            });
+            var associateTeamUrl = clientUrl + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
+            var associateTeamData = {
+                "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
+            };
+            return fetch(associateTeamUrl, { method: 'POST', body: JSON.stringify(associateTeamData), headers: { "Content-Type": "application/json; charset=utf-8" } })
+                .catch(err => console.error('Error associating team: ', err));
         })
         .then(function() {
             // Associate User to Specified Role
@@ -386,13 +363,8 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
             var associateRoleData = {
                 "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
             };
-            var associateRoleRequest = new XMLHttpRequest();
-            associateRoleRequest.open("POST", associateRoleUrl, true);
-            associateRoleRequest.setRequestHeader("OData-MaxVersion", "4.0");
-            associateRoleRequest.setRequestHeader("OData-Version", "4.0");
-            associateRoleRequest.setRequestHeader("Accept", "application/json");
-            associateRoleRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-            associateRoleRequest.send(JSON.stringify(associateRoleData));
+            return fetch(associateRoleUrl, { method: 'POST', body: JSON.stringify(associateRoleData), headers: { "Content-Type": "application/json; charset=utf-8" } })
+                .catch(err => console.error('Error associating role: ', err));
         });
 }
 // Usage
