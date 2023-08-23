@@ -144,12 +144,16 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         result.entities.forEach(function(entity) {
             Xrm.WebApi.deleteRecord("teammembership", entity.teammembershipid);
         });
-        
+
         // Add User to Specified Team
         var data2 = {
             "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
         };
-        Xrm.WebApi.createRecord("team", teamId + "/team_members/$ref", data2);
+        Xrm.WebApi.online.execute({
+            method: "POST",
+            uri: Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")/team_members/$ref",
+            payload: data2
+        });
     });
 
     // Remove All Current Security Roles
@@ -162,10 +166,13 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         var data3 = {
             "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
         };
-        Xrm.WebApi.createRecord("role", roleId + "/systemuserroles_association/$ref", data3);
+        Xrm.WebApi.online.execute({
+            method: "POST",
+            uri: Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")/systemuserroles_association/$ref",
+            payload: data3
+        });
     });
 }
 
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
-
