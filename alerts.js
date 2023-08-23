@@ -132,45 +132,40 @@ javascript: (function() {
 })();
 
 //----------------------NEW--Test-----------
-function assignUserDetails(userId, businessUnitId, teamId, roleId) {
-    // Assign Business Unit
+function updateUserDetails(userId, businessUnitId, teamId, roleId) {
+    // Change Business Unit
     var data1 = {
         "businessunitid@odata.bind": "/businessunits(" + businessUnitId + ")"
     };
-    var req1 = new XMLHttpRequest();
-    req1.open("PATCH", Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")", true);
-    req1.setRequestHeader("OData-MaxVersion", "4.0");
-    req1.setRequestHeader("OData-Version", "4.0");
-    req1.setRequestHeader("Accept", "application/json");
-    req1.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    req1.send(JSON.stringify(data1));
+    Xrm.WebApi.updateRecord("systemuser", userId, data1);
 
-    // Add User to Teams
-    var data2 = {
-        "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
-    };
-    var req2 = new XMLHttpRequest();
-    req2.open("POST", Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")/team_members/$ref", true);
-    req2.setRequestHeader("OData-MaxVersion", "4.0");
-    req2.setRequestHeader("OData-Version", "4.0");
-    req2.setRequestHeader("Accept", "application/json");
-    req2.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    req2.send(JSON.stringify(data2));
+    // Remove User from All Teams
+    Xrm.WebApi.retrieveMultipleRecords("teammembership", "?$filter=systemuserid eq " + userId).then(function(result) {
+        result.entities.forEach(function(entity) {
+            Xrm.WebApi.deleteRecord("teammembership", entity.teammembershipid);
+        });
+        
+        // Add User to Specified Team
+        var data2 = {
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
+        };
+        Xrm.WebApi.createRecord("team", teamId + "/team_members/$ref", data2);
+    });
 
-    // Assign Security Roles
-    var data3 = {
-        "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
-    };
-    var req3 = new XMLHttpRequest();
-    req3.open("POST", Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")/systemuserroles_association/$ref", true);
-    req3.setRequestHeader("OData-MaxVersion", "4.0");
-    req3.setRequestHeader("OData-Version", "4.0");
-    req3.setRequestHeader("Accept", "application/json");
-    req3.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    req3.send(JSON.stringify(data3));
+    // Remove All Current Security Roles
+    Xrm.WebApi.retrieveMultipleRecords("systemuserroles", "?$filter=systemuserid eq " + userId).then(function(result) {
+        result.entities.forEach(function(entity) {
+            Xrm.WebApi.deleteRecord("systemuserroles", entity.systemuserroleid);
+        });
+
+        // Assign New Security Role
+        var data3 = {
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
+        };
+        Xrm.WebApi.createRecord("role", roleId + "/systemuserroles_association/$ref", data3);
+    });
 }
 
 // Usage
-assignUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
-
+updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
 
