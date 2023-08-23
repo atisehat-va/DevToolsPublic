@@ -295,3 +295,89 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
 }
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
+///------------------lastNEw--------------
+
+async function updateUserDetails(userId, businessUnitId, teamId, roleId) {
+  const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
+
+  // Change Business Unit
+  const data1 = {
+    "businessunitid@odata.bind": `/businessunits(${businessUnitId})`
+  };
+
+  await Xrm.WebApi.updateRecord("systemuser", userId, data1);
+
+  // Disassociate User from Current Roles
+  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association`;
+  const roleResponse = await fetch(rolesUrl, {
+    headers: {
+      "OData-MaxVersion": "4.0",
+      "OData-Version": "4.0",
+      Accept: "application/json",
+    }
+  });
+
+  if (roleResponse.ok) {
+    const results = await roleResponse.json();
+    await Promise.all(results.value.map(result => {
+      const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
+      return fetch(disassociateUrl, { method: "DELETE" });
+    }));
+  }
+
+  // Disassociate User from Current Teams
+  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/teammembership_association`;
+  const teamResponse = await fetch(teamsUrl, {
+    headers: {
+      "OData-MaxVersion": "4.0",
+      "OData-Version": "4.0",
+      Accept: "application/json",
+    }
+  });
+
+  if (teamResponse.ok) {
+    const results = await teamResponse.json();
+    await Promise.all(results.value.map(result => {
+      const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${userId})`;
+      return fetch(disassociateUrl, { method: "DELETE" });
+    }));
+  }
+
+  // Associate User to Specified Team
+  const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref`;
+  const associateTeamData = {
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${userId})`
+  };
+
+  await fetch(associateTeamUrl, {
+    method: "POST",
+    headers: {
+      "OData-MaxVersion": "4.0",
+      "OData-Version": "4.0",
+      Accept: "application/json",
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(associateTeamData)
+  });
+
+  // Associate User to Specified Role
+  const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${roleId})/systemuserroles_association/$ref`;
+  const associateRoleData = {
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${userId})`
+  };
+
+  await fetch(associateRoleUrl, {
+    method: "POST",
+    headers: {
+      "OData-MaxVersion": "4.0",
+      "OData-Version": "4.0",
+      Accept: "application/json",
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(associateRoleData)
+  });
+}
+
+// Usage
+updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
+
