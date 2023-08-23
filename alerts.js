@@ -141,7 +141,7 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         // Associate User to Specified Team
         var teamData = {
             "teammembership_association": [{
-                "@odata.id": "/teams(" + teamId + ")"
+                "@odata.id": "/api/data/v9.0/teams(" + teamId + ")"
             }]
         };
         Xrm.WebApi.updateRecord("systemuser", userId, teamData);
@@ -149,7 +149,7 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
         // Associate User to Specified Role
         var roleData = {
             "systemuserroles_association": [{
-                "@odata.id": "/roles(" + roleId + ")"
+                "@odata.id": "/api/data/v9.0/roles(" + roleId + ")"
             }]
         };
         Xrm.WebApi.updateRecord("systemuser", userId, roleData);
