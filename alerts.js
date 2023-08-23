@@ -139,23 +139,56 @@ function updateUserDetails(userId, businessUnitId, teamId, roleId) {
     };
     Xrm.WebApi.updateRecord("systemuser", userId, data1).then(function() {
         // Associate User to Specified Team
+        var teamUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
         var teamData = {
-            "teammembership_association": [{
-                "@odata.id": "/api/data/v9.0/teams(" + teamId + ")"
-            }]
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
         };
-        Xrm.WebApi.updateRecord("systemuser", userId, teamData);
+        var teamRequest = new XMLHttpRequest();
+        teamRequest.open("POST", teamUrl, true);
+        teamRequest.setRequestHeader("OData-MaxVersion", "4.0");
+        teamRequest.setRequestHeader("OData-Version", "4.0");
+        teamRequest.setRequestHeader("Accept", "application/json");
+        teamRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        teamRequest.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                teamRequest.onreadystatechange = null;
+                if (this.status === 204) {
+                    // Success - continue to associate role
+                } else {
+                    var error = JSON.parse(this.response).error;
+                    console.error(error.message);
+                }
+            }
+        };
+        teamRequest.send(JSON.stringify(teamData));
 
         // Associate User to Specified Role
+        var roleUrl = Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/roles(" + roleId + ")/systemuserroles_association/$ref";
         var roleData = {
-            "systemuserroles_association": [{
-                "@odata.id": "/api/data/v9.0/roles(" + roleId + ")"
-            }]
+            "@odata.id": Xrm.Utility.getGlobalContext().getClientUrl() + "/api/data/v9.0/systemusers(" + userId + ")"
         };
-        Xrm.WebApi.updateRecord("systemuser", userId, roleData);
+        var roleRequest = new XMLHttpRequest();
+        roleRequest.open("POST", roleUrl, true);
+        roleRequest.setRequestHeader("OData-MaxVersion", "4.0");
+        roleRequest.setRequestHeader("OData-Version", "4.0");
+        roleRequest.setRequestHeader("Accept", "application/json");
+        roleRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        roleRequest.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                roleRequest.onreadystatechange = null;
+                if (this.status === 204) {
+                    // Success
+                } else {
+                    var error = JSON.parse(this.response).error;
+                    console.error(error.message);
+                }
+            }
+        };
+        roleRequest.send(JSON.stringify(roleData));
     });
 }
 
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
+
 
