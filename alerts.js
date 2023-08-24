@@ -35,8 +35,15 @@ javascript: (function() {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
-    // ... rest of the code related to user selection
-  }
+    
+    const businessUnitList = document.getElementById('section2').querySelector('ul');
+    businessUnitList.innerHTML = '';
+
+    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
+      const listItem = document.createElement('li');
+      listItem.textContent = businessUnit.name;
+      businessUnitList.appendChild(listItem);
+    });
 
   function createPopupHtml() {
     return `
