@@ -6,16 +6,14 @@ javascript: (function() {
   .shrunk { width: 50% !important; }
   .security-btn { position: absolute; top: 10px; right: 10px; background-color: #007bff; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; }
   .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-  #section1 { text-align: center; height: 220px; }
-  #section1 input { margin-bottom: 10px; width: 230px;}
-  #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
-  #section1 #userList::-webkit-scrollbar { display: none; }
-  #section2, #section3 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
-  .selected { background-color: #f0f0f0; }
-  .user { cursor: pointer; padding: 3px; font-size: 14px; }
-  #sectionsRow { white-space: nowrap; }
-  #businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
-  #businessUnitList { margin-bottom: 15px; }
+  #section1, #section4 { text-align: center; height: 220px; }
+  #section1 input, #section4 input { margin-bottom: 10px; width: 230px;}
+  #section1 #userList, #section4 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
+  #section1 #userList::-webkit-scrollbar, #section4 #userList::-webkit-scrollbar { display: none; }
+  #section2, #section3, #section5, #section6 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+  #sectionsRow, #sectionsRowRight { white-space: nowrap; display: inline-block; }
+  #businessUnitList li, #teamsList li, #section3 ul li, #section5 ul li, #section6 ul li { margin-left: 20px; }
+  #businessUnitList, #teamsList, #section5 ul, #section6 ul { margin-bottom: 15px; }
 `;
   function toggleContent() {
     const contentDiv = document.querySelector('.content');
@@ -39,27 +37,39 @@ javascript: (function() {
     Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
-  function createPopupHtml() {
-  return `
-    <div class="popup">
-      <button class="security-btn" onclick="toggleContent()">Security</button>
-      <div class="content">
-        <style>${popupCss}</style>
-        <div class="section" id="section1">
-          <h3>User Info</h3>
-          <input type="text" id="searchInput" placeholder="Search Users">
-          <div id="userList"></div>
-        </div>
-        <div id="sectionsRow">
-          <div class="section" id="section2">
-            <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
-            <h3>Teams:</h3><ul id="teamsList"></ul>
+function createPopupHtml() {
+    return `
+      <div class="popup">
+        <button class="security-btn" onclick="toggleContent()">Security</button>
+        <div class="content">
+          <style>${popupCss}</style>
+          <div class="section" id="section1">
+            <h3>User Info</h3>
+            <input type="text" id="searchInput" placeholder="Search Users">
+            <div id="userList"></div>
           </div>
-          <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
+          <div id="sectionsRow">
+            <div class="section" id="section2">
+              <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
+              <h3>Teams:</h3><ul id="teamsList"></ul>
+            </div>
+            <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
+          </div>
+          <div id="sectionsRowRight">
+            <div class="section" id="section4">
+              <h3>User Info</h3>
+              <input type="text" id="searchInputRight" placeholder="Search Users">
+              <div id="userListRight"></div>
+            </div>
+            <div class="section" id="section5">
+              <h3>Business Unit:</h3><ul id="businessUnitListRight"></ul>
+              <h3>Teams:</h3><ul id="teamsListRight"></ul>
+            </div>
+            <div class="section" id="section6"><h3>Security Roles:</h3><ul></ul></div>
+          </div>
         </div>
-      </div>
-    </div>`;
-}
+      </div>`;
+  }
   
 function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
