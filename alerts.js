@@ -12,7 +12,10 @@ javascript: (function() {
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
     #sectionsRow { white-space: nowrap; }
+    #businessUnit { margin-left: 20px; }
+    #teamsList { margin-left: 40px; }
   `;
+
 
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -82,17 +85,29 @@ javascript: (function() {
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       const listItem = document.createElement('li');
-      listItem.textContent = "Business Unit: " + businessUnit.name;
+      listItem.textContent = "Business Unit:";
+      const bulletItem = document.createElement('ul');
+      bulletItem.id = 'businessUnit';
+      const businessUnitName = document.createElement('li');
+      businessUnitName.textContent = businessUnit.name;
+      bulletItem.appendChild(businessUnitName);
+      listItem.appendChild(bulletItem);
       businessAndTeamsList.appendChild(listItem);
     });
 
+    const teamsListItem = document.createElement('li');
+    teamsListItem.textContent = "Teams:";
+    const teamsList = document.createElement('ul');
+    teamsList.id = 'teamsList';
     fetchTeamsForUser(user.systemuserid, function(response) {
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
-        listItem.textContent = "Team: " + team.name;
-        businessAndTeamsList.appendChild(listItem);
+        listItem.textContent = team.name;
+        teamsList.appendChild(listItem);
       });
     });
+    teamsListItem.appendChild(teamsList);
+    businessAndTeamsList.appendChild(teamsListItem);
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section3').querySelector('ul');
