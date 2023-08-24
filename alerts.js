@@ -11,6 +11,7 @@ javascript: (function() {
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
     #sectionsRow { white-space: nowrap; }
+    #businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
   `;
 
 
