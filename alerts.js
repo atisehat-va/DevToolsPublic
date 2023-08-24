@@ -43,10 +43,10 @@ javascript: (function() {
         </div>
         <div id="sectionsRow">
           <div class="section" id="section2">
-            <h3>Business Unit</h3><ul id="businessUnitList"></ul>
-            <h3>Teams</h3><ul id="teamsList"></ul>
+            <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
+            <h3>Teams:</h3><ul id="teamsList"></ul>
           </div>
-          <div class="section" id="section3"><h3>Security Roles</h3><ul></ul></div>
+          <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
         </div>
       </div>`;
   }
