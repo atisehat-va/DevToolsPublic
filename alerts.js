@@ -3,10 +3,8 @@ javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { margin-bottom: 10px; }
-    #section1 h3 { text-align: center; } /* Center alignment for User Info */
-    #section2 h3, #section3 h3 { text-align: left; } /* Left alignment for Section 1 and Section 2 */
-    #section1 { text-align: center; height: 220px; }
+    .section h3 { margin-bottom: 10px; text-align: left; } /* Left alignment for all headers */
+    #section1 h3, #section1 { text-align: center; } /* Center alignment for User Info */
     #section1 input { margin-bottom: 10px; width: 230px;}
     #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     #section1 #userList::-webkit-scrollbar { display: none; }
@@ -44,7 +42,10 @@ javascript: (function() {
           <div id="userList"></div>
         </div>
         <div id="sectionsRow">
-          <div class="section" id="section2"><h3>Business Unit & Teams</h3><ul id="businessUnit"></ul><ul id="teams"></ul></div>
+          <div class="section" id="section2">
+            <h3>Business Unit</h3><ul id="businessUnit"></ul>
+            <h3>Teams</h3><ul id="teams"></ul>
+          </div>
           <div class="section" id="section3"><h3>Security Roles</h3><ul></ul></div>
         </div>
       </div>`;
