@@ -300,104 +300,104 @@ updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
 function updateUserDetails(userId, businessUnitId, teamId, roleId) {
     var clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
-    // Step 1: Remove the User from All Existing Roles
-    new Promise(function(resolve) {
-        var rolesUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association";
-        var roleRequest = new XMLHttpRequest();
-        roleRequest.open("GET", rolesUrl, true);
-        roleRequest.setRequestHeader("OData-MaxVersion", "4.0");
-        roleRequest.setRequestHeader("OData-Version", "4.0");
-        roleRequest.setRequestHeader("Accept", "application/json");
-        roleRequest.onreadystatechange = function() {
-            if (this.readyState === 4) {
-                roleRequest.onreadystatechange = null;
-                if (this.status === 200) {
-                    var results = JSON.parse(this.response).value;
-                    Promise.all(results.map(function(result) {
-                        var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
-                        var disassociateRequest = new XMLHttpRequest();
-                        disassociateRequest.open("DELETE", disassociateUrl, true);
-                        disassociateRequest.send();
-                    })).then(resolve);
-                } else {
-                    resolve();
-                }
-            }
-        };
-        roleRequest.send();
-    })
-    .then(function() {
-        // Step 2: Remove the User from All Existing Teams
-        return new Promise(function(resolve) {
-            var teamsUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association";
-            var teamRequest = new XMLHttpRequest();
-            teamRequest.open("GET", teamsUrl, true);
-            teamRequest.setRequestHeader("OData-MaxVersion", "4.0");
-            teamRequest.setRequestHeader("OData-Version", "4.0");
-            teamRequest.setRequestHeader("Accept", "application/json");
-            teamRequest.onreadystatechange = function() {
-                if (this.readyState === 4) {
-                    teamRequest.onreadystatechange = null;
-                    if (this.status === 200) {
-                        var results = JSON.parse(this.response).value;
-                        Promise.all(results.map(function(result) {
-                            var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
-                            var disassociateRequest = new XMLHttpRequest();
-                            disassociateRequest.open("DELETE", disassociateUrl, true);
-                            disassociateRequest.send();
-                        })).then(resolve);
-                    } else {
+    // Change Business Unit
+    var data1 = {
+        "businessunitid@odata.bind": "/businessunits(" + businessUnitId + ")"
+    };
+
+    Xrm.WebApi.updateRecord("systemuser", userId, data1)
+        .then(function() {
+            return new Promise(function(resolve) {
+                // Disassociate User from Current Roles
+                var rolesUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association";
+                var roleRequest = new XMLHttpRequest();
+                roleRequest.open("GET", rolesUrl, true);
+                roleRequest.setRequestHeader("OData-MaxVersion", "4.0");
+                roleRequest.setRequestHeader("OData-Version", "4.0");
+                roleRequest.setRequestHeader("Accept", "application/json");
+                roleRequest.onreadystatechange = function() {
+                    if (this.readyState === 4) {
+                        roleRequest.onreadystatechange = null;
+                        if (this.status === 200) {
+                            var results = JSON.parse(this.response).value;
+                            Promise.all(results.map(function(result) {
+                                var disassociateUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/systemuserroles_association/$ref?$id=" + clientUrl + "/api/data/v9.0/roles(" + result.roleid + ")";
+                                var disassociateRequest = new XMLHttpRequest();
+                                disassociateRequest.open("DELETE", disassociateUrl, true);
+                                disassociateRequest.send();
+                            })).then(resolve);
+                        } else {
+                            resolve();
+                        }
+                    }
+                };
+                roleRequest.send();
+            });
+        })
+        .then(function() {
+            return new Promise(function(resolve) {
+                // Disassociate User from Current Teams
+                var teamsUrl = clientUrl + "/api/data/v9.0/systemusers(" + userId + ")/teammembership_association";
+                var teamRequest = new XMLHttpRequest();
+                teamRequest.open("GET", teamsUrl, true);
+                teamRequest.setRequestHeader("OData-MaxVersion", "4.0");
+                teamRequest.setRequestHeader("OData-Version", "4.0");
+                teamRequest.setRequestHeader("Accept", "application/json");
+                teamRequest.onreadystatechange = function() {
+                    if (this.readyState === 4) {
+                        teamRequest.onreadystatechange = null;
+                        if (this.status === 200) {
+                            var results = JSON.parse(this.response).value;
+                            Promise.all(results.map(function(result) {
+                                var disassociateUrl = clientUrl + "/api/data/v9.0/teams(" + result.teamid + ")/teammembership_association/$ref?$id=" + clientUrl + "/api/data/v9.0/systemusers(" + userId + ")";
+                                var disassociateRequest = new XMLHttpRequest();
+                                disassociateRequest.open("DELETE", disassociateUrl, true);
+                                disassociateRequest.send();
+                            })).then(resolve);
+                        } else {
+                            resolve();
+                        }
+                    }
+                };
+                teamRequest.send();
+            });
+        })
+        .then(function() {
+            // Associate User to Specified Team
+            return new Promise(function(resolve) {
+                var associateTeamUrl = clientUrl + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
+                var associateTeamData = {
+                    "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
+                };
+                var associateTeamRequest = new XMLHttpRequest();
+                associateTeamRequest.open("POST", associateTeamUrl, true);
+                associateTeamRequest.setRequestHeader("OData-MaxVersion", "4.0");
+                associateTeamRequest.setRequestHeader("OData-Version", "4.0");
+                associateTeamRequest.setRequestHeader("Accept", "application/json");
+                associateTeamRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                associateTeamRequest.send(JSON.stringify(associateTeamData));
+                associateTeamRequest.onreadystatechange = function() {
+                    if (this.readyState === 4) {
+                        associateTeamRequest.onreadystatechange = null;
                         resolve();
                     }
-                }
-            };
-            teamRequest.send();
-        });
-    })
-    .then(function() {
-        // Step 3: Change Business Unit for the User
-        var data1 = {
-            "businessunitid@odata.bind": "/businessunits(" + businessUnitId + ")"
-        };
-        return Xrm.WebApi.updateRecord("systemuser", userId, data1);
-    })
-    .then(function() {
-        // Step 4: Associate User to Specified Team
-        return new Promise(function(resolve) {
-            var associateTeamUrl = clientUrl + "/api/data/v9.0/teams(" + teamId + ")/teammembership_association/$ref";
-            var associateTeamData = {
+                };
+            });
+        })
+        .then(function() {
+            // Associate User to Specified Role
+            var associateRoleUrl = clientUrl + "/api/data/v9.0/roles(" + roleId + ")/systemuserroles_association/$ref";
+            var associateRoleData = {
                 "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
             };
-            var associateTeamRequest = new XMLHttpRequest();
-            associateTeamRequest.open("POST", associateTeamUrl, true);
-            associateTeamRequest.setRequestHeader("OData-MaxVersion", "4.0");
-            associateTeamRequest.setRequestHeader("OData-Version", "4.0");
-            associateTeamRequest.setRequestHeader("Accept", "application/json");
-            associateTeamRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-            associateTeamRequest.send(JSON.stringify(associateTeamData));
-            associateTeamRequest.onreadystatechange = function() {
-                if (this.readyState === 4) {
-                    associateTeamRequest.onreadystatechange = null;
-                    resolve();
-                }
-            };
+            var associateRoleRequest = new XMLHttpRequest();
+            associateRoleRequest.open("POST", associateRoleUrl, true);
+            associateRoleRequest.setRequestHeader("OData-MaxVersion", "4.0");
+            associateRoleRequest.setRequestHeader("OData-Version", "4.0");
+            associateRoleRequest.setRequestHeader("Accept", "application/json");
+            associateRoleRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+            associateRoleRequest.send(JSON.stringify(associateRoleData));
         });
-    })
-    .then(function() {
-        // Step 5: Associate User to Specified Role
-        var associateRoleUrl = clientUrl + "/api/data/v9.0/roles(" + roleId + ")/systemuserroles_association/$ref";
-        var associateRoleData = {
-            "@odata.id": clientUrl + "/api/data/v9.0/systemusers(" + userId + ")"
-        };
-        var associateRoleRequest = new XMLHttpRequest();
-        associateRoleRequest.open("POST", associateRoleUrl, true);
-        associateRoleRequest.setRequestHeader("OData-MaxVersion", "4.0");
-        associateRoleRequest.setRequestHeader("OData-Version", "4.0");
-        associateRoleRequest.setRequestHeader("Accept", "application/json");
-        associateRoleRequest.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        associateRoleRequest.send(JSON.stringify(associateRoleData));
-    });
 }
-
 // Usage
 updateUserDetails("<USER_ID>", "<BUSINESS_UNIT_ID>", "<TEAM_ID>", "<ROLE_ID>");
