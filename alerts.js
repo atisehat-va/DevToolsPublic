@@ -1,8 +1,8 @@
 //--------------new-------------------------------------------
 javascript: (function() {
   const popupCss = `
-  .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
-  .content { width: 100%; transition: width 0.5s; }
+  .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 700px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
+  .content { width: 100%; transition: width 0.5s; display: flex; }
   .shrunk { width: 50% !important; }
   .security-btn { position: absolute; top: 10px; right: 10px; background-color: #007bff; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; }
   .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
@@ -10,14 +10,16 @@ javascript: (function() {
   #section1 input, #section4 input { margin-bottom: 10px; width: 230px;}
   #section1 #userList, #section4 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
   #section1 #userList::-webkit-scrollbar, #section4 #userList::-webkit-scrollbar { display: none; }
-  #section2, #section3, #section5, #section6 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
-  #sectionsRow, #sectionsRowRight { white-space: nowrap; display: inline-block; }
+  #sectionsRow, #sectionsRowRight { white-space: nowrap; display: inline-block; width: 50%; }
   #businessUnitList li, #teamsList li, #section3 ul li, #section5 ul li, #section6 ul li { margin-left: 20px; }
   #businessUnitList, #teamsList, #section5 ul, #section6 ul { margin-bottom: 15px; }
+  #sectionsRowRight { display: none; } /* Hide right section by default */
 `;
   function toggleContent() {
     const contentDiv = document.querySelector('.content');
     contentDiv.classList.toggle('shrunk');
+    const rightSection = document.getElementById('sectionsRowRight');
+    rightSection.style.display = rightSection.style.display === 'none' ? 'inline-block' : 'none';
   }
   window.toggleContent = toggleContent;
   
@@ -38,38 +40,42 @@ javascript: (function() {
   }
 
 function createPopupHtml() {
-    return `
-      <div class="popup">
-        <button class="security-btn" onclick="toggleContent()">Security</button>
-        <div class="content">
-          <style>${popupCss}</style>
+  return `
+    <div class="popup">
+      <button class="security-btn" onclick="toggleContent()">Security</button>
+      <div class="content">
+        <style>${popupCss}</style>
+        <div id="sectionsRow">
           <div class="section" id="section1">
             <h3>User Info</h3>
             <input type="text" id="searchInput" placeholder="Search Users">
             <div id="userList"></div>
           </div>
-          <div id="sectionsRow">
+          <div>
             <div class="section" id="section2">
               <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
               <h3>Teams:</h3><ul id="teamsList"></ul>
             </div>
             <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
           </div>
-          <div id="sectionsRowRight">
-            <div class="section" id="section4">
-              <h3>User Info</h3>
-              <input type="text" id="searchInputRight" placeholder="Search Users">
-              <div id="userListRight"></div>
-            </div>
+        </div>
+        <div id="sectionsRowRight">
+          <div class="section" id="section4">
+            <h3>User Info</h3>
+            <input type="text" placeholder="New User Info">
+            <div id="newUserList"></div>
+          </div>
+          <div>
             <div class="section" id="section5">
-              <h3>Business Unit:</h3><ul id="businessUnitListRight"></ul>
-              <h3>Teams:</h3><ul id="teamsListRight"></ul>
+              <h3>Business Unit:</h3><ul></ul>
+              <h3>Teams:</h3><ul></ul>
             </div>
             <div class="section" id="section6"><h3>Security Roles:</h3><ul></ul></div>
           </div>
         </div>
-      </div>`;
-  }
+      </div>
+    </div>`;
+}
   
 function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
