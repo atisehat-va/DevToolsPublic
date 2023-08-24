@@ -142,6 +142,7 @@ javascript: (function() {
     displayPopup(users);
     document.getElementById('copySecurityBtn').addEventListener('click', copySecurity);
   });
+  
 })(); // code reviewed
 
 
