@@ -97,9 +97,7 @@ javascript: (function() {
         listItem.textContent = team.name;
         teamsList.appendChild(listItem);
       });
-    });
-    teamsListItem.appendChild(teamsList);
-    businessAndTeamsList.appendChild(teamsListItem);
+    });    
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       const rolesList = document.getElementById('section3').querySelector('ul');
