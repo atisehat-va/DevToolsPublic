@@ -80,8 +80,16 @@ javascript: (function() {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
-    
-    const businessUnitList = document.getElementById('section2').querySelector('ul:first-of-type');
+
+    const businessUnitSection = document.getElementById('section2');
+    businessUnitSection.innerHTML = `
+      <h3>Business Unit</h3>
+      <ul></ul>
+      <h3>Teams</h3>
+      <ul></ul>
+    `;
+
+    const businessUnitList = businessUnitSection.querySelector('ul:first-of-type');
     businessUnitList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
@@ -104,7 +112,7 @@ javascript: (function() {
     });
 
     fetchTeamsForUser(user.systemuserid, function(response) {
-      const teamsList = document.getElementById('section2').querySelector('ul:last-of-type'); // Selects the last ul in section2
+      const teamsList = businessUnitSection.querySelector('ul:last-of-type'); // Selects the last ul in section2
       teamsList.innerHTML = '';
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
@@ -134,6 +142,7 @@ javascript: (function() {
     displayPopup(users);
   });
 })();
+
 
 //------------end NEw 08-24-23---------------------------------
 javascript: (function() {
