@@ -3,16 +3,14 @@ javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { margin-bottom: 10px; margin-top: 20px; }
-    .section#section1 h3 { text-align: center; }
-    .section#section2 h3, .section#section3 h3 { text-align: left; }
-    .section ul { list-style-type: disc; padding-left: 30px; }
+    .section h3 { text-align: left; margin-bottom: 10px; } /* Align titles to the left */
     #section1 { text-align: center; height: 220px; }
     #section1 input { margin-bottom: 10px; width: 230px;}
     #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     #section1 #userList::-webkit-scrollbar { display: none; }
     #section2, #section3 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     #sectionsRow { white-space: nowrap; }
+    .indented { margin-left: 20px; } /* Indent corresponding text */
   `;
 
   function fetchUsers(callback) {
@@ -32,7 +30,7 @@ javascript: (function() {
   }
 
   function createPopupHtml() {
-      return `
+    return `
       <div class="popup">
         <style>${popupCss}</style>
         <div class="section" id="section1">
@@ -42,10 +40,10 @@ javascript: (function() {
         </div>
         <div id="sectionsRow">
           <div class="section" id="section2">
-            <h3>Business Unit</h3><ul></ul>
-            <h3>Teams</h3><ul></ul>
+            <h3>Business Unit</h3><ul class="indented"></ul> <!-- Indent the text -->
+            <h3>Teams</h3><ul id="teamList" class="indented"></ul> <!-- Indent the text -->
           </div>
-          <div class="section" id="section3"><h3>Security Roles</h3><ul></ul></div>
+          <div class="section" id="section3"><h3>Security Roles</h3><ul class="indented"></ul></div> <!-- Indent the text -->
         </div>
       </div>`;
   }
