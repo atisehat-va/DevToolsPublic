@@ -4,7 +4,7 @@ javascript: (function() {
   .popup { background-color: white; display: flex; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
   .content { width: 100%; transition: width 0.5s; display: flex; }
   .left-side, .right-side {  width: 100%; }  
-  .shrunk .left-side, .shrunk .right-side {  width: 50% !important; }
+  .shrunk .left-side, .shrunk .right-side {  width: 50%; }
   .security-btn { position: absolute; top: 10px; right: 10px; background-color: #007bff; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; }
   .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
   #section1 { text-align: center; height: 220px; }
@@ -19,18 +19,18 @@ javascript: (function() {
   #businessUnitList { margin-bottom: 15px; }
 `;
   
-  function toggleContent() {
-  const contentDiv = document.querySelector('.content');
-  contentDiv.classList.toggle('shrunk');
+ function toggleContent() {
+    const contentDiv = document.querySelector('.content');
+    contentDiv.classList.toggle('shrunk');
 
-  const rightSideDiv = document.querySelector('.right-side');
-  if (contentDiv.classList.contains('shrunk')) {
-    const leftSideContent = document.querySelector('.left-side').cloneNode(true);
-    rightSideDiv.appendChild(leftSideContent);
-  } else {
-    rightSideDiv.innerHTML = ''; // Remove the replicated content from the right side
-  }
-}  
+    const rightSideDiv = document.querySelector('.right-side');
+    if (contentDiv.classList.contains('shrunk')) {
+      const leftSideContent = document.querySelector('.left-side').cloneNode(true);
+      rightSideDiv.appendChild(leftSideContent);
+    } else {
+      rightSideDiv.innerHTML = ''; // Remove the replicated content from the right side
+    }
+  } 
   
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -83,6 +83,10 @@ function createAndAppendPopup() {
     popupDiv.style.left = '50%';
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
+
+    // Bind the toggleContent function to the security button click event
+    popupDiv.querySelector('.security-btn').addEventListener('click', toggleContent);
+
     document.body.appendChild(popupDiv);
     return popupDiv;
   }
