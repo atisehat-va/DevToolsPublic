@@ -77,42 +77,43 @@ javascript: (function() {
   }
 
   function selectUser(user) {
-    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
-    const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
-    userDiv.classList.add('selected');
-    
-    const businessUnitList = document.getElementById('businessUnit');
-    businessUnitList.innerHTML = '';
+  document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
+  const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
+  userDiv.classList.add('selected');
 
-    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
-      const listItem = document.createElement('li');
-      listItem.textContent = businessUnit.name;
-      businessUnitList.appendChild(listItem);
-    });
+  const businessUnitList = document.getElementById('businessUnit');
+  businessUnitList.innerHTML = '';
 
-    fetchRolesForUser(user.systemuserid, function(roles) {
-      const rolesList = document.getElementById('section4').querySelector('ul');
-      rolesList.innerHTML = '';
-      roles.entities.forEach(role => {
-        const roleId = role['roleid'];
-        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-          const listItem = document.createElement('li');
-          listItem.textContent = roleDetail.name;
-          rolesList.appendChild(listItem);
-        });
-      });
-    });
+  fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
+    const listItem = document.createElement('li');
+    listItem.textContent = businessUnit.name;
+    businessUnitList.appendChild(listItem);
+  });
 
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      const teamsList = document.getElementById('teams');
-      teamsList.innerHTML = '';
-      response.entities[0].teammembership_association.forEach(team => {
+  const rolesList = document.getElementById('section3').querySelector('ul'); // Get the Security Roles list
+  rolesList.innerHTML = '';
+
+  fetchRolesForUser(user.systemuserid, function(roles) {
+    roles.entities.forEach(role => {
+      const roleId = role['roleid'];
+      Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
         const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
+        listItem.textContent = roleDetail.name;
+        rolesList.appendChild(listItem); // Append to the Security Roles list
       });
     });
-  }
+  });
+
+  fetchTeamsForUser(user.systemuserid, function(response) {
+    const teamsList = document.getElementById('teams');
+    teamsList.innerHTML = '';
+    response.entities[0].teammembership_association.forEach(team => {
+      const listItem = document.createElement('li');
+      listItem.textContent = team.name;
+      teamsList.appendChild(listItem);
+    });
+  });
+}
 
   function setupSearchFilter() {
     document.getElementById('searchInput').oninput = function() {
