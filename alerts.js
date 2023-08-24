@@ -13,8 +13,9 @@ javascript: (function() {
     #sectionsRow { white-space: nowrap; }
     #businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
     #businessUnitList { margin-bottom: 15px; }
+    #securityButton { position: absolute; top: 10px; right: 10px; padding: 8px 12px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 14px; }
+    #securityButton:hover { background-color: #0056b3; }
   `;
-
 
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -36,6 +37,7 @@ javascript: (function() {
     return `
       <div class="popup">
         <style>${popupCss}</style>
+        <button id="securityButton">Security</button>
         <div class="section" id="section1">
           <h3>User Info</h3>
           <input type="text" id="searchInput" placeholder="Search Users">
@@ -62,6 +64,12 @@ javascript: (function() {
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
+
+    const securityButton = document.getElementById('securityButton');
+    securityButton.onclick = function() {
+      // Handle the security button click here
+    };
+
     return popupDiv;
   }
 
@@ -81,7 +89,7 @@ javascript: (function() {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
-    
+
     const businessUnitList = document.getElementById('businessUnitList');
     businessUnitList.innerHTML = '';
 
@@ -99,42 +107,25 @@ javascript: (function() {
         listItem.textContent = team.name;
         teamsList.appendChild(listItem);
       });
-    });    
+    });
 
     fetchRolesForUser(user.systemuserid, function(roles) {
-      const rolesList = document.getElementById('section3').querySelector('ul');
-      rolesList.innerHTML = '';
+      const roleList = document.getElementById('section3').querySelector('ul');
+      roleList.innerHTML = '';
       roles.entities.forEach(role => {
-        const roleId = role['roleid'];
-        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-          const listItem = document.createElement('li');
-          listItem.textContent = roleDetail.name;
-          rolesList.appendChild(listItem);
-        });
+        const listItem = document.createElement('li');
+        listItem.textContent = role.name;
+        roleList.appendChild(listItem);
       });
     });
   }
 
-  function setupSearchFilter() {
-    document.getElementById('searchInput').oninput = function() {
-      const searchValue = this.value.toLowerCase();
-      document.querySelectorAll('.user').forEach(el => {
-        el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-      });
-    };
-  }
-
-  function displayPopup(users) {
-    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-    createAndAppendPopup();
-    renderUserList(users.entities, selectUser);
-    setupSearchFilter();
-  }
-
-  fetchUsers(function(users) {
-    displayPopup(users);
+  createAndAppendPopup();
+  fetchUsers(function(response) {
+    renderUserList(response.entities, selectUser);
   });
-})(); // code reviewed
+})();
+
 
 //------------end NEw 08-24-23---------------------------------
 javascript: (function() {
