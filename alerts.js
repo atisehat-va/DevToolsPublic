@@ -1,7 +1,7 @@
 //--------------new-------------------------------------------
 javascript: (function() {
   const popupCss = `
-    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 1000px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
+    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
     .copy-btn { position: absolute; top: 10px; right: 10px; padding: 10px; background-color: #444; color: white; cursor: pointer; text-align: center; border-radius: 5px; width: 120px; }
     .section, .section2 { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
     .section ul { padding-left: 20px; margin-bottom: 10px; }
@@ -11,11 +11,11 @@ javascript: (function() {
     #section1 input { margin-bottom: 10px; width: 230px;}
     #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     #section1 #userList::-webkit-scrollbar { display: none; }
-    #sectionsRow { white-space: nowrap; width: 50%; }
-    #sectionsRow2 { white-space: nowrap; width: 50%; display: none; }
+    #sectionsRow, #sectionsRow2 { display: inline-block; width: 50%; height: 100%; vertical-align: top; box-sizing: border-box; }
+    #sectionsRow2 { display: none; }
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
-    .sections-container { display: flex; }
+    .sections-container { white-space: nowrap; width: 100%; }
   `;
 
 
@@ -40,7 +40,7 @@ javascript: (function() {
       <div class="popup">
         <style>${popupCss}</style>
         <button class="copy-btn" id="copySecurityBtn">Copy Security</button>
-        <div class="sections-container">
+        <div class="sections-container" id="sectionsContainer">
           <div id="sectionsRow">
             <div class="section" id="section1"><h3>User Info</h3><input type="text" id="searchInput" placeholder="Search Users"><div id="userList"></div></div>
             <div class="section" id="section2"><h3>Business Unit</h3><ul></ul><h3>Teams</h3><ul></ul></div>
@@ -56,6 +56,7 @@ javascript: (function() {
   }
   function copySecurity() {
     document.getElementById('sectionsRow2').style.display = 'inline-block';
+    document.getElementById('sectionsContainer').style.width = '1400px';
   }
 
   function createAndAppendPopup() {
