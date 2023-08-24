@@ -8,9 +8,8 @@ javascript: (function() {
     #section1 input { margin-bottom: 10px; width: 230px;}
     #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     #section1 #userList::-webkit-scrollbar { display: none; }
-    #section2, #section3 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
-    .selected { background-color: #f0f0f0; }
-    .user { cursor: pointer; padding: 3px; font-size: 14px; }
+    #section2 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    #section3 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     #sectionsRow { white-space: nowrap; }
   `;
 
@@ -41,8 +40,8 @@ javascript: (function() {
         </div>
         <div id="sectionsRow">
           <div class="section" id="section2">
-            <h3>Business Unit</h3><ul id="businessUnitList"></ul>
-            <h3>Teams</h3><ul id="teamsList"></ul>
+            <h3>Business Unit</h3><ul></ul>
+            <h3>Teams</h3><ul id="teamList"></ul>
           </div>
           <div class="section" id="section3"><h3>Security Roles</h3><ul></ul></div>
         </div>
@@ -80,27 +79,17 @@ javascript: (function() {
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
     
-    // Business Unit
+    const businessUnitList = document.getElementById('section2').querySelector('ul');
+    businessUnitList.innerHTML = '';
+
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       const listItem = document.createElement('li');
       listItem.textContent = businessUnit.name;
-      document.getElementById('businessUnitList').appendChild(listItem);
+      businessUnitList.appendChild(listItem);
     });
 
-    // Teams
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      const teamsList = document.getElementById('teamsList');
-      teamsList.innerHTML = '';
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
-      });
-    });
-
-    // Security Roles
     fetchRolesForUser(user.systemuserid, function(roles) {
-      const rolesList = document.getElementById('section3').querySelector('ul');
+      const rolesList = document.getElementById('section4').querySelector('ul');
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
@@ -109,6 +98,16 @@ javascript: (function() {
           listItem.textContent = roleDetail.name;
           rolesList.appendChild(listItem);
         });
+      });
+    });
+
+    fetchTeamsForUser(user.systemuserid, function(response) {
+      const teamsList = document.getElementById('teamList');
+      teamsList.innerHTML = '';
+      response.entities[0].teammembership_association.forEach(team => {
+        const listItem = document.createElement('li');
+        listItem.textContent = team.name;
+        teamsList.appendChild(listItem);
       });
     });
   }
