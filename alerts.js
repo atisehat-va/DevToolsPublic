@@ -17,7 +17,12 @@ javascript: (function() {
   #businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
   #businessUnitList { margin-bottom: 15px; }
 `;
-
+  function toggleContent() {
+    const contentDiv = document.querySelector('.content');
+    contentDiv.classList.toggle('shrunk');
+  }
+  window.toggleContent = toggleContent;
+  
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
   }
@@ -55,11 +60,8 @@ javascript: (function() {
       </div>
     </div>`;
 }
-function toggleContent() {
-  const contentDiv = document.querySelector('.content');
-  contentDiv.classList.toggle('shrunk');
-}
-  function createAndAppendPopup() {
+  
+function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
