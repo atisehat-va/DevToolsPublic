@@ -3,7 +3,8 @@ javascript: (function() {
   const popupCss = `
   .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
   .content { width: 100%; transition: width 0.5s; }
-  .shrunk { width: 50% !important; }
+  .expanded { width: 50% !important; }
+  .right-content { display: none; transition: width 0.5s; width: 0%; overflow: hidden; }
   .security-btn { position: absolute; top: 10px; right: 10px; background-color: #007bff; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; }
   .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
   #section1 { text-align: center; height: 220px; }
@@ -17,12 +18,17 @@ javascript: (function() {
   #businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
   #businessUnitList { margin-bottom: 15px; }
 `;
+
   function toggleContent() {
     const contentDiv = document.querySelector('.content');
-    contentDiv.classList.toggle('shrunk');
+    const rightContentDiv = document.querySelector('.right-content');
+    contentDiv.classList.toggle('expanded');
+    rightContentDiv.style.display = contentDiv.classList.contains('expanded') ? 'block' : 'none';
+    rightContentDiv.classList.toggle('expanded');
   }
+
   window.toggleContent = toggleContent;
-  
+
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
   }
@@ -40,28 +46,38 @@ javascript: (function() {
   }
 
   function createPopupHtml() {
-  return `
-    <div class="popup">
-      <button class="security-btn" onclick="toggleContent()">Security</button>
-      <div class="content">
-        <style>${popupCss}</style>
-        <div class="section" id="section1">
-          <h3>User Info</h3>
-          <input type="text" id="searchInput" placeholder="Search Users">
-          <div id="userList"></div>
-        </div>
-        <div id="sectionsRow">
-          <div class="section" id="section2">
-            <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
-            <h3>Teams:</h3><ul id="teamsList"></ul>
+    return `
+      <div class="popup">
+        <button class="security-btn" onclick="toggleContent()">Security</button>
+        <div class="content">
+          <style>${popupCss}</style>
+          <div class="section" id="section1">
+            <!-- Left-side content here -->
+            <h3>User Info</h3>
+            <input type="text" id="searchInput" placeholder="Search Users">
+            <div id="userList"></div>
           </div>
-          <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
+          <div id="sectionsRow">
+            <div class="section" id="section2">
+              <!-- Left-side Business Unit and Teams sections here -->
+              <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
+              <h3>Teams:</h3><ul id="teamsList"></ul>
+            </div>
+            <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
+          </div>
+          <div class="right-content" id="rightContent">
+            <!-- Right-side content here (mirroring the layout on the left) -->
+            <div class="section" id="section4"></div>
+            <div id="rightSectionsRow">
+              <div class="section" id="section5"></div>
+              <div class="section" id="section6"></div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>`;
-}
-  
-function createAndAppendPopup() {
+      </div>`;
+  }
+
+  function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
@@ -80,71 +96,59 @@ function createAndAppendPopup() {
     users.forEach(user => {
       const userDiv = document.createElement('div');
       userDiv.className = 'user';
-      userDiv.textContent = user.fullname;
-      userDiv.dataset.id = user.systemuserid;
+      userDiv.innerText = user.fullname;
       userDiv.onclick = () => selectUserCallback(user);
       userListDiv.appendChild(userDiv);
     });
   }
 
-  function selectUser(user) {
-    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
-    const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
-    userDiv.classList.add('selected');
-    
+  function renderBusinessUnit(businessUnitName) {
     const businessUnitList = document.getElementById('businessUnitList');
-    businessUnitList.innerHTML = '';
+    const listItem = document.createElement('li');
+    listItem.innerText = businessUnitName;
+    businessUnitList.appendChild(listItem);
+  }
 
-    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
-      const listItem = document.createElement('li');
-      listItem.textContent = businessUnit.name;
-      businessUnitList.appendChild(listItem);
-    });
-
+  function renderTeams(teams) {
     const teamsList = document.getElementById('teamsList');
-    teamsList.innerHTML = '';
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
-      });
-    });    
+    teams.forEach(team => {
+      const listItem = document.createElement('li');
+      listItem.innerText = team.name;
+      teamsList.appendChild(listItem);
+    });
+  }
 
-    fetchRolesForUser(user.systemuserid, function(roles) {
-      const rolesList = document.getElementById('section3').querySelector('ul');
-      rolesList.innerHTML = '';
-      roles.entities.forEach(role => {
-        const roleId = role['roleid'];
-        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-          const listItem = document.createElement('li');
-          listItem.textContent = roleDetail.name;
-          rolesList.appendChild(listItem);
+  function renderRoles(roles) {
+    const rolesList = document.getElementById('section3').querySelector('ul');
+    roles.forEach(role => {
+      const listItem = document.createElement('li');
+      listItem.innerText = role.name;
+      rolesList.appendChild(listItem);
+    });
+  }
+
+  function main() {
+    const popupDiv = createAndAppendPopup();
+
+    fetchUsers((result) => {
+      renderUserList(result.entities, (user) => {
+        fetchBusinessUnitName(user._businessunitid_value, (businessUnit) => {
+          renderBusinessUnit(businessUnit.name);
+        });
+        fetchTeamsForUser(user.systemuserid, (result) => {
+          renderTeams(result.entities[0].teammembership_association);
+        });
+        fetchRolesForUser(user.systemuserid, (result) => {
+          renderRoles(result.entities);
         });
       });
     });
   }
 
-  function setupSearchFilter() {
-    document.getElementById('searchInput').oninput = function() {
-      const searchValue = this.value.toLowerCase();
-      document.querySelectorAll('.user').forEach(el => {
-        el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-      });
-    };
-  }
+  main();
 
-  function displayPopup(users) {
-    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-    createAndAppendPopup();
-    renderUserList(users.entities, selectUser);
-    setupSearchFilter();
-  }
+})(); // code reviewed
 
-  fetchUsers(function(users) {
-    displayPopup(users);
-  });
-})();
 
 //------------end NEw 08-24-23---------------------------------
 javascript: (function() {
