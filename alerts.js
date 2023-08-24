@@ -8,7 +8,7 @@ javascript: (function() {
     #section1 input { margin-bottom: 10px; width: 230px;}
     #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     #section1 #userList::-webkit-scrollbar { display: none; }
-    #section2, #section3, #section4 { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    #section2, #section3 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
     #sectionsRow { white-space: nowrap; }
@@ -40,9 +40,8 @@ javascript: (function() {
           <div id="userList"></div>
         </div>
         <div id="sectionsRow">
-          <div class="section" id="section2"><h3>Business Unit</h3><ul></ul></div>
-          <div class="section" id="section3"><h3>Teams</h3><ul></ul></div>
-          <div class="section" id="section4"><h3>Security Roles</h3><ul></ul></div>
+          <div class="section" id="section2"><h3>Business Unit & Teams</h3><ul id="businessAndTeamsList"></ul></div>
+          <div class="section" id="section3"><h3>Security Roles</h3><ul></ul></div>
         </div>
       </div>`;
   }
@@ -78,17 +77,25 @@ javascript: (function() {
     const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
     
-    const businessUnitList = document.getElementById('section2').querySelector('ul');
-    businessUnitList.innerHTML = '';
+    const businessAndTeamsList = document.getElementById('businessAndTeamsList');
+    businessAndTeamsList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       const listItem = document.createElement('li');
-      listItem.textContent = businessUnit.name;
-      businessUnitList.appendChild(listItem);
+      listItem.textContent = "Business Unit: " + businessUnit.name;
+      businessAndTeamsList.appendChild(listItem);
+    });
+
+    fetchTeamsForUser(user.systemuserid, function(response) {
+      response.entities[0].teammembership_association.forEach(team => {
+        const listItem = document.createElement('li');
+        listItem.textContent = "Team: " + team.name;
+        businessAndTeamsList.appendChild(listItem);
+      });
     });
 
     fetchRolesForUser(user.systemuserid, function(roles) {
-      const rolesList = document.getElementById('section4').querySelector('ul');
+      const rolesList = document.getElementById('section3').querySelector('ul');
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
@@ -97,16 +104,6 @@ javascript: (function() {
           listItem.textContent = roleDetail.name;
           rolesList.appendChild(listItem);
         });
-      });
-    });
-
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      const teamsList = document.getElementById('section3').querySelector('ul');
-      teamsList.innerHTML = '';
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
       });
     });
   }
@@ -130,7 +127,8 @@ javascript: (function() {
   fetchUsers(function(users) {
     displayPopup(users);
   });
-})();
+})(); // code reviewed
+
 
 //------------end NEw 08-24-23---------------------------------
 javascript: (function() {
