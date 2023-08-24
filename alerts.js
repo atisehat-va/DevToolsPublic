@@ -3,7 +3,9 @@ javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: left; margin-bottom: 10px; margin-top: 20px; }
+    .section h3 { margin-bottom: 10px; margin-top: 20px; }
+    .section#section1 h3 { text-align: center; }
+    .section#section2 h3, .section#section3 h3 { text-align: left; }
     .section ul { list-style-type: disc; padding-left: 30px; }
     #section1 { text-align: center; height: 220px; }
     #section1 input { margin-bottom: 10px; width: 230px;}
@@ -30,7 +32,7 @@ javascript: (function() {
   }
 
   function createPopupHtml() {
-    return `
+      return `
       <div class="popup">
         <style>${popupCss}</style>
         <div class="section" id="section1">
@@ -41,7 +43,7 @@ javascript: (function() {
         <div id="sectionsRow">
           <div class="section" id="section2">
             <h3>Business Unit</h3><ul></ul>
-            <h3>Teams</h3><ul id="teamList"></ul>
+            <h3>Teams</h3><ul></ul>
           </div>
           <div class="section" id="section3"><h3>Security Roles</h3><ul></ul></div>
         </div>
