@@ -30,8 +30,7 @@ javascript: (function() {
   } else {
     rightSideDiv.innerHTML = ''; // Remove the replicated content from the right side
   }
-}
-  window.toggleContent = toggleContent;
+}  
   
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
