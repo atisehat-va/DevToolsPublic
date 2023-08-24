@@ -2,21 +2,18 @@
 javascript: (function() {
   const popupCss = `
 .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
-.content { display: flex; width: 100%; transition: width 0.5s; }
-.shrunk .section#section1, .shrunk .section#section3 { width: 25% !important; }
-.shrunk .section#section2, .shrunk .section#section4 { width: 25% !important; display: inline-block !important; }
+.content { width: 100%; transition: width 0.5s; }
+.shrunk { width: 50% !important; }
 .security-btn { position: absolute; top: 10px; right: 10px; background-color: #007bff; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; }
-.section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
-.section#section2, .section#section4 { display: none; }
-.selected { background-color: #f0f0f0; }
-.user { cursor: pointer; padding: 3px; font-size: 14px; }
-#sectionsRow { white-space: nowrap; }
-#businessUnitList li, #teamsList li, #section3 ul li, #section4 ul li { margin-left: 20px; }
-#businessUnitList, #teamsList, #section3 ul, #section4 ul { margin-bottom: 15px; }
+.section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
 #section1 { text-align: center; height: 220px; }
 #section1 input { margin-bottom: 10px; width: 230px;}
 #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
 #section1 #userList::-webkit-scrollbar { display: none; }
+#sectionsRow { white-space: nowrap; }
+#section2, #section3 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+#businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
+#businessUnitList { margin-bottom: 15px; }
 `;
   function toggleContent() {
     const contentDiv = document.querySelector('.content');
