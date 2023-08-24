@@ -1,9 +1,10 @@
 //--------------new-------------------------------------------
 javascript: (function() {
   const popupCss = `
-  .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
-  .content { width: 100%; transition: width 0.5s; }
-  .shrunk { width: 50% !important; }
+  .popup { background-color: white; display: flex; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
+  .content { width: 100%; transition: width 0.5s; display: flex; }
+  .left-side, .right-side {  width: 100%; }  
+  .shrunk .left-side, .shrunk .right-side {  width: 50%; !important; }
   .security-btn { position: absolute; top: 10px; right: 10px; background-color: #007bff; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; }
   .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
   #section1 { text-align: center; height: 220px; }
@@ -17,10 +18,19 @@ javascript: (function() {
   #businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
   #businessUnitList { margin-bottom: 15px; }
 `;
+  
   function toggleContent() {
-    const contentDiv = document.querySelector('.content');
-    contentDiv.classList.toggle('shrunk');
+  const contentDiv = document.querySelector('.content');
+  contentDiv.classList.toggle('shrunk');
+
+  const rightSideDiv = document.querySelector('.right-side');
+  if (contentDiv.classList.contains('shrunk')) {
+    const leftSideContent = document.querySelector('.left-side').cloneNode(true);
+    rightSideDiv.appendChild(leftSideContent);
+  } else {
+    rightSideDiv.innerHTML = ''; // Remove the replicated content from the right side
   }
+}
   window.toggleContent = toggleContent;
   
   function fetchUsers(callback) {
@@ -39,24 +49,27 @@ javascript: (function() {
     Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
-  function createPopupHtml() {
+function createPopupHtml() {
   return `
     <div class="popup">
       <button class="security-btn" onclick="toggleContent()">Security</button>
       <div class="content">
         <style>${popupCss}</style>
-        <div class="section" id="section1">
-          <h3>User Info</h3>
-          <input type="text" id="searchInput" placeholder="Search Users">
-          <div id="userList"></div>
-        </div>
-        <div id="sectionsRow">
-          <div class="section" id="section2">
-            <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
-            <h3>Teams:</h3><ul id="teamsList"></ul>
+        <div class="left-side"> <!-- Left side container -->
+          <div class="section" id="section1">
+            <h3>User Info</h3>
+            <input type="text" id="searchInput" placeholder="Search Users">
+            <div id="userList"></div>
           </div>
-          <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
+          <div id="sectionsRow">
+            <div class="section" id="section2">
+              <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
+              <h3>Teams:</h3><ul id="teamsList"></ul>
+            </div>
+            <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
+          </div>
         </div>
+        <div class="right-side"></div> <!-- Right side container -->
       </div>
     </div>`;
 }
