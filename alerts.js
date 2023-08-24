@@ -1,20 +1,18 @@
 //--------------new-------------------------------------------
 javascript: (function() {
   const popupCss = `
-    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 1400px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
-    .copy-btn { position: absolute; top: 10px; right: 10px; padding: 10px; background-color: #444; color: white; cursor: pointer; text-align: center; border-radius: 5px; width: 120px; }
-    .section, .section2 { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section ul { padding-left: 20px; margin-bottom: 10px; }
-    #section2 h3, #section3 h3 { margin-bottom: 10px; }
-    .section h3 { text-align: center; margin-bottom: 10px; }
+    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+    .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
     #section1 { text-align: center; height: 220px; }
     #section1 input { margin-bottom: 10px; width: 230px;}
     #section1 #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     #section1 #userList::-webkit-scrollbar { display: none; }
-    #sectionsRow, #sectionsRow2 { display: inline-block; width: 50%; height: 100%; vertical-align: top; box-sizing: border-box; }
+    #section2, #section3 { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
-    .sections-container { white-space: nowrap; width: 50%; overflow: hidden; }
+    #sectionsRow { white-space: nowrap; }
+    #businessUnitList li, #teamsList li, #section3 ul li { margin-left: 20px; }
+    #businessUnitList { margin-bottom: 15px; }
   `;
 
 
@@ -38,23 +36,19 @@ javascript: (function() {
     return `
       <div class="popup">
         <style>${popupCss}</style>
-        <button class="copy-btn" id="copySecurityBtn">Copy Security</button>
-        <div class="sections-container" id="sectionsContainer">
-          <div id="sectionsRow">
-            <div class="section" id="section1"><h3>User Info</h3><input type="text" id="searchInput" placeholder="Search Users"><div id="userList"></div></div>
-            <div class="section" id="section2"><h3>Business Unit</h3><ul></ul><h3>Teams</h3><ul></ul></div>
-            <div class="section" id="section3"><h3>Security Roles</h3><ul></ul></div>
+        <div class="section" id="section1">
+          <h3>User Info</h3>
+          <input type="text" id="searchInput" placeholder="Search Users">
+          <div id="userList"></div>
+        </div>
+        <div id="sectionsRow">
+          <div class="section" id="section2">
+            <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
+            <h3>Teams:</h3><ul id="teamsList"></ul>
           </div>
-          <div id="sectionsRow2">
-            <div class="section" id="section1-2"><h3>User Info-2</h3></div>
-            <div class="section" id="section2-2"><h3>Business Unit-2</h3><ul></ul><h3>Teams-2</h3><ul></ul></div>
-            <div class="section" id="section3-2"><h3>Security Roles-2</h3><ul></ul></div>
-          </div>
+          <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
         </div>
       </div>`;
-  }
-  function copySecurity() {
-    document.getElementById('sectionsContainer').style.width = '100%';
   }
 
   function createAndAppendPopup() {
@@ -139,11 +133,8 @@ javascript: (function() {
 
   fetchUsers(function(users) {
     displayPopup(users);
-    document.getElementById('copySecurityBtn').addEventListener('click', copySecurity);
   });
-  
 })(); // code reviewed
-
 
 //------------end NEw 08-24-23---------------------------------
 javascript: (function() {
