@@ -19,16 +19,23 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
   }
 
-  function fetchRolesForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
+  function renderUserList(users, selectUserCallback) {
+    const userListDiv = document.getElementById('userList');
+    users.forEach(user => {
+      const userDiv = document.createElement('div');
+      userDiv.className = 'user';
+      userDiv.textContent = user.fullname;
+      userDiv.dataset.id = user.systemuserid;
+      userDiv.onclick = () => selectUserCallback(user);
+      userListDiv.appendChild(userDiv);
+    });
   }
 
-  function fetchTeamsForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
-  }
-
-  function fetchBusinessUnitName(businessUnitId, callback) {
-    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
+  function selectUser(user) {
+    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
+    const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
+    userDiv.classList.add('selected');
+    // ... rest of the code related to user selection
   }
 
   function createPopupHtml() {
@@ -61,65 +68,6 @@ javascript: (function() {
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(popupDiv);
-    return popupDiv;
-  }
-
-  function renderUserList(users, selectUserCallback) {
-    const userListDiv = document.getElementById('userList');
-    users.forEach(user => {
-      const userDiv = document.createElement('div');
-      userDiv.className = 'user';
-      userDiv.textContent = user.fullname;
-      userDiv.dataset.id = user.systemuserid;
-      userDiv.onclick = () => selectUserCallback(user);
-      userListDiv.appendChild(userDiv);
-    });
-  }
-
-  function selectUser(user) {
-    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
-    const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
-    userDiv.classList.add('selected');
-
-    const businessUnitSection = document.getElementById('section2');
-    businessUnitSection.innerHTML = `
-      <h3>Business Unit</h3>
-      <ul></ul>
-      <h3>Teams</h3>
-      <ul></ul>
-    `;
-
-    const businessUnitList = businessUnitSection.querySelector('ul:first-of-type');
-    businessUnitList.innerHTML = '';
-
-    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
-      const listItem = document.createElement('li');
-      listItem.textContent = businessUnit.name;
-      businessUnitList.appendChild(listItem);
-    });
-
-    fetchRolesForUser(user.systemuserid, function(roles) {
-      const rolesList = document.getElementById('section3').querySelector('ul');
-      rolesList.innerHTML = '';
-      roles.entities.forEach(role => {
-        const roleId = role['roleid'];
-        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-          const listItem = document.createElement('li');
-          listItem.textContent = roleDetail.name;
-          rolesList.appendChild(listItem);
-        });
-      });
-    });
-
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      const teamsList = businessUnitSection.querySelector('ul:last-of-type'); // Selects the last ul in section2
-      teamsList.innerHTML = '';
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
-      });
-    });
   }
 
   function setupSearchFilter() {
@@ -142,6 +90,7 @@ javascript: (function() {
     displayPopup(users);
   });
 })();
+
 
 
 //------------end NEw 08-24-23---------------------------------
