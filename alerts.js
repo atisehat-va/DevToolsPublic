@@ -4,7 +4,7 @@ javascript: (function() {
   .popup { background-color: white; display: flex; border: 2px solid #444; border-radius: 10px; width: 700px; height: 500px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: relative; }
   .content { width: 100%; transition: width 0.5s; display: flex; }
   .left-side, .right-side {  width: 100%; }  
-  .shrunk .left-side, .shrunk .right-side {  width: 50%; !important; }
+  .shrunk .left-side, .shrunk .right-side {  width: 50% !important; }
   .security-btn { position: absolute; top: 10px; right: 10px; background-color: #007bff; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; }
   .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
   #section1 { text-align: center; height: 220px; }
