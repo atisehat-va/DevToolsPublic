@@ -24,7 +24,7 @@ javascript: (function() {
     const rightContentDiv = document.querySelector('.right-content');
     contentDiv.classList.toggle('expanded');
     rightContentDiv.style.display = contentDiv.classList.contains('expanded') ? 'block' : 'none';
-    rightContentDiv.classList.toggle('expanded');
+    rightContentDiv.classList.toggle('expanded'); // Ensure that the right content also expands
   }
 
   window.toggleContent = toggleContent;
