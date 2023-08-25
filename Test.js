@@ -1,21 +1,21 @@
 javascript: (function() {
   const popupCss = `
-    .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
-    .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; margin-bottom: 10px; color: #444; }
-    .user-section { text-align: center; height: 200px; width: 45%;}
-    .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }    
-    .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }     
-    .user-section #userList::-webkit-scrollbar { display: none; }    
-    .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
-    .details-section { display: inline-block; width: 50%; height: 200px; vertical-align: top; box-sizing: border-box; text-align: left; }    
-    .selected { background-color: #e0e0e0; }    
-    .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
-    .user:hover { background-color: #f0f0f0; }
-    #sectionsRow { white-space: nowrap; }
-    .popup-row { display: flex; }
-    .popup-header { text-align: center; padding: 15px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
-  `;
+  .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+  .section { padding: 20px; border-right: 1px solid #ccc; }
+  .section h3 { text-align: center; margin-bottom: 10px; color: #444; }
+  .user-section { text-align: center; height: 200px; width: 45%; }
+  .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+  .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }
+  .user-section #userList::-webkit-scrollbar { display: none; }
+  .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
+  .details-section { display: inline-block; width: 50%; height: 200px; vertical-align: top; box-sizing: border-box; text-align: left; }
+  .selected { background-color: #e0e0e0; }
+  .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }
+  .user:hover { background-color: #f0f0f0; }
+  #sectionsRow { white-space: nowrap; }
+  .popup-row { display: flex; }
+  .popup-header { text-align: center; padding: 15px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+`;
 
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
