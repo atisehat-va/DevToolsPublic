@@ -91,7 +91,8 @@ javascript: (function() {
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-    const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
+    const businessUnitSection = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3));
+    const businessUnitList = businessUnitSection.querySelector('ul');
     businessUnitList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
@@ -102,6 +103,27 @@ javascript: (function() {
       const listItem = document.createElement('li');
       listItem.textContent = businessUnit.name;
       businessUnitList.appendChild(listItem);
+    });
+
+    // Create or find a sublist for teams under the Business Unit section
+    let teamsSublist = businessUnitSection.querySelector('.teams-sublist');
+    if (!teamsSublist) {
+      teamsSublist = document.createElement('ul');
+      teamsSublist.className = 'teams-sublist';
+      businessUnitSection.appendChild(teamsSublist);
+    }
+    teamsSublist.innerHTML = '';
+
+    fetchTeamsForUser(user.systemuserid, function(response) {
+      if (!response || !response.entities || !response.entities[0].teammembership_association) {
+        console.error('Teams not found');
+        return;
+      }
+      response.entities[0].teammembership_association.forEach(team => {
+        const listItem = document.createElement('li');
+        listItem.textContent = team.name;
+        teamsSublist.appendChild(listItem);
+      });
     });
 
     fetchRolesForUser(user.systemuserid, function(roles) {
@@ -120,25 +142,10 @@ javascript: (function() {
         });
       });
     });
-
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      if (!response || !response.entities || !response.entities[0].teammembership_association) {
-        console.error('Teams not found');
-        return;
-      }
-      // Appending the teams to the Business Unit section
-      const teamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
-      });
-    });
   } catch (e) {
     console.error('Error in selectUser function', e);
   }
 }
-
   function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
       const searchValue = this.value.toLowerCase();
