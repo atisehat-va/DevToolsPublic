@@ -48,10 +48,12 @@ javascript: (function() {
         </div>
         <div id="sectionsRow1" class="popup-row">
           <div class="section details-section" id="section3"><h3>Business Unit</h3><ul></ul></div>
+          <div class="section details-section" id="section4"><h3>Teams</h3><ul></ul></div>
           <div class="section details-section" id="section5"><h3>Security Roles</h3><ul></ul></div>
         </div>
         <div id="sectionsRow2" class="popup-row">
           <div class="section details-section" id="section6"><h3>Business Unit</h3><ul></ul></div>
+          <div class="section details-section" id="section7"><h3>Teams</h3><ul></ul></div>
           <div class="section details-section" id="section8"><h3>Security Roles</h3><ul></ul></div>
         </div>
       </div>`;
@@ -81,64 +83,27 @@ javascript: (function() {
       userDiv.onclick = () => selectUserCallback(user);
       userListDiv.appendChild(userDiv);
     });
-    const searchInput = document.getElementById(searchInputId);
-    searchInput.onkeyup = function() {
-      const filter = this.value.toUpperCase();
-      const userList = document.getElementById(sectionId);
-      const userDivs = userList.getElementsByClassName(`user${sectionId.charAt(sectionId.length - 1)}`);
-      Array.from(userDivs).forEach(userDiv => {
-        const textValue = userDiv.textContent || userDiv.innerText;
-        if (textValue.toUpperCase().indexOf(filter) > -1) {
-          userDiv.style.display = '';
-        } else {
-          userDiv.style.display = 'none';
-        }
-      });
-    };
   }
 
   function selectUser(user, sectionPrefix) {
-    // clear previous selection
-    const previousSelectedUser = document.getElementById(`section${sectionPrefix}`).querySelector('.selected');
-    if (previousSelectedUser) previousSelectedUser.className = previousSelectedUser.className.replace(' selected', '');
+  try {
+    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
+    const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
+    userDiv.classList.add('selected');
 
-    // highlight selected user
-    const selectedUserDiv = document.getElementById(`section${sectionPrefix}`).querySelector(`[data-id='${user.systemuserid}']`);
-    selectedUserDiv.className += ' selected';
+    const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
+    businessUnitList.innerHTML = '';
 
-    // clear previous details
-    for (let i = 3; i <= 8; i += 3) {
-      document.getElementById('section' + (i + (sectionPrefix - 1) * 3)).querySelector('ul').innerHTML = '';
-    }
-
-    // fetch and render business unit and teams
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
         console.error('Business unit not found');
         return;
       }
-      const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      businessUnitList.innerHTML = '';
       const listItem = document.createElement('li');
       listItem.textContent = businessUnit.name;
       businessUnitList.appendChild(listItem);
-
-      // Fetch and render teams
-      fetchTeamsForUser(user.systemuserid, function(response) {
-      if (!response || !response.entities || !response.entities[0].teammembership_association) {
-        console.error('Teams not found');
-        return;
-      }
-      const teamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
-      });
-    });
     });
 
-    // fetch and render security roles
     fetchRolesForUser(user.systemuserid, function(roles) {
       if (!roles || !roles.entities) {
         console.error('Roles not found');
@@ -147,18 +112,51 @@ javascript: (function() {
       const rolesList = document.getElementById('section' + (5 + (sectionPrefix - 1) * 3)).querySelector('ul');
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
-        const listItem = document.createElement('li');
-        listItem.textContent = role.name;
-        rolesList.appendChild(listItem);
+        const roleId = role['roleid'];
+        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
+          const listItem = document.createElement('li');
+          listItem.textContent = roleDetail.name;
+          rolesList.appendChild(listItem);
+        });
       });
     });
+
+    fetchTeamsForUser(user.systemuserid, function(response) {
+      if (!response || !response.entities || !response.entities[0].teammembership_association) {
+        console.error('Teams not found');
+        return;
+      }
+      const teamsList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
+      teamsList.innerHTML = '';
+      response.entities[0].teammembership_association.forEach(team => {
+        const listItem = document.createElement('li');
+        listItem.textContent = team.name;
+        teamsList.appendChild(listItem);
+      });
+    });
+  } catch (e) {
+    console.error('Error in selectUser function', e);
+  }
+}
+
+  function setupSearchFilter(searchInputId) {
+    document.getElementById(searchInputId).oninput = function() {
+      const searchValue = this.value.toLowerCase();
+      document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+      });
+    };
   }
 
-  const popupDiv = createAndAppendPopup();
+  function displayPopup(users) {
+    const popupDiv = createAndAppendPopup();
+    renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+    renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
+    setupSearchFilter('searchInput1');
+    setupSearchFilter('searchInput2');
+  }
 
   fetchUsers(function(users) {
-    renderUserList(users.entities, selectUser, 'userList1', 'searchInput1');
-    renderUserList(users.entities, (user) => selectUser(user, 2), 'userList2', 'searchInput2');
+    displayPopup(users);
   });
-
 })();
