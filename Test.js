@@ -44,8 +44,8 @@ javascript: (function() {
           <div class="section details-section" id="section4"><h3>Security Roles</h3><ul></ul></div>
         </div>
         <div id="sectionsRow2" class="popup-row">
-          <div class="section combined-section" id="section5"><h3>Business Unit & Teams</h3><ul></ul></div>
-          <div class="section details-section" id="section6"><h3>Security Roles</h3><ul></ul></div>
+          <div class="section combined-section" id="section5"><h3>Business Unit & Teams 2</h3><ul></ul></div>
+          <div class="section details-section" id="section6"><h3>Security Roles 2</h3><ul></ul></div>
         </div>
       </div>`;
   }
