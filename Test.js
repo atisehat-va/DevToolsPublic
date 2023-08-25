@@ -1,22 +1,24 @@
 javascript: (function() {
  const popupCss = `
     .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
-    .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
+    .section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }
     .section h3 { text-align: center; margin-bottom: 10px; color: #444; }
-    .user-section { text-align: center; height: 230px; width: 45%;}
+    .user-section { text-align: center; height: 190px; width: 50%;}
     .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }    
     .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }     
     .user-section #userList::-webkit-scrollbar { display: none; }    
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
-    .user-list-container { max-height: 150px; overflow-y: auto; }
-    .roles-and-teams-list { max-height: 150px; overflow-y: auto; }
-    .details-section { display: inline-block; width: 50%; height: 220px; vertical-align: top; box-sizing: border-box; text-align: left; }    
+    .user-list-container { max-height: 110px; overflow-y: auto; }
+    .roles-and-teams-list-row1 { max-height: 110px; overflow-y: auto; }
+    .roles-and-teams-list-row2 { max-height: 150px; overflow-y: auto; }
+    .details-section-row1 { display: inline-block; width: 50%; height: 160px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .details-section-row2 { display: inline-block; width: 50%; height: 220px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #e0e0e0; }    
     .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
     .user:hover { background-color: #f0f0f0; }
     #sectionsRow { white-space: nowrap; }
     .popup-row { display: flex; }
-    .popup-header { text-align: center; padding: 15px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+    .popup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
   `;
 
   function fetchUsers(callback) {
@@ -57,29 +59,29 @@ function createPopupHtml() {
         </div>
       </div>
       <div id="sectionsRow1" class="popup-row">
-        <div class="section details-section" id="section3">
+        <div class="section details-section-row1" id="section3">
           <h3>Business Unit & Teams</h3>
-          <div class="roles-and-teams-list">
+          <div class="roles-and-teams-list-row1">
             <ul></ul>
           </div>
         </div>
-        <div class="section details-section" id="section5">
+        <div class="section details-section-row1" id="section5">
           <h3>Business Unit & Teams</h3>
-          <div class="roles-and-teams-list">
+          <div class="roles-and-teams-list-row1">
             <ul></ul>
           </div>
         </div>        
       </div>
       <div id="sectionsRow2" class="popup-row">
-        <div class="section details-section" id="section4">
+        <div class="section details-section-row2" id="section4">
           <h3>Security Roles</h3>
-          <div class="roles-and-teams-list">
+          <div class="roles-and-teams-list-row2">
             <ul></ul>
           </div>
         </div>
-        <div class="section details-section" id="section6">
+        <div class="section details-section-row2" id="section6">
           <h3>Security Roles</h3>
-          <div class="roles-and-teams-list">
+          <div class="roles-and-teams-list-row2">
             <ul></ul>
           </div>
         </div>
