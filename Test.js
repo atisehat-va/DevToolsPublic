@@ -33,9 +33,10 @@ javascript: (function() {
     Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
-  function createPopupHtml() {
+ function createPopupHtml() {
   return `
     <div class="popup">
+      <div class="popup-header">User Details</div>
       <style>${popupCss}</style>
       <div class="popup-row">
         <div class="section user-section" id="section1">
@@ -50,11 +51,11 @@ javascript: (function() {
         </div>
       </div>
       <div id="sectionsRow1" class="popup-row">
-        <div class="section details-section" id="section3"><h3>Business Unit & Teams</h3><ul id="businessUnit"></ul><ul id="teams"></ul></div>
+        <div class="section details-section" id="section3"><h3>Business Unit & Teams</h3><ul></ul></div>
         <div class="section details-section" id="section4"><h3>Security Roles</h3><ul></ul></div>
       </div>
       <div id="sectionsRow2" class="popup-row">
-        <div class="section details-section" id="section5"><h3>Business Unit & Teams</h3><ul id="businessUnit2"></ul><ul id="teams2"></ul></div>
+        <div class="section details-section" id="section5"><h3>Business Unit & Teams</h3><ul></ul></div>
         <div class="section details-section" id="section6"><h3>Security Roles</h3><ul></ul></div>
       </div>
     </div>`;
@@ -88,16 +89,12 @@ javascript: (function() {
 
 function selectUser(user, sectionPrefix) {
   try {
-    // Remove the 'selected' class from all users
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-    const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('#businessUnit');
-    const teamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('#teams');
-
-    businessUnitList.innerHTML = '';
-    teamsList.innerHTML = '';
+    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
+    businessUnitAndTeamsList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
@@ -105,8 +102,8 @@ function selectUser(user, sectionPrefix) {
         return;
       }
       const listItem = document.createElement('li');
-      listItem.textContent = businessUnit.name;
-      businessUnitList.appendChild(listItem);
+      listItem.textContent = 'Business Unit: ' + businessUnit.name;
+      businessUnitAndTeamsList.appendChild(listItem);
     });
 
     fetchTeamsForUser(user.systemuserid, function(response) {
@@ -116,8 +113,8 @@ function selectUser(user, sectionPrefix) {
       }
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
+        listItem.textContent = 'Team: ' + team.name;
+        businessUnitAndTeamsList.appendChild(listItem);
       });
     });
 
@@ -126,7 +123,7 @@ function selectUser(user, sectionPrefix) {
         console.error('Roles not found');
         return;
       }
-      const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
+      const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
