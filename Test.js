@@ -9,6 +9,7 @@ javascript: (function() {
     .user-section #userList::-webkit-scrollbar { display: none; }    
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
     .user-list-container { max-height: 150px; overflow-y: auto; }
+    .roles-and-teams-list { max-height: 150px; overflow-y: auto; }
     .details-section { display: inline-block; width: 50%; height: 200px; vertical-align: top; box-sizing: border-box; text-align: left; }    
     .selected { background-color: #e0e0e0; }    
     .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
@@ -34,34 +35,54 @@ javascript: (function() {
     Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
- function createPopupHtml() {
+function createPopupHtml() {
   return `
     <div class="popup">
       <div class="popup-header">User Details</div>
       <style>${popupCss}</style>
       <div class="popup-row">
         <div class="section user-section" id="section1">
-        <h3>User Info</h3>
-        <input type="text" id="searchInput1" placeholder="Search Users">
-        <div class="user-list-container">
-          <div id="userList1"></div>
+          <h3>User Info</h3>
+          <input type="text" id="searchInput1" placeholder="Search Users">
+          <div class="user-list-container">
+            <div id="userList1"></div>
+          </div>
         </div>
-      </div>
-      <div class="section user-section" id="section2">
-        <h3>User Info 2</h3>
-        <input type="text" id="searchInput2" placeholder="Search Users">
-        <div class="user-list-container">
-          <div id="userList2"></div>
+        <div class="section user-section" id="section2">
+          <h3>User Info 2</h3>
+          <input type="text" id="searchInput2" placeholder="Search Users">
+          <div class="user-list-container">
+            <div id="userList2"></div>
+          </div>
         </div>
-      </div>
       </div>
       <div id="sectionsRow1" class="popup-row">
-        <div class="section details-section" id="section3"><h3>Business Unit & Teams</h3><ul></ul></div>
-        <div class="section details-section" id="section5"><h3>Business Unit & Teams</h3><ul></ul></div>        
+        <div class="section details-section" id="section3">
+          <h3>Business Unit & Teams</h3>
+          <div class="roles-and-teams-list">
+            <ul></ul>
+          </div>
+        </div>
+        <div class="section details-section" id="section5">
+          <h3>Business Unit & Teams</h3>
+          <div class="roles-and-teams-list">
+            <ul></ul>
+          </div>
+        </div>        
       </div>
       <div id="sectionsRow2" class="popup-row">
-        <div class="section details-section" id="section4"><h3>Security Roles</h3><ul></ul></div>
-        <div class="section details-section" id="section6"><h3>Security Roles</h3><ul></ul></div>
+        <div class="section details-section" id="section4">
+          <h3>Security Roles</h3>
+          <div class="roles-and-teams-list">
+            <ul></ul>
+          </div>
+        </div>
+        <div class="section details-section" id="section6">
+          <h3>Security Roles</h3>
+          <div class="roles-and-teams-list">
+            <ul></ul>
+          </div>
+        </div>
       </div>
     </div>`;
 }
