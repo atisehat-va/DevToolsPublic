@@ -36,7 +36,6 @@ javascript: (function() {
  function createPopupHtml() {
   return `
     <div class="popup">
-      <div class="popup-header">User Details</div>
       <style>${popupCss}</style>
       <div class="popup-row">
         <div class="section user-section" id="section1">
@@ -55,8 +54,8 @@ javascript: (function() {
         <div class="section details-section" id="section4"><h3>Security Roles</h3><ul></ul></div>
       </div>
       <div id="sectionsRow2" class="popup-row">
-        <div class="section details-section" id="section5"><h3>Business Unit & Teams</h3><ul></ul></div>
-        <div class="section details-section" id="section6"><h3>Security Roles</h3><ul></ul></div>
+        <div class="section details-section" id="section6"><h3>Business Unit & Teams</h3><ul></ul></div>
+        <div class="section details-section" id="section7"><h3>Security Roles</h3><ul></ul></div>
       </div>
     </div>`;
 }
