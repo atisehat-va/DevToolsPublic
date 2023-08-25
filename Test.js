@@ -1,21 +1,26 @@
 javascript: (function() {
   const popupCss = `
     .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 80%; height: 80%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
-    .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; margin-bottom: 10px; color: #333; }
+    .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; flex: 1; }
+    .section h3 { text-align: center; margin-bottom: 10px; }
     .user-section { text-align: center; height: 220px; }
-    .user-section input { margin-bottom: 10px; width: 230px; }
+    .user-section input { margin-bottom: 10px; width: 230px;}
     .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     .user-section #userList::-webkit-scrollbar { display: none; }
-    .details-section { display: inline-block; width: 32%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .details-section { text-align: left; }
     .selected { background-color: #f0f0f0; }
-    .user { cursor: pointer; padding: 3px; font-size: 14px; color: #444; }
-    #sectionsRow { white-space: nowrap; }
+    .user { cursor: pointer; padding: 3px; font-size: 14px; }
     .popup-row { display: flex; }
-  `;  
-
+  `; 
+  
+  function fetchData(entity, filter, callback, errorHandler) {
+    Xrm.WebApi.retrieveMultipleRecords(entity, filter)
+      .then(callback)
+      .catch(errorHandler || console.error);
+  }
+  
   function fetchUsers(callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
+    fetchData('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)', callback);
   }
 
   function fetchDetails(userId, callback) {
@@ -25,15 +30,17 @@ javascript: (function() {
   }
 
   function fetchRolesForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
+    fetchData('systemuserroles', `?$filter=systemuserid eq ${userId}`, callback);
   }
 
   function fetchTeamsForUser(userId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
+    fetchData('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`, callback);
   }
 
   function fetchBusinessUnitName(businessUnitId, callback) {
-    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
+    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name')
+      .then(callback)
+      .catch(console.error);
   }
 
   function createPopupHtml() {
