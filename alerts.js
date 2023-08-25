@@ -37,31 +37,32 @@ javascript: (function() {
   }
 
   function createPopupHtml() {
-    return `
-      <div class="popup">
-        <button class="security-btn" onclick="toggleContent()">Security</button>
-        <div class="content">
-          <style>${popupCss}</style>
+  return `
+    <div class="popup">
+      <button class="security-btn" onclick="toggleContent()">Security</button>
+      <div class="content">
+        <style>${popupCss}</style>
+        <div id="sectionsRow">
           <div class="section" id="section1">
             <h3>User Info</h3>
             <input type="text" id="searchInput" placeholder="Search Users">
             <div id="userList"></div>
+            <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
+            <h3>Teams:</h3><ul id="teamsList"></ul>
           </div>
           <div class="section" id="section2">
             <h3>User Info 2</h3>
             <input type="text" id="searchInput2" placeholder="Search Users">
             <div id="userList2"></div>
+            <h3>Business Unit 2:</h3><ul id="businessUnitList2"></ul>
+            <h3>Teams 2:</h3><ul id="teamsList2"></ul>
           </div>
-          <div id="sectionsRow">
-            <div class="section" id="section3">
-              <h3>Business Unit:</h3><ul id="businessUnitList"></ul>
-              <h3>Teams:</h3><ul id="teamsList"></ul>
-            </div>
-            <div class="section" id="section4"><h3>Security Roles:</h3><ul></ul></div>
-          </div>
+          <div class="section" id="section3"><h3>Security Roles:</h3><ul></ul></div>
+          <div class="section" id="section4"><h3>Security Roles 2:</h3><ul></ul></div>
         </div>
-      </div>`;
-  }
+      </div>
+    </div>`;
+}
   
 function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
