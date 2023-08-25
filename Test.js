@@ -7,7 +7,8 @@ javascript: (function() {
     .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }    
     .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }     
     .user-section #userList::-webkit-scrollbar { display: none; }    
-    .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
+    .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
+    .user-list-container { max-height: 150px; overflow-y: auto; }
     .details-section { display: inline-block; width: 50%; height: 200px; vertical-align: top; box-sizing: border-box; text-align: left; }    
     .selected { background-color: #e0e0e0; }    
     .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
@@ -40,15 +41,19 @@ javascript: (function() {
       <style>${popupCss}</style>
       <div class="popup-row">
         <div class="section user-section" id="section1">
-          <h3>User Info</h3>
-          <input type="text" id="searchInput1" placeholder="Search Users">
+        <h3>User Info</h3>
+        <input type="text" id="searchInput1" placeholder="Search Users">
+        <div class="user-list-container">
           <div id="userList1"></div>
         </div>
-        <div class="section user-section" id="section2">
-          <h3>User Info 2</h3>
-          <input type="text" id="searchInput2" placeholder="Search Users">
+      </div>
+      <div class="section user-section" id="section2">
+        <h3>User Info 2</h3>
+        <input type="text" id="searchInput2" placeholder="Search Users">
+        <div class="user-list-container">
           <div id="userList2"></div>
         </div>
+      </div>
       </div>
       <div id="sectionsRow1" class="popup-row">
         <div class="section details-section" id="section3"><h3>Business Unit & Teams</h3><ul></ul></div>
