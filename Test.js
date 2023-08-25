@@ -77,7 +77,7 @@ javascript: (function() {
     const userListDiv = document.getElementById(sectionId);
     users.forEach(user => {
       const userDiv = document.createElement('div');
-      userDiv.className = 'user';
+      userDiv.className = `user${sectionId.charAt(sectionId.length - 1)}`;
       userDiv.textContent = user.fullname;
       userDiv.dataset.id = user.systemuserid;
       userDiv.onclick = () => selectUserCallback(user);
@@ -86,11 +86,11 @@ javascript: (function() {
   }
 
   function selectUser(user, sectionPrefix) {
-    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
-    const userDiv = document.getElementById('userList').querySelector(`[data-id='${user.systemuserid}']`);
+    document.querySelectorAll(`.user${sectionPrefix}`).forEach(el => el.classList.remove('selected'));
+    const userDiv = document.getElementById(`userList${sectionPrefix}`).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
     
-    const businessUnitList = document.getElementById('section2').querySelector('ul');
+    const businessUnitList = document.getElementById(`section${sectionPrefix}2`).querySelector('ul');
     businessUnitList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
@@ -100,7 +100,7 @@ javascript: (function() {
     });
 
     fetchRolesForUser(user.systemuserid, function(roles) {
-      const rolesList = document.getElementById('section4').querySelector('ul');
+      const rolesList = document.getElementById(`section${sectionPrefix}4`).querySelector('ul');
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
@@ -113,7 +113,7 @@ javascript: (function() {
     });
 
     fetchTeamsForUser(user.systemuserid, function(response) {
-      const teamsList = document.getElementById('section3').querySelector('ul');
+      const teamsList = document.getElementById(`section${sectionPrefix}3`).querySelector('ul');
       teamsList.innerHTML = '';
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
@@ -126,14 +126,14 @@ javascript: (function() {
   function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
       const searchValue = this.value.toLowerCase();
-      document.querySelectorAll('.user').forEach(el => {
+      document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
         el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
       });
     };
   }
 
   function displayPopup(users) {
-    // ... rest of the code ...
+    const popupDiv = createAndAppendPopup();
     renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
     renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
     setupSearchFilter('searchInput1');
