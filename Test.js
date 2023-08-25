@@ -80,12 +80,21 @@ javascript: (function() {
   try {
     document.querySelectorAll(`.user${sectionPrefix}`).forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
+    if (!userDiv) {
+      console.error('User div not found');
+      return;
+    }
     userDiv.classList.add('selected');
 
     const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
-    businessUnitAndTeamsList.innerHTML = '';
-
     const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
+
+    if (!businessUnitAndTeamsList || !rolesList) {
+      console.error('Sections not found');
+      return;
+    }
+
+    businessUnitAndTeamsList.innerHTML = '';
     rolesList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
