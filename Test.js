@@ -113,7 +113,7 @@ javascript: (function() {
         return;
       }
       const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      rolesList.innerHTML = '';
+    rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
