@@ -1,17 +1,20 @@
 javascript: (function() {
   const popupCss = `
-    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 100%; height: 100%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+    .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 90%; height: 80%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; margin-bottom: 10px; }
+    .section h3 { text-align: center; margin-bottom: 15px; color: #444; }
     .user-section { text-align: center; height: 220px; }
-    .user-section input { margin-bottom: 10px; width: 230px;}
-    .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
-    .user-section #userList::-webkit-scrollbar { display: none; }
+    .user-section input { margin-bottom: 15px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }
+    .user-section #userList::-webkit-scrollbar { width: 5px; }
+    .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
     .details-section { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
-    .selected { background-color: #f0f0f0; }
-    .user { cursor: pointer; padding: 3px; font-size: 14px; }
+    .selected { background-color: #e0e0e0; }
+    .user { cursor: pointer; padding: 5px; font-size: 14px; transition: background-color 0.3s; }
+    .user:hover { background-color: #f0f0f0; }
     #sectionsRow { white-space: nowrap; }
     .popup-row { display: flex; }
+    .popup-header { text-align: center; padding: 15px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
   `;
 
   function fetchUsers(callback) {
@@ -31,33 +34,34 @@ javascript: (function() {
   }
 
   function createPopupHtml() {
-    return `
-      <div class="popup">
-        <style>${popupCss}</style>
-        <div class="popup-row">
-          <div class="section user-section" id="section1">
-            <h3>User Info</h3>
-            <input type="text" id="searchInput1" placeholder="Search Users">
-            <div id="userList1"></div>
-          </div>
-          <div class="section user-section" id="section2">
-            <h3>User Info 2</h3>
-            <input type="text" id="searchInput2" placeholder="Search Users">
-            <div id="userList2"></div>
-          </div>
+  return `
+    <div class="popup">
+      <div class="popup-header">User Details</div>
+      <style>${popupCss}</style>
+      <div class="popup-row">
+        <div class="section user-section" id="section1">
+          <h3>User Info</h3>
+          <input type="text" id="searchInput1" placeholder="Search Users">
+          <div id="userList1"></div>
         </div>
-        <div id="sectionsRow1" class="popup-row">
-          <div class="section details-section" id="section3"><h3>Business Unit</h3><ul></ul></div>
-          <div class="section details-section" id="section4"><h3>Teams</h3><ul></ul></div>
-          <div class="section details-section" id="section5"><h3>Security Roles</h3><ul></ul></div>
+        <div class="section user-section" id="section2">
+          <h3>User Info 2</h3>
+          <input type="text" id="searchInput2" placeholder="Search Users">
+          <div id="userList2"></div>
         </div>
-        <div id="sectionsRow2" class="popup-row">
-          <div class="section details-section" id="section6"><h3>Business Unit</h3><ul></ul></div>
-          <div class="section details-section" id="section7"><h3>Teams</h3><ul></ul></div>
-          <div class="section details-section" id="section8"><h3>Security Roles</h3><ul></ul></div>
-        </div>
-      </div>`;
-  }
+      </div>
+      <div id="sectionsRow1" class="popup-row">
+        <div class="section details-section" id="section3"><h3>Business Unit</h3><ul></ul></div>
+        <div class="section details-section" id="section4"><h3>Teams</h3><ul></ul></div>
+        <div class="section details-section" id="section5"><h3>Security Roles</h3><ul></ul></div>
+      </div>
+      <div id="sectionsRow2" class="popup-row">
+        <div class="section details-section" id="section6"><h3>Business Unit</h3><ul></ul></div>
+        <div class="section details-section" id="section7"><h3>Teams</h3><ul></ul></div>
+        <div class="section details-section" id="section8"><h3>Security Roles</h3><ul></ul></div>
+      </div>
+    </div>`;
+}
 
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
