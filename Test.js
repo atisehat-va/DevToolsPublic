@@ -1,46 +1,33 @@
 javascript: (function() {
   const popupCss = `
-    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 80%; height: 80%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
-    .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; flex: 1; }
+    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 100%; height: 100%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+    .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
     .section h3 { text-align: center; margin-bottom: 10px; }
     .user-section { text-align: center; height: 220px; }
     .user-section input { margin-bottom: 10px; width: 230px;}
     .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     .user-section #userList::-webkit-scrollbar { display: none; }
-    .details-section { text-align: left; }
+    .details-section { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
+    #sectionsRow { white-space: nowrap; }
     .popup-row { display: flex; }
-  `; 
-  
-  function fetchData(entity, filter, callback, errorHandler) {
-    Xrm.WebApi.retrieveMultipleRecords(entity, filter)
-      .then(callback)
-      .catch(errorHandler || console.error);
-  }
-  
-  function fetchUsers(callback) {
-    fetchData('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)', callback);
-  }
+  `;
 
-  function fetchDetails(userId, callback) {
-    fetchRolesForUser(userId, callback.roles);
-    fetchTeamsForUser(userId, callback.teams);
-    fetchBusinessUnitName(userId, callback.businessUnit);
+  function fetchUsers(callback) {
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
   }
 
   function fetchRolesForUser(userId, callback) {
-    fetchData('systemuserroles', `?$filter=systemuserid eq ${userId}`, callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
   }
 
   function fetchTeamsForUser(userId, callback) {
-    fetchData('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`, callback);
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
   }
 
   function fetchBusinessUnitName(businessUnitId, callback) {
-    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name')
-      .then(callback)
-      .catch(console.error);
+    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
   }
 
   function createPopupHtml() {
@@ -71,7 +58,7 @@ javascript: (function() {
         </div>
       </div>`;
   }
-  
+
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
@@ -151,33 +138,19 @@ javascript: (function() {
       });
     });
   } catch (e) {
-      console.error('Error in selectUser function', e);
-      alert('An error occurred while selecting the user. Please see the console for more details.');
+    console.error('Error in selectUser function', e);
   }
 }
 
 
-  function setupSearchFilter(searchInputId, userListId, users) {
-  const searchInput = document.getElementById(searchInputId);
-  const userList = document.getElementById(userListId);
-
-  searchInput.addEventListener('keyup', function() {
-    const searchQuery = searchInput.value.toLowerCase();
-    userList.innerHTML = '';
-
-    users.forEach(user => {
-      if (user.fullname.toLowerCase().includes(searchQuery)) {
-        const userElement = document.createElement('div');
-        userElement.className = 'user';
-        userElement.textContent = user.fullname;
-        userElement.addEventListener('click', function() {
-          selectUser(user, userListId.replace('List', ''));
-        });
-        userList.appendChild(userElement);
-      }
-    });
-  });
-}
+  function setupSearchFilter(searchInputId) {
+    document.getElementById(searchInputId).oninput = function() {
+      const searchValue = this.value.toLowerCase();
+      document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+      });
+    };
+  }
 
   function displayPopup(users) {
     const popupDiv = createAndAppendPopup();
