@@ -109,8 +109,7 @@ javascript: (function() {
         console.error('Teams not found');
         return;
       }
-      const teamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul'); // Updated location
-      teamsList.innerHTML = '';
+      const teamsList = businessUnitList; // Using the same list as Business Unit
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
         listItem.textContent = team.name;
