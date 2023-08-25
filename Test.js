@@ -10,7 +10,7 @@ javascript: (function() {
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
     .user-list-container { max-height: 150px; overflow-y: auto; }
     .roles-and-teams-list { max-height: 150px; overflow-y: auto; }
-    .details-section { display: inline-block; width: 50%; height: 200px; vertical-align: top; box-sizing: border-box; text-align: left; }    
+    .details-section { display: inline-block; width: 50%; height: 220px; vertical-align: top; box-sizing: border-box; text-align: left; }    
     .selected { background-color: #e0e0e0; }    
     .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
     .user:hover { background-color: #f0f0f0; }
