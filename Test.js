@@ -8,7 +8,7 @@ javascript: (function() {
     .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }
     .user-section #userList::-webkit-scrollbar { width: 5px; }
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
-    .details-section { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .details-section { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #e0e0e0; }
     .user { cursor: pointer; padding: 5px; font-size: 14px; transition: background-color 0.3s; }
     .user:hover { background-color: #f0f0f0; }
