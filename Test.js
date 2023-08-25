@@ -1,6 +1,6 @@
 javascript: (function() {
   const popupCss = `
-    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 100%; height: 100%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 80%; height: 80%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: absolute; left: 10%; top: 10%;}
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
     .section h3 { text-align: center; margin-bottom: 10px; }
     .user-section { text-align: center; height: 220px; }
@@ -35,26 +35,18 @@ javascript: (function() {
       <div class="popup">
         <style>${popupCss}</style>
         <div class="popup-row">
-          <div class="section user-section" id="section1">
-            <h3>User Info</h3>
-            <input type="text" id="searchInput1" placeholder="Search Users">
-            <div id="userList1"></div>
-          </div>
-          <div class="section user-section" id="section2">
-            <h3>User Info 2</h3>
-            <input type="text" id="searchInput2" placeholder="Search Users">
-            <div id="userList2"></div>
-          </div>
+          ${createSectionHtml('section1', 'User Info', 'Search Users')}
+          ${createSectionHtml('section2', 'User Info 2', 'Search Users')}
         </div>
         <div id="sectionsRow1" class="popup-row">
-          <div class="section details-section" id="section3"><h3>Business Unit</h3><ul></ul></div>
-          <div class="section details-section" id="section4"><h3>Teams</h3><ul></ul></div>
-          <div class="section details-section" id="section5"><h3>Security Roles</h3><ul></ul></div>
+          ${createSectionHtml('section3', 'Business Unit', '')}
+          ${createSectionHtml('section4', 'Teams', '')}
+          ${createSectionHtml('section5', 'Security Roles', '')}
         </div>
         <div id="sectionsRow2" class="popup-row">
-          <div class="section details-section" id="section6"><h3>Business Unit</h3><ul></ul></div>
-          <div class="section details-section" id="section7"><h3>Teams</h3><ul></ul></div>
-          <div class="section details-section" id="section8"><h3>Security Roles</h3><ul></ul></div>
+          ${createSectionHtml('section6', 'Business Unit', '')}
+          ${createSectionHtml('section7', 'Teams', '')}
+          ${createSectionHtml('section8', 'Security Roles', '')}
         </div>
       </div>`;
   }
@@ -135,7 +127,8 @@ javascript: (function() {
       });
     });
   } catch (e) {
-    console.error('Error in selectUser function', e);
+      console.error('Error in selectUser function', e);
+      alert('An error occurred while selecting the user. Please see the console for more details.');
   }
 }
 
