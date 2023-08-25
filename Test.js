@@ -5,7 +5,7 @@ javascript: (function() {
     .section h3 { text-align: center; margin-bottom: 10px; color: #444; }
     .user-section { text-align: center; height: 200px; width: 45%; }
     .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }    
-    .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }    
+    .user-section #userList { margin-bottom: 15px; height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }     
     .user-section #userList::-webkit-scrollbar { display: none; }    
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
     .details-section { display: inline-block; width: 50%; height: 200px; vertical-align: top; box-sizing: border-box; text-align: left; }    
