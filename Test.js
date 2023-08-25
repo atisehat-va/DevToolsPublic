@@ -109,7 +109,7 @@ javascript: (function() {
         console.error('Teams not found');
         return;
       }
-      const teamsList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
+      const teamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul'); // Updated location
       teamsList.innerHTML = '';
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
@@ -138,6 +138,7 @@ javascript: (function() {
     console.error('Error in selectUser function', e);
   }
 }
+
 
   function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
