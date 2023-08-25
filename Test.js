@@ -1,21 +1,27 @@
 javascript: (function() {
   const popupCss = `
-    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 80%; height: 80%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: absolute; left: 10%; top: 10%;}
+    .popup { background-color: white; border: 2px solid #444; border-radius: 10px; width: 80%; height: 80%; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
     .section { padding: 20px; border-right: 1px solid #ccc; overflow-y: scroll; }
-    .section h3 { text-align: center; margin-bottom: 10px; }
+    .section h3 { text-align: center; margin-bottom: 10px; color: #333; }
     .user-section { text-align: center; height: 220px; }
-    .user-section input { margin-bottom: 10px; width: 230px;}
+    .user-section input { margin-bottom: 10px; width: 230px; }
     .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     .user-section #userList::-webkit-scrollbar { display: none; }
-    .details-section { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .details-section { display: inline-block; width: 32%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #f0f0f0; }
-    .user { cursor: pointer; padding: 3px; font-size: 14px; }
+    .user { cursor: pointer; padding: 3px; font-size: 14px; color: #444; }
     #sectionsRow { white-space: nowrap; }
     .popup-row { display: flex; }
-  `;
+  `;  
 
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
+  }
+
+  function fetchDetails(userId, callback) {
+    fetchRolesForUser(userId, callback.roles);
+    fetchTeamsForUser(userId, callback.teams);
+    fetchBusinessUnitName(userId, callback.businessUnit);
   }
 
   function fetchRolesForUser(userId, callback) {
@@ -35,22 +41,30 @@ javascript: (function() {
       <div class="popup">
         <style>${popupCss}</style>
         <div class="popup-row">
-          ${createSectionHtml('section1', 'User Info', 'Search Users')}
-          ${createSectionHtml('section2', 'User Info 2', 'Search Users')}
+          <div class="section user-section" id="section1">
+            <h3>User Info</h3>
+            <input type="text" id="searchInput1" placeholder="Search Users">
+            <div id="userList1"></div>
+          </div>
+          <div class="section user-section" id="section2">
+            <h3>User Info 2</h3>
+            <input type="text" id="searchInput2" placeholder="Search Users">
+            <div id="userList2"></div>
+          </div>
         </div>
         <div id="sectionsRow1" class="popup-row">
-          ${createSectionHtml('section3', 'Business Unit', '')}
-          ${createSectionHtml('section4', 'Teams', '')}
-          ${createSectionHtml('section5', 'Security Roles', '')}
+          <div class="section details-section" id="section3"><h3>Business Unit</h3><ul></ul></div>
+          <div class="section details-section" id="section4"><h3>Teams</h3><ul></ul></div>
+          <div class="section details-section" id="section5"><h3>Security Roles</h3><ul></ul></div>
         </div>
         <div id="sectionsRow2" class="popup-row">
-          ${createSectionHtml('section6', 'Business Unit', '')}
-          ${createSectionHtml('section7', 'Teams', '')}
-          ${createSectionHtml('section8', 'Security Roles', '')}
+          <div class="section details-section" id="section6"><h3>Business Unit</h3><ul></ul></div>
+          <div class="section details-section" id="section7"><h3>Teams</h3><ul></ul></div>
+          <div class="section details-section" id="section8"><h3>Security Roles</h3><ul></ul></div>
         </div>
       </div>`;
   }
-
+  
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
@@ -78,23 +92,40 @@ javascript: (function() {
   }
 
   function selectUser(user, sectionPrefix) {
-  try {
-    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
-    const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
-    userDiv.classList.add('selected');
+    try {
+      document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
+      const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
+      userDiv.classList.add('selected');
 
-    const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
-    businessUnitList.innerHTML = '';
+      const businessUnitSectionId = 'section' + (3 + (sectionPrefix - 1) * 3);
+      const teamsSectionId = 'section' + (4 + (sectionPrefix - 1) * 3);
 
-    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
-      if (!businessUnit || !businessUnit.name) {
-        console.error('Business unit not found');
-        return;
-      }
-      const listItem = document.createElement('li');
-      listItem.textContent = businessUnit.name;
-      businessUnitList.appendChild(listItem);
-    });
+      // Clearing the business unit and teams sections
+      document.getElementById(businessUnitSectionId).querySelector('ul').innerHTML = '';
+      document.getElementById(teamsSectionId).querySelector('ul').innerHTML = '';
+
+      fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
+        if (!businessUnit || !businessUnit.name) {
+          console.error('Business unit not found');
+          return;
+        }
+        const listItem = document.createElement('li');
+        listItem.textContent = businessUnit.name;
+        document.getElementById(businessUnitSectionId).querySelector('ul').appendChild(listItem);
+      });
+
+      fetchTeamsForUser(user.systemuserid, function(response) {
+        if (!response || !response.entities || !response.entities[0].teammembership_association) {
+          console.error('Teams not found');
+          return;
+        }
+        const teamsList = document.getElementById(teamsSectionId).querySelector('ul'); // Now targeting the teams section
+        response.entities[0].teammembership_association.forEach(team => {
+          const listItem = document.createElement('li');
+          listItem.textContent = team.name;
+          teamsList.appendChild(listItem);
+        });
+      });
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       if (!roles || !roles.entities) {
@@ -112,25 +143,12 @@ javascript: (function() {
         });
       });
     });
-
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      if (!response || !response.entities || !response.entities[0].teammembership_association) {
-        console.error('Teams not found');
-        return;
-      }
-      const teamsList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      teamsList.innerHTML = '';
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
-      });
-    });
   } catch (e) {
       console.error('Error in selectUser function', e);
       alert('An error occurred while selecting the user. Please see the console for more details.');
   }
 }
+
 
   function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
