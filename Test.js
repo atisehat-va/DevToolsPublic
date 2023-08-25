@@ -88,11 +88,12 @@ javascript: (function() {
 
   function selectUser(user, sectionPrefix) {
   try {
+    // Remove the 'selected' class from all users
     document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-    const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
+    const businessUnitList = document.getElementById('businessUnit' + sectionPrefix).querySelector('ul');
     businessUnitList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
@@ -105,30 +106,14 @@ javascript: (function() {
       businessUnitList.appendChild(listItem);
     });
 
-    fetchRolesForUser(user.systemuserid, function(roles) {
-      if (!roles || !roles.entities) {
-        console.error('Roles not found');
-        return;
-      }
-      const rolesList = document.getElementById('section' + (5 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      rolesList.innerHTML = '';
-      roles.entities.forEach(role => {
-        const roleId = role['roleid'];
-        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-          const listItem = document.createElement('li');
-          listItem.textContent = roleDetail.name;
-          rolesList.appendChild(listItem);
-        });
-      });
-    });
+    const teamsList = document.getElementById('teams' + sectionPrefix).querySelector('ul');
+    teamsList.innerHTML = '';
 
     fetchTeamsForUser(user.systemuserid, function(response) {
       if (!response || !response.entities || !response.entities[0].teammembership_association) {
         console.error('Teams not found');
         return;
       }
-      const teamsList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      teamsList.innerHTML = '';
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
         listItem.textContent = team.name;
