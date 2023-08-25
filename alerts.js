@@ -127,10 +127,10 @@ function createAndAppendPopup() {
     });
   }
 
-  function setupSearchFilter(inputId, userListClass) {
+  function setupSearchFilter(inputId, userListDivId) {
     document.getElementById(inputId).oninput = function() {
       const searchValue = this.value.toLowerCase();
-      document.querySelectorAll(userListClass).forEach(el => {
+      document.getElementById(userListDivId).querySelectorAll('.user').forEach(el => {
         el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
       });
     };
@@ -141,8 +141,8 @@ function createAndAppendPopup() {
     createAndAppendPopup();
     renderUserList(users.entities, selectUser, 'userList');
     renderUserList(users.entities, selectUser, 'userList2'); // User Info 2
-    setupSearchFilter('searchInput', '.user');
-    setupSearchFilter('searchInput2', '.user'); // User Info 2
+    setupSearchFilter('searchInput', 'userList');
+    setupSearchFilter('searchInput2', 'userList2'); // User Info 2
   }
 
   fetchUsers(function(users) {
