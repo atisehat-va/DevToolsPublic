@@ -150,14 +150,27 @@ javascript: (function() {
 }
 
 
-  function setupSearchFilter(searchInputId) {
-    document.getElementById(searchInputId).oninput = function() {
-      const searchValue = this.value.toLowerCase();
-      document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
-        el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-      });
-    };
-  }
+  function setupSearchFilter(searchInputId, userListId, users) {
+  const searchInput = document.getElementById(searchInputId);
+  const userList = document.getElementById(userListId);
+
+  searchInput.addEventListener('keyup', function() {
+    const searchQuery = searchInput.value.toLowerCase();
+    userList.innerHTML = '';
+
+    users.forEach(user => {
+      if (user.fullname.toLowerCase().includes(searchQuery)) {
+        const userElement = document.createElement('div');
+        userElement.className = 'user';
+        userElement.textContent = user.fullname;
+        userElement.addEventListener('click', function() {
+          selectUser(user, userListId.replace('List', ''));
+        });
+        userList.appendChild(userElement);
+      }
+    });
+  });
+}
 
   function displayPopup(users) {
     const popupDiv = createAndAppendPopup();
