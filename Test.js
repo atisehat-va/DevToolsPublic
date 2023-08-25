@@ -85,6 +85,9 @@ javascript: (function() {
     const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
 
+    const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
+    rolesList.innerHTML = '';
+
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
         console.error('Business unit not found');
@@ -112,8 +115,6 @@ javascript: (function() {
         console.error('Roles not found');
         return;
       }
-      const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
-    rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
