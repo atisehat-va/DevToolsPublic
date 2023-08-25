@@ -78,7 +78,7 @@ javascript: (function() {
 
   function selectUser(user, sectionPrefix) {
   try {
-    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll(`.user${sectionPrefix}`).forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
