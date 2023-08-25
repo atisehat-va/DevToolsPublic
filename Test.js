@@ -86,14 +86,12 @@ javascript: (function() {
   }
 
   function selectUser(user, sectionPrefix) {
-    console.log("selectUser function called", user, sectionPrefix);
   try {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-    const businessUnitSection = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3));
-    const businessUnitList = businessUnitSection.querySelector('ul');
+    const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
     businessUnitList.innerHTML = '';
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
@@ -106,24 +104,17 @@ javascript: (function() {
       businessUnitList.appendChild(listItem);
     });
 
-    // Create or find a sublist for teams under the Business Unit section
-    let teamsSublist = businessUnitSection.querySelector('.teams-sublist');
-    if (!teamsSublist) {
-      teamsSublist = document.createElement('ul');
-      teamsSublist.className = 'teams-sublist';
-      businessUnitSection.appendChild(teamsSublist);
-    }
-    teamsSublist.innerHTML = '';
-
     fetchTeamsForUser(user.systemuserid, function(response) {
       if (!response || !response.entities || !response.entities[0].teammembership_association) {
         console.error('Teams not found');
         return;
       }
+      const teamsList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
+      teamsList.innerHTML = '';
       response.entities[0].teammembership_association.forEach(team => {
         const listItem = document.createElement('li');
         listItem.textContent = team.name;
-        teamsSublist.appendChild(listItem);
+        teamsList.appendChild(listItem);
       });
     });
 
