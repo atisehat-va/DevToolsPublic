@@ -31,33 +31,31 @@ javascript: (function() {
   }
 
   function createPopupHtml() {
-    return `
-      <div class="popup">
-        <style>${popupCss}</style>
-        <div class="popup-row">
-          <div class="section user-section" id="section1">
-            <h3>User Info</h3>
-            <input type="text" id="searchInput1" placeholder="Search Users">
-            <div id="userList1"></div>
-          </div>
-          <div class="section user-section" id="section2">
-            <h3>User Info 2</h3>
-            <input type="text" id="searchInput2" placeholder="Search Users">
-            <div id="userList2"></div>
-          </div>
+  return `
+    <div class="popup">
+      <style>${popupCss}</style>
+      <div class="popup-row">
+        <div class="section user-section" id="section1">
+          <h3>User Info</h3>
+          <input type="text" id="searchInput1" placeholder="Search Users">
+          <div id="userList1"></div>
         </div>
-        <div id="sectionsRow1" class="popup-row">
-          <div class="section details-section" id="section3"><h3>Business Unit</h3><ul></ul></div>
-          <div class="section details-section" id="section4"><h3>Teams</h3><ul></ul></div>
-          <div class="section details-section" id="section5"><h3>Security Roles</h3><ul></ul></div>
+        <div class="section user-section" id="section2">
+          <h3>User Info 2</h3>
+          <input type="text" id="searchInput2" placeholder="Search Users">
+          <div id="userList2"></div>
         </div>
-        <div id="sectionsRow2" class="popup-row">
-          <div class="section details-section" id="section6"><h3>Business Unit</h3><ul></ul></div>
-          <div class="section details-section" id="section7"><h3>Teams</h3><ul></ul></div>
-          <div class="section details-section" id="section8"><h3>Security Roles</h3><ul></ul></div>
-        </div>
-      </div>`;
-  }
+      </div>
+      <div id="sectionsRow1" class="popup-row">
+        <div class="section details-section" id="section3"><h3>Business Unit and Teams</h3><ul id="businessUnitAndTeams1"></ul></div>
+        <div class="section details-section" id="section4"><h3>Security Roles</h3><ul></ul></div>
+      </div>
+      <div id="sectionsRow2" class="popup-row">
+        <div class="section details-section" id="section6"><h3>Business Unit and Teams</h3><ul id="businessUnitAndTeams2"></ul></div>
+        <div class="section details-section" id="section7"><h3>Security Roles</h3><ul></ul></div>
+      </div>
+    </div>`;
+}
 
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
@@ -86,23 +84,18 @@ javascript: (function() {
   }
 
   function selectUser(user, sectionPrefix) {
-  try {
-    document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
-    const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
-    userDiv.classList.add('selected');
+  document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
+  const userDiv = document.getElementById(`userList${sectionPrefix}`).querySelector(`[data-id='${user.systemuserid}']`);
+  userDiv.classList.add('selected');
 
-    const businessUnitList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 3)).querySelector('ul');
-    businessUnitList.innerHTML = '';
+  const businessUnitAndTeamsList = document.getElementById(`businessUnitAndTeams${sectionPrefix}`);
+  businessUnitAndTeamsList.innerHTML = '';
 
-    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
-      if (!businessUnit || !businessUnit.name) {
-        console.error('Business unit not found');
-        return;
-      }
-      const listItem = document.createElement('li');
-      listItem.textContent = businessUnit.name;
-      businessUnitList.appendChild(listItem);
-    });
+    fetchBusinessUnitName(user._businessunitid_value, function (businessUnit) {
+    const listItem = document.createElement('li');
+    listItem.textContent = 'Business Unit: ' + businessUnit.name;
+    businessUnitAndTeamsList.appendChild(listItem);
+  });
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       if (!roles || !roles.entities) {
@@ -121,19 +114,13 @@ javascript: (function() {
       });
     });
 
-    fetchTeamsForUser(user.systemuserid, function(response) {
-      if (!response || !response.entities || !response.entities[0].teammembership_association) {
-        console.error('Teams not found');
-        return;
-      }
-      const teamsList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 3)).querySelector('ul');
-      teamsList.innerHTML = '';
-      response.entities[0].teammembership_association.forEach(team => {
-        const listItem = document.createElement('li');
-        listItem.textContent = team.name;
-        teamsList.appendChild(listItem);
-      });
+    fetchTeamsForUser(user.systemuserid, function (response) {
+    response.entities[0].teammembership_association.forEach(team => {
+      const listItem = document.createElement('li');
+      listItem.textContent = 'Team: ' + team.name;
+      businessUnitAndTeamsList.appendChild(listItem);
     });
+  });
   } catch (e) {
     console.error('Error in selectUser function', e);
   }
