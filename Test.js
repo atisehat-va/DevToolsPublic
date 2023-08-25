@@ -7,9 +7,10 @@ javascript: (function() {
     .user-section input { margin-bottom: 10px; width: 230px;}
     .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none; }
     .user-section #userList::-webkit-scrollbar { display: none; }
-    .details-section { display: inline-block; width: 50%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .details-section { display: inline-block; width: 33%; height: 250px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #f0f0f0; }
     .user { cursor: pointer; padding: 3px; font-size: 14px; }
+    #sectionsRow { white-space: nowrap; }
     .popup-row { display: flex; }
   `;
 
@@ -45,13 +46,15 @@ javascript: (function() {
             <div id="userList2"></div>
           </div>
         </div>
-        <div class="popup-row">
-          <div class="section details-section" id="section3">
-            <h3>Business Unit and Teams</h3>
-            <div><strong>Business Unit:</strong><ul id="businessUnitList"></ul></div>
-            <div><strong>Teams:</strong><ul id="teamsList"></ul></div>
-          </div>
-          <div class="section details-section" id="section4"><h3>Security Roles</h3><ul id="rolesList"></ul></div>
+        <div id="sectionsRow1" class="popup-row">
+          <div class="section details-section" id="section3"><h3>Business Unit</h3><ul></ul></div>
+          <div class="section details-section" id="section4"><h3>Teams</h3><ul></ul></div>
+          <div class="section details-section" id="section5"><h3>Security Roles</h3><ul></ul></div>
+        </div>
+        <div id="sectionsRow2" class="popup-row">
+          <div class="section details-section" id="section6"><h3>Business Unit 2</h3><ul></ul></div>
+          <div class="section details-section" id="section7"><h3>Teams 2</h3><ul></ul></div>
+          <div class="section details-section" id="section8"><h3>Security Roles 2</h3><ul></ul></div>
         </div>
       </div>`;
   }
