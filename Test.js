@@ -86,6 +86,7 @@ javascript: (function() {
   }
 
   function selectUser(user, sectionPrefix) {
+    console.log("selectUser function called", user, sectionPrefix);
   try {
     document.querySelectorAll('.user').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
