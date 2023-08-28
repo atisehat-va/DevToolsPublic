@@ -1,3 +1,4 @@
+window.updateUserDetails = async function(userId, businessUnitId, teamIds, roleIds) {
 async function updateUserDetails(userId, businessUnitId, teamIds, roleIds) {
   debugger;
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
@@ -89,4 +90,5 @@ async function associateUserToRole(userId, roleId, clientUrl) {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify(associateRoleData)
   });
+}
 }
