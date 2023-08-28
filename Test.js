@@ -1,6 +1,7 @@
 javascript: (function() {
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
+ let selectedRoleIds = [];
  
  const popupCss = `
     .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
@@ -181,10 +182,16 @@ function selectUser(user, sectionPrefix) {
         console.error('Roles not found');
         return;
       }
+     
+      selectedRoleIds = [];
+     
       const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
+
+       selectedRoleIds.push(roleId);
+       
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
           const listItem = document.createElement('li');
           listItem.textContent = roleDetail.name;
