@@ -150,7 +150,7 @@ function selectUser(user, sectionPrefix) {
         return;
       }
      selectedBusinessUnitId = user._businessunitid_value;
-      console.log(selectedBusinessUnitId);
+      
       businessUnitListItem = document.createElement('li');
       businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
       
@@ -165,8 +165,7 @@ function selectUser(user, sectionPrefix) {
       selectedTeamIds = [];
      
       teamListItems = response.entities[0].teammembership_association.map(team => {
-        selectedTeamIds.push(team.teamid);
-        console.log(selectedTeamIds);
+        selectedTeamIds.push(team.teamid);      
        
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
@@ -190,8 +189,7 @@ function selectUser(user, sectionPrefix) {
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
 
-       selectedRoleIds.push(roleId);
-       console.log(selectedRoleIds);
+       selectedRoleIds.push(roleId);      
        
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
           const listItem = document.createElement('li');
@@ -226,4 +224,8 @@ function selectUser(user, sectionPrefix) {
   fetchUsers(function(users) {
     displayPopup(users);
   });
+ console.log(selectedBusinessUnitId);
+ console.log(selectedTeamIds);
+ console.log(selectedRoleIds);
+ 
 })();
