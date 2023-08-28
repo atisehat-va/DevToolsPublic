@@ -121,32 +121,24 @@ function createPopupHtml() {
     });
   }
 
-const selectedUserInfo = {
-  '1': {},
-  '2': {}
-};
-
 function selectUser(user, sectionPrefix) {
   try {
-    // Initialize lists and sections
-    const section = document.getElementById('section' + (2 + (sectionPrefix - 1) * 2));
+    document.querySelectorAll('.user1, .user2').forEach(el => el.classList.remove('selected'));
+    const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
+    userDiv.classList.add('selected');
+
+   const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
+    businessUnitAndTeamsList.innerHTML = '';
+    
     let businessUnitListItem = null;
     let teamListItems = [];
-    
-    // Function to append lists
-    function appendLists() {
-      const list = document.createElement('ul');
-      if (businessUnitListItem) list.appendChild(businessUnitListItem);
-      teamListItems.forEach(item => list.appendChild(item));
-      section.innerHTML = '';
-      section.appendChild(list);
-    }
 
-    // Update the selectedUserInfo object
-    selectedUserInfo[sectionPrefix].userId = user.systemuserid;
-    selectedUserInfo[sectionPrefix].businessUnit = null;
-    selectedUserInfo[sectionPrefix].teams = [];
-    selectedUserInfo[sectionPrefix].roles = [];
+    const appendLists = () => {
+      if (businessUnitListItem) {
+        businessUnitAndTeamsList.appendChild(businessUnitListItem);
+      }
+      teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
+    };
 
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
@@ -156,9 +148,6 @@ function selectUser(user, sectionPrefix) {
       businessUnitListItem = document.createElement('li');
       businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
       
-      // Update the selectedUserInfo object
-      selectedUserInfo[sectionPrefix].businessUnit = businessUnit.name;
-
       appendLists();
     });
 
@@ -170,15 +159,12 @@ function selectUser(user, sectionPrefix) {
       teamListItems = response.entities[0].teammembership_association.map(team => {
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
-
-        // Update the selectedUserInfo object
-        selectedUserInfo[sectionPrefix].teams.push(team.name);
-
         return listItem;
       });
       
       appendLists();
     });
+
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       if (!roles || !roles.entities) {
@@ -193,17 +179,14 @@ function selectUser(user, sectionPrefix) {
           const listItem = document.createElement('li');
           listItem.textContent = roleDetail.name;
           rolesList.appendChild(listItem);
-
-          // Update the selectedUserInfo object
-          selectedUserInfo[sectionPrefix].roles.push(roleDetail.name);
         });
       });
     });
-
   } catch (e) {
     console.error('Error in selectUser function', e);
   }
 }
+
   function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
       const searchValue = this.value.toLowerCase();
