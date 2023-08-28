@@ -128,13 +128,18 @@ loadScript(
 
     const submitButton = document.getElementById("submitButton");
     if (submitButton) {
+      console.log("Found submitButton element, adding event listener.");
       submitButton.addEventListener("click", function() {
+        console.log("submitButton clicked.");
         if (typeof updateUserDetails === "function") {
           updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+          console.log("updateUserDetails function called.");
         } else {
           console.log("updateUserDetails is not a function");
         }
       });
+    } else {
+      console.log("submitButton element not found.");
     }
   },
   function() {
