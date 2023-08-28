@@ -1,5 +1,5 @@
 javascript: (function() {
- let selectedUserInfo2Id = null; 
+ let selectedUserId2 = null; 
  let selectedUserId = null;
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
@@ -100,53 +100,6 @@ function createPopupHtml() {
       </div>
     </div>`;
 }
-function loadScript(src, callback, errorCallback) {
-  const script = document.createElement("script");
-  script.type = "text/javascript";
-  script.onload = function() {
-    console.log("Script loaded successfully.");
-    callback();
-  };
-  script.onerror = function() {
-    console.log("Error loading script.");
-    errorCallback();
-  };
-  script.src = src;
-  document.body.appendChild(script);
-}
-document.addEventListener('DOMContentLoaded', (event) => {
-   loadScript(
-     "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security.js",
-     function() {
-       console.log("The script has been loaded and callback function executed.");
-       
-       if (typeof updateUserDetails === "function") {
-         console.log("updateUserDetails is accessible");
-       } else {
-         console.log("updateUserDetails is NOT accessible");
-       }
-   
-       const submitButton = document.getElementById("submitButton");
-       if (submitButton) {
-         console.log("Found submitButton element, adding event listener.");
-         submitButton.addEventListener("click", function() {
-           console.log("submitButton clicked.");
-           if (typeof updateUserDetails === "function") {
-             updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-             console.log("updateUserDetails function called.");
-           } else {
-             console.log("updateUserDetails is not a function");
-           }
-         });
-       } else {
-         console.log("submitButton element not found.");
-       }
-     },
-     function() {
-       console.log("Failed to load external script.");
-     }
-   );
-});
  
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
@@ -289,5 +242,53 @@ function selectUser(user, sectionPrefix) {
 
   fetchUsers(function(users) {
     displayPopup(users);
-  }); 
+  });
+
+ function loadScript(src, callback, errorCallback) {
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.onload = function() {
+    console.log("Script loaded successfully.");
+    callback();
+  };
+  script.onerror = function() {
+    console.log("Error loading script.");
+    errorCallback();
+  };
+  script.src = src;
+  document.body.appendChild(script);
+}
+document.addEventListener('DOMContentLoaded', (event) => {
+   loadScript(
+     "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security.js",
+     function() {
+       console.log("The script has been loaded and callback function executed.");
+       
+       if (typeof updateUserDetails === "function") {
+         console.log("updateUserDetails is accessible");
+       } else {
+         console.log("updateUserDetails is NOT accessible");
+       }
+   
+       const submitButton = document.getElementById("submitButton");
+       if (submitButton) {
+         console.log("Found submitButton element, adding event listener.");
+         submitButton.addEventListener("click", function() {
+           console.log("submitButton clicked.");
+           if (typeof updateUserDetails === "function") {
+             updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+             console.log("updateUserDetails function called.");
+           } else {
+             console.log("updateUserDetails is not a function");
+           }
+         });
+       } else {
+         console.log("submitButton element not found.");
+       }
+     },
+     function() {
+       console.log("Failed to load external script.");
+     }
+   );
+});
 })();
