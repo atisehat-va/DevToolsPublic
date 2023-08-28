@@ -134,8 +134,12 @@ function selectUser(user, sectionPrefix) {
     userDiv.classList.add('selected');
     
     
-    selectedUserId = user.systemuserid;    
-    
+    if (sectionPrefix === '1') {
+      selectedUserId = user.systemuserid;
+    }   
+    if (sectionPrefix === '2') {
+      selectedUserInfo2Id = user.systemuserid;
+    }
 
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
@@ -156,8 +160,9 @@ function selectUser(user, sectionPrefix) {
         return;
       }
      
-     
-       selectedBusinessUnitId = user._businessunitid_value;
+      if (sectionPrefix === '1') {
+         selectedBusinessUnitId = user._businessunitid_value;
+      }
      
       
       businessUnitListItem = document.createElement('li');
@@ -174,8 +179,10 @@ function selectUser(user, sectionPrefix) {
       selectedTeamIds = [];
      
       teamListItems = response.entities[0].teammembership_association.map(team => { 
-       
-        selectedTeamIds.push(team.teamid);              
+
+        if (sectionPrefix === '1') {
+           selectedTeamIds.push(team.teamid);              
+        }
        
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
@@ -198,8 +205,10 @@ function selectUser(user, sectionPrefix) {
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
-        
-        selectedRoleIds.push(roleId);      
+
+        if (sectionPrefix === '1') {
+           selectedRoleIds.push(roleId);
+        }
                
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
           const listItem = document.createElement('li');
