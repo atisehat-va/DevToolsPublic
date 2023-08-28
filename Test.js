@@ -86,6 +86,9 @@ function createPopupHtml() {
           </div>
         </div>
       </div>
+      <div style="text-align: center; padding: 10px;">
+        <button id="submitButton" style="padding: 10px 20px; font-size: 16px;">Submit</button>
+      </div>
     </div>`;
 }
 
