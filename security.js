@@ -5,13 +5,11 @@ window.updateUserDetails = async function(userId, businessUnitId, teamIds, roleI
     await changeBusinessUnit(userId, businessUnitId);
     await disassociateUserFromRoles(userId, clientUrl);
     await disassociateUserFromTeams(userId, clientUrl);
-
-    // Associate user with each team.
+    
     for (const teamId of teamIds) {
       await associateUserToTeam(userId, teamId, clientUrl);
     }
-
-    // Associate user with each role
+    
     for (const roleId of roleIds) {
       await associateUserToRole(userId, roleId, clientUrl);
     }
@@ -39,8 +37,7 @@ async function disassociateUserFromRoles(userId, clientUrl) {
   }
 
   const results = await response.json();
-  
-  // disassociate roles
+    
   await Promise.all(results.value.map(async (result) => {
     const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
     await fetch(disassociateUrl, { method: "DELETE" });
@@ -58,8 +55,7 @@ async function disassociateUserFromTeams(userId, clientUrl) {
   }
 
   const results = await response.json();
-
-  // disassociate teams
+  
   await Promise.all(results.value.map(async (result) => {
     const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${userId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
