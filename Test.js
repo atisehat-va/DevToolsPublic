@@ -159,9 +159,9 @@ function selectUser(user, sectionPrefix) {
         return;
       }
      
-     if (sectionPrefix === '1') {
+     
        selectedBusinessUnitId = user._businessunitid_value;
-     }
+     
       
       businessUnitListItem = document.createElement('li');
       businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
@@ -176,8 +176,10 @@ function selectUser(user, sectionPrefix) {
       }
       selectedTeamIds = [];
      
-      teamListItems = response.entities[0].teammembership_association.map(team => {        
-          selectedTeamIds.push(team.teamid);              
+      teamListItems = response.entities[0].teammembership_association.map(team => { 
+       
+        selectedTeamIds.push(team.teamid);              
+       
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
         return listItem;
@@ -199,9 +201,9 @@ function selectUser(user, sectionPrefix) {
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
-        if (sectionPrefix === '1') {
-          selectedRoleIds.push(roleId);      
-        }       
+        
+        selectedRoleIds.push(roleId);      
+               
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
           const listItem = document.createElement('li');
           listItem.textContent = roleDetail.name;
