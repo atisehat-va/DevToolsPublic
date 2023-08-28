@@ -10,9 +10,9 @@ javascript: (function() {
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
     .user-list-container { max-height: 110px; overflow-y: auto; }
     .roles-and-teams-list-row1 { max-height: 110px; margin-left: 10px; overflow-y: auto; }
-    .roles-and-teams-list-row2 { max-height: 150px; margin-left: 10px; overflow-y: auto; }
+    .roles-and-teams-list-row2 { max-height: 145px; margin-left: 10px; overflow-y: auto; }
     .details-section-row1 { display: inline-block; width: 50%; height: 160px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
-    .details-section-row2 { display: inline-block; width: 50%; height: 220px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .details-section-row2 { display: inline-block; width: 50%; height: 200px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #e0e0e0; }    
     .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
     .user:hover { background-color: #f0f0f0; }
