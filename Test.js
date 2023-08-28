@@ -162,7 +162,7 @@ function selectUser(user, sectionPrefix) {
         console.error('Teams not found');
         return;
       }
-      selectedTeamIds = [];
+      //selectedTeamIds = [];
      
       teamListItems = response.entities[0].teammembership_association.map(team => {
         selectedTeamIds.push(team.teamid);
@@ -183,7 +183,7 @@ function selectUser(user, sectionPrefix) {
         return;
       }
      
-      selectedRoleIds = [];
+      //selectedRoleIds = [];
      
       const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
       rolesList.innerHTML = '';
