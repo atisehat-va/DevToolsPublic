@@ -10,7 +10,7 @@ javascript: (function() {
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
     .user-list-container { max-height: 110px; overflow-y: auto; }
     .roles-and-teams-list-row1 { max-height: 110px; margin-left: 10px; overflow-y: auto; }
-    .roles-and-teams-list-row2 { max-height: 145px; margin-left: 10px; overflow-y: auto; }
+    .roles-and-teams-list-row2 { max-height: 143px; margin-left: 10px; overflow-y: auto; }
     .details-section-row1 { display: inline-block; width: 50%; height: 160px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .details-section-row2 { display: inline-block; width: 50%; height: 200px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #e0e0e0; }    
@@ -20,7 +20,7 @@ javascript: (function() {
     .popup-row { display: flex; }
     .popup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
     .submit-button-container { text-align: center; padding: 10px; width: 100%; }  
-    #submitButton { margin: auto; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }  
+    #submitButton { margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }  
     #submitButton:hover { background-color: #0056b3; }  
   `;
 
