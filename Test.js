@@ -176,10 +176,8 @@ function selectUser(user, sectionPrefix) {
       }
       selectedTeamIds = [];
      
-      teamListItems = response.entities[0].teammembership_association.map(team => {
-        if (sectionPrefix === '1') {
-          selectedTeamIds.push(team.teamid);      
-        }       
+      teamListItems = response.entities[0].teammembership_association.map(team => {        
+          selectedTeamIds.push(team.teamid);              
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
         return listItem;
