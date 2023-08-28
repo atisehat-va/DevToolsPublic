@@ -100,7 +100,32 @@ function createPopupHtml() {
       </div>
     </div>`;
 }
+function loadScript(src, callback) {
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.onload = function() {
+    console.log("Script loaded successfully.");
+    callback();
+  };
+  script.src = src;
+  document.body.appendChild(script);
+}
 
+document.addEventListener("DOMContentLoaded", function() {
+  const submitButton = document.getElementById("submitButton");
+
+  loadScript("https://raw.githubusercontent.com/atisehat-va/DevToolsPublic/main/security.js", function() {
+    console.log("The script has been loaded and callback function executed."); // Additional log
+    if (submitButton) {
+      submitButton.addEventListener("click", function() {
+        if (typeof updateUserDetails === "function") { 
+          updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+        }
+      });
+    }
+  });
+});
+ 
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
