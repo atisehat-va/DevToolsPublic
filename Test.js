@@ -133,12 +133,9 @@ function selectUser(user, sectionPrefix) {
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
     
-    if (sectionPrefix === '1') {
-      selectedUserId = user.systemuserid;
-    }
-    if (sectionPrefix === '2') {
-       selectedUserInfo2Id = user.systemuserid;
-     }
+    
+    selectedUserId = user.systemuserid;    
+    
 
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
