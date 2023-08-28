@@ -1,5 +1,5 @@
 javascript: (function() {
- let selectedUserId2 = null; 
+ let selectedUserInfo2Id = null; 
  let selectedUserId = null;
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
@@ -100,7 +100,7 @@ function createPopupHtml() {
       </div>
     </div>`;
 }
-  function loadScript(src, callback, errorCallback) {
+function loadScript(src, callback, errorCallback) {
   const script = document.createElement("script");
   script.type = "text/javascript";
   script.onload = function() {
@@ -116,7 +116,7 @@ function createPopupHtml() {
 }
 document.addEventListener('DOMContentLoaded', (event) => {
    loadScript(
-     "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security.js",
+     "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
      function() {
        console.log("The script has been loaded and callback function executed.");
        
@@ -185,7 +185,7 @@ function selectUser(user, sectionPrefix) {
       selectedUserId = user.systemuserid;
     }   
     if (sectionPrefix === '2') {
-      selectedUserId2 = user.systemuserid;
+      selectedUserInfo2Id = user.systemuserid;
     }
 
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
@@ -289,5 +289,5 @@ function selectUser(user, sectionPrefix) {
 
   fetchUsers(function(users) {
     displayPopup(users);
-  });
+  }); 
 })();
