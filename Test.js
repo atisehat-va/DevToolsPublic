@@ -1,4 +1,5 @@
 javascript: (function() {
+ let selectedUserInfo2Id = null; //User Info 2
  let selectedUserId = null;
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
@@ -132,7 +133,12 @@ function selectUser(user, sectionPrefix) {
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
     
-   selectedUserId = user.systemuserid;
+    if (sectionPrefix === '1') {
+      selectedUserId = user.systemuserid;
+    }
+    if (sectionPrefix === '2') {
+       selectedUserInfo2Id = user.systemuserid;
+     }
 
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
@@ -152,7 +158,10 @@ function selectUser(user, sectionPrefix) {
         console.error('Business unit not found');
         return;
       }
-     selectedBusinessUnitId = user._businessunitid_value;
+     
+     if (sectionPrefix === '1') {
+       selectedBusinessUnitId = user._businessunitid_value;
+     }
       
       businessUnitListItem = document.createElement('li');
       businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
@@ -168,8 +177,9 @@ function selectUser(user, sectionPrefix) {
       selectedTeamIds = [];
      
       teamListItems = response.entities[0].teammembership_association.map(team => {
-        selectedTeamIds.push(team.teamid);      
-       
+        if (sectionPrefix === '1') {
+          selectedTeamIds.push(team.teamid);      
+        }       
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
         return listItem;
@@ -191,9 +201,9 @@ function selectUser(user, sectionPrefix) {
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
         const roleId = role['roleid'];
-
-       selectedRoleIds.push(roleId);      
-       
+        if (sectionPrefix === '1') {
+          selectedRoleIds.push(roleId);      
+        }       
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
           const listItem = document.createElement('li');
           listItem.textContent = roleDetail.name;
