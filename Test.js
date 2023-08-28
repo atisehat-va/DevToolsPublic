@@ -9,10 +9,10 @@ javascript: (function() {
     .user-section #userList::-webkit-scrollbar { display: none; }    
     .user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }
     .user-list-container { max-height: 110px; overflow-y: auto; }
-    .roles-and-teams-list-row1 { max-height: 110px; overflow-y: auto; }
-    .roles-and-teams-list-row2 { max-height: 150px; overflow-y: auto; }
-    .details-section-row1 { display: inline-block; width: 50%; height: 160px; vertical-align: top; box-sizing: border-box; text-align: left; }
-    .details-section-row2 { display: inline-block; width: 50%; height: 220px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .roles-and-teams-list-row1 { max-height: 110px; margin-left: 10px; overflow-y: auto; }
+    .roles-and-teams-list-row2 { max-height: 150px; margin-left: 10px; overflow-y: auto; }
+    .details-section-row1 { display: inline-block; width: 50%; height: 160px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
+    .details-section-row2 { display: inline-block; width: 50%; height: 220px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
     .selected { background-color: #e0e0e0; }    
     .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
     .user:hover { background-color: #f0f0f0; }
@@ -177,6 +177,7 @@ function selectUser(user, sectionPrefix) {
   }
 
   function displayPopup(users) {
+   users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
     const popupDiv = createAndAppendPopup();
     renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
     renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
