@@ -138,43 +138,16 @@ function selectUser(user, sectionPrefix) {
     userDiv.classList.add('selected');
 
     if (sectionPrefix === '1') {
-      // Store details for User Info 1
+      console.log("User 1 Selected");
       selectedUser1 = user.systemuserid;
-
-      fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
-        if (!businessUnit || !businessUnit.name) {
-          console.error('Business unit not found');
-          return;
-        }
-        selectedUser1BusinessUnit = businessUnit.name;
-      });
-
-      fetchTeamsForUser(user.systemuserid, function(response) {
-        if (!response || !response.entities || !response.entities[0].teammembership_association) {
-          console.error('Teams not found');
-          return;
-        }
-        selectedUser1Teams = response.entities[0].teammembership_association.map(team => team.name);
-      });
-
-      fetchRolesForUser(user.systemuserid, function(roles) {
-        if (!roles || !roles.entities) {
-          console.error('Roles not found');
-          return;
-        }
-        selectedUser1Roles = roles.entities.map(role => role.name);
-      });
-
     } else if (sectionPrefix === '2') {
-      // Store details for User Info 2
+      console.log("User 2 Selected");
       selectedUser2 = user.systemuserid;
     }
-
   } catch (e) {
     console.error('Error in selectUser function', e);
   }
 }
-
   function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
       const searchValue = this.value.toLowerCase();
