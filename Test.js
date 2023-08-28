@@ -231,7 +231,7 @@ function selectUser(user, sectionPrefix) {
     };
   }
  
- function loadScript(src, callback) {
+function loadScript(src, callback) {
   const script = document.createElement("script");
   script.type = "text/javascript";
   script.onload = callback; // callback will be called once the script is loaded
@@ -242,7 +242,7 @@ function selectUser(user, sectionPrefix) {
 document.addEventListener("DOMContentLoaded", function() {
   const submitButton = document.getElementById("submitButton");
 
-  loadScript("https://github.com/atisehat-va/DevToolsPublic/edit/main/security.js", function() {
+  loadScript("https://raw.githubusercontent.com/atisehat-va/DevToolsPublic/main/security.js", function() {
     if (submitButton) {
       submitButton.addEventListener("click", function() {
         if (typeof updateUserDetails === "function") { // Ensure the function exists
