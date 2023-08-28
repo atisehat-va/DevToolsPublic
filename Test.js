@@ -226,9 +226,5 @@ function selectUser(user, sectionPrefix) {
 
   fetchUsers(function(users) {
     displayPopup(users);
-  });
- console.log(selectedBusinessUnitId);
- console.log(selectedTeamIds);
- console.log(selectedRoleIds);
- 
+  }); 
 })();
