@@ -19,6 +19,13 @@ javascript: (function() {
     #sectionsRow { white-space: nowrap; }
     .popup-row { display: flex; }
     .popup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+    #submitButton { background-color: #007bff; color: white; border: none; padding: 15px 30px; text-align: center; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s;
+    #submitButton:hover { background-color: #0056b3; }
+  }
+  
+  #submitButton:hover {
+    background-color: #0056b3;
+  }
   `;
 
   function fetchUsers(callback) {
@@ -86,8 +93,8 @@ function createPopupHtml() {
           </div>
         </div>
       </div>
-      <div style="text-align: center; padding: 10px;">
-        <button id="submitButton" style="padding: 10px 20px; font-size: 16px;">Submit</button>
+      <div class="submit-button-container">
+        <button id="submitButton">Submit</button>
       </div>
     </div>`;
 }
