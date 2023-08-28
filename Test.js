@@ -121,17 +121,31 @@ function selectUser(user, sectionPrefix) {
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
+   const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
-
+    
+    let businessUnitName = '';
+    let teamNames = [];
+    
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
         console.error('Business unit not found');
         return;
       }
-      const listItem = document.createElement('li');
-      listItem.textContent = 'Business Unit: ' + businessUnit.name;
-      businessUnitAndTeamsList.appendChild(listItem);
+      businessUnitName = 'Business Unit: ' + businessUnit.name;
+      
+      // Append in the correct order
+      if (teamNames.length) {
+        const listItem = document.createElement('li');
+        listItem.textContent = businessUnitName;
+        businessUnitAndTeamsList.appendChild(listItem);
+        
+        teamNames.forEach(name => {
+          const listItem = document.createElement('li');
+          listItem.textContent = name;
+          businessUnitAndTeamsList.appendChild(listItem);
+        });
+      }
     });
 
     fetchTeamsForUser(user.systemuserid, function(response) {
@@ -139,11 +153,20 @@ function selectUser(user, sectionPrefix) {
         console.error('Teams not found');
         return;
       }
-      response.entities[0].teammembership_association.forEach(team => {
+      teamNames = response.entities[0].teammembership_association.map(team => 'Team: ' + team.name);
+      
+      // Append in the correct order
+      if (businessUnitName) {
         const listItem = document.createElement('li');
-        listItem.textContent = 'Team: ' + team.name;
+        listItem.textContent = businessUnitName;
         businessUnitAndTeamsList.appendChild(listItem);
-      });
+        
+        teamNames.forEach(name => {
+          const listItem = document.createElement('li');
+          listItem.textContent = name;
+          businessUnitAndTeamsList.appendChild(listItem);
+        });
+      }
     });
 
     fetchRolesForUser(user.systemuserid, function(roles) {
