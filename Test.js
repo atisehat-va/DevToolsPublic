@@ -165,6 +165,7 @@ function selectUser(user, sectionPrefix) {
      
       teamListItems = response.entities[0].teammembership_association.map(team => {
         selectedTeamIds.push(team.teamid);
+        console.log(selectedTeamIds);
        
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
