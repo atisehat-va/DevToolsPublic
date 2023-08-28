@@ -23,6 +23,16 @@ javascript: (function() {
     #submitButton { margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }  
     #submitButton:hover { background-color: #0056b3; }  
   `;
+ const selectedData = {
+    user1: null,
+    user2: null,
+    businessUnit1: null,
+    businessUnit2: null,
+    teams1: [],
+    teams2: [],
+    roles1: [],
+    roles2: []
+  };
 
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -123,13 +133,17 @@ function createPopupHtml() {
 
 function selectUser(user, sectionPrefix) {
   try {
+    // Remove the selected class from all user elements
     document.querySelectorAll('.user1, .user2').forEach(el => el.classList.remove('selected'));
+
+    // Add the selected class to the clicked user element
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-   const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
+    // Prepare to list Business Unit and Teams
+    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
-    
+
     let businessUnitListItem = null;
     let teamListItems = [];
 
@@ -140,6 +154,7 @@ function selectUser(user, sectionPrefix) {
       teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
     };
 
+    // Fetch and display Business Unit name
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
         console.error('Business unit not found');
@@ -147,10 +162,10 @@ function selectUser(user, sectionPrefix) {
       }
       businessUnitListItem = document.createElement('li');
       businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
-      
       appendLists();
     });
 
+    // Fetch and display Teams
     fetchTeamsForUser(user.systemuserid, function(response) {
       if (!response || !response.entities || !response.entities[0].teammembership_association) {
         console.error('Teams not found');
@@ -161,11 +176,10 @@ function selectUser(user, sectionPrefix) {
         listItem.textContent = 'Team: ' + team.name;
         return listItem;
       });
-      
       appendLists();
     });
 
-
+    // Fetch and display Roles
     fetchRolesForUser(user.systemuserid, function(roles) {
       if (!roles || !roles.entities) {
         console.error('Roles not found');
