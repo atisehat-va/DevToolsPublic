@@ -1,5 +1,5 @@
 javascript: (function() {
-let selectedBusinessUnit = null;
+let selectedBusinessUnitId = null;
  
  const popupCss = `
     .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
@@ -147,7 +147,8 @@ function selectUser(user, sectionPrefix) {
         console.error('Business unit not found');
         return;
       }
-     selectedBusinessUnit = businessUnit.name;
+     selectedBusinessUnitId = user._businessunitid_value;
+      console.log(selectedBusinessUnitId);
       businessUnitListItem = document.createElement('li');
       businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
       
