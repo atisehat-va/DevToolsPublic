@@ -6,7 +6,7 @@ window.updateUserDetails = async function(userId, businessUnitId, teamIds, roleI
     await disassociateUserFromRoles(userId, clientUrl);
     await disassociateUserFromTeams(userId, clientUrl);
 
-    // Associate user with each team
+    // Associate user with each team.
     for (const teamId of teamIds) {
       await associateUserToTeam(userId, teamId, clientUrl);
     }
