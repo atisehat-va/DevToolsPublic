@@ -1,4 +1,5 @@
 javascript: (function() {
+ let selectedUserId = null;
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
  let selectedRoleIds = [];
@@ -130,6 +131,8 @@ function selectUser(user, sectionPrefix) {
     document.querySelectorAll('.user1, .user2').forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
+    
+   selectedUserId = user.systemuserid;
 
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
