@@ -115,28 +115,23 @@ function loadScript(src, callback, errorCallback) {
   document.body.appendChild(script);
 }
 
-// Wait for DOM to load
-document.addEventListener("DOMContentLoaded", function() {
-  const submitButton = document.getElementById("submitButton");
-
-  loadScript(
-    "https://raw.githubusercontent.com/atisehat-va/DevToolsPublic/main/security.js",
-    function() {
-      console.log("The script has been loaded and callback function executed.");
-      if (submitButton) {
-        submitButton.addEventListener("click", function() {
-          if (typeof updateUserDetails === "function") {
-            updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-          }
-        });
-      }
-    },
-    function() {
-      console.log("Failed to load external script.");
+loadScript(
+  "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security.js",
+  function() {
+    console.log("The script has been loaded and callback function executed.");
+    const submitButton = document.getElementById("submitButton");
+    if (submitButton) {
+      submitButton.addEventListener("click", function() {
+        if (typeof updateUserDetails === "function") {
+          updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+        }
+      });
     }
-  );
-});
-
+  },
+  function() {
+    console.log("Failed to load external script.");
+  }
+);
  
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
