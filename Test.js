@@ -1,5 +1,6 @@
 javascript: (function() {
-let selectedBusinessUnitId = null;
+ let selectedBusinessUnitId = null;
+ let selectedTeamIds = [];
  
  const popupCss = `
     .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
@@ -160,7 +161,11 @@ function selectUser(user, sectionPrefix) {
         console.error('Teams not found');
         return;
       }
+      selectedTeamIds = [];
+     
       teamListItems = response.entities[0].teammembership_association.map(team => {
+        selectedTeamIds.push(team.teamid);
+       
         const listItem = document.createElement('li');
         listItem.textContent = 'Team: ' + team.name;
         return listItem;
