@@ -121,29 +121,85 @@ function createPopupHtml() {
     });
   }
 
-let selectedUser1;
-let selectedUser2;
-
-let selectedUser1BusinessUnit;
-let selectedUser1Teams = [];
-let selectedUser1Roles = [];
+const selectedUserInfo = {
+  '1': {},
+  '2': {}
+};
 
 function selectUser(user, sectionPrefix) {
   try {
-    // Remove existing selected classes
-    document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
-
-    // Mark the new selected user
-    const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
-    userDiv.classList.add('selected');
-
-    if (sectionPrefix === '1') {
-      console.log("User 1 Selected");
-      selectedUser1 = user.systemuserid;
-    } else if (sectionPrefix === '2') {
-      console.log("User 2 Selected");
-      selectedUser2 = user.systemuserid;
+    // Initialize lists and sections
+    const section = document.getElementById('section' + (2 + (sectionPrefix - 1) * 2));
+    let businessUnitListItem = null;
+    let teamListItems = [];
+    
+    // Function to append lists
+    function appendLists() {
+      const list = document.createElement('ul');
+      if (businessUnitListItem) list.appendChild(businessUnitListItem);
+      teamListItems.forEach(item => list.appendChild(item));
+      section.innerHTML = '';
+      section.appendChild(list);
     }
+
+    // Update the selectedUserInfo object
+    selectedUserInfo[sectionPrefix].userId = user.systemuserid;
+    selectedUserInfo[sectionPrefix].businessUnit = null;
+    selectedUserInfo[sectionPrefix].teams = [];
+    selectedUserInfo[sectionPrefix].roles = [];
+
+    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
+      if (!businessUnit || !businessUnit.name) {
+        console.error('Business unit not found');
+        return;
+      }
+      businessUnitListItem = document.createElement('li');
+      businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
+      
+      // Update the selectedUserInfo object
+      selectedUserInfo[sectionPrefix].businessUnit = businessUnit.name;
+
+      appendLists();
+    });
+
+    fetchTeamsForUser(user.systemuserid, function(response) {
+      if (!response || !response.entities || !response.entities[0].teammembership_association) {
+        console.error('Teams not found');
+        return;
+      }
+      teamListItems = response.entities[0].teammembership_association.map(team => {
+        const listItem = document.createElement('li');
+        listItem.textContent = 'Team: ' + team.name;
+
+        // Update the selectedUserInfo object
+        selectedUserInfo[sectionPrefix].teams.push(team.name);
+
+        return listItem;
+      });
+      
+      appendLists();
+    });
+
+    fetchRolesForUser(user.systemuserid, function(roles) {
+      if (!roles || !roles.entities) {
+        console.error('Roles not found');
+        return;
+      }
+      const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
+      rolesList.innerHTML = '';
+      roles.entities.forEach(role => {
+        const roleId = role['roleid'];
+        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
+          const listItem = document.createElement('li');
+          listItem.textContent = roleDetail.name;
+          rolesList.appendChild(listItem);
+
+          // Update the selectedUserInfo object
+          selectedUserInfo[sectionPrefix].roles.push(roleDetail.name);
+        });
+      });
+    });
+
   } catch (e) {
     console.error('Error in selectUser function', e);
   }
