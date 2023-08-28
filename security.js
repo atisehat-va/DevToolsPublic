@@ -23,7 +23,7 @@ window.updateUserDetails = async function(userId, businessUnitId, teamIds, roleI
 
 async function changeBusinessUnit(userId, businessUnitId) {
   const data1 = {
-    businessunitid@odata.bind: `/businessunits(${businessUnitId})`
+    "businessunitid@odata.bind": `/businessunits(${businessUnitId})`
   };
   return Xrm.WebApi.updateRecord("systemuser", userId, data1);
 }
