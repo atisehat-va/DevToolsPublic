@@ -100,31 +100,43 @@ function createPopupHtml() {
       </div>
     </div>`;
 }
-function loadScript(src, callback) {
+function loadScript(src, callback, errorCallback) {
   const script = document.createElement("script");
   script.type = "text/javascript";
   script.onload = function() {
     console.log("Script loaded successfully.");
     callback();
   };
+  script.onerror = function() {
+    console.log("Error loading script.");
+    errorCallback();
+  };
   script.src = src;
   document.body.appendChild(script);
 }
 
+// Wait for DOM to load
 document.addEventListener("DOMContentLoaded", function() {
   const submitButton = document.getElementById("submitButton");
 
-  loadScript("https://raw.githubusercontent.com/atisehat-va/DevToolsPublic/main/security.js", function() {
-    console.log("The script has been loaded and callback function executed."); // Additional log
-    if (submitButton) {
-      submitButton.addEventListener("click", function() {
-        if (typeof updateUserDetails === "function") { 
-          updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-        }
-      });
+  loadScript(
+    "https://raw.githubusercontent.com/atisehat-va/DevToolsPublic/main/security.js",
+    function() {
+      console.log("The script has been loaded and callback function executed.");
+      if (submitButton) {
+        submitButton.addEventListener("click", function() {
+          if (typeof updateUserDetails === "function") {
+            updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+          }
+        });
+      }
+    },
+    function() {
+      console.log("Failed to load external script.");
     }
-  });
+  );
 });
+
  
   function createAndAppendPopup() {
     const popupHtml = createPopupHtml();
