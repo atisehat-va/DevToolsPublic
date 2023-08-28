@@ -185,7 +185,7 @@ function selectUser(user, sectionPrefix) {
       selectedUserId = user.systemuserid;
     }   
     if (sectionPrefix === '2') {
-      selectedUserInfo2Id = user.systemuserid;
+      selectedUserId2 = user.systemuserid;
     }
 
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
