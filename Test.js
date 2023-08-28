@@ -245,6 +245,7 @@ function selectUser(user, sectionPrefix) {
   });
 
   async function updateUserDetails(userId, businessUnitId, teamId, roleId) {
+   debugger;
    const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
  
   try {
