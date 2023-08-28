@@ -1,5 +1,5 @@
 javascript: (function() {
- let selectedUserInfo2Id = null; //User Info 2
+ let selectedUserInfo2Id = null; 
  let selectedUserId = null;
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
