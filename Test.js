@@ -119,11 +119,21 @@ loadScript(
   "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security.js",
   function() {
     console.log("The script has been loaded and callback function executed.");
+
+    // Debugging: Test if updateUserDetails is defined.
+    if (typeof updateUserDetails === "function") {
+      console.log("updateUserDetails is accessible");
+    } else {
+      console.log("updateUserDetails is NOT accessible");
+    }
+
     const submitButton = document.getElementById("submitButton");
     if (submitButton) {
       submitButton.addEventListener("click", function() {
         if (typeof updateUserDetails === "function") {
           updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+        } else {
+          console.log("updateUserDetails is not a function");
         }
       });
     }
