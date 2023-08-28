@@ -119,8 +119,7 @@ loadScript(
   "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security.js",
   function() {
     console.log("The script has been loaded and callback function executed.");
-
-    // Debugging: Test if updateUserDetails is defined.
+    
     if (typeof updateUserDetails === "function") {
       console.log("updateUserDetails is accessible");
     } else {
