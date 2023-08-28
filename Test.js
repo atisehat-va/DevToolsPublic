@@ -191,6 +191,7 @@ function selectUser(user, sectionPrefix) {
         const roleId = role['roleid'];
 
        selectedRoleIds.push(roleId);
+       console.log(selectedRoleIds);
        
         Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
           const listItem = document.createElement('li');
