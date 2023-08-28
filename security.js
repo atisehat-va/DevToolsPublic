@@ -1,17 +1,17 @@
-window.updateUserDetails = async function(userId, businessUnitId, teamIds, roleIds) {
+window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds) {
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
   try {
-    await changeBusinessUnit(userId, businessUnitId);
-    await disassociateUserFromRoles(userId, clientUrl);
-    await disassociateUserFromTeams(userId, clientUrl);
+    await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
+    await disassociateUserFromRoles(selectedUserId2, clientUrl);
+    await disassociateUserFromTeams(selectedUserId2, clientUrl);
     
-    for (const teamId of teamIds) {
-      await associateUserToTeam(userId, teamId, clientUrl);
+    for (const teamId of selectedTeamIds) {
+      await associateUserToTeam(selectedUserId2, teamId, clientUrl);
     }
     
-    for (const roleId of roleIds) {
-      await associateUserToRole(userId, roleId, clientUrl);
+    for (const roleId of selectedRoleIds) {
+      await associateUserToRole(selectedUserId2, roleId, clientUrl);
     }
 
   } catch (error) {
@@ -19,15 +19,15 @@ window.updateUserDetails = async function(userId, businessUnitId, teamIds, roleI
   }
 }
 
-async function changeBusinessUnit(userId, businessUnitId) {
+async function changeBusinessUnit(selectedUserId2, selectedBusinessUnitId) {
   const data1 = {
-    "businessunitid@odata.bind": `/businessunits(${businessUnitId})`
+    "businessunitid@odata.bind": `/businessunits(${selectedBusinessUnitId})`
   };
-  return Xrm.WebApi.updateRecord("systemuser", userId, data1);
+  return Xrm.WebApi.updateRecord("systemuser", selectedUserId2, data1);
 }
 
-async function disassociateUserFromRoles(userId, clientUrl) {
-  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association`;
+async function disassociateUserFromRoles(selectedUserId2, clientUrl) {
+  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/systemuserroles_association`;
   const response = await fetch(rolesUrl, {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
   });
@@ -39,13 +39,13 @@ async function disassociateUserFromRoles(userId, clientUrl) {
   const results = await response.json();
     
   await Promise.all(results.value.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 
-async function disassociateUserFromTeams(userId, clientUrl) {
-  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${userId})/teammembership_association`;
+async function disassociateUserFromTeams(selectedUserId2, clientUrl) {
+  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/teammembership_association`;
   const response = await fetch(teamsUrl, {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
   });
@@ -57,15 +57,15 @@ async function disassociateUserFromTeams(userId, clientUrl) {
   const results = await response.json();
   
   await Promise.all(results.value.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${userId})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 
-async function associateUserToTeam(userId, teamId, clientUrl) {
+async function associateUserToTeam(selectedUserId2, teamId, clientUrl) {
   const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref`;
   const associateTeamData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${userId})`
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
   };
   await fetch(associateTeamUrl, {
     method: "POST",
@@ -74,10 +74,10 @@ async function associateUserToTeam(userId, teamId, clientUrl) {
   });
 }
 
-async function associateUserToRole(userId, roleId, clientUrl) {
+async function associateUserToRole(selectedUserId2, roleId, clientUrl) {
   const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${roleId})/systemuserroles_association/$ref`;
   const associateRoleData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${userId})`
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
   };
   await fetch(associateRoleUrl, {
     method: "POST",
