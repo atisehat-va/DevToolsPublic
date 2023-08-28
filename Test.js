@@ -24,6 +24,14 @@ javascript: (function() {
     #submitButton:hover { background-color: #0056b3; }  
   `;
 
+ let selectedUser1Id;
+ let selectedUser2Id;
+ 
+ let selectedUser1BusinessUnit; 
+ let selectedUser1Teams = []; 
+ let selectedUser1Roles = [];
+ 
+
   function fetchUsers(callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
   }
@@ -127,50 +135,36 @@ function selectUser(user, sectionPrefix) {
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
 
-   const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
+    // Store only the User ID based on sectionPrefix
+    if (sectionPrefix === '1') {
+      selectedUser1Id = user.systemuserid;
+    } else if (sectionPrefix === '2') {
+      selectedUser2Id = user.systemuserid;
+      return; // If it's User Info 2, we stop here and only store the User ID
+    }
+
+    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
     
-    let businessUnitListItem = null;
-    let teamListItems = [];
-
-    const appendLists = () => {
-      if (businessUnitListItem) {
-        businessUnitAndTeamsList.appendChild(businessUnitListItem);
-      }
-      teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
-    };
-
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
-      if (!businessUnit || !businessUnit.name) {
-        console.error('Business unit not found');
-        return;
-      }
-      businessUnitListItem = document.createElement('li');
-      businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
-      
-      appendLists();
+      selectedUser1BusinessUnit = businessUnit.name;
+      const listItem = document.createElement('li');
+      listItem.textContent = 'Business Unit: ' + businessUnit.name;
+      businessUnitAndTeamsList.appendChild(listItem);
     });
 
     fetchTeamsForUser(user.systemuserid, function(response) {
-      if (!response || !response.entities || !response.entities[0].teammembership_association) {
-        console.error('Teams not found');
-        return;
-      }
-      teamListItems = response.entities[0].teammembership_association.map(team => {
+      const teamNames = response.entities[0].teammembership_association.map(team => team.name);
+      selectedUser1Teams = teamNames;
+
+      teamNames.forEach(name => {
         const listItem = document.createElement('li');
-        listItem.textContent = 'Team: ' + team.name;
-        return listItem;
+        listItem.textContent = 'Team: ' + name;
+        businessUnitAndTeamsList.appendChild(listItem);
       });
-      
-      appendLists();
     });
 
-
     fetchRolesForUser(user.systemuserid, function(roles) {
-      if (!roles || !roles.entities) {
-        console.error('Roles not found');
-        return;
-      }
       const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
       rolesList.innerHTML = '';
       roles.entities.forEach(role => {
@@ -179,6 +173,7 @@ function selectUser(user, sectionPrefix) {
           const listItem = document.createElement('li');
           listItem.textContent = roleDetail.name;
           rolesList.appendChild(listItem);
+          selectedUser1Roles.push(roleDetail.name);
         });
       });
     });
