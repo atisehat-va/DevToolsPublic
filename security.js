@@ -1,4 +1,5 @@
 async function updateUserDetails(userId, businessUnitId, teamIds, roleIds) {
+  debugger;
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
   try {
