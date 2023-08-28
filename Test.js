@@ -200,6 +200,9 @@ function selectUser(user, sectionPrefix) {
     console.error('Error in selectUser function', e);
   }
 }
+ document.getElementById('submitButton').addEventListener('click', function() {
+    console.log("Selected Data:", selectedData);
+  });
 
   function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
