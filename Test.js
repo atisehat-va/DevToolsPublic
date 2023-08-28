@@ -230,7 +230,29 @@ function selectUser(user, sectionPrefix) {
       });
     };
   }
+ 
+ function loadScript(src, callback) {
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.onload = callback; // callback will be called once the script is loaded
+  script.src = src;
+  document.body.appendChild(script);
+}
 
+document.addEventListener("DOMContentLoaded", function() {
+  const submitButton = document.getElementById("submitButton");
+
+  loadScript("https://github.com/atisehat-va/DevToolsPublic/edit/main/security.js", function() {
+    if (submitButton) {
+      submitButton.addEventListener("click", function() {
+        if (typeof updateUserDetails === "function") { // Ensure the function exists
+          updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+        }
+      });
+    }
+  });
+});
+ 
   function displayPopup(users) {
    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
     const popupDiv = createAndAppendPopup();
