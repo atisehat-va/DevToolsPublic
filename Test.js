@@ -124,28 +124,25 @@ function selectUser(user, sectionPrefix) {
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
     
-    let businessUnitName = '';
-    let teamNames = [];
-    
+    let businessUnitListItem = null;
+    let teamListItems = [];
+
+    const appendLists = () => {
+      if (businessUnitListItem) {
+        businessUnitAndTeamsList.appendChild(businessUnitListItem);
+      }
+      teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
+    };
+
     fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
         console.error('Business unit not found');
         return;
       }
-      businessUnitName = 'Business Unit: ' + businessUnit.name;
+      businessUnitListItem = document.createElement('li');
+      businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
       
-      // Append in the correct order
-      if (teamNames.length) {
-        const listItem = document.createElement('li');
-        listItem.textContent = businessUnitName;
-        businessUnitAndTeamsList.appendChild(listItem);
-        
-        teamNames.forEach(name => {
-          const listItem = document.createElement('li');
-          listItem.textContent = name;
-          businessUnitAndTeamsList.appendChild(listItem);
-        });
-      }
+      appendLists();
     });
 
     fetchTeamsForUser(user.systemuserid, function(response) {
@@ -153,21 +150,15 @@ function selectUser(user, sectionPrefix) {
         console.error('Teams not found');
         return;
       }
-      teamNames = response.entities[0].teammembership_association.map(team => 'Team: ' + team.name);
-      
-      // Append in the correct order
-      if (businessUnitName) {
+      teamListItems = response.entities[0].teammembership_association.map(team => {
         const listItem = document.createElement('li');
-        listItem.textContent = businessUnitName;
-        businessUnitAndTeamsList.appendChild(listItem);
-        
-        teamNames.forEach(name => {
-          const listItem = document.createElement('li');
-          listItem.textContent = name;
-          businessUnitAndTeamsList.appendChild(listItem);
-        });
-      }
+        listItem.textContent = 'Team: ' + team.name;
+        return listItem;
+      });
+      
+      appendLists();
     });
+
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       if (!roles || !roles.entities) {
