@@ -1,6 +1,4 @@
 window.updateUserDetails = async function(userId, businessUnitId, teamIds, roleIds) {
-async function updateUserDetails(userId, businessUnitId, teamIds, roleIds) {
-  debugger;
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
   try {
@@ -91,4 +89,4 @@ async function associateUserToRole(userId, roleId, clientUrl) {
     body: JSON.stringify(associateRoleData)
   });
 }
-}
+
