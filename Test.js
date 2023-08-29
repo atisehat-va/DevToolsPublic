@@ -287,15 +287,16 @@ function selectUser(user, sectionPrefix) {
        if (submitButton) {
          console.log("Found submitButton element, adding event listener.");
          submitButton.addEventListener("click", async function() {
-           console.log("submitButton clicked.");         
-           if (typeof updateUserDetails === "function") {
+           console.log("submitButton clicked.");      
 
-              this.style.display = 'none';  
+           this.style.display = 'none';  
               
-              const messageDiv = document.createElement('div');
-              messageDiv.id = 'updateMessage';
-              messageDiv.innerHTML = `Please wait, updated in progress ...</span>`;             
-              this.parentNode.appendChild(messageDiv); 
+           const messageDiv = document.createElement('div');
+           messageDiv.id = 'updateMessage';
+           messageDiv.innerHTML = `Please wait, updated in progress ...</span>`;             
+           this.parentNode.appendChild(messageDiv); 
+          
+           if (typeof updateUserDetails === "function") {              
             
               await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
               console.log("updateUserDetails function called.");
