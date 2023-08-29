@@ -261,6 +261,11 @@ function selectUser(user, sectionPrefix) {
            if (typeof updateUserDetails === "function") {
              updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
              console.log("updateUserDetails function called.");
+             clearUI();
+             
+             fetchUsers(function(users) {
+               displayPopup(users);
+             });
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
