@@ -279,7 +279,16 @@ function selectUser(user, sectionPrefix) {
      }
    );
   }
-
+  function clearUI() {    
+    document.getElementById("userList1").innerHTML = '';
+    document.getElementById("userList2").innerHTML = '';
+    
+    const clearUl = (sectionId) => {
+      const ul = document.getElementById(sectionId).querySelector('ul');
+      ul.innerHTML = '';
+    };
+    ['section3', 'section4', 'section5', 'section6'].forEach(clearUl);
+  }
   fetchUsers(function(users) {
     displayPopup(users);
   }); 
