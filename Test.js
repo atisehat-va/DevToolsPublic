@@ -31,7 +31,7 @@ javascript: (function() {
     #submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }  
     #submitButton:hover { background-color: #0056b3; }
     .tooltip { position: absolute; top: 0; right: 0; cursor: pointer; }
-    .tooltiptext { visibility: hidden; width: 120px; background-color: black; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; right: 100%; top: 50%; margin-top: -15px; opacity: 0; transition: opacity 0.3s; }
+    .tooltiptext { visibility: visible; width: 120px; background-color: black; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; right: 100%; top: 50%; margin-top: -15px; opacity: 0; transition: opacity 0.3s; }
     .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
   `;
 
@@ -55,10 +55,10 @@ function createPopupHtml() {
   return `
     <div class="popup">
       <div class="popup-header">Copy User Security</div>
-      <style>${popupCss}</style>
       <div id="tooltip" class="tooltip">
         <span class="tooltiptext" id="tooltiptext">Some tooltip text</span>
       </div>
+      <style>${popupCss}</style>      
       <div class="popup-row">
         <div class="section user-section" id="section1">
           <h3>FROM</h3>
