@@ -262,9 +262,14 @@ function selectUser(user, sectionPrefix) {
              updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
              console.log("updateUserDetails function called.");
              alert('Submit operation completed successfully!');
-             document.getElementById('searchInput1').value = '';
-             document.getElementById('searchInput2').value = '';
-            
+
+              document.getElementById('searchInput1').value = '';
+              document.getElementById('searchInput2').value = '';
+                          
+              ['section3', 'section5', 'section4', 'section6'].forEach(sectionId => {
+                const ulElement = document.getElementById(sectionId).querySelector('ul');
+                if (ulElement) ulElement.innerHTML = '';
+              });            
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
