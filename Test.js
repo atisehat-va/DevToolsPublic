@@ -286,7 +286,7 @@ function selectUser(user, sectionPrefix) {
        const submitButton = document.getElementById("submitButton");
        if (submitButton) {
          console.log("Found submitButton element, adding event listener.");
-         submitButton.addEventListener("click", function() {
+         submitButton.addEventListener("click", async function() {
            console.log("submitButton clicked.");
            if (typeof updateUserDetails === "function") {
              await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
