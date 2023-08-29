@@ -7,11 +7,11 @@ window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitI
     await disassociateUserFromTeams(selectedUserId2, clientUrl);
 
     for (const roleId of selectedRoleIds) {
-      await associateUserToRole(selectedUserId2, selectedRoleIds, clientUrl);
+      await associateUserToRole(selectedUserId2, roleId, clientUrl);
     }
     
     for (const teamId of selectedTeamIds) {
-      await associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl);
+      await associateUserToTeam(selectedUserId2, teamId, clientUrl);
     } 
 
   } catch (error) {
