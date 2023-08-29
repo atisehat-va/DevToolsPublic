@@ -260,12 +260,7 @@ function selectUser(user, sectionPrefix) {
            console.log("submitButton clicked.");
            if (typeof updateUserDetails === "function") {
              updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-             console.log("updateUserDetails function called.");
-             clearUI();
-             
-             fetchUsers(function(users) {
-               displayPopup(users);
-             });
+             console.log("updateUserDetails function called.");             
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
@@ -279,16 +274,7 @@ function selectUser(user, sectionPrefix) {
      }
    );
   }
-  function clearUI() {    
-    document.getElementById("userList1").innerHTML = '';
-    document.getElementById("userList2").innerHTML = '';
-    
-    const clearUl = (sectionId) => {
-      const ul = document.getElementById(sectionId).querySelector('ul');
-      ul.innerHTML = '';
-    };
-    ['section3', 'section4', 'section5', 'section6'].forEach(clearUl);
-  }
+ 
   fetchUsers(function(users) {
     displayPopup(users);
   }); 
