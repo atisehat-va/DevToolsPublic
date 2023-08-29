@@ -286,7 +286,15 @@ function selectUser(user, sectionPrefix) {
            console.log("submitButton clicked.");
            if (typeof updateUserDetails === "function") {
              updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-             console.log("updateUserDetails function called.");                                      
+             console.log("updateUserDetails function called.");
+
+             this.style.display = 'none';  
+             
+             const messageDiv = document.createElement('div');
+             messageDiv.id = 'updateMessage';
+             messageDiv.innerHTML = `<span>${selectedUserId2} - Security Updated</span>`;             
+             this.parentNode.appendChild(messageDiv);
+            
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
