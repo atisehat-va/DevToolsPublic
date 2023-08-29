@@ -47,8 +47,8 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
  }
 
-function createPopupHtml(users) {
-  let html = `
+function createPopupHtml() {
+  return `
     <div class="popup">
       <div class="popup-header">User Details</div>
       <style>${popupCss}</style>
@@ -97,21 +97,9 @@ function createPopupHtml(users) {
         </div>
       </div>
       <div class="submit-button-container">
-        <button id="submitButton" disabled=true>Submit</button>
+        <button id="submitButton">Submit</button>
       </div>
     </div>`;
-  
-  html += '<div><select id="userDropdown1" onchange="selectUser(this.options[this.selectedIndex].value, \'1\')">';
-  html += '<option>Select User Info</option>';
-  // Add user options here for dropdown 1
-  html += '</select></div>';
-  
-  html += '<div><select id="userDropdown2" onchange="selectUser(this.options[this.selectedIndex].value, \'2\')">';
-  html += '<option>Select User Info 2</option>';
-  // Add user options here for dropdown 2
-  html += '</select></div>';
-
-  return html;
 }
  
   function createAndAppendPopup() {
@@ -140,9 +128,6 @@ function createPopupHtml(users) {
     });
   }
 
-let selectedUserId = null;
-let selectedUserId2 = null; 
- 
 function selectUser(user, sectionPrefix) {
   try {
     document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
@@ -156,13 +141,7 @@ function selectUser(user, sectionPrefix) {
     if (sectionPrefix === '2') {
       selectedUserId2 = user.systemuserid;
     }
-   
-   if (selectedUserId && selectedUserId2) {
-    document.getElementById("submitButton").disabled = false;
-   } else {
-     document.getElementById("submitButton").disabled = true;
-   }
-   
+
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
     
