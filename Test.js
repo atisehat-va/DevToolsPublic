@@ -44,8 +44,16 @@ javascript: (function() {
   }
 
   function fetchBusinessUnitName(businessUnitId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('businessunit', `?$select=name&$filter=businessunitid eq ${businessUnitId}`).then(callback);   
-  }
+  Xrm.WebApi.retrieveMultipleRecords('businessunit', `?$select=name&$filter=businessunitid eq ${businessUnitId}`)
+  .then(result => {
+    if (result.entities.length > 0) {
+      callback(result.entities[0]);
+    } else {
+      console.error("No business unit found with the given ID");
+    }
+  })
+  .catch(error => console.error('An error occurred:', error));
+}
 
 function createPopupHtml() {
   return `
