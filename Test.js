@@ -43,9 +43,9 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
   }
 
-  function fetchBusinessUnitName(businessUnitId, callback) {
-    Xrm.WebApi.retrieveRecord('businessunit', businessUnitId, '?$select=name').then(callback);
-  }
+  function fetchBusinessUnitNameForUser(userId, callback) {
+    Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
+ }
 
 function createPopupHtml() {
   return `
