@@ -1,6 +1,7 @@
 javascript: (function() {
  debugger;
- let selectedUserId2 = null; 
+ let selectedUserId2 = null;
+ let selectedUserName2 = '';
  let selectedUserId = null;
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
@@ -151,6 +152,9 @@ function selectUser(user, sectionPrefix) {
     if (sectionPrefix === '2') {
       selectedUserId2 = user.systemuserid;
     }
+   if (listNumber === '2') {
+      selectedUserName2 = user.fullname;
+   }
    updateSubmitButtonVisibility();
    
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
@@ -292,7 +296,7 @@ function selectUser(user, sectionPrefix) {
              
              const messageDiv = document.createElement('div');
              messageDiv.id = 'updateMessage';
-             messageDiv.innerHTML = `<span>${selectedUserId2} - Security Updated</span>`;             
+             messageDiv.innerHTML = `<span>${selectedUserName2} - Security Updated</span>`;             
              this.parentNode.appendChild(messageDiv);
             
            } else {
