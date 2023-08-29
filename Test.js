@@ -155,23 +155,22 @@ function selectUser(user, sectionPrefix) {
       teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
     };
 
-    fetchBusinessUnitNameForUser(user.systemuserid, function(response) {
-    if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
-        console.error('Business unit not found');
-        return;
-    }
+    fetchBusinessUnitName(user.systemuserid, function(response) {
+        if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
+            console.error('Business unit not found');
+            return;
+        }
+        
+        const businessUnitName = response.entities[0].businessunitid.name;
     
-    const businessUnitName = response.entities[0].businessunitid.name;
-
-    if (sectionPrefix === '1') {
-        selectedBusinessUnitId = user._businessunitid_value;
-    }
-     
-      
-      businessUnitListItem = document.createElement('li');
-      businessUnitListItem.textContent = 'Business Unit: ' + businessUnit.name;
-      
-      appendLists();
+        if (sectionPrefix === '1') {
+            selectedBusinessUnitId = user._businessunitid_value;
+        }
+          
+        businessUnitListItem = document.createElement('li');
+        businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;  // Note the change from BusinessUnit.name to businessUnitName
+        
+        appendLists();
     });
 
     fetchTeamsForUser(user.systemuserid, function(response) {
