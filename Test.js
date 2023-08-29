@@ -155,7 +155,7 @@ function selectUser(user, sectionPrefix) {
       teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
     };
 
-    fetchBusinessUnitName(user._businessunitid_value, function(businessUnit) {
+    fetchBusinessUnitName(user.systemuserid, function(businessUnit) {
       if (!businessUnit || !businessUnit.name) {
         console.error('Business unit not found');
         return;
