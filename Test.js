@@ -27,7 +27,7 @@ javascript: (function() {
     .popup-row { display: flex; }
     .popup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
     .submit-button-container { text-align: center; padding: 10px; width: 100%; }  
-    #submitButton { margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }  
+    #submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }  
     #submitButton:hover { background-color: #0056b3; }  
   `;
 
@@ -127,7 +127,16 @@ function createPopupHtml() {
       userListDiv.appendChild(userDiv);
     });
   }
-
+ 
+function updateSubmitButtonVisibility() {
+  const submitButton = document.getElementById("submitButton");
+  if (selectedUserId && selectedUserId2) {
+    submitButton.style.display = 'block'; // Show submit button
+  } else {
+    submitButton.style.display = 'none'; // Hide submit button
+  }
+}
+ 
 function selectUser(user, sectionPrefix) {
   try {
     document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
@@ -141,7 +150,8 @@ function selectUser(user, sectionPrefix) {
     if (sectionPrefix === '2') {
       selectedUserId2 = user.systemuserid;
     }
-
+   updateSubmitButtonVisibility();
+   
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
     
@@ -288,6 +298,7 @@ function selectUser(user, sectionPrefix) {
        console.log("Failed to load script.");
      }
    );
+   updateSubmitButtonVisibility();
   }
  
   fetchUsers(function(users) {
