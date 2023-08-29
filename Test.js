@@ -98,8 +98,7 @@ function createPopupHtml() {
       </div>
       <div class="submit-button-container">
         <button id="submitButton">Submit</button>
-      </div>
-      <div id="statusMessage" style="display: none;"></div>
+      </div>      
     </div>`;
 }
  
@@ -113,18 +112,7 @@ function createPopupHtml() {
     popupDiv.style.left = '50%';
     popupDiv.style.top = '50%';
     popupDiv.style.transform = 'translate(-50%, -50%)';
-    document.body.appendChild(popupDiv);
-
-    document.getElementById("submitButton").onclick = function() {
-      updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-      
-      this.style.display = 'none';
-      
-      const statusMessage = document.getElementById("statusMessage");
-      const selectedUser = document.getElementById('userList2').querySelector('.selected').textContent;
-      statusMessage.innerText = `${selectedUser} - Security Updated`;
-      statusMessage.style.display = 'block';
-    };
+    document.body.appendChild(popupDiv);    
    
     return popupDiv;
   }
