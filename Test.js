@@ -43,7 +43,7 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
   }
 
-  function fetchBusinessUnitNameForUser(userId, callback) {
+  function fetchBusinessUnitName(userId, callback) {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
  }
 
