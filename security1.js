@@ -5,14 +5,14 @@ window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitI
     await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
     await disassociateUserFromRoles(selectedUserId2, clientUrl);
     await disassociateUserFromTeams(selectedUserId2, clientUrl);
-    
-    for (const teamId of selectedTeamIds) {
-      await associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl);
-    }
-    
+
     for (const roleId of selectedRoleIds) {
       await associateUserToRole(selectedUserId2, selectedRoleIds, clientUrl);
     }
+    
+    for (const teamId of selectedTeamIds) {
+      await associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl);
+    } 
 
   } catch (error) {
     console.error('An error occurred:', error);
