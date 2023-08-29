@@ -51,7 +51,7 @@ javascript: (function() {
 function createPopupHtml() {
   return `
     <div class="popup">
-      <div class="popup-header">User Details</div>
+      <div class="popup-header">Copy User Security</div>
       <style>${popupCss}</style>
       <div class="popup-row">
         <div class="section user-section" id="section1">
@@ -318,8 +318,8 @@ function selectUser(user, sectionPrefix) {
 
              const newMessageDiv = document.createElement('div');
              newMessageDiv.id = 'updateMessage';
-             newMessageDiv.innerHTML = `<span>Security Updated for ${selectedUserName2}</span>`;                         
-             newMessageDiv.style.fontSize = "20px";  // Increase font size
+             newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;                         
+             newMessageDiv.style.fontSize = "20px";  
              newMessageDiv.style.fontWeight = "bold";
              this.parentNode.appendChild(newMessageDiv);
            } else {
