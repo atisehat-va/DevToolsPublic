@@ -48,7 +48,7 @@ javascript: (function() {
  }
 
 function createPopupHtml(users) {
-  return `
+  let html = `
     <div class="popup">
       <div class="popup-header">User Details</div>
       <style>${popupCss}</style>
@@ -97,23 +97,21 @@ function createPopupHtml(users) {
         </div>
       </div>
       <div class="submit-button-container">
-        <button id="submitButton">Submit</button>
+        <button id="submitButton" disabled=true>Submit</button>
       </div>
     </div>`;
+  
+  html += '<div><select id="userDropdown1" onchange="selectUser(this.options[this.selectedIndex].value, \'1\')">';
+  html += '<option>Select User Info</option>';
+  // Add user options here for dropdown 1
+  html += '</select></div>';
+  
+  html += '<div><select id="userDropdown2" onchange="selectUser(this.options[this.selectedIndex].value, \'2\')">';
+  html += '<option>Select User Info 2</option>';
+  // Add user options here for dropdown 2
+  html += '</select></div>';
 
-   let html = '<div><select id="userDropdown1" onchange="selectUser(this.options[this.selectedIndex].value, \'1\')">';
-   html += '<option>Select User Info</option>';
-   
-   html += '</select></div>';
- 
-   html += '<div><select id="userDropdown2" onchange="selectUser(this.options[this.selectedIndex].value, \'2\')">';
-   html += '<option>Select User Info 2</option>';
-   
-   html += '</select></div>';
- 
-   html += '<button id="submitButton" disabled=true>Submit</button>';
- 
-   return html;
+  return html;
 }
  
   function createAndAppendPopup() {
