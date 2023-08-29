@@ -250,26 +250,10 @@ function selectUser(user, sectionPrefix) {
   }
 }
 
-  function setupSearchFilter(searchInputId, sectionId) {
+  function setupSearchFilter(searchInputId) {
     document.getElementById(searchInputId).oninput = function() {
       const searchValue = this.value.toLowerCase();
-      const sectionNumber = searchInputId.charAt(searchInputId.length - 1);  
-      
-      if (searchValue === '') {
-        document.querySelectorAll(`.user${sectionNumber}`).forEach(el => {
-          el.classList.remove('selected');
-        });
-        
-        if (sectionNumber === '1') {
-          selectedUserId = null;
-        }
-        
-        if (sectionNumber === '2') {
-          selectedUserId2 = null;
-        }
-      }  
-      
-      document.querySelectorAll(`.user${sectionNumber}`).forEach(el => {
+      document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
         el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
       });
     };
