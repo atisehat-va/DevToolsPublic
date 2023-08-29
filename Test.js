@@ -142,19 +142,7 @@ function selectUser(user, sectionPrefix) {
     document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
-
-    if (userDiv.classList.contains('selected')) {     
-     userDiv.classList.remove('selected');     
-     if (sectionPrefix === '1') {
-       selectedUserId = null;
-     }
-     if (sectionPrefix === '2') {
-       selectedUserId2 = null;
-     }
-     return;
-   }   
-   document.querySelectorAll('.user1, .user2').forEach(el => el.classList.remove('selected'));
-   userDiv.classList.add('selected');   
+    
     
     if (sectionPrefix === '1') {
       selectedUserId = user.systemuserid;
@@ -267,13 +255,6 @@ function selectUser(user, sectionPrefix) {
       const searchValue = this.value.toLowerCase();
       document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
         el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-        el.classList.remove('selected');
-        if (searchInputId === 'searchInput1') {
-          selectedUserId = null;
-        }
-        if (searchInputId === 'searchInput2') {
-          selectedUserId2 = null;
-        }
       });
     };
   }
@@ -317,8 +298,6 @@ function selectUser(user, sectionPrefix) {
        console.log("Failed to load script.");
      }
    );
-   setupSearchFilter('searchInput1', 'userList1');
-   setupSearchFilter('searchInput2', 'userList2');
    updateSubmitButtonVisibility();
   }
  
