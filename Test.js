@@ -289,7 +289,7 @@ function selectUser(user, sectionPrefix) {
          submitButton.addEventListener("click", function() {
            console.log("submitButton clicked.");
            if (typeof updateUserDetails === "function") {
-             updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+             await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
              console.log("updateUserDetails function called.");
 
              this.style.display = 'none';  
