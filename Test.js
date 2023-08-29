@@ -257,49 +257,14 @@ function selectUser(user, sectionPrefix) {
        if (submitButton) {
          console.log("Found submitButton element, adding event listener.");
          submitButton.addEventListener("click", function() {
-             console.log("submitButton clicked.");
-             if (typeof updateUserDetails === "function") {
-                 updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds)
-                 .then(() => {  // Assuming updateUserDetails returns a Promise
-                     alert('Update successful'); // Displaying an alert for successful update
-         
-                     // Clear search fields
-                     document.getElementById("searchInput1").value = '';
-                     document.getElementById("searchInput2").value = '';
-         
-                     // Clear selected users and other info
-                     document.querySelectorAll('.user1, .user2').forEach(el => el.classList.remove('selected'));
-                     selectedUserId = null;
-                     selectedUserId2 = null;
-                     selectedBusinessUnitId = null;
-                     selectedTeamIds = [];
-                     selectedRoleIds = [];
-         
-                     // Clear user lists and other details
-                     const clearList = id => document.getElementById(id).innerHTML = '';
-                     clearList('userList1');
-                     clearList('userList2');
-                     clearList('section3').querySelector('ul');
-                     clearList('section4').querySelector('ul');
-                     clearList('section5').querySelector('ul');
-                     clearList('section6').querySelector('ul');
-         
-                     // Repopulate the user lists to start over
-                     fetchUsers(function(users) {
-                         users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-                         renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
-                         renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
-                     });
-         
-                 })
-                 .catch(err => { // Handle any errors
-                     console.error(err);
-                     alert('Update failed'); // Displaying an alert for failure
-                 });
-             } else {
-                 console.log("updateUserDetails is NOT accessible");
-             }
-         });        
+           console.log("submitButton clicked.");
+           if (typeof updateUserDetails === "function") {
+             updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+             console.log("updateUserDetails function called.");                                      
+           } else {
+             console.log("updateUserDetails is NOT accessible");
+           }
+         });
        } else {
          console.log("submitButton element not found");
        }
