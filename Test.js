@@ -198,29 +198,43 @@ function selectUser(user, sectionPrefix) {
 
     fetchRolesForUser(user.systemuserid, function(roles) {
       if (!roles || !roles.entities) {
-        console.error('Roles not found');
-        return;
-      }
-     if (sectionPrefix === '1') {
-       selectedRoleIds = [];
-     }
-     
+          console.error('Roles not found');
+          return;
+      }  
+      if (sectionPrefix === '1') {
+          selectedRoleIds = [];
+      }  
       const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
       rolesList.innerHTML = '';
-      roles.entities.forEach(role => {
-        const roleId = role['roleid'];
-
-        if (sectionPrefix === '1') {
-           selectedRoleIds.push(roleId);
-        }
-               
-        Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-          const listItem = document.createElement('li');
-          listItem.textContent = roleDetail.name;
-          rolesList.appendChild(listItem);
-        });
+  
+      const roleDetailsArr = [];  
+      
+      const rolePromises = roles.entities.map(role => {
+          const roleId = role['roleid'];
+  
+          if (sectionPrefix === '1') {
+              selectedRoleIds.push(roleId);
+          }
+  
+          return Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
+              roleDetailsArr.push(roleDetail);
+          });
+      });  
+      
+      Promise.all(rolePromises).then(() => {          
+          roleDetailsArr.sort((a, b) => {
+              if (a.name < b.name) return -1;
+              if (a.name > b.name) return 1;
+              return 0;
+          });  
+          
+          roleDetailsArr.forEach(roleDetail => {
+              const listItem = document.createElement('li');
+              listItem.textContent = roleDetail.name;
+              rolesList.appendChild(listItem);
+          });
       });
-    });
+  });
   } catch (e) {
     console.error('Error in selectUser function', e);
   }
