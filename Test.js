@@ -287,12 +287,8 @@ function selectUser(user, sectionPrefix) {
        if (submitButton) {
          console.log("Found submitButton element, adding event listener.");
          submitButton.addEventListener("click", async function() {
-           console.log("submitButton clicked.");
-           this.disabled = true;
-           this.innerHTML = "Please wait ...";
-          
-           if (typeof updateUserDetails === "function") {
-            try {
+           console.log("submitButton clicked.");         
+           if (typeof updateUserDetails === "function") {            
               await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
               console.log("updateUserDetails function called.");
  
@@ -301,18 +297,9 @@ function selectUser(user, sectionPrefix) {
               const messageDiv = document.createElement('div');
               messageDiv.id = 'updateMessage';
               messageDiv.innerHTML = `<span>${selectedUserName2} - Security Updated</span>`;             
-              this.parentNode.appendChild(messageDiv);
-            } catch (error) {
-              console.error("An error occurred while calling updateUserDetails:", error);      
-              
-              this.disabled = false;
-              this.innerHTML = "Submit";
-            }            
+              this.parentNode.appendChild(messageDiv);                        
            } else {
              console.log("updateUserDetails is NOT accessible");
-
-             this.disabled = false;
-             this.innerHTML = "Submit";
            }
          });
        } else {
