@@ -3,19 +3,34 @@ window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitI
 
   try {
     await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
+
     await disassociateUserFromRoles(selectedUserId2, clientUrl);
     await disassociateUserFromTeams(selectedUserId2, clientUrl);
 
     for (const roleId of selectedRoleIds) {
-      await associateUserToRole(selectedUserId2, roleId, clientUrl);
+      await retry(async () => associateUserToRole(selectedUserId2, roleId, clientUrl));
     }
-    
+
     for (const teamId of selectedTeamIds) {
-      await associateUserToTeam(selectedUserId2, teamId, clientUrl);
-    } 
+      await retry(async () => associateUserToTeam(selectedUserId2, teamId, clientUrl));
+    }
 
   } catch (error) {
     console.error('An error occurred:', error);
+  }
+};
+
+async function retry(fn, retries = 3, delay = 1000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      await fn();
+      return;
+    } catch (error) {
+      if (i === retries - 1) {
+        throw error;
+      }
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
   }
 }
 
