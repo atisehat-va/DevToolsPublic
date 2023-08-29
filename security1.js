@@ -62,7 +62,7 @@ async function disassociateUserFromTeams(selectedUserId2, clientUrl) {
   }));
 }
 
-async function associateUserToTeam(selectedUserId2, teamId, clientUrl) {
+async function associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl) {
   const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref`;
   const associateTeamData = {
     "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
@@ -74,7 +74,7 @@ async function associateUserToTeam(selectedUserId2, teamId, clientUrl) {
   });
 }
 
-async function associateUserToRole(selectedUserId2, roleId, clientUrl) {
+async function associateUserToRole(selectedUserId2, selectedRoleIds, clientUrl) {
   const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${roleId})/systemuserroles_association/$ref`;
   const associateRoleData = {
     "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
