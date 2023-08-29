@@ -259,34 +259,26 @@ function selectUser(user, sectionPrefix) {
   document.body.appendChild(script);
 }
    loadScript(
-     "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
-     function() {
-       console.log("The script has been loaded and callback function executed.");
-       
-       if (typeof updateUserDetails === "function") {
-         console.log("updateUserDetails is accessible");
-       } else {
-         console.log("updateUserDetails is NOT accessible");
-       }
-   
-       const submitButton = document.getElementById("submitButton");
-       if (submitButton) {
-         console.log("Found submitButton element, adding event listener.");
-         submitButton.addEventListener("click", function() {
-           console.log("submitButton clicked.");
-           if (typeof updateUserDetails === "function") {
-             updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-             console.log("updateUserDetails function called.");
-           } else {
-             console.log("updateUserDetails is not a function");
-           }
-         });
-       } else {
-         console.log("submitButton element not found.");
-       }
-     },
-     function() {
-       console.log("Failed to load external script.");
+   "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
+   function() {     
+     const submitButton = document.getElementById("submitButton");
+     if (submitButton) {
+       console.log("Found submitButton element, adding event listener.");
+       submitButton.addEventListener("click", function() {
+         console.log("submitButton clicked.");
+         if (typeof updateUserDetails === "function") {
+           updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+           console.log("updateUserDetails function called.");
+         } else {
+           console.log("updateUserDetails is NOT accessible");
+         }
+       });
+     } else {
+       console.log("submitButton element not found.");
      }
-   ); 
+   }, 
+   function() {
+     console.log("Error loading script.");
+   }
+ );
 })();
