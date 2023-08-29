@@ -152,7 +152,7 @@ function selectUser(user, sectionPrefix) {
     if (sectionPrefix === '2') {
       selectedUserId2 = user.systemuserid;
     }
-   if (listNumber === '2') {
+   if (sectionPrefix === '2') {
       selectedUserName2 = user.fullname;
    }
    updateSubmitButtonVisibility();
