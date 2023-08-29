@@ -131,9 +131,9 @@ function createPopupHtml() {
 function updateSubmitButtonVisibility() {
   const submitButton = document.getElementById("submitButton");
   if (selectedUserId && selectedUserId2) {
-    submitButton.style.display = 'block'; // Show submit button
+    submitButton.style.display = 'block'; 
   } else {
-    submitButton.style.display = 'none'; // Hide submit button
+    submitButton.style.display = 'none'; 
   }
 }
  
