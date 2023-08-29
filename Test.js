@@ -47,7 +47,7 @@ javascript: (function() {
     Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
  }
 
-function createPopupHtml() {
+function createPopupHtml(users) {
   return `
     <div class="popup">
       <div class="popup-header">User Details</div>
@@ -97,9 +97,23 @@ function createPopupHtml() {
         </div>
       </div>
       <div class="submit-button-container">
-        <button id="submitButton" disabled>Submit</button>
+        <button id="submitButton">Submit</button>
       </div>
     </div>`;
+
+   let html = '<div><select id="userDropdown1" onchange="selectUser(this.options[this.selectedIndex].value, \'1\')">';
+   html += '<option>Select User Info</option>';
+   
+   html += '</select></div>';
+ 
+   html += '<div><select id="userDropdown2" onchange="selectUser(this.options[this.selectedIndex].value, \'2\')">';
+   html += '<option>Select User Info 2</option>';
+   
+   html += '</select></div>';
+ 
+   html += '<button id="submitButton" disabled=true>Submit</button>';
+ 
+   return html;
 }
  
   function createAndAppendPopup() {
@@ -128,6 +142,9 @@ function createPopupHtml() {
     });
   }
 
+let selectedUserId = null;
+let selectedUserId2 = null; 
+ 
 function selectUser(user, sectionPrefix) {
   try {
     document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
@@ -141,7 +158,12 @@ function selectUser(user, sectionPrefix) {
     if (sectionPrefix === '2') {
       selectedUserId2 = user.systemuserid;
     }
-    updateSubmitButtonState();
+   
+   if (selectedUserId && selectedUserId2) {
+    document.getElementById("submitButton").disabled = false;
+   } else {
+     document.getElementById("submitButton").disabled = true;
+   }
    
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
@@ -294,24 +316,19 @@ function selectUser(user, sectionPrefix) {
   fetchUsers(function(users) {
     displayPopup(users);
   }); 
- 
- function updateSubmitButtonState() {
-   const submitButton = document.getElementById("submitButton");
-   submitButton.disabled = !(selectedUserId && selectedUserId2);
- }
- 
+
  function loadScript(src, callback, errorCallback) {
-   const script = document.createElement("script");
-   script.type = "text/javascript";
-   script.onload = function() {
-     console.log("Script loaded successfully.");
-     callback();
-   };
-   script.onerror = function() {
-     console.log("Error loading script.");
-     errorCallback();
-   };
-   script.src = src;
-   document.body.appendChild(script);
- }  
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.onload = function() {
+    console.log("Script loaded successfully.");
+    callback();
+  };
+  script.onerror = function() {
+    console.log("Error loading script.");
+    errorCallback();
+  };
+  script.src = src;
+  document.body.appendChild(script);
+}  
 })();
