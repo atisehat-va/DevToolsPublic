@@ -298,7 +298,7 @@ function selectUser(user, sectionPrefix) {
            
            const messageDiv = document.createElement('div');
            messageDiv.id = 'updateMessage';
-           messageDiv.innerHTML = `Please wait, update in progress ...`;             
+           messageDiv.innerHTML = `Your update is in progress, please be patient...`;             
            this.parentNode.appendChild(messageDiv); 
            
            if (typeof updateUserDetails === "function") {                           
@@ -306,7 +306,7 @@ function selectUser(user, sectionPrefix) {
              await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
              console.log("updateUserDetails function called.");      
              
-             messageDiv.innerHTML = `<span>${selectedUserName2} - Security Updated</span>`;                         
+             messageDiv.innerHTML = `<span>Security Updated for ${selectedUserName2}</span>`;                         
              
            } else {
              console.log("updateUserDetails is NOT accessible");
