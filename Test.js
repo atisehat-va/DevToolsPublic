@@ -168,8 +168,8 @@ function selectUser(user, sectionPrefix) {
         }
           
         businessUnitListItem = document.createElement('li');
-        businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;  // Note the change from BusinessUnit.name to businessUnitName
-        
+        businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;  
+     
         appendLists();
     });
 
