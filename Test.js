@@ -260,7 +260,11 @@ function selectUser(user, sectionPrefix) {
            console.log("submitButton clicked.");
            if (typeof updateUserDetails === "function") {
              updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-             console.log("updateUserDetails function called.");             
+             console.log("updateUserDetails function called.");
+             alert('Submit operation completed successfully!');
+             document.getElementById('searchInput1').value = '';
+             document.getElementById('searchInput2').value = '';
+            
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
