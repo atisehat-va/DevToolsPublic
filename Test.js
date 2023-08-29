@@ -1,5 +1,5 @@
 javascript: (function() {
- let selectedUserInfo2Id = null; 
+ let selectedUserId2 = null; 
  let selectedUserId = null;
  let selectedBusinessUnitId = null;
  let selectedTeamIds = [];
@@ -138,7 +138,7 @@ function selectUser(user, sectionPrefix) {
       selectedUserId = user.systemuserid;
     }   
     if (sectionPrefix === '2') {
-      selectedUserInfo2Id = user.systemuserid;
+      selectedUserId2 = user.systemuserid;
     }
 
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
@@ -258,7 +258,6 @@ function selectUser(user, sectionPrefix) {
   script.src = src;
   document.body.appendChild(script);
 }
-document.addEventListener('DOMContentLoaded', (event) => {
    loadScript(
      "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
      function() {
@@ -289,7 +288,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
      function() {
        console.log("Failed to load external script.");
      }
-   );
-});
- 
+   ); 
 })();
