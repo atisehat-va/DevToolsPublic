@@ -1,4 +1,5 @@
 javascript: (function() {
+ debugger;
  let selectedUserId2 = null; 
  let selectedUserId = null;
  let selectedBusinessUnitId = null;
@@ -176,8 +177,9 @@ function selectUser(user, sectionPrefix) {
         console.error('Teams not found');
         return;
       }
-      selectedTeamIds = [];
-     
+      if (sectionPrefix === '1') {
+        selectedTeamIds = [];
+      }
       teamListItems = response.entities[0].teammembership_association.map(team => { 
 
         if (sectionPrefix === '1') {
@@ -198,8 +200,9 @@ function selectUser(user, sectionPrefix) {
         console.error('Roles not found');
         return;
       }
-     
-     selectedRoleIds = [];
+     if (sectionPrefix === '1') {
+       selectedRoleIds = [];
+     }
      
       const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
       rolesList.innerHTML = '';
@@ -240,7 +243,7 @@ function selectUser(user, sectionPrefix) {
     setupSearchFilter('searchInput2');
 
     loadScript(
-     "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
+     "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security.js",
      function() {
        console.log("The script has been loaded and callback function executed.");
        
