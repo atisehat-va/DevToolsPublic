@@ -141,6 +141,11 @@ function updateSubmitButtonVisibility() {
  
 function selectUser(user, sectionPrefix) {
   try {
+    const messageDiv = document.getElementById('updateMessage');
+    if (messageDiv) {
+      messageDiv.style.display = 'none';
+    }
+   
     document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
     const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
     userDiv.classList.add('selected');
