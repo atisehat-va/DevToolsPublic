@@ -287,26 +287,22 @@ function selectUser(user, sectionPrefix) {
        if (submitButton) {
          console.log("Found submitButton element, adding event listener.");
          submitButton.addEventListener("click", async function() {
-           console.log("submitButton clicked.");      
-
-           this.style.display = 'none';  
-              
+           console.log("submitButton clicked.");
+                  
+           this.style.display = 'none';                 
+           
            const messageDiv = document.createElement('div');
            messageDiv.id = 'updateMessage';
-           messageDiv.innerHTML = `Please wait, updated in progress ...</span>`;             
+           messageDiv.innerHTML = `Please wait, update in progress ...`;             
            this.parentNode.appendChild(messageDiv); 
-          
-           if (typeof updateUserDetails === "function") {              
-            
-              await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-              console.log("updateUserDetails function called.");
- 
-              this.style.display = 'none';  
-              
-              const messageDiv = document.createElement('div');
-              messageDiv.id = 'updateMessage';
-              messageDiv.innerHTML = `<span>${selectedUserName2} - Security Updated</span>`;             
-              this.parentNode.appendChild(messageDiv);                        
+           
+           if (typeof updateUserDetails === "function") {                           
+             
+             await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+             console.log("updateUserDetails function called.");      
+             
+             messageDiv.innerHTML = `<span>${selectedUserName2} - Security Updated</span>`;                         
+             
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
