@@ -293,7 +293,12 @@ function selectUser(user, sectionPrefix) {
          console.log("Found submitButton element, adding event listener.");
          submitButton.addEventListener("click", async function() {
            console.log("submitButton clicked.");
-                  
+
+           const existingMessageDiv = document.getElementById('updateMessage');
+           if (existingMessageDiv) {
+             existingMessageDiv.remove();
+           }
+          
            this.style.display = 'none';                 
            
            const messageDiv = document.createElement('div');
@@ -307,10 +312,16 @@ function selectUser(user, sectionPrefix) {
              
              await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
              console.log("updateUserDetails function called.");      
-             
-             messageDiv.innerHTML = `<span>Security Updated for ${selectedUserName2}</span>`;                         
-             messageDiv.style.fontSize = "20px";  // Increase font size
-             messageDiv.style.fontWeight = "bold";
+             if (messageDiv) {
+               messageDiv.remove();
+             }
+
+             const newMessageDiv = document.createElement('div');
+             newMessageDiv.id = 'updateMessage';
+             newMessageDiv.innerHTML = `<span>Security Updated for ${selectedUserName2}</span>`;                         
+             newMessageDiv.style.fontSize = "20px";  // Increase font size
+             newMessageDiv.style.fontWeight = "bold";
+             this.parentNode.appendChild(newMessageDiv);
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
