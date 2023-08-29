@@ -298,7 +298,9 @@ function selectUser(user, sectionPrefix) {
            
            const messageDiv = document.createElement('div');
            messageDiv.id = 'updateMessage';
-           messageDiv.innerHTML = `Your update is in progress, please be patient...`;             
+           messageDiv.innerHTML = `Your update is in progress, please be patient...`;
+           messageDiv.style.fontSize = "20px"; 
+           messageDiv.style.fontWeight = "bold";
            this.parentNode.appendChild(messageDiv); 
            
            if (typeof updateUserDetails === "function") {                           
@@ -307,7 +309,8 @@ function selectUser(user, sectionPrefix) {
              console.log("updateUserDetails function called.");      
              
              messageDiv.innerHTML = `<span>Security Updated for ${selectedUserName2}</span>`;                         
-             
+             messageDiv.style.fontSize = "20px";  // Increase font size
+             messageDiv.style.fontWeight = "bold";
            } else {
              console.log("updateUserDetails is NOT accessible");
            }
