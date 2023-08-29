@@ -155,15 +155,17 @@ function selectUser(user, sectionPrefix) {
       teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
     };
 
-    fetchBusinessUnitName(user.systemuserid, function(businessUnit) {
-      if (!businessUnit || !businessUnit.name) {
+    fetchBusinessUnitNameForUser(user.systemuserid, function(response) {
+    if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
         console.error('Business unit not found');
         return;
-      }
-     
-      if (sectionPrefix === '1') {
-         selectedBusinessUnitId = user._businessunitid_value;
-      }
+    }
+    
+    const businessUnitName = response.entities[0].businessunitid.name;
+
+    if (sectionPrefix === '1') {
+        selectedBusinessUnitId = user._businessunitid_value;
+    }
      
       
       businessUnitListItem = document.createElement('li');
