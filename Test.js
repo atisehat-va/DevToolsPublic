@@ -55,14 +55,14 @@ function createPopupHtml() {
       <style>${popupCss}</style>
       <div class="popup-row">
         <div class="section user-section" id="section1">
-          <h3>User Info</h3>
+          <h3>FROM</h3>
           <input type="text" id="searchInput1" placeholder="Search Users">
           <div class="user-list-container">
             <div id="userList1"></div>
           </div>
         </div>
         <div class="section user-section" id="section2">
-          <h3>User Info 2</h3>
+          <h3>TO</h3>
           <input type="text" id="searchInput2" placeholder="Search Users">
           <div class="user-list-container">
             <div id="userList2"></div>
