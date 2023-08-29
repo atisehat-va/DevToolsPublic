@@ -44,7 +44,7 @@ javascript: (function() {
   }
 
   function fetchBusinessUnitName(businessUnitId, callback) {
-    Xrm.WebApi.retrieveMultipleRecords('businessunit', `?$select=name&$filter=businessunitid eq ${businessUnitId}`)    
+    Xrm.WebApi.retrieveMultipleRecords('businessunit', `?$select=name&$filter=businessunitid eq ${businessUnitId}`).then(callback);   
   }
 
 function createPopupHtml() {
