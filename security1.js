@@ -7,11 +7,11 @@ window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitI
     await disassociateUserFromTeams(selectedUserId2, clientUrl);
     
     for (const teamId of selectedTeamIds) {
-      await associateUserToTeam(selectedUserId2, teamId, clientUrl);
+      await associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl);
     }
     
     for (const roleId of selectedRoleIds) {
-      await associateUserToRole(selectedUserId2, roleId, clientUrl);
+      await associateUserToRole(selectedUserId2, selectedRoleIds, clientUrl);
     }
 
   } catch (error) {
@@ -63,7 +63,7 @@ async function disassociateUserFromTeams(selectedUserId2, clientUrl) {
 }
 
 async function associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl) {
-  const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref`;
+  const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${selectedTeamIds})/teammembership_association/$ref`;
   const associateTeamData = {
     "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
   };
@@ -75,7 +75,7 @@ async function associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl) 
 }
 
 async function associateUserToRole(selectedUserId2, selectedRoleIds, clientUrl) {
-  const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${roleId})/systemuserroles_association/$ref`;
+  const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
   const associateRoleData = {
     "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
   };
