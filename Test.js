@@ -97,7 +97,7 @@ function createPopupHtml() {
         </div>
       </div>
       <div class="submit-button-container">
-        <button id="submitButton">Submit</button>
+        <button id="submitButton" disabled>Submit</button>
       </div>
     </div>`;
 }
@@ -141,7 +141,8 @@ function selectUser(user, sectionPrefix) {
     if (sectionPrefix === '2') {
       selectedUserId2 = user.systemuserid;
     }
-
+    updateSubmitButtonState();
+   
    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
     businessUnitAndTeamsList.innerHTML = '';
     
@@ -293,19 +294,24 @@ function selectUser(user, sectionPrefix) {
   fetchUsers(function(users) {
     displayPopup(users);
   }); 
-
+ 
+ function updateSubmitButtonState() {
+   const submitButton = document.getElementById("submitButton");
+   submitButton.disabled = !(selectedUserId && selectedUserId2);
+ }
+ 
  function loadScript(src, callback, errorCallback) {
-  const script = document.createElement("script");
-  script.type = "text/javascript";
-  script.onload = function() {
-    console.log("Script loaded successfully.");
-    callback();
-  };
-  script.onerror = function() {
-    console.log("Error loading script.");
-    errorCallback();
-  };
-  script.src = src;
-  document.body.appendChild(script);
-}  
+   const script = document.createElement("script");
+   script.type = "text/javascript";
+   script.onload = function() {
+     console.log("Script loaded successfully.");
+     callback();
+   };
+   script.onerror = function() {
+     console.log("Error loading script.");
+     errorCallback();
+   };
+   script.src = src;
+   document.body.appendChild(script);
+ }  
 })();
