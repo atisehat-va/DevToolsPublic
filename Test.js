@@ -310,6 +310,9 @@ function selectUser(user, sectionPrefix) {
             }            
            } else {
              console.log("updateUserDetails is NOT accessible");
+
+             this.disabled = false;
+             this.innerHTML = "Submit";
            }
          });
        } else {
