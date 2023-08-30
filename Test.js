@@ -113,7 +113,7 @@ function createPopupHtml() {
     const popupHtmlForCopySecurity = createPopupHtml();
     const popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
-    popupDiv.innerHTML = popupHtml;
+    popupDiv.innerHTML = popupHtmlForCopySecurity;
     popupDiv.style.position = 'absolute';
     popupDiv.style.zIndex = '10000';
     popupDiv.style.left = '50%';
