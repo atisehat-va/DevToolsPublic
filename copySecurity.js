@@ -360,5 +360,7 @@ function selectUser(user, sectionPrefix) {
   };
   script.src = src;
   document.body.appendChild(script);
-}  
+}
+ // Calling the showContent function with 'html' type
+ showContent('html', html);
 }
