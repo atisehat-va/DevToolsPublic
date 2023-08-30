@@ -111,10 +111,6 @@ function openPopup() {
   
   makePopupMovable(popupDiv);
 }
-  // horizontal expansion
-  containerDiv.classList.add('expanded');
-  contentDiv.style.display = 'block'; // Show content
-}
 
 function closeIframe(url) { 
   var contentDiv = document.getElementById('popupContent');
