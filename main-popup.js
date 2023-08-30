@@ -19,6 +19,8 @@ loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
+//new
+loadScript('copySecurity.js', () => console.log('Copy Security loaded!'));
 
 //EndNew
 function openPopup() {
@@ -82,7 +84,7 @@ function openPopup() {
 				  </div>
 				</div>
     				<div class="button-row">
-					<button onclick="fetchEntityFields();">Copy Security</button>
+					<button onclick="copySecurity();">Copy Security</button>
      					<button onclick="renameTabsSectionsFields();">Change Security</button>					
 				</div>
 				<div class="button-row">
