@@ -19,7 +19,6 @@ loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
-loadScript('Test.js', () => console.log('Test loaded!'));
 
 //EndNew
 function openPopup() {
@@ -81,11 +80,7 @@ function openPopup() {
 					  <button onclick="openUrl('preprod', 'userProvision');">User Provision Pre-Prod</button>
 					</div>
 				  </div>
-				</div>
-    				<div class="button-row">
-					<button onclick="showContent('html', copySecurity());">Copy Security</button>
-     					<button onclick="renameTabsSectionsFields();">Change Security</button>					
-				</div>
+				</div>            
 				<div class="button-row">
 					<button onclick="fetchEntityFields();">Entity Info & Fields</button>
      					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
