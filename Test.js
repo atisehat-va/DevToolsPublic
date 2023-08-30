@@ -1,6 +1,5 @@
-function copySecurity() { 
- 
- 
+javascript: (function() {
+ debugger;
  let selectedUserId2 = null;
  let selectedUserName2 = '';
  let selectedUserId = null;
@@ -53,8 +52,7 @@ function copySecurity() {
  }
 
 function createPopupHtml() {
-  var codeToDisplay = `
- 
+  return `
     <div class="popup">
       <div class="popup-header">Copy User Security</div>
       <div id="tooltip" class="tooltip">i
@@ -109,14 +107,13 @@ function createPopupHtml() {
         <button id="submitButton">Submit</button>
       </div>      
     </div>`;
-  return codeToDisplay;
 }
  
   function createAndAppendPopup() {
-    const popupHtmlForCopySecurity = createPopupHtml();
+    const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
-    popupDiv.innerHTML = popupHtmlForCopySecurity;
+    popupDiv.innerHTML = popupHtml;
     popupDiv.style.position = 'absolute';
     popupDiv.style.zIndex = '10000';
     popupDiv.style.left = '50%';
@@ -363,5 +360,5 @@ function selectUser(user, sectionPrefix) {
   };
   script.src = src;
   document.body.appendChild(script);
-} 
-}
+}  
+})();
