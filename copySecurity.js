@@ -5,21 +5,6 @@ let selectedUserId2 = null;
  let selectedTeamIds = [];
  let selectedRoleIds = [];
 
-function createAndAppendPopup() {
-    //const popupHtml = createPopupHtml();
-    const popupDiv = document.createElement('div');
-    popupDiv.id = 'bookmarkletPopup';
-    popupDiv.innerHTML = popupHtml;
-    popupDiv.style.position = 'absolute';
-    popupDiv.style.zIndex = '10000';
-    popupDiv.style.left = '50%';
-    popupDiv.style.top = '50%';
-    popupDiv.style.transform = 'translate(-50%, -50%)';
-    document.body.appendChild(popupDiv);    
-   
-    return popupDiv;
-  }
-
   function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
     const userListDiv = document.getElementById(sectionId);
     users.forEach(user => {
