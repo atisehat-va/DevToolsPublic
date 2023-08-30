@@ -43,8 +43,7 @@ function openPopup() {
         .container.expanded-iframe { width: 900px; height: 500px; }
 	.container.expanded-alert { width: 900px; height: 248px;}
         .container.expanded-html { width: 900px; height: 500px;}
-        .button-container { width: 400px; }
-        .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
+        .button-container { width: 400px; }        
         .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
         .button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
         .button-row button { width: calc(50% - 5px); } 
@@ -53,10 +52,8 @@ function openPopup() {
         .dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
         .dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
         .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
-        .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
-        .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                
-	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
- 	.html { overflow-y: scroll; width: 100%; height: 450px; background-color: #fee; color: #900; padding: 1px; display: block; }        
+        .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }        
+	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; } 	
      </style>
     <div class="popup">
 		<div class="container" id="container">
@@ -95,8 +92,6 @@ function openPopup() {
 				</div>      
 					<button onclick="closePopup();">Close</button>				
 			</div>
-            <div class="iframe-container" id="iframe-container">                
-			<div id="popupContent" class="content"></div>
 		</div>
 	</div>
     </div>
@@ -115,62 +110,9 @@ function openPopup() {
   makePopupMovable(popupDiv);
 }
 
-function showContent(contentType, url) {
-  debugger;
-  var contentDiv = document.getElementById('popupContent');
-  var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');  
-	
-  // Clear previous content
-  contentDiv.innerHTML = '';
-  containerDiv.classList.remove('expanded-iframe');
-  containerDiv.classList.remove('expanded-alert');
-  containerDiv.classList.remove('expanded-html');
-
-    switch (contentType) {
-    case 'iframe':
-      url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-      contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="450" frameborder="0"></iframe>`;
-      iframeContainer.style.display = 'block'; // Show iframe container
-      containerDiv.classList.add('expanded-iframe');
-      break;
-    case 'alert':     
-      var alertDiv = document.createElement('div');      
-      alertDiv.className = 'alert-message';      
-      alertDiv.innerHTML = url;
-      contentDiv.appendChild(alertDiv);      
-      iframeContainer.style.display = 'block';
-      containerDiv.classList.add('expanded-alert');
-      break;
-    case 'html': 
-      var htmlDiv = document.createElement('div');      
-      htmlDiv.className = 'html';      
-      htmlDiv.innerHTML = url;
-      contentDiv.appendChild(htmlDiv);
-      iframeContainer.style.display = 'block';
-      containerDiv.classList.add('expanded-html');
-      break;
-    default:
-      console.error('Invalid content type');
-      return;
-  } 
-
-  // horizontal expansion
-  containerDiv.classList.add('expanded');
-  contentDiv.style.display = 'block'; // Show content
-}
-
 function closeIframe(url) { 
-  var contentDiv = document.getElementById('popupContent');
-  var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');
-  
-  contentDiv.style.display = 'none';
-  iframeContainer.style.display = 'none';  
-  //containerDiv.classList.remove('expanded');
-  containerDiv.classList.remove('expanded-iframe');
-  containerDiv.classList.remove('expanded-alert');
-  containerDiv.classList.remove('expanded-html');
+  var contentDiv = document.getElementById('popupContent');  
+  contentDiv.style.display = 'none';  
 }
 
 function makePopupMovable(popupDiv) {
