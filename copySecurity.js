@@ -1,5 +1,4 @@
-javascript: (function() {
- debugger;
+javascript: (function() { 
  let selectedUserId2 = null;
  let selectedUserName2 = '';
  let selectedUserId = null;
@@ -8,7 +7,7 @@ javascript: (function() {
  let selectedRoleIds = [];
  
  const popupCss = `
-    .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+    .popup { background-color: #f9f9f9; width: 800px; height: 100%; overflow: hidden; font-family: Arial, sans-serif; }
     .section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }
     .section h3 { text-align: center; margin-bottom: 10px; color: #444; }
     .user-section { text-align: center; height: 190px; width: 50%;}
@@ -25,14 +24,10 @@ javascript: (function() {
     .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }    
     .user:hover { background-color: #f0f0f0; }
     #sectionsRow { white-space: nowrap; }
-    .popup-row { display: flex; }
-    .popup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+    .popup-row { display: flex; }    
     .submit-button-container { text-align: center; padding: 10px; width: 100%; }  
     #submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }  
-    #submitButton:hover { background-color: #0056b3; }
-    .tooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }
-    .tooltiptext { visibility: visible; width: 120px; background-color: black; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; right: 100%; top: 50%; margin-top: -15px; opacity: 0; transition: opacity 0.3s; }
-    .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+    #submitButton:hover { background-color: #0056b3; }   
   `;
 
   function fetchUsers(callback) {
@@ -53,11 +48,7 @@ javascript: (function() {
 
 function createPopupHtml() {
   return `
-    <div class="popup">
-      <div class="popup-header">Copy User Security</div>
-      <div id="tooltip" class="tooltip">i
-        <span class="tooltiptext" id="tooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span>
-      </div>
+    <div class="popup">     
       <style>${popupCss}</style>      
       <div class="popup-row">
         <div class="section user-section" id="section1">
