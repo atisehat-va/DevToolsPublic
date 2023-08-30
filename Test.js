@@ -1,4 +1,5 @@
-javascript: (function() {
+function copySecurity() {
+ var codeToDisplay = `
  debugger;
  let selectedUserId2 = null;
  let selectedUserName2 = '';
@@ -360,5 +361,7 @@ function selectUser(user, sectionPrefix) {
   };
   script.src = src;
   document.body.appendChild(script);
-}  
-})();
+}
+`;
+ showContent('html', codeToDisplay);
+}
