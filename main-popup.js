@@ -20,7 +20,8 @@ loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Ite
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 //new
-loadScript('copySecurity.js', () => console.log('Copy Security loaded!'));
+loadScript('copySecurity2.js', () => console.log('Copy Security loaded!'));
+loadScript('fetchSecurityApi.js', () => console.log('Fetch Security Api loaded!'));
 
 //EndNew
 function openPopup() {
@@ -92,7 +93,7 @@ function openPopup() {
      					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
 				</div>
 				<div class="button-row">
-					<button onclick="showAllTabsAndSections();">Show Hidden Items</button>
+					<button onclick="showContent('iframe', 'copySecurity.html')">Copy Security</button>
 					<button onclick="unlockAllFields();">Unlock All Fields</button>
 				</div>
 				<div class="button-row">
