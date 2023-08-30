@@ -85,7 +85,7 @@ function openPopup() {
 				  </div>
 				</div>
     				<div class="button-row">
-					<button onclick="copySecurity();">Copy Security</button>
+					<button onclick="showContent('iframe', 'copySecurity.html')">Copy Security</button>
      					<button onclick="renameTabsSectionsFields();">Change Security</button>					
 				</div>
 				<div class="button-row">
@@ -93,7 +93,7 @@ function openPopup() {
      					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
 				</div>
 				<div class="button-row">
-					<button onclick="showContent('iframe', 'copySecurity.html')">Copy Security</button>
+					<button onclick="showAllTabsAndSections();">Show Hidden Items</button>
 					<button onclick="unlockAllFields();">Unlock All Fields</button>
 				</div>
 				<div class="button-row">
