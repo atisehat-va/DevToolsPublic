@@ -1,5 +1,4 @@
-function copySecurity() {
- 
+function copySecurity() { 
  debugger;
  let selectedUserId2 = null;
  let selectedUserName2 = '';
@@ -111,7 +110,7 @@ function createPopupHtml() {
 }
  
   function createAndAppendPopup() {
-    const popupHtml = createPopupHtml();
+    const popupHtmlForCopySecurity = createPopupHtml();
     const popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
     popupDiv.innerHTML = popupHtml;
