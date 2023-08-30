@@ -156,7 +156,7 @@ function setupSearchFilter(searchInputId) {
  
   function displayPopup(users) {
    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-    const popupDiv = createAndAppendPopup();
+    //const popupDiv = createAndAppendPopup();
     renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
     renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
     setupSearchFilter('searchInput1');
