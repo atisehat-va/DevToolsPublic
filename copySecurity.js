@@ -1,4 +1,4 @@
-function copySecurity() {
+javascript: (function() {
  debugger;
  let selectedUserId2 = null;
  let selectedUserName2 = '';
@@ -361,6 +361,4 @@ function selectUser(user, sectionPrefix) {
   script.src = src;
   document.body.appendChild(script);
 }
- // Calling the showContent function with 'html' type
- showContent('html', html);
-}
+})();
