@@ -93,7 +93,7 @@ function openPopup() {
      					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
 				</div>
 				<div class="button-row">
-					<button onclick="showContent('iframe', 'copySecurity.html')">Copy Security</button>
+					<button onclick="showContent('iframe', './copySecurity.html')">Copy Security</button>
 					<button onclick="unlockAllFields();">Unlock All Fields</button>
 				</div>
 				<div class="button-row">
