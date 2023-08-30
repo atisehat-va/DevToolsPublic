@@ -3,6 +3,8 @@ var logicalNameBtnClickStatus = false;
 var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
+let preloadedHtml = "";
+
 //new
 const baseUrl = 'https://atisehat-va.github.io/DevToolsPublic/';
 // Load external scripts dynamically
@@ -22,6 +24,16 @@ loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 //new
 loadScript('copySecurity2.js', () => console.log('Copy Security loaded!'));
 loadScript('fetchSecurityApi.js', () => console.log('Fetch Security Api loaded!'));
+
+fetch(baseUrl + 'copySecurity.html')
+  .then(response => response.text())
+  .then(html => {
+    preloadedHtml = html;
+    console.log('copySecurity.html loaded!');
+  })
+  .catch(error => {
+    console.warn('Something went wrong.', error);
+  });
 
 //EndNew
 function openPopup() {
@@ -85,7 +97,7 @@ function openPopup() {
 				  </div>
 				</div>
     				<div class="button-row">
-					<button onclick="showContent('iframe', 'https://github.com/atisehat-va/DevToolsPublic/copySecurity.html')">Copy Security</button>
+					<button onclick="showContent('html', 'preloadedHtml')">Copy Security</button>
      					<button onclick="renameTabsSectionsFields();">Change Security</button>					
 				</div>
 				<div class="button-row">
@@ -152,11 +164,15 @@ function showContent(contentType, url) {
     case 'html': 
       var htmlDiv = document.createElement('div');      
       htmlDiv.className = 'html';      
-      htmlDiv.innerHTML = url;
+      if (url === 'preloadedHtml') {
+         htmlDiv.innerHTML = preloadedHtml;
+      } else {
+         htmlDiv.innerHTML = url;
+      }
       contentDiv.appendChild(htmlDiv);
       iframeContainer.style.display = 'block';
       containerDiv.classList.add('expanded-html');
-      break;
+     break;
     default:
       console.error('Invalid content type');
       return;
