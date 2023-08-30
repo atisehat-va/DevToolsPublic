@@ -19,7 +19,7 @@ loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
-loadScript('Test.js', () => console.log('Rest Builder loaded!'));
+loadScript('Test.js', () => console.log('Test loaded!'));
 
 //EndNew
 function openPopup() {
@@ -119,10 +119,7 @@ function openPopup() {
   
   makePopupMovable(popupDiv);
 }
-function copySecurity() {
-  var url = baseUrl + 'copySecurity.html';
-  showContent('iframe', url);
-}
+
 function showContent(contentType, url) {
   debugger;
   var contentDiv = document.getElementById('popupContent');
