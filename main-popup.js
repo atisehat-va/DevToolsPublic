@@ -85,7 +85,7 @@ function openPopup() {
 				  </div>
 				</div>
     				<div class="button-row">
-					<button onclick="showContent('iframe', 'copySecurity.html')">Copy Security</button>
+					<button onclick="showContent('iframe', 'https://github.com/atisehat-va/DevToolsPublic/copySecurity.html')">Copy Security</button>
      					<button onclick="renameTabsSectionsFields();">Change Security</button>					
 				</div>
 				<div class="button-row">
