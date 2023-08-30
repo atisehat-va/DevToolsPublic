@@ -6,7 +6,7 @@ let selectedUserId2 = null;
  let selectedRoleIds = [];
 
 function createAndAppendPopup() {
-    const popupHtml = createPopupHtml();
+    //const popupHtml = createPopupHtml();
     const popupDiv = document.createElement('div');
     popupDiv.id = 'bookmarkletPopup';
     popupDiv.innerHTML = popupHtml;
