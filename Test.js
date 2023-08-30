@@ -360,7 +360,5 @@ function selectUser(user, sectionPrefix) {
   };
   script.src = src;
   document.body.appendChild(script);
-}
-
- showContent('html', copySecurity);
+} 
 }
