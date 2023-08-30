@@ -20,7 +20,6 @@ loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Ite
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 
-
 //EndNew
 function openPopup() {
   var isAdmin = false;
@@ -40,10 +39,9 @@ function openPopup() {
   var popupHtml = `
      <style>       
         .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; }
-        .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }
-        .container.expanded { width: 900px; height: 500px; }
+        .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }        
         .button-container { width: 400px; }
-        .iframe-container { display: none; flex-grow: 1; position: relative;}
+        .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
         .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
         .button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
         .button-row button { width: calc(50% - 5px); } 
@@ -53,8 +51,9 @@ function openPopup() {
         .dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
         .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
         .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
-        .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }        
-        .close-iframe { position: absolute; right: 0; bottom: -20px; boarder: none; cursor: pointer; }            
+        .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                
+	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
+ 	.html { overflow-y: scroll; width: 100%; height: 450px; background-color: #fee; color: #900; padding: 1px; display: block; }        
      </style>
     <div class="popup">
 		<div class="container" id="container">
@@ -81,7 +80,7 @@ function openPopup() {
 				</div>            
 				<div class="button-row">
 					<button onclick="fetchEntityFields();">Entity Info & Fields</button>
-     					<button onclick="renameTabsSectionsFields();">LogicalNames</button>					
+     					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
 				</div>
 				<div class="button-row">
 					<button onclick="showAllTabsAndSections();">Show Hidden Items</button>
@@ -93,11 +92,10 @@ function openPopup() {
 				</div>      
 					<button onclick="closePopup();">Close</button>				
 			</div>
-            <div class="iframe-container" id="iframe-container">
-                <button class="close-iframe" onclick="closeIframe();">Close</button>
-				<div id="popupContent" class="content"></div>
-			</div>
+            <div class="iframe-container" id="iframe-container">                
+			<div id="popupContent" class="content"></div>
 		</div>
+	</div>
     </div>
   `;
   var popupDiv = document.createElement('div');
@@ -113,20 +111,9 @@ function openPopup() {
   
   makePopupMovable(popupDiv);
 }
-
-function showContent(url) {
-  url += (url.indexOf('?') >= 0 ? '&' : '?') + 'navbar=off';
-  
-  var contentDiv = document.getElementById('popupContent');
-  var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');
-
-  contentDiv.innerHTML = `<iframe src="${url}" width="100%" height="500" frameborder="0"></iframe>`;
-  contentDiv.style.display = 'block';
-  iframeContainer.style.display = 'block'; // Show iframe container
-
   // horizontal expansion
   containerDiv.classList.add('expanded');
+  contentDiv.style.display = 'block'; // Show content
 }
 
 function closeIframe(url) { 
@@ -136,7 +123,10 @@ function closeIframe(url) {
   
   contentDiv.style.display = 'none';
   iframeContainer.style.display = 'none';  
-  containerDiv.classList.remove('expanded');
+  //containerDiv.classList.remove('expanded');
+  containerDiv.classList.remove('expanded-iframe');
+  containerDiv.classList.remove('expanded-alert');
+  containerDiv.classList.remove('expanded-html');
 }
 
 function makePopupMovable(popupDiv) {
@@ -145,6 +135,12 @@ function makePopupMovable(popupDiv) {
 
   function dragMouseDown(e) {
     e = e || window.event;
+    //new
+    var iframeContainer = document.getElementById('iframe-container');
+    if (iframeContainer.contains(e.target)) {
+	return;
+    }
+    //newEnd
     e.preventDefault();
     pos3 = e.clientX;
     pos4 = e.clientY;
@@ -180,6 +176,7 @@ function toggleDropdownMenu(dropdownId) {
 }
 
 function closePopup() {
+	closeIframe();
 	var popupDiv = document.getElementById('bookmarkletPopup');
 	if (popupDiv) {
 		popupDiv.remove();
@@ -191,8 +188,7 @@ function closeDirtyFieldsPopup() {
   if (popup) {
     popup.remove();
   }
-}
- 
+} 
 
 window.fetchEntityFields = fetchEntityFields;
 window.unlockAllFields = unlockAllFields;
