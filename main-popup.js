@@ -83,7 +83,7 @@ function openPopup() {
 				  </div>
 				</div>
     				<div class="button-row">
-					<button onclick="copySecurity();">Copy Security</button>
+					<button onclick="showContent('html', copySecurity());">Copy Security</button>
      					<button onclick="renameTabsSectionsFields();">Change Security</button>					
 				</div>
 				<div class="button-row">
