@@ -80,7 +80,11 @@ function openPopup() {
 					  <button onclick="openUrl('preprod', 'userProvision');">User Provision Pre-Prod</button>
 					</div>
 				  </div>
-				</div>            
+				</div>
+    				<div class="button-row">
+					<button onclick="fetchEntityFields();">Copy Security</button>
+     					<button onclick="renameTabsSectionsFields();">Change Security</button>					
+				</div>
 				<div class="button-row">
 					<button onclick="fetchEntityFields();">Entity Info & Fields</button>
      					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
