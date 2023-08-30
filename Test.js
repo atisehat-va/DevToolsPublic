@@ -1,5 +1,6 @@
 function copySecurity() { 
- debugger;
+ 
+ 
  let selectedUserId2 = null;
  let selectedUserName2 = '';
  let selectedUserId = null;
@@ -52,7 +53,8 @@ function copySecurity() {
  }
 
 function createPopupHtml() {
-  return `
+  var codeToDisplay = `
+ 
     <div class="popup">
       <div class="popup-header">Copy User Security</div>
       <div id="tooltip" class="tooltip">i
@@ -107,6 +109,7 @@ function createPopupHtml() {
         <button id="submitButton">Submit</button>
       </div>      
     </div>`;
+  return codeToDisplay;
 }
  
   function createAndAppendPopup() {
