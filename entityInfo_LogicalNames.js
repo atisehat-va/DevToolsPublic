@@ -22,7 +22,20 @@ function fetchEntityFields() {
                     })
                     .join('');
                 var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + cleanRecordId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
-                showContent('html', html);
+
+                // Create a new container dynamically
+                var newContainer = document.createElement('div');
+                newContainer.id = 'dynamicContentContainer';
+                newContainer.style.border = '1px solid #ccc';
+                newContainer.style.padding = '20px';
+                newContainer.style.margin = '20px';
+                newContainer.style.backgroundColor = '#f9f9f9';
+
+                newContainer.innerHTML = html;
+
+                // Append the new container to the body or any other existing container
+                document.body.appendChild(newContainer);
+
             } else {
                 alert("Error: " + this.statusText);
             }
