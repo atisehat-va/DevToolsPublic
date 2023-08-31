@@ -61,7 +61,7 @@ const securityPopupCss = `
     .securityTooltipText { visibility: hidden; width: 120px; background-color: black; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; right: 100%; top: 50%; margin-top: -15px; opacity: 0; transition: opacity 0.3s; }
 `;
 
-function appendPopupToBody(html) {
+function appendPopupToBody(html, clearPrevious = false) {
 	if (clearPrevious) {
         	const existingPopups = document.querySelectorAll('.securityPopup');
         	existingPopups.forEach(popup => popup.remove());
