@@ -57,7 +57,7 @@ function appendPopupToBody(html, clearPrevious = false) {
     	}    
 	var newContainer = document.createElement('div');		
 	newContainer.className = 'securityPopup';	
-	newContainer.style.setProperty('width', '700px', 'important');
+	newContainer.style.setProperty('width', '40%', 'important');
    	newContainer.style.setProperty('height', '50%', 'important');
 	newContainer.style.position = 'fixed';  		
 	newContainer.style.top = '50%';
