@@ -24,7 +24,7 @@ const securityPopupCss = `
     .content-section { text-align: left; height: 78%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
     .securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
-    .scrollable-section { height: 400px; overflow-y: auto; }
+    .scrollable-section { height: 315px; overflow-y: auto; }
 `;
 function generateFieldListHtml(fields) {
     return fields
@@ -45,8 +45,10 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
         <br>
-        <div class="scrollable-section" style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
-            ${fieldListHtml}
+        <div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
+            <div class="scrollable-section">
+                ${fieldListHtml}
+            </div>
         </div>
     `;
 }
