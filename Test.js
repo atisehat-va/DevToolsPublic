@@ -172,11 +172,19 @@ function toggleDropdownMenu(dropdownId) {
 }
 
 function closePopup() {
-	closeIframe();
-	var popupDiv = document.getElementById('bookmarkletPopup');
-	if (popupDiv) {
-		popupDiv.remove();
-	}
+    closeIframe();
+    
+    // Remove bookmarkletPopup if it exists
+    var popupDiv = document.getElementById('bookmarkletPopup');
+    if (popupDiv) {
+        popupDiv.remove();
+    }
+
+    // Remove securityPopup if it exists
+    const securityPopup = document.querySelector('.securityPopup');
+    if (securityPopup) {
+        securityPopup.remove();
+    }
 }
 
 function closeDirtyFieldsPopup() {
