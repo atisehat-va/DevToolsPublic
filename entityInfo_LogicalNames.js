@@ -1,15 +1,21 @@
 function fetchEntityFields() {
+    console.log("fetchEntityFields called");
     closeIframe();
     var entityName = Xrm.Page.data.entity.getEntityName();
     var recordId = Xrm.Page.data.entity.getId();
     var cleanRecordId = recordId.replace(/[{}]/g, "");
     var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType,DisplayName";
 
+    console.log(`Fetching from URL: ${url}`);
+
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.onreadystatechange = function() {
+        console.log("XHR state changed:", this.readyState);
         if (this.readyState === 4) {
+            console.log("XHR status:", this.status);
             if (this.status === 200) {
+                console.log("XHR response received");
                 var results = JSON.parse(this.responseText);
                 var fieldList = results.value
                     .filter(function(field) {
@@ -41,11 +47,13 @@ function fetchEntityFields() {
                 newContainer.innerHTML = `<div class="securityPopup-header">Copy User Security</div><div id="securityTooltip" class="securityTooltip">i<span class="securityTooltipText" id="securityTooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span></div><style>${securityPopupCss}</style><div class="securityPopup-row"><div class="section content-section">${html}</div></div>`;
                 document.body.appendChild(newContainer);
             } else {
+                console.log("Error: ", this.statusText);
                 alert("Error: " + this.statusText);
             }
         }
     };
     xhr.send();
+    console.log("XHR sent");
 }
 
 
