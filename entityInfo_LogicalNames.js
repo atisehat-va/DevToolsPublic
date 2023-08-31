@@ -23,9 +23,9 @@ const securityPopupCss = `
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 100%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
-    .securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+    .securityPopup-header { position: relative; text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
     .scrollable-section { height: 66%; overflow-y: auto; }
-    .back-button { position: absolute; top: 10px; right: 10px; cursor: pointer; background-color: #444; color: #fff; padding: 5px 10px; border-radius: 5px; }
+    .back-button { position: absolute; top: 0; left: 0; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-bottom-right-radius: 10px; }
 `;
 function generateFieldListHtml(fields) {
     return fields
@@ -42,7 +42,10 @@ function generateFieldListHtml(fields) {
 }
 function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
      return `
-        <button class="back-button" id="back-button">Back</button>
+        <div class="securityPopup-header"> 
+            <button class="back-button" id="back-button">Back</button>
+            Copy User Security
+        </div>
         <h2 style="text-align: left;">Entity: ${entityName}</h2>
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
