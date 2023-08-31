@@ -30,7 +30,7 @@ function fetchEntityFields() {
                 const securityPopupCss = `
                     .securityPopup{ background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
                     .section { padding: 20px; border-right: 0px solid #ccc; overflow-y: scroll; }
-                    .content-section { text-align: center; height: 500px; width: 100%; }
+                    .content-section { text-align: left; height: 500px; width: 100%; }
                     .securityPopup-row { display: flex; }
                     .securityPopup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
                     .securityTooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }
