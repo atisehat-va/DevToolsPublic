@@ -65,12 +65,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	newContainer.style.transform = 'translate(-50%, -50%)'; 
 		
 	newContainer.innerHTML = `
-	    <div class="securityPopup-header">Copy User Security</div>
-	    <div id="securityTooltip" class="securityTooltip">
-	        i<span class="securityTooltipText" id="securityTooltiptext">
-	            This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.
-	        </span>
-	    </div>
+	    <div class="securityPopup-header">Entity & Fields Info</div>	    
 	    <style>${securityPopupCss}</style>
 	    <div class="securityPopup-row">
 	        <div class="section content-section" id="section1">
