@@ -55,6 +55,16 @@ function fetchEntityFields() {
     xhr.send();
 }
 
+// Just to test the border problem
+var newContainer = document.createElement('div');
+newContainer.id = 'bookmarkletPopup';
+newContainer.style.width = "300px";
+newContainer.style.height = "300px";
+newContainer.style.backgroundColor = "#f9f9f9";
+newContainer.style.border = "3px solid #444";
+newContainer.style.borderRadius = "20px";
+document.body.appendChild(newContainer);
+
 function renameTabsSectionsFields() { 
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
 	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
