@@ -71,10 +71,9 @@ function appendPopupToBody(html, clearPrevious = false) {
 	
 	// Applying classes and styles to the new container
 	newContainer.className = 'securityPopup';
-	newContainer.style.backgroundColor = 'red';
-	newContainer.style.zIndex = '9999';
-	newContainer.style.width = '800px';
-	newContainer.style.height = '100%';
+	newContainer.style.backgroundColor = 'red';	
+	newContainer.style.setProperty('width', '700px', 'important');
+   	newContainer.style.setProperty('height', '60%', 'important');
 	newContainer.style.position = 'fixed';  		
 	newContainer.style.top = '50%';
 	newContainer.style.left = '50%';
