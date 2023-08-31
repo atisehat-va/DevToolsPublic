@@ -1,6 +1,6 @@
 async function fetchEntityFields() {
     console.log("fetchEntityFields called");
-    closeIframe();
+    
 
     const entityName = Xrm.Page.data.entity.getEntityName();
     const recordId = Xrm.Page.data.entity.getId();
