@@ -33,7 +33,10 @@ function fetchEntityFields() {
                 newContainer.style.border = '1px solid #ccc';
                 newContainer.style.padding = '20px';
                 newContainer.style.margin = '20px';
-                newContainer.style.backgroundColor = '#f9f9f9';
+	        newContainer.style.position = "absolute";
+		newContainer.style.top = "100px";
+		newContainer.style.left = "100px";
+                newContainer.style.backgroundColor = 'red';
 
                 newContainer.innerHTML = html;
 
