@@ -79,7 +79,7 @@ function openPopup() {
 				  </div>
 				</div>            
 				<div class="button-row">
-					<button onclick="fetchEntityFields();">Entity Info & Fields</button>
+					<button onclick="fetchEntityFields(); closePopup();">Entity Info & Fields</button>
      					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
 				</div>
 				<div class="button-row">
