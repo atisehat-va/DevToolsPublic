@@ -71,9 +71,10 @@ function appendPopupToBody(html) {
 	newContainer.style.zIndex = '9999';
 	newContainer.style.width = '800px';
 	newContainer.style.height = '100%';
-	newContainer.style.position = 'fixed';  // Adding position: fixed to make it visible on the screen
-	newContainer.style.top = '0';           // Positioning at the top of the screen
-	newContainer.style.left = '0';          // Positioning at the left of the screen
+	newContainer.style.position = 'fixed';  		
+	newContainer.style.top = '50%';
+	newContainer.style.left = '50%';
+	newContainer.style.transform = 'translate(-50%, -50%)'; 
 	
 	// Applying inner HTML to the new container
 	newContainer.innerHTML = `
