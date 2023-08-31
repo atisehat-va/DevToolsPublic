@@ -1,19 +1,16 @@
 function fetchEntityFields() {
-    console.log('fetchEntityFields started'); // Debugging line
     closeIframe();
     var entityName = Xrm.Page.data.entity.getEntityName();
     var recordId = Xrm.Page.data.entity.getId();
     var cleanRecordId = recordId.replace(/[{}]/g, "");
     var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType,DisplayName";
-    console.log('URL:', url); // Debugging line
+    
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.onreadystatechange = function() {
-        console.log('Ready state:', this.readyState, 'Status:', this.status); // Debugging line
         if (this.readyState === 4) {
             if (this.status === 200) {
                 var results = JSON.parse(this.responseText);
-                console.log('Results:', results);
                 var fieldList = results.value
                     .filter(function(field) {
                         return field.AttributeType !== 'Virtual' && field.DisplayName && field.DisplayName.UserLocalizedLabel && field.DisplayName.UserLocalizedLabel.Label;
@@ -25,32 +22,30 @@ function fetchEntityFields() {
                                '<div>Type: ' + field.AttributeType + '</div></div></div>';
                     })
                     .join('');
+                
                 var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + cleanRecordId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
 
-                // Create a new container dynamically
-                var newContainer = document.createElement('div');
-                newContainer.id = 'dynamicContentContainer';
-                newContainer.style.border = '1px solid #ccc';
-                newContainer.style.padding = '20px';
-                newContainer.style.margin = '20px';
-	        newContainer.style.position = "absolute";
-		newContainer.style.top = "100px";
-		newContainer.style.left = "100px";
-                newContainer.style.backgroundColor = 'red';
+                var bookmarkletPopup = document.getElementById('bookmarkletPopup');
+                if (bookmarkletPopup) {
+                    bookmarkletPopup.innerHTML = html;
+                    bookmarkletPopup.style.backgroundColor = 'red'; // to keep the red background
+                } else {
+                    // In case bookmarkletPopup doesn't exist
+                    var newContainer = document.createElement('div');
+                    newContainer.id = 'bookmarkletPopup';
+                    newContainer.innerHTML = html;
+                    newContainer.style.backgroundColor = 'red';
+                    document.body.appendChild(newContainer);
+                }
 
-                newContainer.innerHTML = html;
-
-                 // Append the new container to the body
-                document.body.appendChild(newContainer);
-
-                console.log('Container appended'); // Debugging line
             } else {
-                console.log("Error: ", this.statusText); // Debugging line
+                alert("Error: " + this.statusText);
             }
         }
     };
     xhr.send();
 }
+
 
 function renameTabsSectionsFields() { 
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
