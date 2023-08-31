@@ -62,6 +62,10 @@ const securityPopupCss = `
 `;
 
 function appendPopupToBody(html) {
+	if (clearPrevious) {
+        	const existingPopups = document.querySelectorAll('.securityPopup');
+        	existingPopups.forEach(popup => popup.remove());
+    	}
     // Creating the new container div
 	var newContainer = document.createElement('div');
 	
