@@ -24,7 +24,8 @@ const securityPopupCss = `
     .content-section { text-align: left; height: 100%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
     .securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
-    .scrollable-section { height: 66%; overflow-y: auto; }    
+    .scrollable-section { height: 66%; overflow-y: auto; }
+    .back-button { position: absolute; top: 10px; right: 10px; cursor: pointer; background-color: #444; color: #fff; padding: 5px 10px; border-radius: 5px; }
 `;
 function generateFieldListHtml(fields) {
     return fields
@@ -41,6 +42,7 @@ function generateFieldListHtml(fields) {
 }
 function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
      return `
+        <button class="back-button" id="back-button">Back</button>
         <h2 style="text-align: left;">Entity: ${entityName}</h2>
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
@@ -74,6 +76,11 @@ function appendPopupToBody(html, clearPrevious = false) {
 	    </div>
 	`;
 	document.body.appendChild(newContainer);
+
+	document.getElementById('back-button').addEventListener('click', function() {
+	    newContainer.remove();
+	    openPopup();  
+	});
 }  
 
 function renameTabsSectionsFields() { 
