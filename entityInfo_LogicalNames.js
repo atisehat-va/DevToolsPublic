@@ -43,11 +43,11 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
     `;
 }
 const securityPopupCss = `
-    .securityPopup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px;width: 800px !important; height: 100% !important; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+    .securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px;width: 800px !important; height: 100% !important; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 78%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
-    .securityPopup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
+    .securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
 `;
 function appendPopupToBody(html, clearPrevious = false) {
 	if (clearPrevious) {
