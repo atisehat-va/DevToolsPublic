@@ -32,7 +32,7 @@ function fetchEntityFields() {
                 var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + cleanRecordId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
 
                 const securityPopupCss = `
-                    .securityPopup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+                    .securityPopup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px;width: 800px !important; height: 100% !important; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
                     .section { padding: 20px; border-right: 0px solid #ccc; overflow-y: scroll; }
                     .content-section { text-align: left; height: 500px; width: 100%; }
                     .securityPopup-row { display: flex; }
@@ -46,6 +46,8 @@ function fetchEntityFields() {
                 newContainer.className = 'securityPopup';
 		newContainer.style.backgroundColor = 'red';
 		newContainer.style.zIndex = '9999';
+		newContainer.style.width = '800px';
+		newContainer.style.height = '100%';
                 newContainer.innerHTML = `<div class="securityPopup-header">Copy User Security</div><div id="securityTooltip" class="securityTooltip">i<span class="securityTooltipText" id="securityTooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span></div><style>${securityPopupCss}</style><div class="securityPopup-row"><div class="section content-section" id="section1">${html}</div></div>`;
                 document.body.appendChild(newContainer);
                 
