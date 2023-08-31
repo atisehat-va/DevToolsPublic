@@ -53,8 +53,8 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
 }
 const securityPopupCss = `
     .securityPopup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px;width: 800px !important; height: 100% !important; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
-    .section { padding: 20px; border-right: 0px solid #ccc; overflow-y: scroll; }
-    .content-section { text-align: left; height: 80%; width: 100%; }
+    .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
+    .content-section { text-align: left; height: 78%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
     .securityPopup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
     .securityTooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }
@@ -70,8 +70,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	var newContainer = document.createElement('div');
 	
 	// Applying classes and styles to the new container
-	newContainer.className = 'securityPopup';
-	newContainer.style.backgroundColor = 'red';	
+	newContainer.className = 'securityPopup';	
 	newContainer.style.setProperty('width', '700px', 'important');
    	newContainer.style.setProperty('height', '50%', 'important');
 	newContainer.style.position = 'fixed';  		
