@@ -25,6 +25,9 @@ const securityPopupCss = `
     .securityPopup-row { display: flex; height: 100%; }
     .securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
     .scrollable-section { height: 315px; overflow-y: auto; }
+    .header-section { flex: 1; }
+    .fields-section { flex: 2; overflow-y: auto; height: 400px; }
+    .flex-container { display: flex; }
 `;
 function generateFieldListHtml(fields) {
     return fields
@@ -41,41 +44,47 @@ function generateFieldListHtml(fields) {
 }
 function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
     return `
-        <h2 style="text-align: left;">Entity: ${entityName}</h2>
-        <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
-        <h2 style="text-align: left;">Fields:</h2>
-        <br>
-        <div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
-            <div class="scrollable-section">
+        <div class="flex-container">
+            <div class="header-section">
+                <h2 style="text-align: left;">Entity: ${entityName}</h2>
+                <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
+                <h2 style="text-align: left;">Fields:</h2>
+            </div>
+            <div class="fields-section">
                 ${fieldListHtml}
             </div>
         </div>
     `;
 }
 function appendPopupToBody(html, clearPrevious = false) {
-	if (clearPrevious) {
-        	const existingPopups = document.querySelectorAll('.securityPopup');
-        	existingPopups.forEach(popup => popup.remove());
-    	}    
-	var newContainer = document.createElement('div');		
-	newContainer.className = 'securityPopup';	
-	newContainer.style.setProperty('width', '700px', 'important');
-   	newContainer.style.setProperty('height', '50%', 'important');
-	newContainer.style.position = 'fixed';  		
-	newContainer.style.top = '50%';
-	newContainer.style.left = '50%';
-	newContainer.style.transform = 'translate(-50%, -50%)'; 
-		
-	newContainer.innerHTML = `
-	    <div class="securityPopup-header">Entity & Fields Info</div>	    
-	    <style>${securityPopupCss}</style>
-	    <div class="securityPopup-row">
-	        <div class="section content-section" id="section1">
-	            ${html}
-	        </div>
-	    </div>
-	`;
-	document.body.appendChild(newContainer);	
+    if (clearPrevious) {
+        const existingPopups = document.querySelectorAll('.securityPopup');
+        existingPopups.forEach(popup => popup.remove());
+    }
+    var newContainer = document.createElement('div');
+    newContainer.className = 'securityPopup';
+    newContainer.style.setProperty('width', '700px', 'important');
+    newContainer.style.setProperty('height', '50%', 'important');
+    newContainer.style.position = 'fixed';
+    newContainer.style.top = '50%';
+    newContainer.style.left = '50%';
+    newContainer.style.transform = 'translate(-50%, -50%)';
+    
+    newContainer.innerHTML = `
+        <div class="securityPopup-header"> Copy User Security</div>
+        <div id="securityTooltip" class="securityTooltip">
+            i<span class="securityTooltipText" id="securityTooltiptext">
+                This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.
+            </span>
+        </div>
+        <style>${securityPopupCss}</style>
+        <div class="securityPopup-row">
+            <div class="section content-section" id="section1">
+                ${html}
+            </div>
+        </div>
+    `;
+    document.body.appendChild(newContainer);
 }
 
 
