@@ -1,15 +1,19 @@
 function fetchEntityFields() {
+    console.log('fetchEntityFields started'); // Debugging line
     closeIframe();
     var entityName = Xrm.Page.data.entity.getEntityName();
     var recordId = Xrm.Page.data.entity.getId();
-    var cleanRecordId = recordId.replace(/[{}]/g, "")
+    var cleanRecordId = recordId.replace(/[{}]/g, "");
     var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType,DisplayName";
+    console.log('URL:', url); // Debugging line
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.onreadystatechange = function() {
+        console.log('Ready state:', this.readyState, 'Status:', this.status); // Debugging line
         if (this.readyState === 4) {
             if (this.status === 200) {
                 var results = JSON.parse(this.responseText);
+                console.log('Results:', results);
                 var fieldList = results.value
                     .filter(function(field) {
                         return field.AttributeType !== 'Virtual' && field.DisplayName && field.DisplayName.UserLocalizedLabel && field.DisplayName.UserLocalizedLabel.Label;
@@ -33,11 +37,12 @@ function fetchEntityFields() {
 
                 newContainer.innerHTML = html;
 
-                // Append the new container to the body or any other existing container
+                 // Append the new container to the body
                 document.body.appendChild(newContainer);
 
+                console.log('Container appended'); // Debugging line
             } else {
-                alert("Error: " + this.statusText);
+                console.log("Error: ", this.statusText); // Debugging line
             }
         }
     };
