@@ -47,9 +47,7 @@ const securityPopupCss = `
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 78%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
-    .securityPopup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
-    .securityTooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }
-    .securityTooltipText { visibility: hidden; width: 400px; background-color: black; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; right: 100%; top: 50%; margin-top: 5px; opacity: 0; transition: opacity 0.3s; }
+    .securityPopup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
 `;
 function appendPopupToBody(html, clearPrevious = false) {
 	if (clearPrevious) {
@@ -66,12 +64,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	newContainer.style.transform = 'translate(-50%, -50%)'; 
 		
 	newContainer.innerHTML = `
-	    <div class="securityPopup-header">Copy User Security</div>
-	    <div id="securityTooltip" class="securityTooltip">
-	        i<span class="securityTooltipText" id="securityTooltiptext">
-	            This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.
-	        </span>
-	    </div>
+	    <div class="securityPopup-header">Entity & Fields Info</div>	    
 	    <style>${securityPopupCss}</style>
 	    <div class="securityPopup-row">
 	        <div class="section content-section" id="section1">
@@ -79,20 +72,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	        </div>
 	    </div>
 	`;
-	document.body.appendChild(newContainer);
-
-	const tooltipElement = document.getElementById('securityTooltip');
-	const tooltipTextElement = document.getElementById('securityTooltiptext');
-	
-	tooltipElement.addEventListener('mouseover', () => {
-	    tooltipTextElement.style.visibility = 'visible';
-	    tooltipTextElement.style.opacity = '1';
-	});
-	
-	tooltipElement.addEventListener('mouseout', () => {
-	    tooltipTextElement.style.visibility = 'hidden';
-	    tooltipTextElement.style.opacity = '0';
-	});
+	document.body.appendChild(newContainer);	
 }
 
 
