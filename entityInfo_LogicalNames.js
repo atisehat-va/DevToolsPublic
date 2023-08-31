@@ -26,15 +26,20 @@ function fetchEntityFields() {
                 var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + cleanRecordId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
 
                 var bookmarkletPopup = document.getElementById('bookmarkletPopup');
+                const popupCss = `
+                    .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+                    .section { padding: 20px; border-right: 0px solid #ccc; overflow-y: scroll; }   
+                    .user-section { height: 500px; width: 100%;}    
+                    .popup-row { display: flex; }        
+                `;
+
                 if (bookmarkletPopup) {
-                    bookmarkletPopup.innerHTML = html;
-                    bookmarkletPopup.style.backgroundColor = 'red'; // to keep the red background
+                    bookmarkletPopup.innerHTML = `<style>${popupCss}</style><div class="popup-row"><div class="section user-section">${html}</div></div>`;
                 } else {
-                    // In case bookmarkletPopup doesn't exist
                     var newContainer = document.createElement('div');
                     newContainer.id = 'bookmarkletPopup';
-                    newContainer.innerHTML = html;
-                    newContainer.style.backgroundColor = 'red';
+                    newContainer.className = 'popup';
+                    newContainer.innerHTML = `<style>${popupCss}</style><div class="popup-row"><div class="section user-section" id="section1">${html}</div></div>`;
                     document.body.appendChild(newContainer);
                 }
 
@@ -45,7 +50,6 @@ function fetchEntityFields() {
     };
     xhr.send();
 }
-
 
 function renameTabsSectionsFields() { 
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
