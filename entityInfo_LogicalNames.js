@@ -80,6 +80,19 @@ function appendPopupToBody(html, clearPrevious = false) {
 	    </div>
 	`;
 	document.body.appendChild(newContainer);
+
+	const tooltipElement = document.getElementById('securityTooltip');
+	const tooltipTextElement = document.getElementById('securityTooltiptext');
+	
+	tooltipElement.addEventListener('mouseover', () => {
+	    tooltipTextElement.style.visibility = 'visible';
+	    tooltipTextElement.style.opacity = '1';
+	});
+	
+	tooltipElement.addEventListener('mouseout', () => {
+	    tooltipTextElement.style.visibility = 'hidden';
+	    tooltipTextElement.style.opacity = '0';
+	});
 }
 
 
