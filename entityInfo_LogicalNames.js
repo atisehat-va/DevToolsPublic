@@ -41,11 +41,7 @@ function generateFieldListHtml(fields) {
         .join('');
 }
 function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
-     return `
-        <div class="securityPopup-header"> 
-            <button class="back-button" id="back-button">Back</button>
-            Copy User Security
-        </div>
+     return `        
         <h2 style="text-align: left;">Entity: ${entityName}</h2>
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
@@ -70,7 +66,10 @@ function appendPopupToBody(html, clearPrevious = false) {
 	newContainer.style.transform = 'translate(-50%, -50%)'; 
 		
 	newContainer.innerHTML = `
-	    <div class="securityPopup-header">Entity & Fields Info</div>	    
+	    <div class="securityPopup-header">
+                <button class="back-button" id="back-button">Back</button>
+     		Entity & Fields Info
+            </div>	    
 	    <style>${securityPopupCss}</style>
 	    <div class="securityPopup-row">
 	        <div class="section content-section" id="section1">
