@@ -4,7 +4,7 @@ function fetchEntityFields() {
     var recordId = Xrm.Page.data.entity.getId();
     var cleanRecordId = recordId.replace(/[{}]/g, "");
     var url = Xrm.Page.context.getClientUrl() + "/api/data/v9.1/EntityDefinitions(LogicalName='" + entityName + "')/Attributes?$select=LogicalName,AttributeType,DisplayName";
-    
+
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.onreadystatechange = function() {
@@ -26,23 +26,26 @@ function fetchEntityFields() {
                 var html = '<h2 style="text-align: left;">Entity: ' + entityName + '</h2><h2 style="text-align: left;">Record ID: ' + cleanRecordId + '</h2><h2 style="text-align: left;">Fields:</h2><br><div style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">' + fieldList + '</div>';
 
                 var bookmarkletPopup = document.getElementById('bookmarkletPopup');
+
                 const popupCss = `
                     .popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
-                    .section { padding: 20px; border-right: 0px solid #ccc; overflow-y: scroll; }   
-                    .user-section { height: 500px; width: 100%;}    
-                    .popup-row { display: flex; }        
+                    .section { padding: 20px; border-right: 0px solid #ccc; overflow-y: scroll; }
+                    .user-section { text-align: center; height: 500px; width: 100%; }
+                    .popup-row { display: flex; }
+                    .popup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+                    .tooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }
+                    .tooltiptext { visibility: visible; width: 120px; background-color: black; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; right: 100%; top: 50%; margin-top: -15px; opacity: 0; transition: opacity 0.3s; }
                 `;
 
                 if (bookmarkletPopup) {
-                    bookmarkletPopup.innerHTML = `<style>${popupCss}</style><div class="popup-row"><div class="section user-section">${html}</div></div>`;
+                    bookmarkletPopup.innerHTML = `<div class="popup-header">Copy User Security</div><div id="tooltip" class="tooltip">i<span class="tooltiptext" id="tooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span></div><style>${popupCss}</style><div class="popup-row"><div class="section user-section">${html}</div></div>`;
                 } else {
                     var newContainer = document.createElement('div');
                     newContainer.id = 'bookmarkletPopup';
                     newContainer.className = 'popup';
-                    newContainer.innerHTML = `<style>${popupCss}</style><div class="popup-row"><div class="section user-section" id="section1">${html}</div></div>`;
+                    newContainer.innerHTML = `<div class="popup-header">Copy User Security</div><div id="tooltip" class="tooltip">i<span class="tooltiptext" id="tooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span></div><style>${popupCss}</style><div class="popup-row"><div class="section user-section" id="section1">${html}</div></div>`;
                     document.body.appendChild(newContainer);
                 }
-
             } else {
                 alert("Error: " + this.statusText);
             }
