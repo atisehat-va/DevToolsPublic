@@ -44,8 +44,9 @@ function fetchEntityFields() {
                 
                 var newContainer = document.createElement('div');
                 newContainer.className = 'securityPopup';
-                newContainer.innerHTML = `<div class="securityPopup-header">Copy User Security</div><div id="securityTooltip" class="securityTooltip">i<span class="securityTooltipText" id="securityTooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span></div><style>${securityPopupCss}</style><div class="securityPopup-row"><div class="section content-section">${html}</div></div>`;
+                newContainer.innerHTML = `<div class="securityPopup-header">Copy User Security</div><div id="securityTooltip" class="securityTooltip">i<span class="securityTooltipText" id="securityTooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span></div><style>${securityPopupCss}</style><div class="securityPopup-row"><div class="section content-section" id="section1">${html}</div></div>`;
                 document.body.appendChild(newContainer);
+                
             } else {
                 console.log("Error: ", this.statusText);
                 alert("Error: " + this.statusText);
