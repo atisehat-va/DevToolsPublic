@@ -45,8 +45,8 @@ function fetchEntityFields() {
                 var newContainer = document.createElement('div');
                 newContainer.className = 'securityPopup';
 		newContainer.style.backgroundColor = 'red';
-		newContainer.style.width = '100px';
-		newContainer.style.height = '100px';
+		newContainer.style.width = '900px';
+		newContainer.style.height = '900px';
                 newContainer.innerHTML = `<div class="securityPopup-header">Copy User Security</div><div id="securityTooltip" class="securityTooltip">i<span class="securityTooltipText" id="securityTooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span></div><style>${securityPopupCss}</style><div class="securityPopup-row"><div class="section content-section" id="section1">${html}</div></div>`;
                 document.body.appendChild(newContainer);
                 
