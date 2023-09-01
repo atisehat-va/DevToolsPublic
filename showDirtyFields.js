@@ -30,7 +30,7 @@
 const dirtyFieldsPopupCss = `
     .dirtyFieldsPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 50%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
     .dirtyFieldsPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; }
-    .dirtyFieldsPopup-content { padding: 15px; }
+    .dirtyFieldsPopup-content { padding: 15px; height: 160%; }
     .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; border-bottom-right-radius: 15px; }
     .scrollable-section { height: 66%; overflow-y: auto; }
 `;
@@ -87,7 +87,7 @@ function showDirtyFields() {
 
     const popupHtml = `
         <h2 style="text-align: left;"><strong>Dirty Fields:</strong></h2>
-        <div class="scrollable-section" style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
+        <div class="scrollable-section" style="padding: 10px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
             ${dirtyFieldsHtml}
         </div>
     `;
