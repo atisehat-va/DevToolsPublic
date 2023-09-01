@@ -32,7 +32,7 @@ const dirtyFieldsPopupCss = `
     .dirtyFieldsPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; }
     .dirtyFieldsPopup-content { padding: 15px; height: 158%; }
     .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; border-bottom-right-radius: 15px; }
-    .scrollable-section { height: 66%; overflow-y: auto; }
+    .scrollable-section { height: 49%; overflow-y: auto; }
 `;
 
 function generateDirtyFieldsHtml(dirtyFields) {
