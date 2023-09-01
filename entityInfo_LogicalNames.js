@@ -23,10 +23,10 @@ const securityPopupCss = `
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 100%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
-    .securityPopup-header { position: relative; text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+    .securityPopup-header { position: relative; text-align: center; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; z-index: 2; }
     .scrollable-section { height: 66%; overflow-y: auto; }
     .back-button { position: absolute; top: 0; left: 0; cursor: pointer; background-color: #333; color: #fff; padding: 10px; }
-    .back-button::after { content: "||"; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); color: #fff; font-size: 18px; }
+    .vertical-lines { position: absolute; top: 0; left: 100%; width: 10px; height: 100%; background: linear-gradient(to right, #fff 4px, transparent 4px, transparent 6px, #fff 6px); }
 `;
 function generateFieldListHtml(fields) {
     return fields
@@ -69,6 +69,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	newContainer.innerHTML = `
 	    <div class="securityPopup-header">
                 <button class="back-button" id="back-button">Back</button>
+		<div class="vertical-lines"></div>
      		Entity & Fields Info
             </div>	    
 	    <style>${securityPopupCss}</style>
