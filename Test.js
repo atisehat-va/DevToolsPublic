@@ -22,7 +22,7 @@ loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 
 //EndNew
 function openPopup() {
-  closePopup();
+  closeSubPopups();
   var isAdmin = false;
   var userName = Xrm.Utility.getGlobalContext().userSettings.userName;
   var roles = Xrm.Utility.getGlobalContext().userSettings.roles;  
@@ -181,11 +181,16 @@ function closePopup() {
         popupDiv.remove();
     }
 
+    closeSubPopups();
+}
+function closeSubPopups() {
     // Remove securityPopup if it exists
     const securityPopup = document.querySelector('.securityPopup');
     if (securityPopup) {
         securityPopup.remove();
     }
+
+
 }
 
 function closeDirtyFieldsPopup() {
