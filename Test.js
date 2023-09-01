@@ -191,9 +191,9 @@ function closeSubPopups() {
     }
 	
     // Remove dirtyFieldsPopup if it exists
-    const securityPopup = document.querySelector('.dirtyFieldsPopup');
-    if (securityPopup) {
-        securityPopup.remove();
+    const dirtyFieldsPopup = document.querySelector('.dirtyFieldsPopup');
+    if (dirtyFieldsPopup) {
+        dirtyFieldsPopup.remove();
     }
 }
 
