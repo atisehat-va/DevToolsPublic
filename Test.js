@@ -186,7 +186,7 @@ function closePopup() {
     closeSubPopups();
 }
 function closeSubPopups() {
-    const popupClasses = ['.entityInfoPopup', '.dirtyFieldsPopup', 'securityPopup'];
+    const popupClasses = ['.entityInfoPopup', '.dirtyFieldsPopup', '.securityPopup'];
     
     popupClasses.forEach((popupClass) => {
         const popup = document.querySelector(popupClass);
