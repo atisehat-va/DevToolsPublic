@@ -3,9 +3,7 @@ var logicalNameBtnClickStatus = false;
 var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
-//new
 const baseUrl = 'https://atisehat-va.github.io/DevToolsPublic/';
-// Load external scripts dynamically
 function loadScript(src, callback) {
   const script = document.createElement('script');
   script.src = baseUrl + src;
@@ -13,7 +11,7 @@ function loadScript(src, callback) {
   document.head.appendChild(script);
 }
 
-// Load related JavaScript files
+// Load scripts
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
 loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
 loadScript('fieldsControl.js', () => console.log('Fields Control loaded!'));
@@ -22,7 +20,6 @@ loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity.js', () => console.log('Security loaded!'));
 
-//EndNew
 function openPopup() {
   closeSubPopups();
   var isAdmin = false;
@@ -106,7 +103,7 @@ function openPopup() {
     </div>
   `;
   var popupDiv = document.createElement('div');
-  popupDiv.id = 'bookmarkletPopup';
+  popupDiv.id = 'MenuPopup';
   popupDiv.innerHTML = popupHtml;
   popupDiv.style.position = 'absolute';
   popupDiv.style.zIndex = '10000';
@@ -181,12 +178,11 @@ function toggleDropdownMenu(dropdownId) {
 function closePopup() {
     closeIframe();
     
-    // Remove bookmarkletPopup if it exists
-    var popupDiv = document.getElementById('bookmarkletPopup');
+    // Remove MenuPopup if it exists
+    var popupDiv = document.getElementById('MenuPopup');
     if (popupDiv) {
         popupDiv.remove();
     }
-
     closeSubPopups();
 }
 function closeSubPopups() {
