@@ -23,9 +23,9 @@ const securityPopupCss = `
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 100%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
-    .securityPopup-header { position: relative; text-align: center; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; z-index: 2; }
+    .securityPopup-header { position: relative; text-align: center; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; }
     .scrollable-section { height: 66%; overflow-y: auto; }
-    .back-button { position: absolute; top: 0; left: 0; cursor: pointer; background-color: #0066cc; color: #fff; padding: 10px; border-bottom-right-radius: 10px; }
+    .back-button { position: absolute; top: 0; left: 0; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-bottom-right-radius: 10px; }
 `;
 function generateFieldListHtml(fields) {
     return fields
