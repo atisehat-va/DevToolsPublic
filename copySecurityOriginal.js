@@ -51,7 +51,7 @@ function securityUpdate() {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}
 
-	function createPopupHtml() {
+	function generateSecurityPopupHtml() {
 	return `    
 		<div class="securityPopup">
 		  <div class="securityPopup-header">Copy User Security</div>
@@ -108,19 +108,19 @@ function securityUpdate() {
 	    </div>`;
 	}
 
-	function createAndAppendPopup() {
-		const popupHtml = createPopupHtml();
-		const popupDiv = document.createElement('div');
-		popupDiv.id = 'bookmarkletPopup';
-		popupDiv.innerHTML = popupHtml;
-		popupDiv.style.position = 'absolute';
-		popupDiv.style.zIndex = '10000';
-		popupDiv.style.left = '50%';
-		popupDiv.style.top = '50%';
-		popupDiv.style.transform = 'translate(-50%, -50%)';
-		document.body.appendChild(popupDiv);
+	function createAppendSecurityPopup() {
+		const newContainerHtml = generateSecurityPopupHtml();
+		const newContainer = document.createElement('div');
+		newContainer.id = 'securityPopup';
+		newContainer.innerHTML = newContainerHtml;
+		newContainer.style.position = 'absolute';
+		newContainer.style.zIndex = '10000';
+		newContainer.style.left = '50%';
+		newContainer.style.top = '50%';
+		newContainer.style.transform = 'translate(-50%, -50%)';
+		document.body.appendChild(newContainer);
 
-		return popupDiv;
+		return newContainer;
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
@@ -273,7 +273,7 @@ function securityUpdate() {
 
 	function displayPopup(users) {
 		users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-		const popupDiv = createAndAppendPopup();
+		const newContainer = createAppendSecurityPopup();
 		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
 		renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
 		setupSearchFilter('searchInput1');
