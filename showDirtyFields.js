@@ -1,4 +1,4 @@
-function showDirtyFields() {
+/*function showDirtyFields() {
     var entity = Xrm.Page.data.entity;
     var attributes = entity.attributes.get();
     var dirtyFields = attributes.filter(function(attribute) {
@@ -24,4 +24,65 @@ function showDirtyFields() {
 
     // Calling the showContent function with 'html' type
     showContent('html', html);
+}*/
+
+//new
+const dirtyFieldsPopupCss = `
+    .dirtyFieldsPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px;width: 800px !important; height: 100% !important; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+    .dirtyFieldsPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; }
+    .dirtyFieldsPopup-content { padding: 15px; }
+`;
+
+function generateDirtyFieldsHtml(dirtyFields) {
+    if (dirtyFields.length > 0) {
+        return dirtyFields.map((attribute, index) => {
+            const logicalName = attribute.getName();
+            const control = attribute.controls.get(0);
+            const displayName = control ? control.getLabel() : logicalName;
+            return `
+                <div>${index + 1}. <strong>${displayName}</strong>
+                    <div style="margin-left: 40px;">&bull; <strong>Logical Name:</strong> ${logicalName}</div>
+                </div>
+                <br>
+            `;
+        }).join('');
+    } else {
+        return '<div>No dirty fields found.</div>';
+    }
+}
+
+function appendDirtyFieldsPopupToBody(html) {
+    var newContainer = document.createElement('div');
+    newContainer.className = 'dirtyFieldsPopup';
+    newContainer.style.position = 'fixed';
+    newContainer.style.top = '50%';
+    newContainer.style.left = '50%';
+    newContainer.style.transform = 'translate(-50%, -50%)';
+
+    newContainer.innerHTML = `
+        <div class="dirtyFieldsPopup-header">
+            Dirty Fields Info
+        </div>
+        <style>${dirtyFieldsPopupCss}</style>
+        <div class="dirtyFieldsPopup-content">
+            ${html}
+        </div>
+    `;
+    document.body.appendChild(newContainer);
+}
+
+function showDirtyFields() {
+    const entity = Xrm.Page.data.entity;
+    const attributes = entity.attributes.get();
+    const dirtyFields = attributes.filter(attribute => attribute.getIsDirty());
+    const dirtyFieldsHtml = generateDirtyFieldsHtml(dirtyFields);
+
+    const popupHtml = `
+        <h2 style="text-align: center;"><strong>Dirty Fields</strong></h2>
+        <div style="padding: 5px;">
+            ${dirtyFieldsHtml}
+        </div>
+    `;
+
+    appendDirtyFieldsPopupToBody(popupHtml);
 }
