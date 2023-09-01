@@ -85,7 +85,7 @@ function showDirtyFields() {
     const dirtyFieldsHtml = generateDirtyFieldsHtml(dirtyFields);
 
     const popupHtml = `
-        <h2 style="text-align: center;"><strong>Dirty Fields</strong></h2>
+        <h2 style="text-align: left;"><strong>Dirty Fields:</strong></h2>
         <div style="padding: 5px;">
             ${dirtyFieldsHtml}
         </div>
