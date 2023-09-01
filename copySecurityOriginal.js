@@ -117,6 +117,11 @@ function securityUpdate() {
 		newContainer.style.transform = 'translate(-50%, -50%)';
 		document.body.appendChild(newContainer);
 
+		document.getElementById('back-button').addEventListener('click', function() {
+		    newContainer.remove();
+		    openPopup();  
+		});
+
 		return newContainer;
 	}
 
