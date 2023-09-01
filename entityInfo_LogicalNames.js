@@ -19,7 +19,7 @@ async function fetchEntityFields() {
     }
 }
 const securityPopupCss = `
-    .securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px;width: 800px !important; height: 100% !important; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+    .securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40% !important; height: 100% !important; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 100%; width: 100%; }
     .securityPopup-row { display: flex; height: 100%; }
@@ -58,8 +58,6 @@ function appendPopupToBody(html, clearPrevious = false) {
     	}    
 	var newContainer = document.createElement('div');		
 	newContainer.className = 'securityPopup';	
-	newContainer.style.setProperty('width', '40%', 'important');
-   	newContainer.style.setProperty('height', '50%', 'important');
 	newContainer.style.position = 'fixed';  		
 	newContainer.style.top = '50%';
 	newContainer.style.left = '50%';
