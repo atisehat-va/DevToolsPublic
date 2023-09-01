@@ -56,7 +56,8 @@ function appendPopupToBody(html, clearPrevious = false) {
         	const existingPopups = document.querySelectorAll('.securityPopup');
         	existingPopups.forEach(popup => popup.remove());
     	}    
-	var newContainer = document.createElement('div');		
+	var newContainer = document.createElement('div');	
+  	popupDiv.id = 'securityPopup';
 	newContainer.className = 'securityPopup';	
 	newContainer.style.position = 'fixed';  		
 	newContainer.style.top = '50%';
