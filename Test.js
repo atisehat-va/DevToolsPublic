@@ -82,7 +82,7 @@ function openPopup() {
 				  </div>
 				</div>
     				<div class="button-row">
-					<button onclick="securityUpdate();">Update Security</button>
+					<button onclick="closePopup(); securityUpdate();">Update Security</button>
      					<button onclick="">SameSame</button>					
 				</div>
 				<div class="button-row">
