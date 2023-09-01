@@ -1,4 +1,4 @@
-javascript: (function() {
+function securityUpdate() {
 	debugger;
 	let selectedUserId2 = null;
 	let selectedUserName2 = '';
@@ -353,4 +353,4 @@ javascript: (function() {
 		script.src = src;
 		document.body.appendChild(script);
 	}
-})();
+}
