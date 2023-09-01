@@ -32,23 +32,18 @@ function securityUpdate() {
 		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
 		#submitButton:hover { background-color: #103e89; }		 
 	`;
-
 	function fetchUsers(callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
 	}
-
 	function fetchRolesForUser(userId, callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
 	}
-
 	function fetchTeamsForUser(userId, callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}
-
 	function fetchBusinessUnitName(userId, callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}
-
 	function generateSecurityPopupHtml() {
 	return `    
 		<div class="securityPopup">
@@ -121,7 +116,6 @@ function securityUpdate() {
 		    newContainer.remove();
 		    openPopup();  
 		});
-
 		return newContainer;
 	}
 
@@ -244,14 +238,12 @@ function securityUpdate() {
 						roleDetailsArr.push(roleDetail);
 					});
 				});
-
 				Promise.all(rolePromises).then(() => {
 					roleDetailsArr.sort((a, b) => {
 						if (a.name < b.name) return -1;
 						if (a.name > b.name) return 1;
 						return 0;
 					});
-
 					roleDetailsArr.forEach(roleDetail => {
 						const listItem = document.createElement('li');
 						listItem.textContent = roleDetail.name;
@@ -301,7 +293,6 @@ function securityUpdate() {
 						if (existingMessageDiv) {
 							existingMessageDiv.remove();
 						}
-
 						this.style.display = 'none';
 
 						const messageDiv = document.createElement('div');
@@ -312,13 +303,11 @@ function securityUpdate() {
 						this.parentNode.appendChild(messageDiv);
 
 						if (typeof updateUserDetails === "function") {
-
 							await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
 							console.log("updateUserDetails function called.");
 							if (messageDiv) {
 								messageDiv.remove();
 							}
-
 							const newMessageDiv = document.createElement('div');
 							newMessageDiv.id = 'updateMessage';
 							newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;
@@ -339,7 +328,6 @@ function securityUpdate() {
 		);
 		updateSubmitButtonVisibility();
 	}
-
 	fetchUsers(function(users) {
 		displayPopup(users);
 	});
