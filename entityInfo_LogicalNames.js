@@ -25,8 +25,7 @@ const securityPopupCss = `
     .securityPopup-row { display: flex; height: 100%; }
     .securityPopup-header { position: relative; text-align: center; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; z-index: 2; }
     .scrollable-section { height: 66%; overflow-y: auto; }
-    .back-button { position: absolute; top: 0; left: 0; cursor: pointer; background-color: #333; color: #fff; padding: 10px; }
-    .vertical-lines { position: absolute; top: 0; left: calc(100% - 10px); width: 10px; height: 100%; background: linear-gradient(to right, #fff 4px, transparent 4px, transparent 6px, #fff 6px); z-index: 1; }
+    .back-button { position: absolute; top: 0; left: 0; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-bottom-right-radius: 10px; }
 `;
 function generateFieldListHtml(fields) {
     return fields
@@ -69,7 +68,6 @@ function appendPopupToBody(html, clearPrevious = false) {
 	newContainer.innerHTML = `
 	    <div class="securityPopup-header">
                 <button class="back-button" id="back-button">Back</button>
-		<div class="vertical-lines"></div>
      		Entity & Fields Info
             </div>	    
 	    <style>${securityPopupCss}</style>
