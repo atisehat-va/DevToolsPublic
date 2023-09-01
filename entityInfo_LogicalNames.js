@@ -18,12 +18,12 @@ async function fetchEntityFields() {
         alert(`Error: ${error}`);
     }
 }
-const securityPopupCss = `
-    .securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 50%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+const entityInfoPopupCss = `
+    .entityInfoPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 50%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 100%; width: 100%; }
-    .securityPopup-row { display: flex; height: 100%; }
-    .securityPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; }
+    .entityInfoPopup-row { display: flex; height: 100%; }
+    .entityInfoPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; padding: 10px; }
     .scrollable-section { height: 66%; overflow-y: auto; }
     .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; border-bottom-right-radius: 15px; }
 `;
@@ -53,23 +53,23 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
 }
 function appendPopupToBody(html, clearPrevious = false) {
 	if (clearPrevious) {
-        	const existingPopups = document.querySelectorAll('.securityPopup');
+        	const existingPopups = document.querySelectorAll('.entityInfoPopup');
         	existingPopups.forEach(popup => popup.remove());
     	}    
 	var newContainer = document.createElement('div');	  	
-	newContainer.className = 'securityPopup';	
+	newContainer.className = 'entityInfoPopup';	
 	newContainer.style.position = 'fixed';  		
 	newContainer.style.top = '50%';
 	newContainer.style.left = '50%';
 	newContainer.style.transform = 'translate(-50%, -50%)'; 
 		
 	newContainer.innerHTML = `
-	    <div class="securityPopup-header">
+	    <div class="entityInfoPopup-header">
                 <button class="back-button" id="back-button">Back</button>
      		Entity & Fields Info
             </div>	    
-	    <style>${securityPopupCss}</style>
-	    <div class="securityPopup-row">
+	    <style>${entityInfoPopupCss}</style>
+	    <div class="entityInfoPopup-row">
 	        <div class="section content-section" id="section1">
 	            ${html}
 	        </div>
