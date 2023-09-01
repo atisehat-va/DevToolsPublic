@@ -10,7 +10,7 @@ function securityUpdate() {
 	const popupCss = `    
 		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }    
 		.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
-		.section h3 { text-align: center; margin-bottom: 10px; color: #f9f9f9; }    
+		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 		.user-section { text-align: center; height: 190px; width: 50%;}    
 		.user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 		.user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
@@ -28,7 +28,7 @@ function securityUpdate() {
 		.securityPopup-row { display: flex; }    
 		.securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
   		.submit-button-container { text-align: center; padding: 10px; width: 100%; }      
-		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #333; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
+		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
 		#submitButton:hover { background-color: #444; }    
 		.tooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }    
 		.tooltiptext { visibility: visible; width: 120px; background-color: black; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; right: 100%; top: 50%; margin-top: -15px; opacity: 0; transition: opacity 0.3s; }    
