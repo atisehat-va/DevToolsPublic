@@ -26,7 +26,7 @@ function securityUpdate() {
 		.user:hover { background-color: #f0f0f0; }    
 		#sectionsRow { white-space: nowrap; }    
 		.securityPopup-row { display: flex; }    
-		.securityPopup-header { text-align: center; padding: 10px; background-color: #f9f9f9; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
+		.securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
   		.submit-button-container { text-align: center; padding: 10px; width: 100%; }      
 		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #333; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
 		#submitButton:hover { background-color: #444; }    
