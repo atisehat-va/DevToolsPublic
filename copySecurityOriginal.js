@@ -10,7 +10,7 @@ function securityUpdate() {
 	const popupCss = `    
 		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }    
 		.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
-		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
+		.section h3 { text-align: center; margin-bottom: 10px; color: #f9f9f9; }    
 		.user-section { text-align: center; height: 190px; width: 50%;}    
 		.user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 		.user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
