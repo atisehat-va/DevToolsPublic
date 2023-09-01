@@ -57,11 +57,7 @@ function securityUpdate() {
 		  <div class="securityPopup-header">Copy User Security</div>
 		  <div id="tooltip" class="tooltip">i <span class="tooltiptext" id="tooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span>
 		  </div>
-		  <style>
-		    $ {
-		      popupCss
-		    }
-		  </style>
+		  <style>${popupCss}</style>
 		  <div class="securityPopup-row">
 		    <div class="section user-section" id="section1">
 		      <h3>FROM</h3>
