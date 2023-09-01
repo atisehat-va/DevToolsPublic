@@ -185,9 +185,9 @@ function closePopup() {
 }
 function closeSubPopups() {
     // Remove securityPopup if it exists
-    const securityPopup = document.querySelector('.securityPopup');
-    if (securityPopup) {
-        securityPopup.remove();
+    const entityInfoPopup = document.querySelector('.entityInfoPopup');
+    if (entityInfoPopup) {
+        entityInfoPopup.remove();
     }
 	
     // Remove dirtyFieldsPopup if it exists
