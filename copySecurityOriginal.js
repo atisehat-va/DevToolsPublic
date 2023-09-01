@@ -17,8 +17,8 @@ function securityUpdate() {
 		.user-section #userList::-webkit-scrollbar { display: none; }        
 		.user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 		.user-list-container { max-height: 110px; overflow-y: auto; }    
-		.roles-and-teams-list-row1 { max-height: 110px; margin-left: 10px; overflow-y: auto; }    
-		.roles-and-teams-list-row2 { max-height: 143px; margin-left: 10px; overflow-y: auto; }    
+		.roles-and-teams-list-row1 { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
+		.roles-and-teams-list-row2 { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
 		.details-section-row1 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
   		.details-section-row2 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
 		.selected { background-color: #e0e0e0; }        
