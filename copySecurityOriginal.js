@@ -8,7 +8,10 @@ function securityUpdate() {
 	let selectedRoleIds = [];
 
 	const popupCss = `    
-		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }    
+		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+                .securityPopup-row { display: flex; }    
+		.securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
+                .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; border-bottom-right-radius: 15px; }
 		.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
 		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 		.user-section { text-align: center; height: 190px; width: 50%;}    
@@ -24,9 +27,7 @@ function securityUpdate() {
 		.selected { background-color: #e0e0e0; }        
 		.user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
 		.user:hover { background-color: #f0f0f0; }    
-		#sectionsRow { white-space: nowrap; }    
-		.securityPopup-row { display: flex; }    
-		.securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
+		#sectionsRow { white-space: nowrap; } 		
   		.submit-button-container { text-align: center; padding: 20px; width: 95%; }      
 		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
 		#submitButton:hover { background-color: #103e89; }		 
@@ -51,7 +52,8 @@ function securityUpdate() {
 	function generateSecurityPopupHtml() {
 	return `    
 		<div class="securityPopup">
-		  <div class="securityPopup-header">Copy User Security</div>		  
+		  <div class="securityPopup-header">Copy User Security</div>
+    		  <button class="back-button" id="back-button">Back</button>
 		  <style>${popupCss}</style>
 		  <div class="securityPopup-row">
 		    <div class="section user-section" id="section1">
