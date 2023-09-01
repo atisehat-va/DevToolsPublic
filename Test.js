@@ -19,6 +19,7 @@ loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Ite
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity.js', () => console.log('Security loaded!'));
+loadScript('copySecurity2.js', () => console.log('Security loaded!')); //Assign Security
 
 function openPopup() {
   closeSubPopups();
@@ -80,7 +81,7 @@ function openPopup() {
 				</div>
     				<div class="button-row">
 					<button onclick="closePopup(); securityUpdate();">Update Security</button>
-     					<button onclick="">SameSame</button>					
+     					<button onclick="closePopup(); securityUpdate2();">Update Security2</button>					
 				</div>
 				<div class="button-row">
 					<button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Entity Info & Fields</button>
