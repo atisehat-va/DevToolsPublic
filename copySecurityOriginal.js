@@ -8,10 +8,10 @@ function securityUpdate() {
 	let selectedRoleIds = [];
 
 	const popupCss = `    
-		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
+		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 100%; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
                 .securityPopup-row { display: flex; }    
-		.securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }
-                .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; border-bottom-right-radius: 15px; }
+		.securityPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; }
+                .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-bottom-right-radius: 15px; }
 		.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
 		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 		.user-section { text-align: center; height: 190px; width: 50%;}    
