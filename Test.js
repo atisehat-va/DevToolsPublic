@@ -22,6 +22,7 @@ loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 
 //EndNew
 function openPopup() {
+  closePopup();
   var isAdmin = false;
   var userName = Xrm.Utility.getGlobalContext().userSettings.userName;
   var roles = Xrm.Utility.getGlobalContext().userSettings.roles;  
