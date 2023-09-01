@@ -87,7 +87,7 @@ function openPopup() {
 					<button onclick="unlockAllFields();">Unlock All Fields</button>
 				</div>
 				<div class="button-row">
-					<button onclick="showDirtyFields();">Show Modified Fields</button>
+					<button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
 					<button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
 				</div>      
 					<button onclick="closePopup();">Close</button>				
