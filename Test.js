@@ -185,12 +185,10 @@ function closePopup() {
 }
 function closeSubPopups() {
     // Remove securityPopup if it exists
-    const securityPopup = document.querySelector('.securityPopup');
+    const securityPopup = document.querySelector('securityPopup');
     if (securityPopup) {
         securityPopup.remove();
     }
-
-
 }
 
 function closeDirtyFieldsPopup() {
