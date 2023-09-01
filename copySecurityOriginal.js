@@ -8,7 +8,7 @@ function securityUpdate() {
 	let selectedRoleIds = [];
 
 	const popupCss = `    
-		.popup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }    
+		.securityPopup { background-color: #f9f9f9; border: 3px solid #444; border-radius: 20px; width: 800px; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }    
 		.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
 		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 		.user-section { text-align: center; height: 190px; width: 50%;}    
@@ -24,8 +24,8 @@ function securityUpdate() {
 		.user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
 		.user:hover { background-color: #f0f0f0; }    
 		#sectionsRow { white-space: nowrap; }    
-		.popup-row { display: flex; }    
-		.popup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    .submit-button-container { text-align: center; padding: 10px; width: 100%; }      
+		.securityPopup-row { display: flex; }    
+		.securityPopup-header { text-align: center; padding: 10px; background-color: #444; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    .submit-button-container { text-align: center; padding: 10px; width: 100%; }      
 		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
 		#submitButton:hover { background-color: #0056b3; }    
 		.tooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }    
@@ -51,11 +51,11 @@ function securityUpdate() {
 
 	function createPopupHtml() {
 		return `    
-				<div class="popup">      
-				<div class="popup-header">Copy User Security</div>      
+				<div class="securityPopup">      
+				<div class="securityPopup-header">Copy User Security</div>      
 				<div id="tooltip" class="tooltip">i        
 				<span class="tooltiptext" id="tooltiptext">This tool allows you to copy Business Unit, Teams, and Security Roles from one user to another.</span>      </div>      <style>${popupCss}</style>            
-				<div class="popup-row">        
+				<div class="securityPopup-row">        
 				<div class="section user-section" id="section1">          
 				<h3>FROM</h3>          
 				<input type="text" id="searchInput1" placeholder="Search Users">          
@@ -71,7 +71,7 @@ function securityUpdate() {
 				</div>        
 				</div>      
 				</div>      
-				<div id="sectionsRow1" class="popup-row">        
+				<div id="sectionsRow1" class="securityPopup-row">        
 				<div class="section details-section-row1" id="section3">          
 				<h3>Business Unit & Teams</h3>          
 				<div class="roles-and-teams-list-row1">            
@@ -85,7 +85,7 @@ function securityUpdate() {
 				</div>        
 				</div>              
 				</div>      
-				<div id="sectionsRow2" class="popup-row">        
+				<div id="sectionsRow2" class="securityPopup-row">        
 				<div class="section details-section-row2" id="section4">          
 				<h3>Security Roles</h3>          
 				<div class="roles-and-teams-list-row2">            
