@@ -1,7 +1,7 @@
 async function fetchEntityFields() {
     const entityName = Xrm.Page.data.entity.getEntityName();
     const recordId = Xrm.Page.data.entity.getId();
-    const cleanRecordId = recordId.replace(/[{}]/g, "");
+    const cleanRecordId = recordId.replace(/[{}]/g, "").toLowerCase();
     const url = `${Xrm.Page.context.getClientUrl()}/api/data/v9.1/EntityDefinitions(LogicalName='${entityName}')/Attributes?$select=LogicalName,AttributeType,DisplayName`;
     try {
         const response = await fetch(url);
