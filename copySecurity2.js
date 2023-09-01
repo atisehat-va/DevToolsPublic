@@ -16,12 +16,12 @@ function securityUpdate2() {
 		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 		.user-section { text-align: center; height: 190px; width: 50%;}    
 		.user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
-		.user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
+		.user-section #userList { margin-bottom: 15px; height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
 		.user-section #userList::-webkit-scrollbar { display: none; }        
 		.user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
-		.user-list-container { max-height: 110px; overflow-y: auto; }    
-		.roles-and-teams-list-row1 { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
-		.roles-and-teams-list-row2 { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
+		.user-list-container { height: 110px; overflow-y: auto; }    
+		.roles-and-teams-list-row1 { height: 75%; margin-left: 10px; overflow-y: auto; }    
+		.roles-and-teams-list-row2 { height: 75%; margin-left: 10px; overflow-y: auto; }    
 		.details-section-row1 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
   		.details-section-row2 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
 		.selected { background-color: #e0e0e0; }        
