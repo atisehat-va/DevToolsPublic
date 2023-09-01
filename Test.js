@@ -184,17 +184,14 @@ function closePopup() {
     closeSubPopups();
 }
 function closeSubPopups() {
-    // Remove securityPopup if it exists
-    const entityInfoPopup = document.querySelector('.entityInfoPopup');
-    if (entityInfoPopup) {
-        entityInfoPopup.remove();
-    }
-	
-    // Remove dirtyFieldsPopup if it exists
-    const dirtyFieldsPopup = document.querySelector('.dirtyFieldsPopup');
-    if (dirtyFieldsPopup) {
-        dirtyFieldsPopup.remove();
-    }
+    const popupClasses = ['.entityInfoPopup', '.dirtyFieldsPopup'];
+    
+    popupClasses.forEach((popupClass) => {
+        const popup = document.querySelector(popupClass);
+        if (popup) {
+            popup.remove();
+        }
+    });
 }
 
 function closeDirtyFieldsPopup() {
