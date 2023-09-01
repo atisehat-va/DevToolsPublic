@@ -101,13 +101,7 @@ function makePopupMovable(newContainer) {
   newContainer.onmousedown = dragMouseDown;
 
   function dragMouseDown(e) {
-    e = e || window.event;
-    //new
-    var iframeContainer = document.getElementById('iframe-container');
-    if (iframeContainer.contains(e.target)) {
-	return;
-    }
-    //newEnd
+    e = e || window.event;    
     e.preventDefault();
     pos3 = e.clientX;
     pos4 = e.clientY;
