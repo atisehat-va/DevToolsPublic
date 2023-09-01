@@ -19,15 +19,15 @@ function securityUpdate() {
 		.user-list-container { max-height: 110px; overflow-y: auto; }    
 		.roles-and-teams-list-row1 { max-height: 110px; margin-left: 10px; overflow-y: auto; }    
 		.roles-and-teams-list-row2 { max-height: 143px; margin-left: 10px; overflow-y: auto; }    
-		.details-section-row1 { display: inline-block; width: 50%; height: 160px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
-  		.details-section-row2 { display: inline-block; width: 50%; height: 200px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
+		.details-section-row1 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
+  		.details-section-row2 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
 		.selected { background-color: #e0e0e0; }        
 		.user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
 		.user:hover { background-color: #f0f0f0; }    
 		#sectionsRow { white-space: nowrap; }    
 		.securityPopup-row { display: flex; }    
 		.securityPopup-header { text-align: center; padding: 10px; background-color: #002050; color: #fff; font-size: 18px; border-bottom: 2px solid #333; border-radius: 20px 20px 0 0; }    
-  		.submit-button-container { text-align: center; padding: 10px; width: 100%; }      
+  		.submit-button-container { text-align: center; padding: 20px; width: 95%; }      
 		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
 		#submitButton:hover { background-color: #103e89; }    
 		.tooltip { position: absolute; top: 15px; right: 15px; cursor: pointer; background-color: #fff; border: 1px solid #444; border-radius: 50%; width: 20px; height: 20px; text-align: center; font-size: 14px; line-height: 20px; }    
