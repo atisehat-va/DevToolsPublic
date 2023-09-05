@@ -317,7 +317,7 @@ function securityUpdate() {
 	    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 	    newContainer.onmousedown = function(e) {
 		if (e.target.tagName.toLowerCase() === "input") {
-		    // If it's an input element, do nothing and return
+		    // If input element, return
 		    return;
 		}
 		dragMouseDown(e);
