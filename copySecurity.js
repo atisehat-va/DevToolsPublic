@@ -6,32 +6,7 @@ function securityUpdate() {
 	let selectedBusinessUnitId = null;
 	let selectedTeamIds = [];
 	let selectedRoleIds = [];
-
-	const popupCss = `    
-		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 100%; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
-                .securityPopup-row { display: flex; }    
-		.securityPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none;}
-                .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-top-left-radius: 20px; border-bottom-right-radius: 15px; }
-		.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
-		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
-		.user-section { text-align: center; height: 190px; width: 50%;}    
-		.user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
-		.user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
-		.user-section #userList::-webkit-scrollbar { display: none; }        
-		.user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
-		.user-list-container { max-height: 110px; overflow-y: auto; }    
-		.roles-and-teams-list-row1 { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
-		.roles-and-teams-list-row2 { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
-		.details-section-row1 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
-  		.details-section-row2 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
-		.selected { background-color: #e0e0e0; }        
-		.user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
-		.user:hover { background-color: #f0f0f0; }    
-		#sectionsRow { white-space: nowrap; } 		
-  		.submit-button-container { text-align: center; padding: 20px; width: 95%; }      
-		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
-		#submitButton:hover { background-color: #103e89; }		 
-	`;
+	
 	function fetchUsers(callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
 	}
@@ -48,8 +23,7 @@ function securityUpdate() {
 	return `    
 		<div class="securityPopup">
 		  <div class="securityPopup-header">Copy User Security</div>
-    		  <button class="back-button" id="back-button">Back</button>
-		  <style>${popupCss}</style>
+    		  <button class="back-button" id="back-button">Back</button>		  
 		  <div class="securityPopup-row">
 		    <div class="section user-section" id="section1">
 		      <h3>FROM</h3>
@@ -168,7 +142,7 @@ function securityUpdate() {
 			let teamListItems = [];
 
 			const appendLists = () => {
-				if (businessUnitListItem) {
+			 	if (businessUnitListItem) {
 					businessUnitAndTeamsList.appendChild(businessUnitListItem);
 				}
 				teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
