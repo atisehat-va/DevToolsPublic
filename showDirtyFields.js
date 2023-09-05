@@ -18,8 +18,7 @@ function generateDirtyFieldsHtml(dirtyFields) {
 
 function appendDirtyFieldsPopupToBody(html) {
     var newContainer = document.createElement('div');
-    newContainer.className = 'dirtyFieldsPopup';        
-
+    newContainer.className = 'dirtyFieldsPopup';
     newContainer.innerHTML = `
         <div class="dirtyFieldsPopup-header">
             <button class="back-button" id="back-button">Back</button>
@@ -30,7 +29,6 @@ function appendDirtyFieldsPopupToBody(html) {
         </div>
     `;
     document.body.appendChild(newContainer);
-
     document.getElementById('back-button').addEventListener('click', function() {
 	    newContainer.remove();
 	    openPopup();  
@@ -43,7 +41,6 @@ function showDirtyFields() {
     const attributes = entity.attributes.get();
     const dirtyFields = attributes.filter(attribute => attribute.getIsDirty());
     const dirtyFieldsHtml = generateDirtyFieldsHtml(dirtyFields);
-
     const popupHtml = `
         <h2 style="text-align: left;"><strong>Dirty Fields:</strong></h2>
         <div class="scrollable-section" style="padding: 10px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
@@ -77,7 +74,6 @@ function makePopupMovable(newContainer) {
     newContainer.style.top = (newContainer.offsetTop - pos2) + "px";
     newContainer.style.left = (newContainer.offsetLeft - pos1) + "px";
   }
-
 
     function closeDragElement() {
     document.onmouseup = null;
