@@ -86,7 +86,7 @@ function securityUpdate() {
 		    newContainer.remove();
 		    openPopup();  
 		});
-		//return newContainer;
+		return newContainer;
 		makePopupMovable(newContainer);
 	}
 
