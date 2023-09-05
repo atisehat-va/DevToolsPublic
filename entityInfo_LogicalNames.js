@@ -23,9 +23,9 @@ const entityInfoPopupCss = `
     .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
     .content-section { text-align: left; height: 100%; width: 100%; }
     .entityInfoPopup-row { display: flex; height: 100%; }
-    .entityInfoPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; }
+    .entityInfoPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none;}
     .scrollable-section { height: 66%; overflow-y: auto; }
-    .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-bottom-right-radius: 15px; }
+    .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-top-left-radius: 20px; border-bottom-right-radius: 15px; }
 `;
 function generateFieldListHtml(fields) {
     return fields
