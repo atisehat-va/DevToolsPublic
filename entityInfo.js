@@ -51,7 +51,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	var newContainer = document.createElement('div');	  	
 	newContainer.className = 'entityInfoPopup';		
 	newContainer.innerHTML = `
-	    <div class="entityInfoPopup-header">
+	    <div class="dirtyFieldsPopup-header">
                 <button class="back-button" id="back-button">Back</button>
      		Entity & Fields Info
             </div>   
