@@ -77,8 +77,7 @@ function securityUpdate() {
 	function createAppendSecurityPopup() {
 		const newContainerHtml = generateSecurityPopupHtml();
 		const newContainer = document.createElement('div');
-		//newContainer.id = 'securityPopup';
-		newContainer.className = 'securityPopup';
+		newContainer.id = 'MsecurityPopup';		
 		newContainer.innerHTML = newContainerHtml;	
 		
 		document.body.appendChild(newContainer);
