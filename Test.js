@@ -98,7 +98,13 @@ function openPopup() {
   `;
   var popupDiv = document.createElement('div');
   popupDiv.id = 'MenuPopup';
-  popupDiv.innerHTML = popupHtml;  
+  popupDiv.innerHTML = popupHtml;
+  popupDiv.style.position = 'absolute';
+  popupDiv.style.zIndex = '10000';
+  popupDiv.style.left = '50%';
+  popupDiv.style.top = '50%';
+  popupDiv.style.transform = 'translate(-50%, -50%)';
+  popupDiv.style.backgroundColor = 'white';  
   document.body.appendChild(popupDiv);
   
   makePopupMovable(popupDiv);
