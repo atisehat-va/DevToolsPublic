@@ -4,12 +4,6 @@ var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
 const baseUrl = 'https://atisehat-va.github.io/DevToolsPublic/';
-function loadScript(src, callback) {
-  const script = document.createElement('script');
-  script.src = baseUrl + src;
-  script.onload = callback;
-  document.head.appendChild(script);
-}
 
 function loadCSS(href) {
   const link = document.createElement('link');
@@ -21,6 +15,13 @@ function loadCSS(href) {
 
 // Load CSS
 loadCSS('styles.css');
+
+function loadScript(src, callback) {
+  const script = document.createElement('script');
+  script.src = baseUrl + src;
+  script.onload = callback;
+  document.head.appendChild(script);
+}
 
 // Load scripts
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
