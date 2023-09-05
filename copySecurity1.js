@@ -78,12 +78,7 @@ function securityUpdate() {
 		const newContainerHtml = generateSecurityPopupHtml();
 		const newContainer = document.createElement('div');
 		newContainer.id = 'securityPopup';
-		newContainer.innerHTML = newContainerHtml;
-
-		// Set initial position
-		newContainer.style.position = "absolute";
-		newContainer.style.top = "0px";
-		newContainer.style.left = "0px";
+		newContainer.innerHTML = newContainerHtml;	
 		
 		document.body.appendChild(newContainer);
 
@@ -347,8 +342,8 @@ function makePopupMovable(newContainer) {
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    newContainer.style.top = (newContainer.offsetTop - pos2) + "px";
-    newContainer.style.left = (newContainer.offsetLeft - pos1) + "px";
+    newContainer.style.top = (newContainer.offsetTop - pos2) + "%";
+    newContainer.style.left = (newContainer.offsetLeft - pos1) + "%";
   }
 
     function closeDragElement() {
