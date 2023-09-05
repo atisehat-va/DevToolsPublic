@@ -26,7 +26,7 @@ function securityUpdate() {
 	function createAppendSecurityPopup() {		
 		const newContainer = document.createElement('div');
 		//const newContainerHtml = generateSecurityPopupHtml();
-		newContainer.id = 'securityPopup';
+		newContainer.className = 'securityPopup';
 		newContainer.innerHTML =  `    
 			<div class="securityPopup">
 			  <div class="securityPopup-header">Copy User Security</div>
