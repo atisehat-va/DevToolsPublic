@@ -1,4 +1,4 @@
-.popup { position: absolute; zIndex: 10000; left: 50%; top: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; transform:(translate(-50%, -50%)); backgroundColor: white; }
+.popup { position: absolute; zIndex: 10000; left: 50%; top: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; transform: translate(-50%, -50%); backgroundColor: white; }
 .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }        
 .button-container { width: 400px; }
 .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
