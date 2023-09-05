@@ -24,9 +24,14 @@ function securityUpdate() {
 	}
 
 	function createAppendSecurityPopup() {		
-		var newContainer = document.createElement('div');
-		//const newContainerHtml = generateSecurityPopupHtml();
+		var newContainer = document.createElement('div');		
 		newContainer.className = 'securityPopup';
+		newContainer.id = 'securityPopup';		
+		newContainer.style.position = 'absolute';
+		newContainer.style.zIndex = '10000';
+		newContainer.style.left = '50%';
+		newContainer.style.top = '50%';
+		newContainer.style.transform = 'translate(-50%, -50%)';
 		newContainer.innerHTML =  `    			
 			  <div class="securityPopup-header">Copy User Security</div>
 	    		  <button class="back-button" id="back-button">Back</button>		  
@@ -83,8 +88,7 @@ function securityUpdate() {
 			    newContainer.remove();
 			    openPopup();  
 			});		
-		makePopupMovable(newContainer);		
-		//return newContainer;		
+		makePopupMovable(newContainer);				
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
