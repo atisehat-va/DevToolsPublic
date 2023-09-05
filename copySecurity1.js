@@ -24,7 +24,7 @@ function securityUpdate() {
 	}
 
 	function createAppendSecurityPopup() {		
-		const newContainer = document.createElement('div');
+		var newContainer = document.createElement('div');
 		//const newContainerHtml = generateSecurityPopupHtml();
 		//newContainer.className = 'securityPopup';
 		newContainer.innerHTML =  `    
