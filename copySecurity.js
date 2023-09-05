@@ -79,13 +79,17 @@ function securityUpdate() {
 		const newContainer = document.createElement('div');
 		newContainer.id = 'securityPopup';
 		newContainer.innerHTML = newContainerHtml;
-		//newContainer.style.position = 'absolute';
-		newContainer.style.zIndex = '10000';		
+		newContainer.style.position = 'absolute';
+		newContainer.style.zIndex = '10000';
+		newContainer.style.left = '50%';
+		newContainer.style.top = '50%';
+		newContainer.style.transform = 'translate(-50%, -50%)';
 		document.body.appendChild(newContainer);
+
 		document.getElementById('back-button').addEventListener('click', function() {
 		    newContainer.remove();
 		    openPopup();  
-		});		
+		});
 		return newContainer;
 		makePopupMovable(newContainer);
 	}
