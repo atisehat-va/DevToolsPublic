@@ -13,7 +13,7 @@ function loadScript(src, callback) {
 
 // Load scripts
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
-loadScript('entityInfo_LogicalNames.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
+loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
 loadScript('fieldsControl.js', () => console.log('Fields Control loaded!'));
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
