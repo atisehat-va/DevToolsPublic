@@ -317,17 +317,12 @@ function securityUpdate() {
 	}
 }
 
-function makePopupMovable(popupDiv) {
+function makePopupMovable(newContainer) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  popupDiv.onmousedown = dragMouseDown;
+  newContainer.onmousedown = dragMouseDown;
 
   function dragMouseDown(e) {
     e = e || window.event;    
-    var iframeContainer = document.getElementById('iframe-container');
-    if (iframeContainer.contains(e.target)) {
-	return;
-    }
-    
     e.preventDefault();
     pos3 = e.clientX;
     pos4 = e.clientY;
@@ -342,10 +337,9 @@ function makePopupMovable(popupDiv) {
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    popupDiv.style.top = (popupDiv.offsetTop - pos2) + "px";
-    popupDiv.style.left = (popupDiv.offsetLeft - pos1) + "px";
+    newContainer.style.top = (newContainer.offsetTop - pos2) + "px";
+    newContainer.style.left = (newContainer.offsetLeft - pos1) + "px";
   }
-
 
     function closeDragElement() {
     document.onmouseup = null;
