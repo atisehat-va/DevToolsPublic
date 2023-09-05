@@ -65,8 +65,7 @@ function appendDirtyFieldsPopupToBody(html) {
         <div class="dirtyFieldsPopup-header">
             <button class="back-button" id="back-button">Back</button>
             Dirty Fields Info
-        </div>
-        <style>${dirtyFieldsPopupCss}</style>
+        </div>        
         <div class="dirtyFieldsPopup-content">
             ${html}
         </div>
