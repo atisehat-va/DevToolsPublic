@@ -20,77 +20,72 @@ function securityUpdate() {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}
 	function generateSecurityPopupHtml() {
-	return `    
-		<div class="securityPopup">
-		  <div class="securityPopup-header">Copy User Security</div>
-    		  <button class="back-button" id="back-button">Back</button>		  
-		  <div class="securityPopup-row">
-		    <div class="section user-section" id="section1">
-		      <h3>FROM</h3>
-		      <input type="text" id="searchInput1" placeholder="Search Users">
-		      <div class="user-list-container">
-		        <div id="userList1"></div>
-		      </div>
-		    </div>
-		    <div class="section user-section" id="section2">
-		      <h3>TO</h3>
-		      <input type="text" id="searchInput2" placeholder="Search Users">
-		      <div class="user-list-container">
-		        <div id="userList2"></div>
-		      </div>
-		    </div>
-		  </div>
-		  <div id="sectionsRow1" class="securityPopup-row">
-		    <div class="section details-section-row1" id="section3">
-		      <h3>Business Unit & Teams</h3>
-		      <div class="roles-and-teams-list-row1">
-		        <ul></ul>
-		      </div>
-		    </div>
-		    <div class="section details-section-row1" id="section5">
-		      <h3>Business Unit & Teams</h3>
-		      <div class="roles-and-teams-list-row1">
-		        <ul></ul>
-		      </div>
-		    </div>
-		  </div>
-		  <div id="sectionsRow2" class="securityPopup-row">
-		    <div class="section details-section-row2" id="section4">
-		      <h3>Security Roles</h3>
-		      <div class="roles-and-teams-list-row2">
-		        <ul></ul>
-		      </div>
-		    </div>
-		    <div class="section details-section-row2" id="section6">
-		      <h3>Security Roles</h3>
-		      <div class="roles-and-teams-list-row2">
-		        <ul></ul>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="submit-button-container">
-		    <button id="submitButton">Submit</button>
-		  </div>
-	    </div>`;
+	return 
 	}
 
 	function createAppendSecurityPopup() {		
 		const newContainer = document.createElement('div');
-		const newContainerHtml = generateSecurityPopupHtml();
-		newContainer.className = 'mSecurityPopup';
-		newContainer.innerHTML = newContainerHtml;	
-		
-		document.body.appendChild(newContainer);
-
-		document.getElementById('back-button').addEventListener('click', function() {
-		    newContainer.remove();
-		    openPopup();  
-		});
-		
-		makePopupMovable(newContainer);
-		
-		return newContainer;
-		
+		//const newContainerHtml = generateSecurityPopupHtml();
+		newContainer.id = 'securityPopup';
+		newContainer.innerHTML =  `    
+			<div class="securityPopup">
+			  <div class="securityPopup-header">Copy User Security</div>
+	    		  <button class="back-button" id="back-button">Back</button>		  
+			  <div class="securityPopup-row">
+			    <div class="section user-section" id="section1">
+			      <h3>FROM</h3>
+			      <input type="text" id="searchInput1" placeholder="Search Users">
+			      <div class="user-list-container">
+			        <div id="userList1"></div>
+			      </div>
+			    </div>
+			    <div class="section user-section" id="section2">
+			      <h3>TO</h3>
+			      <input type="text" id="searchInput2" placeholder="Search Users">
+			      <div class="user-list-container">
+			        <div id="userList2"></div>
+			      </div>
+			    </div>
+			  </div>
+			  <div id="sectionsRow1" class="securityPopup-row">
+			    <div class="section details-section-row1" id="section3">
+			      <h3>Business Unit & Teams</h3>
+			      <div class="roles-and-teams-list-row1">
+			        <ul></ul>
+			      </div>
+			    </div>
+			    <div class="section details-section-row1" id="section5">
+			      <h3>Business Unit & Teams</h3>
+			      <div class="roles-and-teams-list-row1">
+			        <ul></ul>
+			      </div>
+			    </div>
+			  </div>
+			  <div id="sectionsRow2" class="securityPopup-row">
+			    <div class="section details-section-row2" id="section4">
+			      <h3>Security Roles</h3>
+			      <div class="roles-and-teams-list-row2">
+			        <ul></ul>
+			      </div>
+			    </div>
+			    <div class="section details-section-row2" id="section6">
+			      <h3>Security Roles</h3>
+			      <div class="roles-and-teams-list-row2">
+			        <ul></ul>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="submit-button-container">
+			    <button id="submitButton">Submit</button>
+			  </div>
+		    </div>`;		
+			document.body.appendChild(newContainer);
+			document.getElementById('back-button').addEventListener('click', function() {
+			    newContainer.remove();
+			    openPopup();  
+			});		
+		makePopupMovable(newContainer);		
+		//return newContainer;		
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
