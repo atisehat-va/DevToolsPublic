@@ -118,14 +118,19 @@ function closeIframe(url) {
 }
 
 function makePopupMovable(popupDiv) {
+console.log("makePopupMovable called");
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   popupDiv.onmousedown = dragMouseDown;
 
   function dragMouseDown(e) {
+  console.log("dragMouseDown called");
     e = e || window.event;
+  console.log('Target element:', e.target);
     //new
     var iframeContainer = document.getElementById('iframe-container');
+    console.log('iframeContainer:', iframeContainer);
     if (iframeContainer.contains(e.target)) {
+    console.log("Element is within iframeContainer, returning.");
 	return;
     }
     //newEnd
@@ -137,6 +142,7 @@ function makePopupMovable(popupDiv) {
   }
 
   function elementDrag(e) {
+   console.log("elementDrag called");
     e = e || window.event;
     e.preventDefault();
     pos1 = pos3 - e.clientX;
@@ -149,6 +155,7 @@ function makePopupMovable(popupDiv) {
 
 
     function closeDragElement() {
+    console.log("closeDragElement called");
     document.onmouseup = null;
     document.onmousemove = null;
   }
