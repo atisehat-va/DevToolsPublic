@@ -26,7 +26,8 @@ function securityUpdate() {
 	function createAppendSecurityPopup() {		
 		var newContainer = document.createElement('div');		
 		newContainer.className = 'securityPopup';
-		newContainer.id = 'securityPopup';		
+		newContainer.id = 'securityPopup';
+		newContainer.style.zIndex = '10000';		
 		newContainer.innerHTML =  `    			
 			  <div class="securityPopup-header">Copy User Security</div>
 	    		  <button class="back-button" id="back-button">Back</button>		  
@@ -83,7 +84,7 @@ function securityUpdate() {
 			    newContainer.remove();
 			    openPopup();  
 			});		
-		makePopupMovable(newContainer);	
+		//makePopupMovable(newContainer);	
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
