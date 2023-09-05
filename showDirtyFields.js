@@ -46,11 +46,7 @@ function generateDirtyFieldsHtml(dirtyFields) {
 
 function appendDirtyFieldsPopupToBody(html) {
     var newContainer = document.createElement('div');
-    newContainer.className = 'dirtyFieldsPopup';    
-    newContainer.style.position = 'fixed';
-    newContainer.style.top = '50%';
-    newContainer.style.left = '50%';
-    newContainer.style.transform = 'translate(-50%, -50%)';
+    newContainer.className = 'dirtyFieldsPopup';        
 
     newContainer.innerHTML = `
         <div class="dirtyFieldsPopup-header">
