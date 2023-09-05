@@ -151,6 +151,8 @@ console.log("makePopupMovable called");
     pos4 = e.clientY;
     popupDiv.style.top = (popupDiv.offsetTop - pos2) + "px";
     popupDiv.style.left = (popupDiv.offsetLeft - pos1) + "px";
+    console.log("New top:", (popupDiv.offsetTop - pos2) + "px");
+    console.log("New left:", (popupDiv.offsetLeft - pos1) + "px");
   }
 
 
