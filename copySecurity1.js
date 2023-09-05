@@ -27,8 +27,7 @@ function securityUpdate() {
 		var newContainer = document.createElement('div');
 		//const newContainerHtml = generateSecurityPopupHtml();
 		newContainer.className = 'securityPopup';
-		newContainer.innerHTML =  `    
-			<div>
+		newContainer.innerHTML =  `    			
 			  <div class="securityPopup-header">Copy User Security</div>
 	    		  <button class="back-button" id="back-button">Back</button>		  
 			  <div class="securityPopup-row">
@@ -78,7 +77,7 @@ function securityUpdate() {
 			  <div class="submit-button-container">
 			    <button id="submitButton">Submit</button>
 			  </div>
-		    </div>`;		
+		    `;		
 			document.body.appendChild(newContainer);
 			document.getElementById('back-button').addEventListener('click', function() {
 			    newContainer.remove();
