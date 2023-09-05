@@ -25,8 +25,8 @@ function securityUpdate() {
 
 	function createAppendSecurityPopup() {		
 		var newContainer = document.createElement('div');		
-		newContainer.className = 'securityPopup';
-		//newContainer.id = 'securityPopup';		
+		//newContainer.className = 'securityPopup';
+		newContainer.id = 'securityPopup';		
 		newContainer.style.position = 'absolute';
 		newContainer.style.zIndex = '10000';
 		newContainer.style.left = '50%';
