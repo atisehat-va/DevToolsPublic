@@ -62,7 +62,6 @@ function appendPopupToBody(html, clearPrevious = false) {
 	    </div>
 	`;
 	document.body.appendChild(newContainer);
-
 	document.getElementById('back-button').addEventListener('click', function() {
 	    newContainer.remove();
 	    openPopup();  
@@ -94,8 +93,7 @@ function makePopupMovable(newContainer) {
     newContainer.style.left = (newContainer.offsetLeft - pos1) + "px";
   }
 
-
-    function closeDragElement() {
+  function closeDragElement() {
     document.onmouseup = null;
     document.onmousemove = null;
   }
