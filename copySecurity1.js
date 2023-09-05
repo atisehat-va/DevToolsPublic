@@ -74,10 +74,10 @@ function securityUpdate() {
 	    </div>`;
 	}
 
-	function createAppendSecurityPopup() {
-		const newContainerHtml = generateSecurityPopupHtml();
+	function createAppendSecurityPopup() {		
 		const newContainer = document.createElement('div');
-		newContainer.id = 'MsecurityPopup';		
+		const newContainerHtml = generateSecurityPopupHtml();
+		newContainer.className = 'securityPopup';
 		newContainer.innerHTML = newContainerHtml;	
 		
 		document.body.appendChild(newContainer);
