@@ -86,8 +86,8 @@ function securityUpdate() {
 		    newContainer.remove();
 		    openPopup();  
 		});		
-		makePopupMovable(newContainer);
 		return newContainer;
+		makePopupMovable(newContainer);
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
