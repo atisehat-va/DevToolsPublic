@@ -78,7 +78,13 @@ function securityUpdate() {
 		const newContainerHtml = generateSecurityPopupHtml();
 		const newContainer = document.createElement('div');
 		newContainer.id = 'securityPopup';
-		newContainer.innerHTML = newContainerHtml;		
+		newContainer.innerHTML = newContainerHtml;
+
+		// Set initial position
+		newContainer.style.position = "absolute";
+		newContainer.style.top = "0px";
+		newContainer.style.left = "0px";
+		
 		document.body.appendChild(newContainer);
 
 		document.getElementById('back-button').addEventListener('click', function() {
