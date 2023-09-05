@@ -28,7 +28,7 @@ function securityUpdate() {
 		//const newContainerHtml = generateSecurityPopupHtml();
 		newContainer.className = 'securityPopup';
 		newContainer.innerHTML =  `    
-			<div class="securityPopup">
+			<div>
 			  <div class="securityPopup-header">Copy User Security</div>
 	    		  <button class="back-button" id="back-button">Back</button>		  
 			  <div class="securityPopup-row">
