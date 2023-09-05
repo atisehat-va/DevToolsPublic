@@ -98,7 +98,13 @@ function openPopup() {
   `;
   var popupDiv = document.createElement('div');
   popupDiv.id = 'MenuPopup';
-  popupDiv.innerHTML = popupHtml;   
+  popupDiv.innerHTML = popupHtml;
+  popupDiv.style.position = 'absolute';
+  popupDiv.style.zIndex = '10000';
+  popupDiv.style.left = '50%';
+  popupDiv.style.top = '50%';
+  popupDiv.style.transform = 'translate(-50%, -50%)';
+  popupDiv.style.backgroundColor = 'white';  
   document.body.appendChild(popupDiv);
   
   makePopupMovable(popupDiv);
@@ -118,22 +124,15 @@ function closeIframe(url) {
 }
 
 function makePopupMovable(popupDiv) {
-console.log("makePopupMovable called");
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   popupDiv.onmousedown = dragMouseDown;
 
-  function dragMouseDown(e) {
-  console.log("dragMouseDown called");
-    e = e || window.event;
-  console.log('Target element:', e.target);
+  function dragMouseDown(e) {  
+    e = e || window.event;  
     //new
-    var iframeContainer = document.getElementById('iframe-container');
-    console.log('iframeContainer:', iframeContainer);
-    if (iframeContainer.contains(e.target)) {
-    console.log("Element is within iframeContainer, returning.");
+    var iframeContainer = document.getElementById('iframe-container');    
 	return;
-    }
-    //newEnd
+    }    
     e.preventDefault();
     pos3 = e.clientX;
     pos4 = e.clientY;
@@ -141,8 +140,7 @@ console.log("makePopupMovable called");
     document.onmousemove = elementDrag;
   }
 
-  function elementDrag(e) {
-   console.log("elementDrag called");
+  function elementDrag(e) {   
     e = e || window.event;
     e.preventDefault();
     pos1 = pos3 - e.clientX;
@@ -150,14 +148,11 @@ console.log("makePopupMovable called");
     pos3 = e.clientX;
     pos4 = e.clientY;
     popupDiv.style.top = (popupDiv.offsetTop - pos2) + "px";
-    popupDiv.style.left = (popupDiv.offsetLeft - pos1) + "px";
-    console.log("New top:", (popupDiv.offsetTop - pos2) + "px");
-    console.log("New left:", (popupDiv.offsetLeft - pos1) + "px");
+    popupDiv.style.left = (popupDiv.offsetLeft - pos1) + "px";   
   }
 
 
-    function closeDragElement() {
-    console.log("closeDragElement called");
+    function closeDragElement() {    
     document.onmouseup = null;
     document.onmousemove = null;
   }
