@@ -19,6 +19,9 @@ function loadCSS(href) {
   document.head.appendChild(link);
 }
 
+// Load CSS
+loadCSS('styles.css');
+
 // Load scripts
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
 loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
@@ -28,9 +31,6 @@ loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity.js', () => console.log('Security loaded!'));
 loadScript('copySecurity2.js', () => console.log('Security loaded!')); //Assign Security
-
-// Load CSS
-loadCSS('styles.css');
 
 function openPopup() {
   closeSubPopups();
