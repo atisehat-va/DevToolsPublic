@@ -28,7 +28,7 @@ function securityUpdate() {
 		newContainer.className = 'commonPopup';		
 		newContainer.innerHTML =  `    			
 			  <div class="commonPopup-header">Copy User Security</div>
-	    		  <button class="back-button" id="back-button">Back</button>		  
+	    		  <button class="commonback-button" id="commonback-button">Back</button>		  
 			  <div class="securityPopup-row">
 			    <div class="section user-section" id="section1">
 			      <h3>FROM</h3>
@@ -78,7 +78,7 @@ function securityUpdate() {
 			  </div>
 		    `;		
 			document.body.appendChild(newContainer);
-			document.getElementById('back-button').addEventListener('click', function() {
+			document.getElementById('commonback-button').addEventListener('click', function() {
 			    newContainer.remove();
 			    openPopup();  
 			});		
