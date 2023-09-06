@@ -45,13 +45,13 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
 }
 function appendPopupToBody(html, clearPrevious = false) {
 	if (clearPrevious) {
-        	const existingPopups = document.querySelectorAll('.entityInfoPopup');
+        	const existingPopups = document.querySelectorAll('.commonPopup');
         	existingPopups.forEach(popup => popup.remove());
     	}    
 	var newContainer = document.createElement('div');	  	
-	newContainer.className = 'entityInfoPopup';		
+	newContainer.className = 'commonPopup';		
 	newContainer.innerHTML = `
-	    <div class="entityInfoPopup-header">
+	    <div class="commonPopup-header">
                 <button class="back-button" id="back-button">Back</button>
      		Entity & Fields Info
             </div>   
