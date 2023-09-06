@@ -79,7 +79,7 @@ function openPopup() {
 	    <div class="dropdown">
 	      <button onclick="toggleDropdownMenu('dropdown-content');">User Provision</button>
 	      <div id="dropdown-content" class="dropdown-content">
-	        <button onclick="openUrl('dev', 'userProvision');">User Provision DEV</button>
+	        <button onclick="openUserProvision('dev');">User Provision DEV</button>
 	        <button onclick="openUrl('int', 'userProvision');">User Provision INT</button>
 	        <button onclick="openUrl('qa', 'userProvision')">User Provision QA</button>
 	        <button onclick="openUrl('preprod', 'userProvision');">User Provision Pre-Prod</button>
