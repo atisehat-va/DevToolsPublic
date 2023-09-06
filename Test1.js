@@ -125,7 +125,7 @@ function closeIframe(url) {
   containerDiv.classList.remove('expanded-alert');
   containerDiv.classList.remove('expanded-html');
 }
-/*
+
 function makePopupMovable(newContainer) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   newContainer.onmousedown = dragMouseDown;
@@ -161,7 +161,7 @@ function makePopupMovable(newContainer) {
     document.onmouseup = null;
     document.onmousemove = null;
   }
-} */
+}
 
 function toggleDropdownMenu(dropdownId) {
   var dropdownContent = document.getElementById(dropdownId);
