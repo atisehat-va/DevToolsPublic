@@ -28,30 +28,12 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
 
 // Function to open User Provision
 function openUserProvision() {
-    debugger;    
-    //var crmUrl;
+    debugger;        
     var clientUrl = Xrm.Page.context.getClientUrl();
-    var windowName;
-    var windowOptions = "height=640,width=740,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
-    var timestamp = new Date().getTime();
-    /* 
-    switch (environment) {
-        case 'dev':            
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "dev$2");            
-            break;
-        case 'int':            
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "int$2");            
-            break;
-        case 'qa':            
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "qa$2");
-            break;
-        case 'preprod':
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "preprod$2");
-            break;
-        default:
-            return;
-    } */
-
+    //var windowName;
+    //var windowOptions = "height=640,width=740,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
+    //var timestamp = new Date().getTime();
+   
     var entityName = "vhacrm_userprovision";
     var formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
     
