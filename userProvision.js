@@ -5,7 +5,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     if (iframeUrl) {
         html += `
             <div class="iframe-container">
-                <iframe style="position:relative; top:-85px;" src="${iframeUrl}" width="740" height="570"></iframe>
+                <iframe style="position:relative; top:-85px;" src="${iframeUrl}" width="740" height="620"></iframe>
             </div>
         `;
     }
