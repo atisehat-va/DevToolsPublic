@@ -33,7 +33,7 @@ loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity1.js', () => console.log('Security loaded!'));
 loadScript('copySecurity2.js', () => console.log('Security loaded!')); //Assign Security
-
+loadScript('userProvision.js', () => console.log('Security loaded!')); 
 function openPopup() {
   closeSubPopups();
   var isAdmin = false;
