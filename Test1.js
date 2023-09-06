@@ -109,8 +109,10 @@ function openPopup() {
 	  </div>
 	  <button onclick="closePopup();">Close</button>
 	</div>
+        <div id="popupContent" class="content"></div>	
    </div>
   `;
+	
   var newContainer = document.createElement('div');
   newContainer.id = 'MenuPopup';
   newContainer.innerHTML = popupHtml;
