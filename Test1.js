@@ -62,8 +62,7 @@ function openPopup() {
 	.dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
 	.dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
 	.dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
-	.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
-	.content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                		
+	.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }	
     </style>
     <div class="popup">
     	<div class="button-container">
