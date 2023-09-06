@@ -50,7 +50,7 @@ function showDirtyFields() {
 
     appendDirtyFieldsPopupToBody(popupHtml);
 }
-
+/*
 function makePopupMovable(newContainer) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   newContainer.onmousedown = dragMouseDown;
@@ -79,4 +79,4 @@ function makePopupMovable(newContainer) {
     document.onmouseup = null;
     document.onmousemove = null;
   }
-}
+} */
