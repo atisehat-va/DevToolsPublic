@@ -1,4 +1,5 @@
 function makePopupMovable(newContainer) {
+	console.log("MakePopupMovable");
 	var pos1 = 0,	pos2 = 0, pos3 = 0, pos4 = 0;
 	newContainer.onmousedown = function(e) {
 		if (e.target.tagName.toLowerCase() === "input") {
