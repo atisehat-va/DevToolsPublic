@@ -1,37 +1,48 @@
-function openUrl(environment, pageType) {
-    closeIframe();
-    var crmUrl;
-    var clientUrl = Xrm.Page.context.getClientUrl();
-    var windowName;
-    var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
-    var timestamp = new Date().getTime();    
-    switch (environment) {
-        case 'dev':            
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "dev$2");            
-            break;
-        case 'int':            
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "int$2");            
-            break;
-        case 'qa':            
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "qa$2");
-            break;
-        case 'preprod':
-            crmUrl = clientUrl.replace(/(\w+)(\.crm9)/, "preprod$2");
-            break;
-        default:
-            return;
+// Function to append User Provision popup to body
+function appendUserProvisionPopupToBody(html, iframeUrl = null) {
+    var newContainer = document.createElement('div');
+    newContainer.className = 'commonPopup';    
+    if (iframeUrl) {
+        html += `
+            <div class="iframe-container">
+                <iframe style="position:relative; top:-85px;" src="${iframeUrl}" width="740" height="640"></iframe>
+            </div>
+        `;
     }
-    if (pageType === "advanceFind") {        
+    newContainer.innerHTML = `
+        <div class="commonPopup-header">
+            <button class="commonback-button" id="commonback-button">Back</button>
+            User Provision Info
+        </div>        
+        <div class="dirtyFieldsPopup-content">
+            ${html}
+        </div>
+    `;    
+    document.body.appendChild(newContainer);
+    document.getElementById('commonback-button').addEventListener('click', function() {
+        newContainer.remove();
+        openPopup();
+    });
+    makePopupMovable(newContainer);
+}
+
+// Function to open User Provision
+function openUrl(pageType) {
+    debugger;        
+    var clientUrl = Xrm.Page.context.getClientUrl(); 
+
+    if (pageType === "advanceFind") {       
+        var timestamp = new Date().getTime();
+        var windowName = "Advanced Find Classic " + timestamp;
         var advancedFindPath = '/main.aspx?pagetype=advancedfind';
-        var advancedFindUrl = crmUrl + advancedFindPath;        
-        windowName = "Advanced Find Classic " + timestamp;        
+        var advancedFindUrl = clientUrl + advancedFindPath;                
         window.open(advancedFindUrl, windowName, windowOptions);
-        toggleDropdownMenu('dropdown-content-advanced-find');
-    } else if (pageType === "userProvision") {        
+        
+    } else if (pageType === "userProvision") {
         var entityName = "vhacrm_userprovision";
-        var formUrl = crmUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord"; 
-        showContent('iframe', formUrl);
-        //window.open(formUrl, "New " + entityName + " Record", "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,titlebar=no,toolbar=no");
-        toggleDropdownMenu('dropdown-content');       
-    }
+    var formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
+    
+    var popupHtml = ` `;
+    appendUserProvisionPopupToBody(popupHtml, formUrl); 
+    }      
 }
