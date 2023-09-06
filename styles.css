@@ -3,7 +3,7 @@
 .commonPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none;}
 .commonback-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; border-top-left-radius: 20px; border-bottom-right-radius: 15px; }
 
-
+.commonsection { padding: 10px; border-right: 0px solid #ccc; overflow-y: scroll; }
 
 /* End Common */
 
@@ -12,14 +12,14 @@
 .scrollable-section { height: 52%; overflow-y: auto; }
 
 /* entityInfo */
-.section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; }
+/* .section { padding: 15px; border-right: 0px solid #ccc; overflow-y: scroll; } */
 .content-section { text-align: left; height: 100%; width: 100%; }
 .entityInfoPopup-row { display: flex; height: 100%; }
-.scroll-section { height: 66%; overflow-y: auto; }
+.scroll-section { height: 75%; overflow-y: auto; }
 
 /* copySecurity */
 .securityPopup-row { display: flex; }    
-.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
+/* .section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }     */
 .section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .user-section { text-align: center; height: 190px; width: 50%;}    
 .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
