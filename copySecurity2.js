@@ -38,11 +38,7 @@ function securityUpdate() {
 			      </div>
 			    </div>
 			    <div class="commonSection user-section" id="section2">
-			      <h3>TO</h3>
-			      <input type="text" id="searchInput2" placeholder="Search Users">
-			      <div class="user-list-container">
-			        <div id="userList2"></div>
-			      </div>
+			      <h3>TO</h3>			      
 			    </div>
 			  </div>
 			  <div id="sectionsRow1" class="securityPopup-row">
@@ -53,10 +49,7 @@ function securityUpdate() {
 			      </div>
 			    </div>
 			    <div class="commonSection details-section-row" id="section5">
-			      <h3>Business Unit & Teams</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
+			      <h3>Business Unit & Teams</h3>			      
 			    </div>
 			  </div>
 			  <div id="sectionsRow2" class="securityPopup-row">
@@ -67,10 +60,7 @@ function securityUpdate() {
 			      </div>
 			    </div>
 			    <div class="commonSection details-section-row" id="section6">
-			      <h3>Security Roles</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
+			      <h3>Security Roles</h3>			      
 			    </div>
 			  </div>
 			  <div class="submit-button-container">
@@ -98,13 +88,13 @@ function securityUpdate() {
 	}
 
 	function updateSubmitButtonVisibility() {
-		const submitButton = document.getElementById("submitButton");
-		if (selectedUserId && selectedUserId2) {
-			submitButton.style.display = 'block';
-		} else {
-			submitButton.style.display = 'none';
-		}
-	}
+	    const submitButton = document.getElementById("submitButton");
+	    if (selectedUserId) {
+	    	submitButton.style.display = 'block';
+	    } else {
+	    	submitButton.style.display = 'none';
+	    }
+    	}
 
 	function selectUser(user, sectionPrefix) {
 		try {
@@ -119,13 +109,7 @@ function securityUpdate() {
 
 			if (sectionPrefix === '1') {
 				selectedUserId = user.systemuserid;
-			}
-			if (sectionPrefix === '2') {
-				selectedUserId2 = user.systemuserid;
-			}
-			if (sectionPrefix === '2') {
-				selectedUserName2 = user.fullname;
-			}
+			}			
 			updateSubmitButtonVisibility();
 
 			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
@@ -234,10 +218,8 @@ function securityUpdate() {
 	function displayPopup(users) {
 		users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
 		const newContainer = createAppendSecurityPopup();
-		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
-		renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
-		setupSearchFilter('searchInput1');
-		setupSearchFilter('searchInput2');
+		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');		
+		setupSearchFilter('searchInput1');		
 
 		loadScript(
 			"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
