@@ -30,14 +30,14 @@ function securityUpdate() {
 			  <div class="commonPopup-header">Copy User Security</div>
 	    		  <button class="commonback-button" id="commonback-button">Back</button>		  
 			  <div class="securityPopup-row">
-			    <div class="commonSection  user-section" id="section1">
+			    <div class="commonSection user-section" id="section1">
 			      <h3>FROM</h3>
 			      <input type="text" id="searchInput1" placeholder="Search Users">
 			      <div class="user-list-container">
 			        <div id="userList1"></div>
 			      </div>
 			    </div>
-			    <div class="commonSection  user-section" id="section2">
+			    <div class="commonSection user-section" id="section2">
 			      <h3>TO</h3>
 			      <input type="text" id="searchInput2" placeholder="Search Users">
 			      <div class="user-list-container">
@@ -46,13 +46,13 @@ function securityUpdate() {
 			    </div>
 			  </div>
 			  <div id="sectionsRow1" class="securityPopup-row">
-			    <div class="commonSection  details-section-row" id="section3">
+			    <div class="commonSection details-section-row" id="section3">
 			      <h3>Business Unit & Teams</h3>
 			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
 			    </div>
-			    <div class="commonSection  details-section-row" id="section5">
+			    <div class="commonSection details-section-row" id="section5">
 			      <h3>Business Unit & Teams</h3>
 			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
@@ -60,13 +60,13 @@ function securityUpdate() {
 			    </div>
 			  </div>
 			  <div id="sectionsRow2" class="securityPopup-row">
-			    <div class="commonSection  details-section-row" id="section4">
+			    <div class="commonSection details-section-row" id="section4">
 			      <h3>Security Roles</h3>
 			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
 			    </div>
-			    <div class="commonSection  details-section-row" id="section6">
+			    <div class="commonSection details-section-row" id="section6">
 			      <h3>Security Roles</h3>
 			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
