@@ -74,13 +74,7 @@ function openPopup() {
 	    	<div class="button-container">
 		  <div class="dropdown-row">
 		    <div class="dropdown">
-		      <button onclick="toggleDropdownMenu('dropdown-content-advanced-find');">Advanced Find</button>
-		      <div id="dropdown-content-advanced-find" class="dropdown-content">
-		        <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>
-		        <button onclick="openUrl('advanceFind');">Advanced Find INT</button>
-		        <button onclick="openUrl('advanceFind');">Advanced Find QA</button>
-		        <button onclick="openUrl('advanceFind');">Advanced Find Pre-Prod</button>
-		      </div>
+                      <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>		      
 		    </div>
 		    <div class="dropdown">
 		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
