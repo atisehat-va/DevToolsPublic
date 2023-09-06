@@ -9,7 +9,8 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     }    
     newContainer.innerHTML = `
         <div class="commonPopup-header">
-            <button class="commonback-button" id="commonback-button">Back</button>            
+            <button class="commonback-button" id="commonback-button">Back</button>
+            User Provision Info
         </div>        
         <div class="dirtyFieldsPopup-content">
             ${html}
@@ -52,9 +53,9 @@ function openUserProvision(environment) {
     var entityName = "vhacrm_userprovision";
     var formUrl = crmUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
     
-    var popupHtml = `
+    /* var popupHtml = `
         <h2 style="text-align: left;"><strong>User Provision:</strong></h2>
-    `;
+    `; */
     appendUserProvisionPopupToBody(popupHtml, formUrl);
     toggleDropdownMenu('dropdown-content');
 }
