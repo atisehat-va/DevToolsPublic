@@ -50,75 +50,105 @@ function openPopup() {
   if (!isAdmin && userName !== "Adrian Solis") {
     Xrm.Navigation.openAlertDialog({ text: "You do not have permission to execute this action."});
     return;    
-  }  
-  var popupHtml = `  
-    <style>       
-        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; padding: 20px; transform: translate(-50%, -50%); }	
-	.button-container { width: 400px; }	
-	.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
-	.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
-	.button-row button { width: calc(50% - 5px); } 
-	.dropdown button { width: 100%; }
-	.button-row .full-width { width: 100%; }
-	.dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
-	.dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
-	.dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
-	.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }	
-    </style>
-    <div class="popup">
-    	<div class="button-container">
-	  <div class="dropdown-row">
-	    <div class="dropdown">
-	      <button onclick="toggleDropdownMenu('dropdown-content-advanced-find');">Advanced Find</button>
-	      <div id="dropdown-content-advanced-find" class="dropdown-content">
-	        <button onclick="openUrl('dev', 'advanceFind');">Advanced Find DEV</button>
-	        <button onclick="openUrl('int', 'advanceFind');">Advanced Find INT</button>
-	        <button onclick="openUrl('qa', 'advanceFind');">Advanced Find QA</button>
-	        <button onclick="openUrl('preprod', 'advanceFind');">Advanced Find Pre-Prod</button>
-	      </div>
-	    </div>
-	    <div class="dropdown">
-	      <button onclick="toggleDropdownMenu('dropdown-content');">User Provision</button>
-	      <div id="dropdown-content" class="dropdown-content">
-	        <button onclick="closePopup(); openUserProvision();">User Provision DEV</button>
-	        <button onclick="closePopup(); openUserProvision('int');">User Provision INT</button>
-	        <button onclick="closePopup(); openUserProvision('qa')">User Provision QA</button>
-	        <button onclick="closePopup(); openUserProvision('preprod');">User Provision Pre-Prod</button>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="button-row">
-	    <button onclick="closePopup(); securityUpdate();">Update Security</button>
-	    <button onclick="closePopup(); securityUpdate2();">Update Security2</button>
-	  </div>
-	  <div class="button-row">
-	    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Entity Info & Fields</button>
-	    <button onclick="renameTabsSectionsFields();">Show Logical Names</button>
-	  </div>
-	  <div class="button-row">
-	    <button onclick="showAllTabsAndSections();">Show Hidden Items</button>
-	    <button onclick="unlockAllFields();">Unlock All Fields</button>
-	  </div>
-	  <div class="button-row">
-	    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
-	    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
-	  </div>
-	    <button onclick="closePopup();">Close</button>
-	</div>
-        <div id="popupContent" class="content"></div>	
-   </div>
-  `;
-  
-  var newContainer = document.createElement('div');
-  newContainer.id = 'MenuPopup';
-  newContainer.innerHTML = popupHtml;
-  newContainer.style.position = 'fixed';  
-  newContainer.style.left = '50%';
-  newContainer.style.top = '50%';
-  newContainer.style.transform = 'translate(-50%, -50%)';  
-  document.body.appendChild(newContainer);
-  
-  makePopupMovable(newContainer);
+  }
+
+ checkIfEntityExists('mcs_userprovision', function(entityExists) {
+    	var userProvisionPreProdButton = entityExists ? '<button onclick="closePopup(); openUserProvision(\'preprod\');">User Provision Pre-Prod</button>' : '';
+	 
+	  var popupHtml = `  
+	    <style>       
+	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; padding: 20px; transform: translate(-50%, -50%); }	
+		.button-container { width: 400px; }	
+		.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
+		.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
+		.button-row button { width: calc(50% - 5px); } 
+		.dropdown button { width: 100%; }
+		.button-row .full-width { width: 100%; }
+		.dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
+		.dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
+		.dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
+		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }	
+	    </style>
+	    <div class="popup">
+	    	<div class="button-container">
+		  <div class="dropdown-row">
+		    <div class="dropdown">
+		      <button onclick="toggleDropdownMenu('dropdown-content-advanced-find');">Advanced Find</button>
+		      <div id="dropdown-content-advanced-find" class="dropdown-content">
+		        <button onclick="openUrl('dev', 'advanceFind');">Advanced Find DEV</button>
+		        <button onclick="openUrl('int', 'advanceFind');">Advanced Find INT</button>
+		        <button onclick="openUrl('qa', 'advanceFind');">Advanced Find QA</button>
+		        <button onclick="openUrl('preprod', 'advanceFind');">Advanced Find Pre-Prod</button>
+		      </div>
+		    </div>
+		    <div class="dropdown">
+		      <button onclick="toggleDropdownMenu('dropdown-content');">User Provision</button>
+		      <div id="dropdown-content" class="dropdown-content">
+		        <button onclick="closePopup(); openUserProvision();">User Provision DEV</button>
+		        <button onclick="closePopup(); openUserProvision('int');">User Provision INT</button>
+		        <button onclick="closePopup(); openUserProvision('qa')">User Provision QA</button>
+	                ${userProvisionPreProdButton}		        
+		      </div>
+		    </div>
+		  </div>
+		  <div class="button-row">
+		    <button onclick="closePopup(); securityUpdate();">Update Security</button>
+		    <button onclick="closePopup(); securityUpdate2();">Update Security2</button>
+		  </div>
+		  <div class="button-row">
+		    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Entity Info & Fields</button>
+		    <button onclick="renameTabsSectionsFields();">Show Logical Names</button>
+		  </div>
+		  <div class="button-row">
+		    <button onclick="showAllTabsAndSections();">Show Hidden Items</button>
+		    <button onclick="unlockAllFields();">Unlock All Fields</button>
+		  </div>
+		  <div class="button-row">
+		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
+		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
+		  </div>
+		    <button onclick="closePopup();">Close</button>
+		</div>
+	        <div id="popupContent" class="content"></div>	
+	   </div>
+	  `;
+	  
+	  var newContainer = document.createElement('div');
+	  newContainer.id = 'MenuPopup';
+	  newContainer.innerHTML = popupHtml;
+	  newContainer.style.position = 'fixed';  
+	  newContainer.style.left = '50%';
+	  newContainer.style.top = '50%';
+	  newContainer.style.transform = 'translate(-50%, -50%)';  
+	  document.body.appendChild(newContainer);
+	  
+	  makePopupMovable(newContainer);
+	});
+}
+
+function checkIfEntityExists(entityLogicalName, callback) {
+  var clientURL = Xrm.Page.context.getClientUrl();
+  var req = new XMLHttpRequest();
+  req.open("GET", `${clientURL}/api/data/v9.0/EntityDefinitions(LogicalName='${entityLogicalName}')`, true);
+  req.setRequestHeader("OData-MaxVersion", "4.0");
+  req.setRequestHeader("OData-Version", "4.0");
+  req.setRequestHeader("Accept", "application/json");
+  req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  req.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      req.onreadystatechange = null;
+      if (this.status === 200) {
+        console.log("Entity exists");
+        callback(true);
+      } else if (this.status === 404) {
+        console.log("Entity does not exist");
+        callback(false);
+      } else {
+        console.log(this.statusText);
+      }
+    }
+  };
+  req.send();
 }
 
 function closeIframe(url) { 
