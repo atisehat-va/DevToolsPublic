@@ -9,8 +9,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     }    
     newContainer.innerHTML = `
         <div class="commonPopup-header">
-            <button class="commonback-button" id="commonback-button">Back</button>
-            User Provision Info
+            <button class="commonback-button" id="commonback-button">Back</button>            
         </div>        
         <div class="dirtyFieldsPopup-content">
             ${html}
