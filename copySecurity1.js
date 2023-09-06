@@ -60,13 +60,13 @@ function securityUpdate() {
 			    </div>
 			  </div>
 			  <div id="sectionsRow2" class="securityPopup-row">
-			    <div class="section details-section-row2" id="section4">
+			    <div class="section details-section-row" id="section4">
 			      <h3>Security Roles</h3>
 			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
 			    </div>
-			    <div class="section details-section-row2" id="section6">
+			    <div class="section details-section-row" id="section6">
 			      <h3>Security Roles</h3>
 			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
