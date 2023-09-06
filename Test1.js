@@ -51,7 +51,7 @@ function openPopup() {
     return;    
   }  
   var popupHtml = `     
-    <div class="popup1">
+    <div class="popup">
 		<div class="container" id="container">
 			<div class="button-container">
 				<div class="dropdown-row">
