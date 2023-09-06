@@ -1,14 +1,12 @@
 function securityUpdate2() {
-	debugger;
-	let selectedUserId2 = null;
-	let selectedUserName2 = '';
+	debugger;	
 	let selectedUserId = null;
 	let selectedBusinessUnitId = null;
 	let selectedTeamIds = [];
 	let selectedRoleIds = [];
 	
 	function fetchUsers(callback) {
-		Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
+	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
 	}
 	function fetchRolesForUser(userId, callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
@@ -17,71 +15,71 @@ function securityUpdate2() {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}
 	function fetchBusinessUnitName(userId, callback) {
-		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
-	}
-	function generateSecurityPopupHtml() {
-	return 
-	}
+	    const baseQuery = '?$select=name';
+	    const endpoint = userId ? `systemuser?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}` : 'businessunit' + baseQuery;
+	
+	    Xrm.WebApi.retrieveMultipleRecords(endpoint).then(callback);
+	}	
 
 	function createAppendSecurityPopup() {		
-		var newContainer = document.createElement('div');		
-		newContainer.className = 'commonPopup';		
-		newContainer.innerHTML =  `    			
-			  <div class="commonPopup-header">Assign User Security</div>
-	    		  <button class="commonback-button" id="commonback-button">Back</button>		  
-			  <div class="securityPopup-row">
-			    <div class="commonSection user-section" id="section1">
-			      <h3>FROM</h3>
-			      <input type="text" id="searchInput1" placeholder="Search Users">
-			      <div class="user-list-container">
-			        <div id="userList1"></div>
-			      </div>
-			    </div>                            
-			    <div class="commonSection user-section" id="section2">
-			      <h3>Change Business Unit</h3>
-	 		      <div class="user-list-container">
-			        <div></div>
-			      </div>
-			    </div>
-			  </div>
-			  <div id="sectionsRow1" class="securityPopup-row">
-			    <div class="commonSection details-section-row" id="section3">
-			      <h3>Business Unit & Teams</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
-			    </div>
-			    <div class="commonSection details-section-row" id="section5">
-			      <h3>Update Team(s)</h3>
-	 		      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
-			    </div>
-			  </div>
-			  <div id="sectionsRow2" class="securityPopup-row">
-			    <div class="commonSection details-section-row" id="section4">
-			      <h3>Security Roles</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
-			    </div>
-			    <div class="commonSection details-section-row" id="section6">
-			      <h3>Update Security Role(s)</h3>
-	                      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
-			    </div>
-			  </div>
-			  <div class="submit-button-container">
-			    <button id="submitButton">Submit</button>
-			  </div>
-		    `;		
-			document.body.appendChild(newContainer);
-			document.getElementById('commonback-button').addEventListener('click', function() {
-			    newContainer.remove();
-			    openPopup();  
-			});		
-		makePopupMovable(newContainer);	
+	  var newContainer = document.createElement('div');		
+	  newContainer.className = 'commonPopup';		
+	  newContainer.innerHTML =  `    			
+	    <div class="commonPopup-header">Assign User Security</div>
+	    <button class="commonback-button" id="commonback-button">Back</button>		  
+	    <div class="securityPopup-row">
+	      <div class="commonSection user-section" id="section1">
+	        <h3>FROM</h3>
+	        <input type="text" id="searchInput1" placeholder="Search Users">
+	        <div class="user-list-container">
+	          <div id="userList1"></div>
+	        </div>
+	      </div>                            
+	      <div class="commonSection user-section" id="section2">
+	        <h3>Change Business Unit</h3>
+	        <div class="user-list-container">
+	          <div></div>
+	        </div>
+	      </div>
+	    </div>
+	    <div id="sectionsRow1" class="securityPopup-row">
+	      <div class="commonSection details-section-row" id="section3">
+	        <h3>Business Unit & Teams</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	      <div class="commonSection details-section-row" id="section5">
+	        <h3>Update Team(s)</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	    </div>
+	    <div id="sectionsRow2" class="securityPopup-row">
+	      <div class="commonSection details-section-row" id="section4">
+	        <h3>Security Roles</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	      <div class="commonSection details-section-row" id="section6">
+	        <h3>Update Security Role(s)</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="submit-button-container">
+	      <button id="submitButton">Submit</button>
+	    </div>
+	  `;		
+	  document.body.appendChild(newContainer);
+	  document.getElementById('commonback-button').addEventListener('click', function() {
+	    newContainer.remove();
+	    openPopup();  
+	  });		
+	  makePopupMovable(newContainer);	
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
@@ -97,13 +95,9 @@ function securityUpdate2() {
 	}
 
 	function updateSubmitButtonVisibility() {
-	    const submitButton = document.getElementById("submitButton");
-	    if (selectedUserId) {
-	    	submitButton.style.display = 'block';
-	    } else {
-	    	submitButton.style.display = 'none';
-	    }
-    	}
+	    const displayStatus = selectedUserId ? 'block' : 'none';
+	    document.getElementById("submitButton").style.display = displayStatus;
+	}
 
 	function selectUser(user, sectionPrefix) {
 		try {
@@ -290,17 +284,11 @@ function securityUpdate2() {
 	});
 
 	function loadScript(src, callback, errorCallback) {
-		const script = document.createElement("script");
-		script.type = "text/javascript";
-		script.onload = function() {
-			console.log("Script loaded successfully.");
-			callback();
-		};
-		script.onerror = function() {
-			console.log("Error loading script.");
-			errorCallback();
-		};
-		script.src = src;
-		document.body.appendChild(script);
+	    const script = document.createElement("script");
+	    script.type = "text/javascript";
+	    script.onload = callback;
+	    script.onerror = errorCallback;
+	    script.src = src;
+	    document.body.appendChild(script);
 	}
 }
