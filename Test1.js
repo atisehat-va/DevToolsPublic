@@ -98,18 +98,18 @@ function openPopup() {
 	</div>
     </div>
   `;
-  var popupDiv = document.createElement('div');
-  popupDiv.id = 'MenuPopup';
-  popupDiv.innerHTML = popupHtml;
-  popupDiv.style.position = 'absolute';
-  popupDiv.style.zIndex = '10000';
-  popupDiv.style.left = '50%';
-  popupDiv.style.top = '50%';
-  popupDiv.style.transform = 'translate(-50%, -50%)';
-  popupDiv.style.backgroundColor = 'white';  
-  document.body.appendChild(popupDiv);
+  var newContainer = document.createElement('div');
+  newContainer.id = 'MenuPopup';
+  newContainer.innerHTML = popupHtml;
+  newContainer.style.position = 'absolute';
+  newContainer.style.zIndex = '10000';
+  newContainer.style.left = '50%';
+  newContainer.style.top = '50%';
+  newContainer.style.transform = 'translate(-50%, -50%)';
+  newContainer.style.backgroundColor = 'white';  
+  document.body.appendChild(newContainer);
   
-  makePopupMovable(popupDiv);
+  makePopupMovable(newContainer);
 }
 
 function closeIframe(url) { 
@@ -125,9 +125,9 @@ function closeIframe(url) {
   containerDiv.classList.remove('expanded-html');
 }
 /*
-function makePopupMovable(popupDiv) {
+function makePopupMovable(newContainer) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  popupDiv.onmousedown = dragMouseDown;
+  newContainer.onmousedown = dragMouseDown;
 
   function dragMouseDown(e) {
     e = e || window.event;    
@@ -150,8 +150,8 @@ function makePopupMovable(popupDiv) {
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    popupDiv.style.top = (popupDiv.offsetTop - pos2) + "px";
-    popupDiv.style.left = (popupDiv.offsetLeft - pos1) + "px";
+    newContainer.style.top = (newContainer.offsetTop - pos2) + "px";
+    newContainer.style.left = (newContainer.offsetLeft - pos1) + "px";
   }
 
 
@@ -174,9 +174,9 @@ function closePopup() {
     closeIframe();
     
     // Remove MenuPopup if it exists
-    var popupDiv = document.getElementById('MenuPopup');
-    if (popupDiv) {
-        popupDiv.remove();
+    var newContainer = document.getElementById('MenuPopup');
+    if (newContainer) {
+        newContainer.remove();
     }
     closeSubPopups();
 }
