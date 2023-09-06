@@ -15,10 +15,7 @@ function securityUpdate2() {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}
 	function fetchBusinessUnitName(userId, callback) {
-	    const baseQuery = '?$select=name';
-	    const endpoint = userId ? `systemuser?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}` : 'businessunit' + baseQuery;
-	
-	    Xrm.WebApi.retrieveMultipleRecords(endpoint).then(callback);
+		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}	
 
 	function createAppendSecurityPopup() {		
