@@ -34,6 +34,7 @@ loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity1.js', () => console.log('Security loaded!'));
 loadScript('copySecurity2.js', () => console.log('Security loaded!')); //Assign Security
 loadScript('userProvision.js', () => console.log('Security loaded!')); 
+
 function openPopup() {
   closeSubPopups();
   var isAdmin = false;
@@ -79,10 +80,10 @@ function openPopup() {
 	    <div class="dropdown">
 	      <button onclick="toggleDropdownMenu('dropdown-content');">User Provision</button>
 	      <div id="dropdown-content" class="dropdown-content">
-	        <button onclick="openUserProvision('dev');">User Provision DEV</button>
-	        <button onclick="openUrl('int', 'userProvision');">User Provision INT</button>
-	        <button onclick="openUrl('qa', 'userProvision')">User Provision QA</button>
-	        <button onclick="openUrl('preprod', 'userProvision');">User Provision Pre-Prod</button>
+	        <button onclick="closePopup(); openUserProvision('dev');">User Provision DEV</button>
+	        <button onclick="closePopup(); openUserProvision('int');">User Provision INT</button>
+	        <button onclick="closePopup(); openUserProvision('qa')">User Provision QA</button>
+	        <button onclick="closePopup(); openUserProvision('preprod');">User Provision Pre-Prod</button>
 	      </div>
 	    </div>
 	  </div>
