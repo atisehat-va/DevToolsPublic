@@ -28,8 +28,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
 
 // Function to open User Provision
 function openUserProvision(environment) {
-    debugger;
-    closeIframe();
+    debugger;    
     var crmUrl;
     var clientUrl = Xrm.Page.context.getClientUrl();
     var windowName;
