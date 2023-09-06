@@ -46,15 +46,15 @@ function securityUpdate() {
 			    </div>
 			  </div>
 			  <div id="sectionsRow1" class="securityPopup-row">
-			    <div class="section details-section-row1" id="section3">
+			    <div class="section details-section-row" id="section3">
 			      <h3>Business Unit & Teams</h3>
-			      <div class="roles-and-teams-list-row1">
+			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
 			    </div>
-			    <div class="section details-section-row1" id="section5">
+			    <div class="section details-section-row" id="section5">
 			      <h3>Business Unit & Teams</h3>
-			      <div class="roles-and-teams-list-row1">
+			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
 			    </div>
@@ -62,13 +62,13 @@ function securityUpdate() {
 			  <div id="sectionsRow2" class="securityPopup-row">
 			    <div class="section details-section-row2" id="section4">
 			      <h3>Security Roles</h3>
-			      <div class="roles-and-teams-list-row2">
+			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
 			    </div>
 			    <div class="section details-section-row2" id="section6">
 			      <h3>Security Roles</h3>
-			      <div class="roles-and-teams-list-row2">
+			      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
 			    </div>
