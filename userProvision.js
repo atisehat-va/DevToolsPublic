@@ -4,7 +4,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     newContainer.className = 'commonPopup';    
     if (iframeUrl) {
         html += `
-            <iframe src="${iframeUrl}" width="800" height="600"></iframe>
+            <iframe src="${iframeUrl}" width="740" height="570"></iframe>
         `;
     }    
     newContainer.innerHTML = `
@@ -31,7 +31,7 @@ function openUserProvision(environment) {
     var crmUrl;
     var clientUrl = Xrm.Page.context.getClientUrl();
     var windowName;
-    var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
+    var windowOptions = "height=570,width=740,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
     var timestamp = new Date().getTime();    
     switch (environment) {
         case 'dev':            
