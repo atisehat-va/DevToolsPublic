@@ -1,5 +1,5 @@
-// Modified appendDirtyFieldsPopupToBody function
-function appendDirtyFieldsPopupToBody(html, iframeUrl = null) {
+// Modified appendUserProvisionPopupToBody function
+function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     var newContainer = document.createElement('div');
     newContainer.className = 'commonPopup';    
     if (iframeUrl) {
@@ -63,7 +63,7 @@ function openUrl(environment, pageType) {
             <h2 style="text-align: left;"><strong>User Provision:</strong></h2>
         `;
         // Open the form inside newContainer
-        appendDirtyFieldsPopupToBody(popupHtml, formUrl);
+        appendUserProvisionPopupToBody(popupHtml, formUrl);
         toggleDropdownMenu('dropdown-content');
     }
 }
