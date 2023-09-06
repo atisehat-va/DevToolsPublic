@@ -50,7 +50,25 @@ function openPopup() {
     Xrm.Navigation.openAlertDialog({ text: "You do not have permission to execute this action."});
     return;    
   }  
-  var popupHtml = `     
+  var popupHtml = `  
+    <style>       
+        .popup { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; }
+        .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }        
+        .button-container { width: 400px; }
+        .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
+        .popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
+        .button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
+        .button-row button { width: calc(50% - 5px); } 
+        .dropdown button { width: 100%; }
+        .button-row .full-width { width: 100%; }
+        .dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
+        .dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
+        .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
+        .dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
+        .content { display: none; width: 100%; border-top: 1px solid #888; padding-top: 10px; }                
+	.alert-message { text-align: center; boarder-radius: 5px; background-color: #fee; padding: 10px; margin: 10px font-weight: bold; color: #900; }
+ 	.html { overflow-y: scroll; width: 100%; height: 450px; background-color: #fee; color: #900; padding: 1px; display: block; }        
+    </style>
     <div class="popup">
 		<div class="container" id="container">
 			<div class="button-container">
