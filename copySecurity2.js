@@ -38,7 +38,10 @@ function securityUpdate2() {
 			      </div>
 			    </div>
 			    <div class="commonSection user-section" id="section2">
-			      <h3>TO</h3>			      
+			      <h3>TO</h3>
+	 		      <div class="user-list-container">
+			        <div></div>
+			      </div>
 			    </div>
 			  </div>
 			  <div id="sectionsRow1" class="securityPopup-row">
@@ -49,7 +52,10 @@ function securityUpdate2() {
 			      </div>
 			    </div>
 			    <div class="commonSection details-section-row" id="section5">
-			      <h3>Business Unit & Teams</h3>			      
+			      <h3>Business Unit & Teams</h3>
+	 		      <div class="roles-and-teams-list-row">
+			        <ul></ul>
+			      </div>
 			    </div>
 			  </div>
 			  <div id="sectionsRow2" class="securityPopup-row">
@@ -60,7 +66,10 @@ function securityUpdate2() {
 			      </div>
 			    </div>
 			    <div class="commonSection details-section-row" id="section6">
-			      <h3>Security Roles</h3>			      
+			      <h3>Security Roles</h3>
+	                      <div class="roles-and-teams-list-row">
+			        <ul></ul>
+			      </div>
 			    </div>
 			  </div>
 			  <div class="submit-button-container">
