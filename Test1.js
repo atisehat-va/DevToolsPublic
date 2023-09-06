@@ -80,8 +80,8 @@ function openPopup() {
 		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
 		      <div id="dropdown-content" class="dropdown-content">		        
 			${userProvisionButton}
-		         <button onclick="closePopup(); securityUpdate();">Update Security</button>
-		    <button onclick="closePopup(); securityUpdate2();">Update Security2</button>	                		        
+		         <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
+		    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
 		      </div>
 		    </div>
 		  </div>		  
