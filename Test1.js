@@ -54,7 +54,7 @@ function openPopup() {
 
 //check if User provision table exist
  checkIfEntityExists('vhacrm_userprovision', function(entityExists) {
-    	var userProvisionPreProdButton = entityExists ? '<button onclick="closePopup(); openUserProvision(\'preprod\');">User Provision Pre-Prod</button>' : '';
+    	var userProvisionButton = entityExists ? '<button onclick="closePopup(); openUserProvision(\'preprod\');">User Provision Pre-Prod</button>' : '';
 	 
 	  var popupHtml = `  
 	    <style>       
@@ -85,7 +85,7 @@ function openPopup() {
 		    <div class="dropdown">
 		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
 		      <div id="dropdown-content" class="dropdown-content">		        
-			${userProvisionPreProdButton}
+			${userProvisionButton}
 		         <button onclick="closePopup(); securityUpdate();">Update Security</button>
 		    <button onclick="closePopup(); securityUpdate2();">Update Security2</button>	                		        
 		      </div>
@@ -133,11 +133,10 @@ function checkIfEntityExists(entityLogicalName, callback) {
   req.onreadystatechange = function () {
     if (this.readyState === 4) {
       req.onreadystatechange = null;
-      if (this.status === 200) {
-        console.log("Entity exists");
+      if (this.status === 200) {        
         callback(true);
       } else if (this.status === 404) {
-        console.log("Entity does not exist");
+        console.log("User Provision Entity does not exist");
         callback(false);
       } else {
         console.log(this.statusText);
