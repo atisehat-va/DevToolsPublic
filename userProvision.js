@@ -4,9 +4,11 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     newContainer.className = 'commonPopup';    
     if (iframeUrl) {
         html += `
-            <iframe style="position:relative; top:-100px;" src="${iframeUrl}" width="800" height="700"></iframe>
+            <div class="iframe-container">
+                <iframe style="position:relative;" src="${iframeUrl}" width="800" height="600"></iframe>
+            </div>
         `;
-    }    
+    }
     newContainer.innerHTML = `
         <div class="commonPopup-header">
             <button class="commonback-button" id="commonback-button">Back</button>
