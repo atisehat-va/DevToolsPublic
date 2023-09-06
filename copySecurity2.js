@@ -37,6 +37,7 @@ function securityUpdate2() {
 			        <div id="userList1"></div>
 			      </div>
 			    </div>
+                            <div class="vertical-line"></div>
 			    <div class="commonSection user-section" id="section2">
 			      <h3>TO</h3>
 	 		      <div class="user-list-container">
