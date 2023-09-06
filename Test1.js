@@ -128,8 +128,7 @@ function openPopup() {
 }
 
 function closeIframe(url) { 
-  var contentDiv = document.getElementById('popupContent');
-  
+  var contentDiv = document.getElementById('popupContent');  
   contentDiv.style.display = 'none';  
 }
 
@@ -157,8 +156,7 @@ function makePopupMovable(newContainer) {
     newContainer.style.left = (newContainer.offsetLeft - pos1) + "px";
   }
 
-
-    function closeDragElement() {
+  function closeDragElement() {
     document.onmouseup = null;
     document.onmousemove = null;
   }
@@ -174,8 +172,7 @@ function toggleDropdownMenu(dropdownId) {
 }
 
 function closePopup() {
-    closeIframe();
-    
+    closeIframe();    
     // Remove MenuPopup if it exists
     var newContainer = document.getElementById('MenuPopup');
     if (newContainer) {
@@ -184,8 +181,7 @@ function closePopup() {
     closeSubPopups();
 }
 function closeSubPopups() {
-    const popupClasses = ['.entityInfoPopup', '.dirtyFieldsPopup', '.securityPopup'];
-    
+    const popupClasses = ['.entityInfoPopup', '.dirtyFieldsPopup', '.securityPopup'];    
     popupClasses.forEach((popupClass) => {
         const popup = document.querySelector(popupClass);
         if (popup) {
@@ -208,6 +204,5 @@ window.renameTabsSectionsFields = renameTabsSectionsFields;
 window.toggleDropdownMenu = toggleDropdownMenu;
 window.closePopup = closePopup;
 window.openUrl = openUrl;
-//new
 window.showDirtyFields = showDirtyFields;
 window.closeDirtyFieldsPopup = closeDirtyFieldsPopup;
