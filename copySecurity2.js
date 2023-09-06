@@ -1,4 +1,4 @@
-function securityUpdate() {
+function securityUpdate2() {
 	debugger;
 	let selectedUserId2 = null;
 	let selectedUserName2 = '';
