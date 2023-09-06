@@ -27,12 +27,22 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
 }
 
 // Function to open User Provision
-function openUserProvision() {
+function openUrl(pageType) {
     debugger;        
-    var clientUrl = Xrm.Page.context.getClientUrl();   
-    var entityName = "vhacrm_userprovision";
+    var clientUrl = Xrm.Page.context.getClientUrl(); 
+
+    if (pageType === "advanceFind") {       
+        var timestamp = new Date().getTime();
+        var windowName = "Advanced Find Classic " + timestamp;
+        var advancedFindPath = '/main.aspx?pagetype=advancedfind';
+        var advancedFindUrl = clientUrl + advancedFindPath;                
+        window.open(advancedFindUrl, windowName, windowOptions);
+        
+    } else if (pageType === "userProvision") {
+        var entityName = "vhacrm_userprovision";
     var formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
     
     var popupHtml = ` `;
-    appendUserProvisionPopupToBody(popupHtml, formUrl);    
+    appendUserProvisionPopupToBody(popupHtml, formUrl); 
+    }      
 }
