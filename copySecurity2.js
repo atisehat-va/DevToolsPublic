@@ -1,4 +1,4 @@
-function securityUpdate2() {
+function securityUpdate() {
 	debugger;
 	let selectedUserId2 = null;
 	let selectedUserName2 = '';
@@ -6,32 +6,7 @@ function securityUpdate2() {
 	let selectedBusinessUnitId = null;
 	let selectedTeamIds = [];
 	let selectedRoleIds = [];
-
-	const popupCss = `    
-		.securityPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 100%; height: 100%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; }
-                .securityPopup-row { display: flex; }    
-		.securityPopup-header { position: relative; text-align: center; font-size: 18px; padding: 10px; background-color: #002050; color: #fff; border: none; }
-                .back-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 10px; border-bottom-right-radius: 15px; }
-		.section { padding: 10px; border-right: 1px solid #ccc; overflow-y: scroll; }    
-		.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
-		.user-section { text-align: center; height: 190px; width: 50%;}    
-		.user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
-		.user-section #userList { margin-bottom: 15px; height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
-		.user-section #userList::-webkit-scrollbar { display: none; }        
-		.user-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
-		.user-list-container { height: 110px; overflow-y: auto; }    
-		.roles-and-teams-list-row1 { height: 75%; margin-left: 10px; overflow-y: auto; }    
-		.roles-and-teams-list-row2 { height: 75%; margin-left: 10px; overflow-y: auto; }    
-		.details-section-row1 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
-  		.details-section-row2 { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
-		.selected { background-color: #e0e0e0; }        
-		.user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
-		.user:hover { background-color: #f0f0f0; }    
-		#sectionsRow { white-space: nowrap; } 		
-  		.submit-button-container { text-align: center; padding: 20px; width: 95%; }      
-		#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }      
-		#submitButton:hover { background-color: #103e89; }		 
-	`;
+	
 	function fetchUsers(callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
 	}
@@ -45,78 +20,69 @@ function securityUpdate2() {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
 	}
 	function generateSecurityPopupHtml() {
-	return `    
-		<div class="securityPopup">
-		  <div class="securityPopup-header">Copy User Security</div>
-    		  <button class="back-button" id="back-button">Back</button>
-		  <style>${popupCss}</style>
-		  <div class="securityPopup-row">
-		    <div class="section user-section" id="section1">
-		      <h3>FROM</h3>
-		      <input type="text" id="searchInput1" placeholder="Search Users">
-		      <div class="user-list-container">
-		        <div id="userList1"></div>
-		      </div>
-		    </div>
-		    <div class="section user-section" id="section2">
-		      <h3>TO</h3>
-		      <input type="text" id="searchInput2" placeholder="Search Users">
-		      <div class="user-list-container">
-		        <div id="userList2"></div>
-		      </div>
-		    </div>
-		  </div>
-		  <div id="sectionsRow1" class="securityPopup-row">
-		    <div class="section details-section-row1" id="section3">
-		      <h3>Business Unit & Teams</h3>
-		      <div class="roles-and-teams-list-row1">
-		        <ul></ul>
-		      </div>
-		    </div>
-		    <div class="section details-section-row1" id="section5">
-		      <h3>Business Unit & Teams</h3>
-		      <div class="roles-and-teams-list-row1">
-		        <ul></ul>
-		      </div>
-		    </div>
-		  </div>
-		  <div id="sectionsRow2" class="securityPopup-row">
-		    <div class="section details-section-row2" id="section4">
-		      <h3>Security Roles</h3>
-		      <div class="roles-and-teams-list-row2">
-		        <ul></ul>
-		      </div>
-		    </div>
-		    <div class="section details-section-row2" id="section6">
-		      <h3>Security Roles</h3>
-		      <div class="roles-and-teams-list-row2">
-		        <ul></ul>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="submit-button-container">
-		    <button id="submitButton">Submit</button>
-		  </div>
-	    </div>`;
+	return 
 	}
 
-	function createAppendSecurityPopup() {
-		const newContainerHtml = generateSecurityPopupHtml();
-		const newContainer = document.createElement('div');
-		newContainer.id = 'securityPopup';
-		newContainer.innerHTML = newContainerHtml;
-		newContainer.style.position = 'absolute';
-		newContainer.style.zIndex = '10000';
-		newContainer.style.left = '50%';
-		newContainer.style.top = '50%';
-		newContainer.style.transform = 'translate(-50%, -50%)';
-		document.body.appendChild(newContainer);
-
-		document.getElementById('back-button').addEventListener('click', function() {
-		    newContainer.remove();
-		    openPopup();  
-		});
-		return newContainer;
+	function createAppendSecurityPopup() {		
+		var newContainer = document.createElement('div');		
+		newContainer.className = 'commonPopup';		
+		newContainer.innerHTML =  `    			
+			  <div class="commonPopup-header">Copy User Security</div>
+	    		  <button class="commonback-button" id="commonback-button">Back</button>		  
+			  <div class="securityPopup-row">
+			    <div class="commonSection user-section" id="section1">
+			      <h3>FROM</h3>
+			      <input type="text" id="searchInput1" placeholder="Search Users">
+			      <div class="user-list-container">
+			        <div id="userList1"></div>
+			      </div>
+			    </div>
+			    <div class="commonSection user-section" id="section2">
+			      <h3>TO</h3>
+			      <input type="text" id="searchInput2" placeholder="Search Users">
+			      <div class="user-list-container">
+			        <div id="userList2"></div>
+			      </div>
+			    </div>
+			  </div>
+			  <div id="sectionsRow1" class="securityPopup-row">
+			    <div class="commonSection details-section-row" id="section3">
+			      <h3>Business Unit & Teams</h3>
+			      <div class="roles-and-teams-list-row">
+			        <ul></ul>
+			      </div>
+			    </div>
+			    <div class="commonSection details-section-row" id="section5">
+			      <h3>Business Unit & Teams</h3>
+			      <div class="roles-and-teams-list-row">
+			        <ul></ul>
+			      </div>
+			    </div>
+			  </div>
+			  <div id="sectionsRow2" class="securityPopup-row">
+			    <div class="commonSection details-section-row" id="section4">
+			      <h3>Security Roles</h3>
+			      <div class="roles-and-teams-list-row">
+			        <ul></ul>
+			      </div>
+			    </div>
+			    <div class="commonSection details-section-row" id="section6">
+			      <h3>Security Roles</h3>
+			      <div class="roles-and-teams-list-row">
+			        <ul></ul>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="submit-button-container">
+			    <button id="submitButton">Submit</button>
+			  </div>
+		    `;		
+			document.body.appendChild(newContainer);
+			document.getElementById('commonback-button').addEventListener('click', function() {
+			    newContainer.remove();
+			    openPopup();  
+			});		
+		makePopupMovable(newContainer);	
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
@@ -168,7 +134,7 @@ function securityUpdate2() {
 			let teamListItems = [];
 
 			const appendLists = () => {
-				if (businessUnitListItem) {
+			 	if (businessUnitListItem) {
 					businessUnitAndTeamsList.appendChild(businessUnitListItem);
 				}
 				teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
