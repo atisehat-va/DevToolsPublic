@@ -24,6 +24,7 @@ function loadScript(src, callback) {
 }
 
 // Load scripts
+loadScript('common.js', () => console.log('commonJS loaded!')); 
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
 loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
 loadScript('fieldsControl.js', () => console.log('Fields Control loaded!'));
@@ -123,7 +124,7 @@ function closeIframe(url) {
   containerDiv.classList.remove('expanded-alert');
   containerDiv.classList.remove('expanded-html');
 }
-
+/*
 function makePopupMovable(popupDiv) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   popupDiv.onmousedown = dragMouseDown;
@@ -158,7 +159,7 @@ function makePopupMovable(popupDiv) {
     document.onmouseup = null;
     document.onmousemove = null;
   }
-}
+} */
 
 function toggleDropdownMenu(dropdownId) {
   var dropdownContent = document.getElementById(dropdownId);
