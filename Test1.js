@@ -52,6 +52,7 @@ function openPopup() {
     return;    
   }
 
+//check if User provision table exist
  checkIfEntityExists('vhacrm_userprovision', function(entityExists) {
     	var userProvisionPreProdButton = entityExists ? '<button onclick="closePopup(); openUserProvision(\'preprod\');">User Provision Pre-Prod</button>' : '';
 	 
@@ -82,19 +83,14 @@ function openPopup() {
 		      </div>
 		    </div>
 		    <div class="dropdown">
-		      <button onclick="toggleDropdownMenu('dropdown-content');">User Provision</button>
-		      <div id="dropdown-content" class="dropdown-content">
-		        <button onclick="closePopup(); openUserProvision();">User Provision DEV</button>
-		        <button onclick="closePopup(); openUserProvision('int');">User Provision INT</button>
-		        <button onclick="closePopup(); openUserProvision('qa')">User Provision QA</button>
-	                ${userProvisionPreProdButton}		        
+		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
+		      <div id="dropdown-content" class="dropdown-content">		        
+			${userProvisionPreProdButton}
+		         <button onclick="closePopup(); securityUpdate();">Update Security</button>
+		    <button onclick="closePopup(); securityUpdate2();">Update Security2</button>	                		        
 		      </div>
 		    </div>
-		  </div>
-		  <div class="button-row">
-		    <button onclick="closePopup(); securityUpdate();">Update Security</button>
-		    <button onclick="closePopup(); securityUpdate2();">Update Security2</button>
-		  </div>
+		  </div>		  
 		  <div class="button-row">
 		    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Entity Info & Fields</button>
 		    <button onclick="renameTabsSectionsFields();">Show Logical Names</button>
