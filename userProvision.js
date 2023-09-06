@@ -29,16 +29,10 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
 // Function to open User Provision
 function openUserProvision() {
     debugger;        
-    var clientUrl = Xrm.Page.context.getClientUrl();
-    //var windowName;
-    //var windowOptions = "height=640,width=740,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
-    //var timestamp = new Date().getTime();
-   
+    var clientUrl = Xrm.Page.context.getClientUrl();   
     var entityName = "vhacrm_userprovision";
     var formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
     
-     var popupHtml = `        
-    `;
-    appendUserProvisionPopupToBody(popupHtml, formUrl);
-    toggleDropdownMenu('dropdown-content');
+    var popupHtml = ` `;
+    appendUserProvisionPopupToBody(popupHtml, formUrl);    
 }
