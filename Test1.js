@@ -54,7 +54,7 @@ function openPopup() {
 
 //check if User provision table exist
  checkIfEntityExists('vhacrm_userprovision', function(entityExists) {
-    	var userProvisionButton = entityExists ? '<button onclick="closePopup(); openUserProvision();">User Provision Pre-Prod</button>' : '';
+    	var userProvisionButton = entityExists ? '<button onclick="closePopup(); openUserProvision();">User Provision Tool</button>' : '';
 	 
 	  var popupHtml = `  
 	    <style>       
