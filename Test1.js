@@ -52,7 +52,7 @@ function openPopup() {
   }  
   var popupHtml = `  
     <style>       
-        .popup { position: absolute; left: 50%; top: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; transform: translate(-50%, -50%); backgroundColor: white; }
+        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; padding: 20px; transform: translate(-50%, -50%); }
 	.container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }        
 	.button-container { width: 400px; }
 	.iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
