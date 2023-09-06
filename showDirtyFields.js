@@ -18,7 +18,7 @@ function generateDirtyFieldsHtml(dirtyFields) {
 
 function appendDirtyFieldsPopupToBody(html) {
     var newContainer = document.createElement('div');
-    newContainer.className = 'dirtyFieldsPopup';
+    newContainer.className = 'commonPopup';
     newContainer.innerHTML = `
         <div class="dirtyFieldsPopup-header">
             <button class="back-button" id="back-button">Back</button>
