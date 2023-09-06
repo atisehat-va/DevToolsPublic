@@ -92,9 +92,7 @@ function openPopup() {
 				</div>      
 					<button onclick="closePopup();">Close</button>				
 			</div>
-            <div class="iframe-container" id="iframe-container">                
-			<div id="popupContent" class="content"></div>
-		</div>
+            
 	</div>
     </div>
   `;
@@ -115,12 +113,10 @@ function openPopup() {
 function closeIframe(url) { 
   var contentDiv = document.getElementById('popupContent');
   var containerDiv = document.getElementById('container');
-  var iframeContainer = document.getElementById('iframe-container');
   
-  contentDiv.style.display = 'none';
-  iframeContainer.style.display = 'none';  
-  //containerDiv.classList.remove('expanded');
-  containerDiv.classList.remove('expanded-iframe');
+  
+  contentDiv.style.display = 'none';  
+  //containerDiv.classList.remove('expanded');  
   containerDiv.classList.remove('expanded-alert');
   containerDiv.classList.remove('expanded-html');
 }
