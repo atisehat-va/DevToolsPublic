@@ -76,7 +76,7 @@ function openPopup() {
 		    <div class="dropdown">
 		      <button onclick="toggleDropdownMenu('dropdown-content-advanced-find');">Advanced Find</button>
 		      <div id="dropdown-content-advanced-find" class="dropdown-content">
-		        <button onclick="openUrl('advanceFind');">Advanced Find DEV</button>
+		        <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>
 		        <button onclick="openUrl('advanceFind');">Advanced Find INT</button>
 		        <button onclick="openUrl('advanceFind');">Advanced Find QA</button>
 		        <button onclick="openUrl('advanceFind');">Advanced Find Pre-Prod</button>
