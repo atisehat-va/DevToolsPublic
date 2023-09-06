@@ -54,7 +54,7 @@ function openPopup() {
 
 //check if User provision table exist
  checkIfEntityExists('vhacrm_userprovision1', function(entityExists) {
-    	var userProvisionButton = entityExists ? '<button onclick="closePopup(); openUserProvision();">User Provision Tool</button>' : '';
+    	var userProvisionButton = entityExists ? '<button onclick="closePopup(); openUrl(\'userProvision\');">User Provision Tool</button>' : '';
 	 
 	  var popupHtml = `  
 	    <style>       
@@ -76,10 +76,10 @@ function openPopup() {
 		    <div class="dropdown">
 		      <button onclick="toggleDropdownMenu('dropdown-content-advanced-find');">Advanced Find</button>
 		      <div id="dropdown-content-advanced-find" class="dropdown-content">
-		        <button onclick="openUrl('dev', 'advanceFind');">Advanced Find DEV</button>
-		        <button onclick="openUrl('int', 'advanceFind');">Advanced Find INT</button>
-		        <button onclick="openUrl('qa', 'advanceFind');">Advanced Find QA</button>
-		        <button onclick="openUrl('preprod', 'advanceFind');">Advanced Find Pre-Prod</button>
+		        <button onclick="openUrl('advanceFind');">Advanced Find DEV</button>
+		        <button onclick="openUrl('advanceFind');">Advanced Find INT</button>
+		        <button onclick="openUrl('advanceFind');">Advanced Find QA</button>
+		        <button onclick="openUrl('advanceFind');">Advanced Find Pre-Prod</button>
 		      </div>
 		    </div>
 		    <div class="dropdown">
