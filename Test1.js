@@ -32,7 +32,7 @@ loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Ite
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
 loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity1.js', () => console.log('Security loaded!'));
-loadScript('copySecurity2.js', () => console.log('Security loaded!')); //Assign Security
+loadScript('assignUserSecurity.js', () => console.log('Security loaded!')); //Assign Security
 loadScript('advanceFind_userProvision.js', () => console.log('Security loaded!')); 
 
 function openPopup() {
