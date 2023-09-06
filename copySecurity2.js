@@ -38,7 +38,7 @@ function securityUpdate2() {
 			      </div>
 			    </div>                            
 			    <div class="commonSection user-section" id="section2">
-			      <h3>TO</h3>
+			      <h3>Change Business Unit</h3>
 	 		      <div class="user-list-container">
 			        <div></div>
 			      </div>
@@ -52,7 +52,7 @@ function securityUpdate2() {
 			      </div>
 			    </div>
 			    <div class="commonSection details-section-row" id="section5">
-			      <h3>Business Unit & Teams</h3>
+			      <h3>Update Team(s)</h3>
 	 		      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
@@ -66,7 +66,7 @@ function securityUpdate2() {
 			      </div>
 			    </div>
 			    <div class="commonSection details-section-row" id="section6">
-			      <h3>Security Roles</h3>
+			      <h3>Update Security Role(s)</h3>
 	                      <div class="roles-and-teams-list-row">
 			        <ul></ul>
 			      </div>
