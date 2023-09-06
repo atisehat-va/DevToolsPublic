@@ -1,4 +1,13 @@
-.popup { position: absolute; zIndex: 10000; left: 50%; top: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; transform: translate(-50%, -50%); backgroundColor: white; }
+/* Common */
+.popup1 { position: absolute; zIndex: 10000; left: 50%; top: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; transform: translate(-50%, -50%); }
+.dirtyFieldsPopup1 { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 68%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.entityInfoPopup1 { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 68%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.securityPopup1 { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 68%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+
+
+/* End Common */
+.popup { position: absolute; left: 50%; top: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: white; border: 1px solid #888; padding: 20px; transition: width 0.5s; transform: translate(-50%, -50%); backgroundColor: white; }
 .container { display: flex; flex-direction: row; width: 400px; transition: width 0.5s; }        
 .button-container { width: 400px; }
 .iframe-container { display: none; flex-grow: 1; position: relative; padding: 20px; }
