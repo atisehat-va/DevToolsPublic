@@ -110,11 +110,7 @@ function openPopup() {
 				</div>      
 					<button onclick="closePopup();">Close</button>				
 			</div>
-            		<div class="iframe-container" id="iframe-container">                
-				<div id="popupContent" class="content"></div>
-			</div>
-	
-    </div>
+   </div>
   `;
   var newContainer = document.createElement('div');
   newContainer.id = 'MenuPopup';
@@ -132,16 +128,8 @@ function openPopup() {
 
 function closeIframe(url) { 
   var contentDiv = document.getElementById('popupContent');
-  //var containerDiv = document.getElementById('container');
-  //var iframeContainer = document.getElementById('iframe-container');
   
-  
-  contentDiv.style.display = 'none';
-  //iframeContainer.style.display = 'none';  
-  //containerDiv.classList.remove('expanded');
-  //containerDiv.classList.remove('expanded-iframe');  
-  //containerDiv.classList.remove('expanded-alert');
-  //containerDiv.classList.remove('expanded-html');
+  contentDiv.style.display = 'none';  
 }
 
 function makePopupMovable(newContainer) {
@@ -149,13 +137,7 @@ function makePopupMovable(newContainer) {
   newContainer.onmousedown = dragMouseDown;
 
   function dragMouseDown(e) {
-    e = e || window.event;    
-    //new
-    //var iframeContainer = document.getElementById('iframe-container');
-    //if (iframeContainer.contains(e.target)) {
-	//return;
-    //}
-    //newEnd    
+    e = e || window.event;           
     e.preventDefault();
     pos3 = e.clientX;
     pos4 = e.clientY;
