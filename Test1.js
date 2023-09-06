@@ -52,7 +52,7 @@ function openPopup() {
     return;    
   }
 
- checkIfEntityExists('mcs_userprovision', function(entityExists) {
+ checkIfEntityExists('vhacrm_userprovision', function(entityExists) {
     	var userProvisionPreProdButton = entityExists ? '<button onclick="closePopup(); openUserProvision(\'preprod\');">User Provision Pre-Prod</button>' : '';
 	 
 	  var popupHtml = `  
