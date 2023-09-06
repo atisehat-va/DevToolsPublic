@@ -4,7 +4,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     newContainer.className = 'commonPopup';    
     if (iframeUrl) {
         html += `
-            <iframe src="${iframeUrl}" width="740" height="570"></iframe>
+            <iframe style="position:relative; top:-100px;" src="${iframeUrl}" width="800" height="700"></iframe>
         `;
     }    
     newContainer.innerHTML = `
