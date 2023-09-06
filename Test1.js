@@ -70,7 +70,7 @@ function openPopup() {
 	.html { overflow-y: scroll; width: 100%; height: 450px; background-color: #fee; color: #900; padding: 1px; display: block; }      
     </style>
     <div class="popup">
-		<div class="container" id="container">
+		
 			<div class="button-container">
 				<div class="dropdown-row">
 				  <div class="dropdown">
@@ -113,7 +113,7 @@ function openPopup() {
             <div class="iframe-container" id="iframe-container">                
 			<div id="popupContent" class="content"></div>
 		</div>
-	</div>
+	
     </div>
   `;
   var newContainer = document.createElement('div');
@@ -132,16 +132,16 @@ function openPopup() {
 
 function closeIframe(url) { 
   var contentDiv = document.getElementById('popupContent');
-  var containerDiv = document.getElementById('container');
+  //var containerDiv = document.getElementById('container');
   var iframeContainer = document.getElementById('iframe-container');
   
   
   contentDiv.style.display = 'none';
-  iframeContainer.style.display = 'none';  
+  //iframeContainer.style.display = 'none';  
   //containerDiv.classList.remove('expanded');
-  containerDiv.classList.remove('expanded-iframe');  
-  containerDiv.classList.remove('expanded-alert');
-  containerDiv.classList.remove('expanded-html');
+  //containerDiv.classList.remove('expanded-iframe');  
+  //containerDiv.classList.remove('expanded-alert');
+  //containerDiv.classList.remove('expanded-html');
 }
 
 function makePopupMovable(newContainer) {
