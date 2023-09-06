@@ -102,7 +102,7 @@ function openPopup() {
 	    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
 	    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
 	  </div>
-	  <button onclick="closePopup();">Close</button>
+	    <button onclick="closePopup();">Close</button>
 	</div>
         <div id="popupContent" class="content"></div>	
    </div>
