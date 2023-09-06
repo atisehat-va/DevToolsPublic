@@ -5,7 +5,7 @@
 .commonSection { padding: 10px; border-right: 0px solid #ccc; overflow-y: scroll; }
 
 .iframe-container { overflow: hidden; }
-.vertical-line { border-left: 2px solid #000; height: 100%; width: 0; }
+
 
 /* ShowDirtyCSS */
 .dirtyFieldsPopup-content { padding: 15px; height: 158%; }
