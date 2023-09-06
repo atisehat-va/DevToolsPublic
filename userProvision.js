@@ -53,9 +53,8 @@ function openUserProvision(environment) {
     var entityName = "vhacrm_userprovision";
     var formUrl = crmUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
     
-    /* var popupHtml = `
-        <h2 style="text-align: left;"><strong>User Provision:</strong></h2>
-    `; */
+     var popupHtml = `        
+    `;
     appendUserProvisionPopupToBody(popupHtml, formUrl);
     toggleDropdownMenu('dropdown-content');
 }
