@@ -70,46 +70,45 @@ function openPopup() {
 	.html { overflow-y: scroll; width: 100%; height: 450px; background-color: #fee; color: #900; padding: 1px; display: block; }      
     </style>
     <div class="popup">
-		
-			<div class="button-container">
-				<div class="dropdown-row">
-				  <div class="dropdown">
-					<button onclick="toggleDropdownMenu('dropdown-content-advanced-find');">Advanced Find</button>
-					<div id="dropdown-content-advanced-find" class="dropdown-content">
-					  <button onclick="openUrl('dev', 'advanceFind');">Advanced Find DEV</button>
-					  <button onclick="openUrl('int', 'advanceFind');">Advanced Find INT</button>
-					  <button onclick="openUrl('qa', 'advanceFind');">Advanced Find QA</button>
-					  <button onclick="openUrl('preprod', 'advanceFind');">Advanced Find Pre-Prod</button>
-					</div>
-				  </div>
-				  <div class="dropdown">
-					  <button onclick="toggleDropdownMenu('dropdown-content');">User Provision</button>
-					<div id="dropdown-content" class="dropdown-content">
-					  <button onclick="openUrl('dev', 'userProvision');">User Provision DEV</button>
-					  <button onclick="openUrl('int', 'userProvision');">User Provision INT</button>
-					  <button onclick="openUrl('qa', 'userProvision')">User Provision QA</button>
-					  <button onclick="openUrl('preprod', 'userProvision');">User Provision Pre-Prod</button>
-					</div>
-				  </div>
-				</div>
-    				<div class="button-row">
-					<button onclick="closePopup(); securityUpdate();">Update Security</button>
-     					<button onclick="closePopup(); securityUpdate2();">Update Security2</button>					
-				</div>
-				<div class="button-row">
-					<button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Entity Info & Fields</button>
-     					<button onclick="renameTabsSectionsFields();">Show Logical Names</button>					
-				</div>
-				<div class="button-row">
-					<button onclick="showAllTabsAndSections();">Show Hidden Items</button>
-					<button onclick="unlockAllFields();">Unlock All Fields</button>
-				</div>
-				<div class="button-row">
-					<button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
-					<button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
-				</div>      
-					<button onclick="closePopup();">Close</button>				
-			</div>
+    	<div class="button-container">
+	  <div class="dropdown-row">
+	    <div class="dropdown">
+	      <button onclick="toggleDropdownMenu('dropdown-content-advanced-find');">Advanced Find</button>
+	      <div id="dropdown-content-advanced-find" class="dropdown-content">
+	        <button onclick="openUrl('dev', 'advanceFind');">Advanced Find DEV</button>
+	        <button onclick="openUrl('int', 'advanceFind');">Advanced Find INT</button>
+	        <button onclick="openUrl('qa', 'advanceFind');">Advanced Find QA</button>
+	        <button onclick="openUrl('preprod', 'advanceFind');">Advanced Find Pre-Prod</button>
+	      </div>
+	    </div>
+	    <div class="dropdown">
+	      <button onclick="toggleDropdownMenu('dropdown-content');">User Provision</button>
+	      <div id="dropdown-content" class="dropdown-content">
+	        <button onclick="openUrl('dev', 'userProvision');">User Provision DEV</button>
+	        <button onclick="openUrl('int', 'userProvision');">User Provision INT</button>
+	        <button onclick="openUrl('qa', 'userProvision')">User Provision QA</button>
+	        <button onclick="openUrl('preprod', 'userProvision');">User Provision Pre-Prod</button>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="button-row">
+	    <button onclick="closePopup(); securityUpdate();">Update Security</button>
+	    <button onclick="closePopup(); securityUpdate2();">Update Security2</button>
+	  </div>
+	  <div class="button-row">
+	    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Entity Info & Fields</button>
+	    <button onclick="renameTabsSectionsFields();">Show Logical Names</button>
+	  </div>
+	  <div class="button-row">
+	    <button onclick="showAllTabsAndSections();">Show Hidden Items</button>
+	    <button onclick="unlockAllFields();">Unlock All Fields</button>
+	  </div>
+	  <div class="button-row">
+	    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
+	    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
+	  </div>
+	  <button onclick="closePopup();">Close</button>
+	</div>
    </div>
   `;
   var newContainer = document.createElement('div');
