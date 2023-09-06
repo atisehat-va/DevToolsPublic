@@ -52,7 +52,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	newContainer.className = 'commonPopup';		
 	newContainer.innerHTML = `
 	    <div class="commonPopup-header">
-                <button class="back-button" id="back-button">Back</button>
+                <button class="commonback-button" id="commonback-button">Back</button>
      		Entity & Fields Info
             </div>   
 	    <div class="entityInfoPopup-row">
@@ -62,7 +62,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	    </div>
 	`;
 	document.body.appendChild(newContainer);
-	document.getElementById('back-button').addEventListener('click', function() {
+	document.getElementById('commonback-button').addEventListener('click', function() {
 	    newContainer.remove();
 	    openPopup();  
 	});
