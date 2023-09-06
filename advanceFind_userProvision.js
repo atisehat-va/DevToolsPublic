@@ -35,7 +35,8 @@ function openUrl(pageType) {
         var timestamp = new Date().getTime();
         var windowName = "Advanced Find Classic " + timestamp;
         var advancedFindPath = '/main.aspx?pagetype=advancedfind';
-        var advancedFindUrl = clientUrl + advancedFindPath;                
+        var advancedFindUrl = clientUrl + advancedFindPath;
+        var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
         window.open(advancedFindUrl, windowName, windowOptions);
         
     } else if (pageType === "userProvision") {
