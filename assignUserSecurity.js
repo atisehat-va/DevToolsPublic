@@ -27,7 +27,7 @@ function securityUpdate2() {
 		var newContainer = document.createElement('div');		
 		newContainer.className = 'commonPopup';		
 		newContainer.innerHTML =  `    			
-			  <div class="commonPopup-header">Copy User Security</div>
+			  <div class="commonPopup-header">Assign User Security</div>
 	    		  <button class="commonback-button" id="commonback-button">Back</button>		  
 			  <div class="securityPopup-row">
 			    <div class="commonSection user-section" id="section1">
