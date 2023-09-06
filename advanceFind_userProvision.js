@@ -40,9 +40,8 @@ function openUrl(pageType) {
         
     } else if (pageType === "userProvision") {
         var entityName = "vhacrm_userprovision";
-    var formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
-    
-    var popupHtml = ` `;
-    appendUserProvisionPopupToBody(popupHtml, formUrl); 
+        var formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";    
+        var popupHtml = ` `;
+        appendUserProvisionPopupToBody(popupHtml, formUrl); 
     }      
 }
