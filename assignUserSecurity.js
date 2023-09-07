@@ -41,7 +41,7 @@ function securityUpdate2() {
 	    <div class="securityPopup-row">
 	      <div class="commonSection user-section" id="section1">
 	        <h3>FROM</h3>
-	        /* <input type="text" id="searchInput1" placeholder="Search Users"> */
+	        <!-- <input type="text" id="searchInput1" placeholder="Search Users"> -->
 	        <input type="text" id="searchInput1" placeholder="Search Business Units">
 	        <div class="user-list-container">
 	          <div id="userList1"></div>
