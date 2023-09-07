@@ -242,8 +242,8 @@ function securityUpdate2() {
 	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
 	    }
 	
-	    //setupSearchFilter('searchInput1', 'user');
-	    //setupSearchFilter('searchInput2', 'businessUnit');
+	    setupSearchFilter('searchInput1', 'user');
+	    setupSearchFilter('searchInput2', 'businessUnit');
 	
 	 /*   loadScript(
 	        "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
@@ -260,14 +260,20 @@ function securityUpdate2() {
 	        }
 	    );		*/
 	}
+	 Promise.all([
+	    new Promise(resolve => fetchUsers(resolve)),
+	    new Promise(resolve => fetchBusinessUnits(resolve))
+	 ]).then(([users, businessUnits]) => {
+	    displayPopup(users, businessUnits);
+	});
 	
-	fetchUsers(function(users) {
+/*	fetchUsers(function(users) {
 		displayPopup(users);
 	});
 	
 	fetchBusinessUnits(function(businessUnits) {
 	        displayPopup(businessUnits);
-	});
+	}); */
 
 	function loadScript(src, callback, errorCallback) {
 	    const script = document.createElement("script");
