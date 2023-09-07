@@ -1,4 +1,5 @@
 function securityUpdate2() {
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 	debugger;	
 	let selectedUserId = null;
 	let selectedBusinessUnitId = null;
