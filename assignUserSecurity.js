@@ -94,12 +94,12 @@ function securityUpdate2() {
 	
 	function renderList(businessUnits, selectItemCallback, sectionId, searchInputId) {
 	    const listDiv = document.getElementById(sectionId);
-	    businessUnits.forEach(entity => {
+	    businessUnits.forEach(businessUnit => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `businessUnit${sectionId.charAt(sectionId.length - 1)}`;
 	        entityDiv.textContent = businessUnit.name;
 	        entityDiv.dataset.id = businessUnit.id;
-	        entityDiv.onclick = () => selectItemCallback(entity);
+	        entityDiv.onclick = () => selectItemCallback(businessUnit);
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
