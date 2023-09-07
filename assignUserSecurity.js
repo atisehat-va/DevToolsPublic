@@ -224,13 +224,13 @@ function securityUpdate2() {
 		}
 	}
 
-	function setupSearchFilter(searchInputId, targetClass) {
-	  document.getElementById(searchInputId).oninput = function() {
-	    const searchValue = this.value.toLowerCase();
-	    document.querySelectorAll(`.${targetClass}${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
-	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-	    });
-	  };
+	function setupSearchFilter(searchInputId, targetClassSuffix) {
+	    document.getElementById(searchInputId).oninput = function() {
+	        const searchValue = this.value.toLowerCase();
+	        document.querySelectorAll(`.${targetClassSuffix}`).forEach(el => {
+	            el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+	        });
+	    };
 	}
 	
 	function displayPopup(users, businessUnits) {
@@ -266,8 +266,8 @@ function securityUpdate2() {
 	    //setupSearchFilter('searchInput1', 'user');	    
 	    //setupSearchFilter('searchInput2', 'businessUnit');
 	      
-	      //renderGenericList(users, selectUserCallback, 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');		
-	      //renderGenericList(businessUnits, selectItemCallback, 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
+	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
+	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 
 	
 	 /*   loadScript(
