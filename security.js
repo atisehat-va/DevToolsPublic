@@ -1,70 +1,291 @@
-window.updateUserDetails = async function (selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds) {
-  const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
+function securityUpdate2() {
+	debugger;	
+	let selectedUserId = null;
+	let selectedBusinessUnitId = null;
+	let selectedTeamIds = [];
+	let selectedRoleIds = [];
+	
+	function fetchUsers(callback) {
+	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
+	}
+	function fetchRolesForUser(userId, callback) {
+		Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
+	}
+	function fetchTeamsForUser(userId, callback) {
+		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
+	}
+	function fetchBusinessUnitName(userId, callback) {
+		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
+	}	
 
- try {
-    await changeBusinessUnit(selectedUserId, selectedBusinessUnitId);
-    await disassociateUserFromRoles(selectedUserId, clientUrl);
-    await disassociateUserFromTeams(selectedUserId, clientUrl);
-    await associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl);
-    await associateUserToRole(selectedUserId, selectedRoleIds, clientUrl);
-  } catch (error) {
-    console.error('An error occurred:', error);
-  }
-}
+	function createAppendSecurityPopup() {		
+	  var newContainer = document.createElement('div');		
+	  newContainer.className = 'commonPopup';		
+	  newContainer.innerHTML =  `    			
+	    <div class="commonPopup-header">Assign User Security</div>
+	    <button class="commonback-button" id="commonback-button">Back</button>		  
+	    <div class="securityPopup-row">
+	      <div class="commonSection user-section" id="section1">
+	        <h3>FROM</h3>
+	        <input type="text" id="searchInput1" placeholder="Search Users">
+	        <div class="user-list-container">
+	          <div id="userList1"></div>
+	        </div>
+	      </div>                            
+	      <div class="commonSection user-section" id="section2">
+	        <h3>Change Business Unit</h3>
+	        <div class="user-list-container">
+	          <div></div>
+	        </div>
+	      </div>
+	    </div>
+	    <div id="sectionsRow1" class="securityPopup-row">
+	      <div class="commonSection details-section-row" id="section3">
+	        <h3>Business Unit & Teams</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	      <div class="commonSection details-section-row" id="section5">
+	        <h3>Update Team(s)</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	    </div>
+	    <div id="sectionsRow2" class="securityPopup-row">
+	      <div class="commonSection details-section-row" id="section4">
+	        <h3>Security Roles</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	      <div class="commonSection details-section-row" id="section6">
+	        <h3>Update Security Role(s)</h3>
+	        <div class="roles-and-teams-list-row">
+	          <ul></ul>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="submit-button-container">
+	      <button id="submitButton">Submit</button>
+	    </div>
+	  `;		
+	  document.body.appendChild(newContainer);
+	  document.getElementById('commonback-button').addEventListener('click', function() {
+	    newContainer.remove();
+	    openPopup();  
+	  });		
+	  makePopupMovable(newContainer);	
+	}
 
-window.changeBusinessUnit = async function (selectedUserId, selectedBusinessUnitId) {
-  const data1 = {
-    "businessunitid@odata.bind": `/businessunits(${selectedBusinessUnitId})`
-  };
-  return Xrm.WebApi.updateRecord("systemuser", selectedUserId, data1);
-}
+	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
+		const userListDiv = document.getElementById(sectionId);
+		users.forEach(user => {
+			const userDiv = document.createElement('div');
+			userDiv.className = `user${sectionId.charAt(sectionId.length - 1)}`;
+			userDiv.textContent = user.fullname;
+			userDiv.dataset.id = user.systemuserid;
+			userDiv.onclick = () => selectUserCallback(user);
+			userListDiv.appendChild(userDiv);
+		});
+	}
 
-window.disassociateUserFromRoles = async function (selectedUserId, clientUrl) {
-  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association`;
-  const response = await fetch(rolesUrl, {
-    headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
-  });
-  const results = (await response.json()).value;
+	function updateSubmitButtonVisibility() {
+	    const displayStatus = selectedUserId ? 'block' : 'none';
+	    document.getElementById("submitButton").style.display = displayStatus;
+	}
 
-  await Promise.all(results.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
-    await fetch(disassociateUrl, { method: "DELETE" });
-  }));
-}
+	function selectUser(user, sectionPrefix) {
+		try {
+			const messageDiv = document.getElementById('updateMessage');
+			if (messageDiv) {
+				messageDiv.style.display = 'none';
+			}
 
-window.disassociateUserFromTeams = async function disassociateUserFromTeams(selectedUserId, clientUrl) {
-  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/teammembership_association`;
-  const response = await fetch(teamsUrl, {
-    headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
-  });
-  const results = (await response.json()).value;
+			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
+			const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
+			userDiv.classList.add('selected');
 
-  await Promise.all(results.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`;
-    await fetch(disassociateUrl, { method: "DELETE" });
-  }));
-}
+			if (sectionPrefix === '1') {
+				selectedUserId = user.systemuserid;
+			}			
+			updateSubmitButtonVisibility();
 
-window.associateUserToTeam = async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
-  const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${selectedTeamIds})/teammembership_association/$ref`;
-  const associateTeamData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`
-  };
-  await fetch(associateTeamUrl, {
-    method: "POST",
-    headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
-    body: JSON.stringify(associateTeamData)
-  });
-}
+			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
+			businessUnitAndTeamsList.innerHTML = '';
+			let businessUnitListItem = null;
+			let teamListItems = [];
 
-window.associateUserToRole = async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
-  const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
-  const associateRoleData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`
-  };
-  await fetch(associateRoleUrl, {
-    method: "POST",
-    headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
-    body: JSON.stringify(associateRoleData)
-  });
+			const appendLists = () => {
+			 	if (businessUnitListItem) {
+					businessUnitAndTeamsList.appendChild(businessUnitListItem);
+				}
+				teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
+			};
+
+			fetchBusinessUnitName(user.systemuserid, function(response) {
+				if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
+					console.error('Business unit not found');
+					return;
+				}
+
+				const businessUnitName = response.entities[0].businessunitid.name;
+
+				if (sectionPrefix === '1') {
+					selectedBusinessUnitId = user._businessunitid_value;
+				}
+
+				businessUnitListItem = document.createElement('li');
+				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
+
+				appendLists();
+			});
+
+			fetchTeamsForUser(user.systemuserid, function(response) {
+				if (!response || !response.entities || !response.entities[0].teammembership_association) {
+					console.error('Teams not found');
+					return;
+				}
+				if (sectionPrefix === '1') {
+					selectedTeamIds = [];
+				}
+				teamListItems = response.entities[0].teammembership_association.map(team => {
+
+					if (sectionPrefix === '1') {
+						selectedTeamIds.push(team.teamid);
+					}
+
+					const listItem = document.createElement('li');
+					listItem.textContent = 'Team: ' + team.name;
+					return listItem;
+				});
+
+				appendLists();
+			});
+
+			fetchRolesForUser(user.systemuserid, function(roles) {
+				if (!roles || !roles.entities) {
+					console.error('Roles not found');
+					return;
+				}
+				if (sectionPrefix === '1') {
+					selectedRoleIds = [];
+				}
+				const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
+				rolesList.innerHTML = '';
+
+				const roleDetailsArr = [];
+
+				const rolePromises = roles.entities.map(role => {
+					const roleId = role['roleid'];
+
+					if (sectionPrefix === '1') {
+						selectedRoleIds.push(roleId);
+					}
+
+					return Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
+						roleDetailsArr.push(roleDetail);
+					});
+				});
+				Promise.all(rolePromises).then(() => {
+					roleDetailsArr.sort((a, b) => {
+						if (a.name < b.name) return -1;
+						if (a.name > b.name) return 1;
+						return 0;
+					});
+					roleDetailsArr.forEach(roleDetail => {
+						const listItem = document.createElement('li');
+						listItem.textContent = roleDetail.name;
+						rolesList.appendChild(listItem);
+					});
+				});
+			});
+		} catch (e) {
+			console.error('Error in selectUser function', e);
+		}
+	}
+
+	function setupSearchFilter(searchInputId) {
+		document.getElementById(searchInputId).oninput = function() {
+			const searchValue = this.value.toLowerCase();
+			document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
+				el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+			});
+		};
+	}
+
+	function displayPopup(users) {
+		users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
+		const newContainer = createAppendSecurityPopup();
+		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');		
+		setupSearchFilter('searchInput1');		
+
+		loadScript(
+			"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
+			function() {
+				console.log("The script has been loaded and callback function executed.");
+				if (typeof updateUserDetails === "function") {
+					console.log("updateUserDetails is accessible");
+				} else {
+					console.log("updateUserDetails is NOT accessible");
+				}
+
+				const submitButton = document.getElementById("submitButton");
+				if (submitButton) {
+					console.log("Found submitButton element, adding event listener.");
+					submitButton.addEventListener("click", async function() {
+						console.log("submitButton clicked.");
+
+						const existingMessageDiv = document.getElementById('updateMessage');
+						if (existingMessageDiv) {
+							existingMessageDiv.remove();
+						}
+						this.style.display = 'none';
+
+						const messageDiv = document.createElement('div');
+						messageDiv.id = 'updateMessage';
+						messageDiv.innerHTML = `Your update is in progress, please be patient...`;
+						messageDiv.style.fontSize = "20px";
+						messageDiv.style.fontWeight = "bold";
+						this.parentNode.appendChild(messageDiv);
+
+						if (typeof updateUserDetails === "function") {
+							await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+							console.log("updateUserDetails function called.");
+							if (messageDiv) {
+								messageDiv.remove();
+							}
+							const newMessageDiv = document.createElement('div');
+							newMessageDiv.id = 'updateMessage';
+							newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;
+							newMessageDiv.style.fontSize = "20px";
+							newMessageDiv.style.fontWeight = "bold";
+							this.parentNode.appendChild(newMessageDiv);
+						} else {
+							console.log("updateUserDetails is NOT accessible");
+						}
+					});
+				} else {
+					console.log("submitButton element not found");
+				}
+			},
+			function() {
+				console.log("Failed to load script.");
+			}
+		);
+		updateSubmitButtonVisibility();
+	}
+	fetchUsers(function(users) {
+		displayPopup(users);
+	});
+
+	function loadScript(src, callback, errorCallback) {
+	    const script = document.createElement("script");
+	    script.type = "text/javascript";
+	    script.onload = callback;
+	    script.onerror = errorCallback;
+	    script.src = src;
+	    document.body.appendChild(script);
+	}
 }
