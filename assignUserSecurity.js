@@ -258,7 +258,9 @@ function securityUpdate2() {
 	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
 	    }
 	
-	    setupSearchFilter('searchInput1', 'user');
+	    setTimeout(() => {
+	       setupSearchFilter('searchInput1', 'user');
+	    }, 3000);
 	    setupSearchFilter('searchInput2', 'businessUnit');
 	
 	 /*   loadScript(
