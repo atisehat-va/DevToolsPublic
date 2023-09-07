@@ -221,13 +221,14 @@ function securityUpdate2() {
 	  };
 	}
 
-	function displayPopup(businessUnits) {
+	function displayPopup(users, businessUnits) {
 		users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-		const newContainer = createAppendSecurityPopup();
-		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+		const newContainer = createAppendSecurityPopup();		
 		businessUnits.entities.sort((a, b) => a.name.localeCompare(b.name));
-    		createAppendSecurityPopup();
-	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
+    		createAppendSecurityPopup();	        
+		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+    		renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
+		
     		setupSearchFilter('searchInput1', 'user');
 		setupSearchFilter('searchInput2', 'businessUnit');
 
