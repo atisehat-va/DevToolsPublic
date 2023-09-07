@@ -95,34 +95,41 @@ function securityUpdate2() {
 	} */
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
-	  const listDiv = document.getElementById(sectionId);
-	  
-	  entities.forEach(entity => {
-	    let appendToDiv = listDiv;  // Default to listDiv
-	    
-	    // Create wrapper div for Business Unit list
-	    if (classNamePrefix === 'businessUnit') {
-	      const wrapperDiv = document.createElement('div');
-	      wrapperDiv.className = 'businessUnitWrapper';
-	      
-	      // Create and append the checkbox
-	      const checkBox = document.createElement('input');
-	      checkBox.type = "checkbox";
-	      checkBox.className = "businessUnitCheckbox";
-	      
-	      wrapperDiv.appendChild(checkBox);  // Append to wrapper
-	      appendToDiv = wrapperDiv;  // Set wrapper as the new parent
-	      
-	      listDiv.appendChild(wrapperDiv);  // Append wrapper to listDiv
-	    }
-	    
-	    const textDiv = document.createElement('div');
-	    textDiv.textContent = entity[textProperty];
-	    textDiv.dataset.id = entity[idProperty];
-	    textDiv.onclick = () => selectCallback(entity);
-	    
-	    appendToDiv.appendChild(textDiv);  // Append textDiv to the appropriate parent
-	  });
+	    const listDiv = document.getElementById(sectionId);
+	    entities.forEach(entity => {
+	        const entityDiv = document.createElement('div');
+	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	        
+	        // Create wrapper div for Business Unit list
+	        let wrapperDiv = null;
+	        if (classNamePrefix === 'businessUnit') {
+	            wrapperDiv = document.createElement('div');
+	            wrapperDiv.className = 'businessUnitWrapper';
+	        }
+	        
+	        // If this is a Business Unit list, add a checkbox
+	        if (classNamePrefix === 'businessUnit') {
+	            const checkBox = document.createElement('input');
+	            checkBox.type = "checkbox";
+	            checkBox.className = "businessUnitCheckbox";
+	            wrapperDiv.appendChild(checkBox);
+	        }
+	        
+	        const textDiv = document.createElement('div');
+	        textDiv.textContent = entity[textProperty];
+	        textDiv.dataset.id = entity[idProperty];
+	        textDiv.dataset.searchText = entity[textProperty];
+	        textDiv.onclick = () => selectCallback(entity);
+	        
+	        if (wrapperDiv) {
+	            wrapperDiv.appendChild(textDiv);
+	            entityDiv.appendChild(wrapperDiv);
+	        } else {
+	            entityDiv.appendChild(textDiv);
+	        }
+	        
+	        listDiv.appendChild(entityDiv);
+	    });
 	}
 
 	function selectUser(user, sectionPrefix) {
