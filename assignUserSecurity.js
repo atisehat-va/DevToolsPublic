@@ -97,25 +97,24 @@ function securityUpdate2() {
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	        entityDiv.dataset.id = entity[idProperty];
 	        
-	        // Create a checkbox and label for each business unit
-	        if (classNamePrefix === 'businessUnit') {
-	            const checkbox = document.createElement('input');
-	            checkbox.type = 'checkbox';
-	            checkbox.className = 'businessUnitCheckbox';
-	            checkbox.id = `checkbox-${entity[idProperty]}`;
-	            entityDiv.appendChild(checkbox);
+	        // If this is a Business Unit list, add a checkbox
+	        if(classNamePrefix === 'businessUnit') {
+	            entityDiv.className = "businessUnit2"; 
+			
+	            // Create and append the checkbox
+	            const checkBox = document.createElement('input');
+	            checkBox.type = "checkbox";
+	            checkBox.className = "businessUnitCheckbox";
 	            
-	            const label = document.createElement('label');
-	            label.htmlFor = `checkbox-${entity[idProperty]}`;
-	            label.textContent = entity[textProperty];
-	            entityDiv.appendChild(label);
-	        } else {
-	            entityDiv.textContent = entity[textProperty];
-	        }
+	            entityDiv.appendChild(checkBox);
+	        }	        
+	        const textDiv = document.createElement('div');
+	        textDiv.textContent = entity[textProperty];
+	        textDiv.dataset.id = entity[idProperty];
+	        textDiv.onclick = () => selectCallback(entity);
 	        
-	        entityDiv.onclick = () => selectCallback(entity);
+	        entityDiv.appendChild(textDiv);
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
