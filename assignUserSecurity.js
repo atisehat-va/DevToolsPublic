@@ -30,14 +30,14 @@ function securityUpdate2() {
 	    <div class="commonPopup-header">Assign User Security</div>
 	    <button class="commonback-button" id="commonback-button">Back</button>		  
 	    <div class="securityPopup-row">
-	      <div class="commonSection user-section" id="section1">
+	      <div class="commonSection user-leftsection" id="section1">
 	        <h3>FROM</h3>
 	        <input type="text" id="searchInput1" placeholder="Search Users">
 	        <div class="user-list-container">
 	          <div id="userList1"></div>
 	        </div>
 	      </div>                            
-	      <div class="commonSection user-section" id="section2">
+	      <div class="commonSection businessUnit-rightsection" id="section2">
 	        <h3>Change Business Unit</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="businessUnit-list-container">
