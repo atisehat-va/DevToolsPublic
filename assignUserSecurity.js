@@ -96,7 +96,7 @@ function securityUpdate2() {
 	    const listDiv = document.getElementById(sectionId);
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
-	        entityDiv.className = 'businessUnit2';
+	        entityDiv.className = `businessUnit${sectionId.charAt(sectionId.length - 1)}`;
 	        entityDiv.textContent = entity.name;
 	        entityDiv.dataset.id = entity.id;
 	        entityDiv.onclick = () => selectItemCallback(entity);
@@ -249,7 +249,7 @@ function securityUpdate2() {
 	
 	    
 	    setupSearchFilter('searchInput1', 'user');	    
-	    setupSearchFilter('searchInput2', 'businessUnit');
+	    setupSearchFilter('searchInput2', `businessUnit${someSuffix}`);
 	
 	 /*   loadScript(
 	        "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
