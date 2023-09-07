@@ -90,6 +90,7 @@ function securityUpdate2() {
 			userDiv.onclick = () => selectUserCallback(user);
 			userListDiv.appendChild(userDiv);
 		});
+		console.log("Elements with class businessUnit2:", document.querySelectorAll('.businessUnit2'));
 	}
 	
 	function renderList(businessUnits, selectBusinessUnitCallback, sectionId, searchInputId) {
