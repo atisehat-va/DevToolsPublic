@@ -222,9 +222,9 @@ function securityUpdate2() {
 	}
 
 	function displayPopup(businessUnits) {
-		//users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-		//const newContainer = createAppendSecurityPopup();
-		//renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+		users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
+		const newContainer = createAppendSecurityPopup();
+		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
 		businessUnits.entities.sort((a, b) => a.name.localeCompare(b.name));
     		createAppendSecurityPopup();
 	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
@@ -246,9 +246,9 @@ function securityUpdate2() {
 			}
 		);		
 	}
-	/* fetchUsers(function(users) {
+	 fetchUsers(function(users) {
 		displayPopup(users);
-	}); */
+	});
 	
 	fetchBusinessUnits(function(businessUnits) {
 	        displayPopup(businessUnits);
