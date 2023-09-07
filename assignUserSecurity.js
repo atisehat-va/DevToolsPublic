@@ -219,8 +219,8 @@ function securityUpdate2() {
 	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
 	    });
 	  };
-	}
-
+	} 
+	
 	function displayPopup(users, businessUnits) {
 	    if (users && users.entities) {
 	        users.entities.sort((a, b) => (a.fullname || "").localeCompare(b.fullname || ""));
@@ -242,8 +242,8 @@ function securityUpdate2() {
 	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
 	    }
 	
-	    setupSearchFilter('searchInput1', 'user');
-	    setupSearchFilter('searchInput2', 'businessUnit');
+	    //setupSearchFilter('searchInput1', 'user');
+	    //setupSearchFilter('searchInput2', 'businessUnit');
 	
 	 /*   loadScript(
 	        "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
