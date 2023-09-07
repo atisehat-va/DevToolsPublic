@@ -92,7 +92,7 @@ function securityUpdate2() {
 	    });		
 	}
 	
-	function renderList(entities, selectItemCallback, sectionId, searchInputId) {
+	function renderList(businessUnits, selectItemCallback, sectionId, searchInputId) {
 	    const listDiv = document.getElementById(sectionId);
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
