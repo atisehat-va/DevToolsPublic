@@ -38,5 +38,5 @@
 /* AssignSecurity */
 .businessUnit-list-container { max-height: 110px; overflow-y: auto; }
 .businessUnit2 { display: flex; align-items: center; justify-content: flex-start; width: 100%; }
-.businessUnitCheckbox { flex: 0 0 auto; margin-right: 10px; }
+.businessUnitCheckbox { flex: 0 0 auto; margin-right: -100px; }
 .businessUnitText { flex: 1; text-align: left; }
