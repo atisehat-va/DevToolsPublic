@@ -41,14 +41,14 @@ function securityUpdate2() {
 	    <div class="securityPopup-row">
 	      <div class="commonSection user-section" id="section1">
 	        <h3>FROM</h3>
-	        <!-- <input type="text" id="searchInput1" placeholder="Search Users"> -->
-	        <input type="text" id="searchInput1" placeholder="Search Business Units">
+	        <input type="text" id="searchInput1" placeholder="Search Users">
 	        <div class="user-list-container">
 	          <div id="userList1"></div>
 	        </div>
 	      </div>                            
 	      <div class="commonSection user-section" id="section2">
 	        <h3>Change Business Unit</h3>
+	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="user-list-container">
 	          <div></div>
 	        </div>
@@ -212,13 +212,13 @@ function securityUpdate2() {
 		}
 	}
 
-	function setupSearchFilter(searchInputId) {
-		document.getElementById(searchInputId).oninput = function() {
-			const searchValue = this.value.toLowerCase();
-			document.querySelectorAll(`.user${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
-				el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-			});
-		};
+	function setupSearchFilter(searchInputId, targetClass) {
+	  document.getElementById(searchInputId).oninput = function() {
+	    const searchValue = this.value.toLowerCase();
+	    document.querySelectorAll(`.${targetClass}`).forEach(el => {
+	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+	    });
+	  };
 	}
 
 	function displayPopup(businessUnits) {
@@ -228,7 +228,8 @@ function securityUpdate2() {
 		businessUnits.entities.sort((a, b) => a.name.localeCompare(b.name));
     		createAppendSecurityPopup();
 	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'userList1', 'searchInput1');
-    		setupSearchFilter('searchInput1');			
+    		setupSearchFilter('searchInput1', 'user');
+		setupSearchFilter('searchInput2', 'businessUnit');
 
 		loadScript(
 			"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
