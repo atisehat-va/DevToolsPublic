@@ -97,23 +97,30 @@ function securityUpdate2() {
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    entities.forEach(entity => {
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'businessUnitWrapper';
-	        
-	        const checkbox = document.createElement('input');
-	        checkbox.type = 'checkbox';
-	        checkbox.className = 'businessUnitCheckbox';
-	        
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	        entityDiv.textContent = entity[textProperty];
-	        entityDiv.dataset.id = entity[idProperty];
-	        entityDiv.onclick = () => selectCallback(entity);
-	        
-	        wrapperDiv.appendChild(checkbox);
-	        wrapperDiv.appendChild(entityDiv);
-	        
-	        listDiv.appendChild(wrapperDiv);
+	
+	        const wrapperDiv = document.createElement('div');
+	        wrapperDiv.className = 'businessUnitWrapper';
+	
+	        if (classNamePrefix === 'businessUnit') {
+	            entityDiv.className = "businessUnit2"; 
+	            
+	            const checkBox = document.createElement('input');
+	            checkBox.type = "checkbox";
+	            checkBox.className = "businessUnitCheckbox";
+	            
+	            wrapperDiv.appendChild(checkBox);
+	        }
+	
+	        const textDiv = document.createElement('div');
+	        textDiv.textContent = entity[textProperty];
+	        textDiv.dataset.id = entity[idProperty];
+	        textDiv.onclick = () => selectCallback(entity);
+	
+	        wrapperDiv.appendChild(textDiv);
+	        entityDiv.appendChild(wrapperDiv);
+	        listDiv.appendChild(entityDiv);
 	    });
 	}
 
