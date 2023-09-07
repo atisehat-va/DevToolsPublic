@@ -96,6 +96,7 @@ function securityUpdate2() {
 	    const businessUnitListDiv = document.getElementById(sectionId);
 	    businessUnits.forEach(businessUnit => {
 	        const businessUnitDiv = document.createElement('div');
+		console.log(`sectionId: ${sectionId}`);
 	        businessUnitDiv.className = `businessUnit${sectionId.charAt(sectionId.length - 1)}`;
 		console.log(`Created an element with class ${businessUnitDiv.className}`);
 	        businessUnitDiv.textContent = businessUnit.name;
