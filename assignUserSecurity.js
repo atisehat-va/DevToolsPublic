@@ -50,7 +50,7 @@ function securityUpdate2() {
 	        <h3>Change Business Unit</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="user-list-container">
-	          <div></div>
+	          <div id="businessUnitList"></div>
 	        </div>
 	      </div>
 	    </div>
@@ -227,7 +227,7 @@ function securityUpdate2() {
 		//renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
 		businessUnits.entities.sort((a, b) => a.name.localeCompare(b.name));
     		createAppendSecurityPopup();
-	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'userList1', 'searchInput1');
+	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
     		setupSearchFilter('searchInput1', 'user');
 		setupSearchFilter('searchInput2', 'businessUnit');
 
