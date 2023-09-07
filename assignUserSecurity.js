@@ -16,7 +16,21 @@ function securityUpdate2() {
 	}
 	function fetchBusinessUnitName(userId, callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
-	}	
+	}
+	function fetchBusinessUnits(callback) {
+	        Xrm.WebApi.retrieveMultipleRecords('businessunit', '?$select=businessunitid,name').then(callback);
+	}
+	function renderList(items, selectItemCallback, sectionId, searchInputId) {
+		const listDiv = document.getElementById(sectionId);
+		items.forEach(item => {
+		const itemDiv = document.createElement('div');
+		itemDiv.className = `item${sectionId.charAt(sectionId.length - 1)}`;
+		itemDiv.textContent = item.name || item.fullname;  // accommodate both Users and Business Units
+		itemDiv.dataset.id = item.businessunitid || item.systemuserid;
+		itemDiv.onclick = () => selectItemCallback(item);
+		listDiv.appendChild(itemDiv);
+	   });
+        }
 
 	function createAppendSecurityPopup() {		
 	  var newContainer = document.createElement('div');		
@@ -27,7 +41,8 @@ function securityUpdate2() {
 	    <div class="securityPopup-row">
 	      <div class="commonSection user-section" id="section1">
 	        <h3>FROM</h3>
-	        <input type="text" id="searchInput1" placeholder="Search Users">
+	        /* <input type="text" id="searchInput1" placeholder="Search Users"> */
+	        <input type="text" id="searchInput1" placeholder="Search Business Units">
 	        <div class="user-list-container">
 	          <div id="userList1"></div>
 	        </div>
@@ -216,9 +231,13 @@ function securityUpdate2() {
 	}
 
 	function displayPopup(users) {
-		users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-		const newContainer = createAppendSecurityPopup();
-		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');		
+		//users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
+		//const newContainer = createAppendSecurityPopup();
+		//renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+		businessUnits.entities.sort((a, b) => a.name.localeCompare(b.name));
+	        createAppendSecurityPopup();
+	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'userList1', 'searchInput1');
+		
 		setupSearchFilter('searchInput1');		
 
 		loadScript(
@@ -276,8 +295,11 @@ function securityUpdate2() {
 		);
 		updateSubmitButtonVisibility();
 	}
-	fetchUsers(function(users) {
+	/* fetchUsers(function(users) {
 		displayPopup(users);
+	}); */
+	fetchBusinessUnits(function(businessUnits) {
+	        displayPopup(businessUnits);
 	});
 
 	function loadScript(src, callback, errorCallback) {
