@@ -97,6 +97,7 @@ function securityUpdate2() {
 	    businessUnits.forEach(businessUnit => {
 	        const businessUnitDiv = document.createElement('div');
 	        businessUnitDiv.className = `businessUnit${sectionId.charAt(sectionId.length - 1)}`;
+		console.log(`Created an element with class ${businessUnitDiv.className}`);
 	        businessUnitDiv.textContent = businessUnit.name;
 	        businessUnitDiv.dataset.id = businessUnit.id;
 	        businessUnitDiv.onclick = () => selectBusinessUnitCallback(businessUnit);
