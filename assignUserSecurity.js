@@ -233,7 +233,9 @@ function securityUpdate2() {
 	    }
 	
 	    if (users && users.entities) {
+		console.log("Before rendering user list");
 	        renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+		console.log("After rendering user list");
 	    }
 	
 	    if (businessUnits && businessUnits.entities) {
@@ -243,7 +245,7 @@ function securityUpdate2() {
 	    setupSearchFilter('searchInput1', 'user');
 	    setupSearchFilter('searchInput2', 'businessUnit');
 	
-	    loadScript(
+	 /*   loadScript(
 	        "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
 	        function() {
 	            console.log("The script has been loaded and callback function executed.");
@@ -256,7 +258,7 @@ function securityUpdate2() {
 	        function() {
 	            console.log("Failed to load script.");
 	        }
-	    );		
+	    );		*/
 	}
 	
 	fetchUsers(function(users) {
