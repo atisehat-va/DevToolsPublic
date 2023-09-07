@@ -36,6 +36,8 @@
 #submitButton:hover { background-color: #103e89; }
 
 /* AssignSecurity */
+.user-leftsection { text-align: center; height: 190px; width: 50%;}
+.businessUnit-rightsection { text-align: center; height: 190px; width: 50%;} 
 .businessUnit-list-container { max-height: 110px; overflow-y: auto; text-align: left; padding: 10px; }
 .businessUnitWrapper { display: flex; margin-left: 15px;}
 .businessUnitCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
