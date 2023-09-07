@@ -249,7 +249,7 @@ function securityUpdate2() {
 	
 	    
 	    setupSearchFilter('searchInput1', 'user');	    
-	    setupSearchFilter('searchInput2', `businessUnit${someSuffix}`);
+	    setupSearchFilter('searchInput2', 'businessUnit');
 	
 	 /*   loadScript(
 	        "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
