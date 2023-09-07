@@ -93,30 +93,30 @@ function securityUpdate2() {
 	} */
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
-	    const listDiv = document.getElementById(sectionId);
-	    entities.forEach(entity => {
-	        const entityDiv = document.createElement('div');
-	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	        
-	        // If this is a Business Unit list, add a checkbox
-	        if(classNamePrefix === 'businessUnit') {
-	            entityDiv.className = "businessUnit2"; 
-			
-	            // Create and append the checkbox
-	            const checkBox = document.createElement('input');
-	            checkBox.type = "checkbox";
-	            checkBox.className = "businessUnitCheckbox";
-	            
-	            entityDiv.appendChild(checkBox);
-	        }	        
-	        const textDiv = document.createElement('div');
-	        textDiv.textContent = entity[textProperty];
-	        textDiv.dataset.id = entity[idProperty];
-	        textDiv.onclick = () => selectCallback(entity);
-	        
-	        entityDiv.appendChild(textDiv);
-	        listDiv.appendChild(entityDiv);
-	    });
+	  const listDiv = document.getElementById(sectionId);
+	  entities.forEach(entity => {
+	    const entityDiv = document.createElement('div');
+	    entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	
+	    if(classNamePrefix === 'businessUnit') {
+	      entityDiv.className = "businessUnit2";
+	
+	      const checkBox = document.createElement('input');
+	      checkBox.type = "checkbox";
+	      checkBox.className = "businessUnitCheckbox";
+	
+	      entityDiv.appendChild(checkBox);
+	    }
+	
+	    const textDiv = document.createElement('div');
+	    textDiv.className = "businessUnitText";
+	    textDiv.textContent = entity[textProperty];
+	    textDiv.dataset.id = entity[idProperty];
+	    textDiv.onclick = () => selectCallback(entity);
+	
+	    entityDiv.appendChild(textDiv);
+	    listDiv.appendChild(entityDiv);
+	  });
 	}
 
 	function selectUser(user, sectionPrefix) {
