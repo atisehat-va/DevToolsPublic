@@ -80,7 +80,7 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 
-	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
+/*	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
 	    const userListDiv = document.getElementById(sectionId);
 	    users.forEach(user => {
 		const userDiv = document.createElement('div');
@@ -100,6 +100,17 @@ function securityUpdate2() {
 	        entityDiv.textContent = businessUnit.name;
 	        entityDiv.dataset.id = businessUnit.id;
 	        entityDiv.onclick = () => selectItemCallback(businessUnit);
+	        listDiv.appendChild(entityDiv);
+	    });
+	} */
+	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
+	    const listDiv = document.getElementById(sectionId);
+	    entities.forEach(entity => {
+	        const entityDiv = document.createElement('div');
+	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	        entityDiv.textContent = entity[textProperty];
+	        entityDiv.dataset.id = entity[idProperty];
+	        entityDiv.onclick = () => selectCallback(entity);
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
@@ -244,8 +255,12 @@ function securityUpdate2() {
 	    }
 	
 	    
-	    setupSearchFilter('searchInput1', 'user');	    
-	    setupSearchFilter('searchInput2', 'businessUnit');
+	    //setupSearchFilter('searchInput1', 'user');	    
+	    //setupSearchFilter('searchInput2', 'businessUnit');
+	      
+	      renderGenericList(users, selectUserCallback, 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');		
+	      renderGenericList(businessUnits, selectItemCallback, 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
+
 	
 	 /*   loadScript(
 	        "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
