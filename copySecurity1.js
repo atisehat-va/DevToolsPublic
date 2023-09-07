@@ -72,10 +72,7 @@ function securityUpdate() {
 			        <ul></ul>
 			      </div>
 			    </div>
-			  </div>
-			  <div class="submit-button-container">
-			    <button id="submitButton">Submit</button>
-			  </div>
+			  </div>			  
 		    `;		
 			document.body.appendChild(newContainer);
 			document.getElementById('commonback-button').addEventListener('click', function() {
@@ -95,16 +92,7 @@ function securityUpdate() {
 			userDiv.onclick = () => selectUserCallback(user);
 			userListDiv.appendChild(userDiv);
 		});
-	}
-
-	function updateSubmitButtonVisibility() {
-		const submitButton = document.getElementById("submitButton");
-		if (selectedUserId && selectedUserId2) {
-			submitButton.style.display = 'block';
-		} else {
-			submitButton.style.display = 'none';
-		}
-	}
+	}	
 
 	function selectUser(user, sectionPrefix) {
 		try {
@@ -125,8 +113,7 @@ function securityUpdate() {
 			}
 			if (sectionPrefix === '2') {
 				selectedUserName2 = user.fullname;
-			}
-			updateSubmitButtonVisibility();
+			}			
 
 			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
 			businessUnitAndTeamsList.innerHTML = '';
@@ -247,52 +234,12 @@ function securityUpdate() {
 					console.log("updateUserDetails is accessible");
 				} else {
 					console.log("updateUserDetails is NOT accessible");
-				}
-
-				const submitButton = document.getElementById("submitButton");
-				if (submitButton) {
-					console.log("Found submitButton element, adding event listener.");
-					submitButton.addEventListener("click", async function() {
-						console.log("submitButton clicked.");
-
-						const existingMessageDiv = document.getElementById('updateMessage');
-						if (existingMessageDiv) {
-							existingMessageDiv.remove();
-						}
-						this.style.display = 'none';
-
-						const messageDiv = document.createElement('div');
-						messageDiv.id = 'updateMessage';
-						messageDiv.innerHTML = `Your update is in progress, please be patient...`;
-						messageDiv.style.fontSize = "20px";
-						messageDiv.style.fontWeight = "bold";
-						this.parentNode.appendChild(messageDiv);
-
-						if (typeof updateUserDetails === "function") {
-							await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-							console.log("updateUserDetails function called.");
-							if (messageDiv) {
-								messageDiv.remove();
-							}
-							const newMessageDiv = document.createElement('div');
-							newMessageDiv.id = 'updateMessage';
-							newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;
-							newMessageDiv.style.fontSize = "20px";
-							newMessageDiv.style.fontWeight = "bold";
-							this.parentNode.appendChild(newMessageDiv);
-						} else {
-							console.log("updateUserDetails is NOT accessible");
-						}
-					});
-				} else {
-					console.log("submitButton element not found");
-				}
+				}				
 			},
 			function() {
 				console.log("Failed to load script.");
 			}
-		);
-		updateSubmitButtonVisibility();
+		);		
 	}
 	fetchUsers(function(users) {
 		displayPopup(users);
