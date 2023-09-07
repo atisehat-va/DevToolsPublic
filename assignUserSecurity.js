@@ -94,11 +94,11 @@ function securityUpdate2() {
 	
 	function renderList(businessUnits, selectItemCallback, sectionId, searchInputId) {
 	    const listDiv = document.getElementById(sectionId);
-	    entities.forEach(entity => {
+	    businessUnits.forEach(entity => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `businessUnit${sectionId.charAt(sectionId.length - 1)}`;
-	        entityDiv.textContent = entity.name;
-	        entityDiv.dataset.id = entity.id;
+	        entityDiv.textContent = businessUnit.name;
+	        entityDiv.dataset.id = businessUnit.id;
 	        entityDiv.onclick = () => selectItemCallback(entity);
 	        listDiv.appendChild(entityDiv);
 	    });
