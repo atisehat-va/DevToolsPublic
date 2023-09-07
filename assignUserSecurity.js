@@ -102,7 +102,7 @@ function securityUpdate2() {
 	        businessUnitDiv.onclick = () => selectBusinessUnitCallback(businessUnit);
 	        businessUnitListDiv.appendChild(businessUnitDiv);
 	    });
-	    onsole.log("Elements with class businessUnit2:", document.querySelectorAll('.businessUnit2'));
+	    console.log("Elements with class businessUnit2:", document.querySelectorAll('.businessUnit2'));
 	}
 
 	function selectUser(user, sectionPrefix) {
