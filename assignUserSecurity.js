@@ -230,15 +230,14 @@ function securityUpdate2() {
 		};
 	}
 
-	function displayPopup(users) {
+	function displayPopup(businessUnits) {
 		//users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
 		//const newContainer = createAppendSecurityPopup();
 		//renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
 		businessUnits.entities.sort((a, b) => a.name.localeCompare(b.name));
-	        createAppendSecurityPopup();
+    		createAppendSecurityPopup();
 	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'userList1', 'searchInput1');
-		
-		setupSearchFilter('searchInput1');		
+    		setupSearchFilter('searchInput1');			
 
 		loadScript(
 			"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
@@ -298,6 +297,7 @@ function securityUpdate2() {
 	/* fetchUsers(function(users) {
 		displayPopup(users);
 	}); */
+	
 	fetchBusinessUnits(function(businessUnits) {
 	        displayPopup(businessUnits);
 	});
