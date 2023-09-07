@@ -96,24 +96,24 @@ function securityUpdate2() {
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	  const listDiv = document.getElementById(sectionId);
+	  
 	  entities.forEach(entity => {
-	    const entityDiv = document.createElement('div');
-	    entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	    let appendToDiv = listDiv;  // Default to listDiv
 	    
 	    // Create wrapper div for Business Unit list
-	    let wrapperDiv = null;
 	    if (classNamePrefix === 'businessUnit') {
-	      wrapperDiv = document.createElement('div');
+	      const wrapperDiv = document.createElement('div');
 	      wrapperDiv.className = 'businessUnitWrapper';
-	    }
-	    
-	    // If this is a Business Unit list, add a checkbox
-	    if (classNamePrefix === 'businessUnit') {
+	      
 	      // Create and append the checkbox
 	      const checkBox = document.createElement('input');
 	      checkBox.type = "checkbox";
 	      checkBox.className = "businessUnitCheckbox";
-	      wrapperDiv.appendChild(checkBox);  // append to wrapper
+	      
+	      wrapperDiv.appendChild(checkBox);  // Append to wrapper
+	      appendToDiv = wrapperDiv;  // Set wrapper as the new parent
+	      
+	      listDiv.appendChild(wrapperDiv);  // Append wrapper to listDiv
 	    }
 	    
 	    const textDiv = document.createElement('div');
@@ -121,14 +121,7 @@ function securityUpdate2() {
 	    textDiv.dataset.id = entity[idProperty];
 	    textDiv.onclick = () => selectCallback(entity);
 	    
-	    if (wrapperDiv) {
-	      wrapperDiv.appendChild(textDiv);  // append text to wrapper
-	      entityDiv.appendChild(wrapperDiv);  // append wrapper to entityDiv
-	    } else {
-	      entityDiv.appendChild(textDiv);
-	    }
-	    
-	    listDiv.appendChild(entityDiv);
+	    appendToDiv.appendChild(textDiv);  // Append textDiv to the appropriate parent
 	  });
 	}
 
