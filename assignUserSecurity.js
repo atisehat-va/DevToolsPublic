@@ -213,13 +213,29 @@ function securityUpdate2() {
 	}
 
 	function setupSearchFilter(searchInputId, targetClass) {
-	  document.getElementById(searchInputId).oninput = function() {
+	  const searchInput = document.getElementById(searchInputId);
+	  
+	  if (!searchInput) {
+	    console.log(`Element with ID ${searchInputId} not found.`);
+	    return;
+	  }
+	
+	  searchInput.oninput = function() {
+	    console.log("Input event triggered");  // Debugging line
 	    const searchValue = this.value.toLowerCase();
-	    document.querySelectorAll(`.${targetClass}`).forEach(el => {
-	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+	
+	    const elements = document.querySelectorAll(`.${targetClass}`);
+	    if (elements.length === 0) {
+	      console.log(`No elements with class ${targetClass} found.`);
+	      return;
+	    }
+	    
+	    elements.forEach(el => {
+	      const displayValue = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+	      el.style.display = displayValue;
 	    });
 	  };
-	} 
+	}
 	
 	function displayPopup(users, businessUnits) {
 	    if (users && users.entities) {
