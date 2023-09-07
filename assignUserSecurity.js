@@ -243,7 +243,7 @@ function securityUpdate2() {
 	    if (businessUnits && businessUnits.entities) {
 	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 	    }
-	
+	/*
 	    if (users && users.entities) {
 		console.log("Before rendering user list");
 	        renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
@@ -252,7 +252,15 @@ function securityUpdate2() {
 	
 	    if (businessUnits && businessUnits.entities) {
 	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
+	    } */
+
+	    if (users && users.entities) {		    
+		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');	
 	    }
+	
+	   if (businessUnits && businessUnits.entities) {
+	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
+	   }
 	
 	    
 	    //setupSearchFilter('searchInput1', 'user');	    
