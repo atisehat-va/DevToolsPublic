@@ -232,7 +232,8 @@ function securityUpdate2() {
 	    document.getElementById(searchInputId).oninput = function() {
 	        const searchValue = this.value.toLowerCase();
 	        document.querySelectorAll(`.${targetClassSuffix}`).forEach(el => {
-	            el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+	            const searchText = el.dataset.searchText || el.textContent;
+	            el.style.display = searchText.toLowerCase().includes(searchValue) ? 'block' : 'none';
 	        });
 	    };
 	}
