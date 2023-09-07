@@ -212,38 +212,59 @@ function securityUpdate2() {
 		}
 	}
 
-	function setupSearchFilter(searchInputId, targetClass) {
-	  document.getElementById(searchInputId).oninput = function() {
-	    const searchValue = this.value.toLowerCase();
-	    document.querySelectorAll(`.${targetClass}`).forEach(el => {
-	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-	    });
-	  };
-	} 
+	let debounceTimeout;
+
+	function setupSearchFilter(inputId, listType) {
+	  const inputElement = document.getElementById(inputId);
+	  
+	  inputElement.addEventListener('keyup', () => {
+	    clearTimeout(debounceTimeout);
+	    
+	    debounceTimeout = setTimeout(() => {
+	      const query = inputElement.value.toLowerCase();
+	      let list = [];
+	      
+	      if (listType === 'user') {
+	        list = users.entities;
+	      } else if (listType === 'businessUnit') {
+	        list = businessUnits.entities;
+	      }
+	
+	      const filteredList = list.filter(item => {
+	        const name = listType === 'user' ? item.fullname : item.name;
+	        return name.toLowerCase().includes(query);
+	      });
+	      
+	      // Sort and render
+	      filteredList.sort((a, b) => {
+	        const nameA = listType === 'user' ? a.fullname : a.name;
+	        const nameB = listType === 'user' ? b.fullname : b.name;
+	        return (nameA || "").localeCompare(nameB || "");
+	      });
+	      
+	      if (listType === 'user') {
+	        renderUserList(filteredList, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+	      } else {
+	        renderList(filteredList, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
+	      }
+	      
+	    }, 300); // 300 milliseconds debounce time
+	  });
+	}
 	
 	function displayPopup(users, businessUnits) {
-	    if (users && users.entities) {
-	        users.entities.sort((a, b) => (a.fullname || "").localeCompare(b.fullname || ""));
-	    }
+	  const newContainer = createAppendSecurityPopup();
 	
-	    const newContainer = createAppendSecurityPopup();
+	  if (users && users.entities) {
+	    renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+	  }
 	
-	    if (businessUnits && businessUnits.entities) {
-	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-	    }
+	  if (businessUnits && businessUnits.entities) {
+	    renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
+	  }
 	
-	    if (users && users.entities) {
-		console.log("Before rendering user list");
-	        renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
-		console.log("After rendering user list");
-	    }
-	
-	    if (businessUnits && businessUnits.entities) {
-	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
-	    }
-	
-	    //setupSearchFilter('searchInput1', 'user');
-	    //setupSearchFilter('searchInput2', 'businessUnit');
+	  setupSearchFilter('searchInput1', 'user');
+	  setupSearchFilter('searchInput2', 'businessUnit');	
 	
 	 /*   loadScript(
 	        "https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
