@@ -266,8 +266,8 @@ function securityUpdate2() {
 	    //setupSearchFilter('searchInput1', 'user');	    
 	    //setupSearchFilter('searchInput2', 'businessUnit');
 	      
-	      renderGenericList(users, selectUserCallback, 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');		
-	      renderGenericList(businessUnits, selectItemCallback, 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
+	      //renderGenericList(users, selectUserCallback, 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');		
+	      //renderGenericList(businessUnits, selectItemCallback, 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
 
 	
 	 /*   loadScript(
