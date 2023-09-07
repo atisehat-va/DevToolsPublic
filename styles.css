@@ -36,5 +36,7 @@
 #submitButton:hover { background-color: #103e89; }
 
 /* AssignSecurity */
-.businessUnitWrapper { display: flex; align-items: center; justify-content: flex-start; }
-.businessUnitCheckbox { margin-right: 10px; }
+.businessUnit-list-container { max-height: 110px; overflow-y: auto; text-align: left; }
+.businessUnit2 { display: block; }
+.businessUnitWrapper { display: flex; flex-direction: row; align-items: center; justify-content: flex-start; }
+.businessUnitCheckbox { margin: 0 10px 0 0; }
