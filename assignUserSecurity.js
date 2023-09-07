@@ -214,13 +214,9 @@ function securityUpdate2() {
 	}
 
 	function setupSearchFilter(searchInputId, targetClass) {
-	  console.log(`Setting up search filter for ${searchInputId} and ${targetClass}`);
 	  document.getElementById(searchInputId).oninput = function() {
 	    const searchValue = this.value.toLowerCase();
-	    console.log(`Input event triggered. Searching for ${searchValue}`);
-	    const elements = document.querySelectorAll(`.${targetClass}`);
-	    console.log(`Found ${elements.length} elements with class ${targetClass}`);
-	    elements.forEach(el => {
+	    document.querySelectorAll(`.${targetClass}${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
 	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
 	    });
 	  };
