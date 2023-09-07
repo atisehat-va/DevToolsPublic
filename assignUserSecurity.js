@@ -250,7 +250,7 @@ function securityUpdate2() {
 	        }
 	    );		
 	}
-	 fetchUsers(function(users) {
+	fetchUsers(function(users) {
 		displayPopup(users);
 	});
 	
