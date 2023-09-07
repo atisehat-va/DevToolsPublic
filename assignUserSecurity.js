@@ -89,8 +89,7 @@ function securityUpdate2() {
 			userDiv.dataset.id = user.systemuserid;
 			userDiv.onclick = () => selectUserCallback(user);
 			userListDiv.appendChild(userDiv);
-		});
-		console.log("Elements with class businessUnit2:", document.querySelectorAll('.businessUnit2'));
+		});		
 	}
 	
 	function renderList(businessUnits, selectBusinessUnitCallback, sectionId, searchInputId) {
@@ -103,6 +102,7 @@ function securityUpdate2() {
 	        businessUnitDiv.onclick = () => selectBusinessUnitCallback(businessUnit);
 	        businessUnitListDiv.appendChild(businessUnitDiv);
 	    });
+	    onsole.log("Elements with class businessUnit2:", document.querySelectorAll('.businessUnit2'));
 	}
 
 	function selectUser(user, sectionPrefix) {
