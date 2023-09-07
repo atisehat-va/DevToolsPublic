@@ -19,18 +19,7 @@ function securityUpdate2() {
 	}
 	function fetchBusinessUnits(callback) {
 	        Xrm.WebApi.retrieveMultipleRecords('businessunit', '?$select=businessunitid,name').then(callback);
-	}
-	function renderList(items, selectItemCallback, sectionId, searchInputId) {
-		const listDiv = document.getElementById(sectionId);
-		items.forEach(item => {
-		const itemDiv = document.createElement('div');
-		itemDiv.className = `item${sectionId.charAt(sectionId.length - 1)}`;
-		itemDiv.textContent = item.name || item.fullname;  // accommodate both Users and Business Units
-		itemDiv.dataset.id = item.businessunitid || item.systemuserid;
-		itemDiv.onclick = () => selectItemCallback(item);
-		listDiv.appendChild(itemDiv);
-	   });
-        }
+	}	
 
 	function createAppendSecurityPopup() {		
 	  var newContainer = document.createElement('div');		
@@ -101,6 +90,18 @@ function securityUpdate2() {
 			userDiv.onclick = () => selectUserCallback(user);
 			userListDiv.appendChild(userDiv);
 		});
+	}
+	
+	function renderList(businessUnits, selectBusinessUnitCallback, sectionId, searchInputId) {
+	    const businessUnitListDiv = document.getElementById(sectionId);
+	    businessUnits.forEach(businessUnit => {
+	        const businessUnitDiv = document.createElement('div');
+	        businessUnitDiv.className = `businessUnit${sectionId.charAt(sectionId.length - 1)}`;
+	        businessUnitDiv.textContent = businessUnit.name;
+	        businessUnitDiv.dataset.id = businessUnit.id;
+	        businessUnitDiv.onclick = () => selectBusinessUnitCallback(businessUnit);
+	        businessUnitListDiv.appendChild(businessUnitDiv);
+	    });
 	}
 
 	function selectUser(user, sectionPrefix) {
