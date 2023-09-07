@@ -96,7 +96,7 @@ function securityUpdate2() {
 	    const listDiv = document.getElementById(sectionId);
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
-	        entityDiv.className = 'businessUnit';
+	        entityDiv.className = 'businessUnit2';
 	        entityDiv.textContent = entity.name;
 	        entityDiv.dataset.id = entity.id;
 	        entityDiv.onclick = () => selectItemCallback(entity);
