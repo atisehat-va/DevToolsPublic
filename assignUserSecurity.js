@@ -213,26 +213,10 @@ function securityUpdate2() {
 	}
 
 	function setupSearchFilter(searchInputId, targetClass) {
-	  const searchInput = document.getElementById(searchInputId);
-	  
-	  if (!searchInput) {
-	    console.log(`Element with ID ${searchInputId} not found.`);
-	    return;
-	  }
-	
-	  searchInput.oninput = function() {
-	    console.log("Input event triggered");  // Debugging line
+	  document.getElementById(searchInputId).oninput = function() {
 	    const searchValue = this.value.toLowerCase();
-	
-	    const elements = document.querySelectorAll(`.${targetClass}`);
-	    if (elements.length === 0) {
-	      console.log(`No elements with class ${targetClass} found.`);
-	      return;
-	    }
-	    
-	    elements.forEach(el => {
-	      const displayValue = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-	      el.style.display = displayValue;
+	    document.querySelectorAll(`.${targetClass}${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
+	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
 	    });
 	  };
 	}
