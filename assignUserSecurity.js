@@ -222,16 +222,24 @@ function securityUpdate2() {
 	}
 
 	function displayPopup(users, businessUnits) {
-	    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-	    
-	    // Only calling createAppendSecurityPopup once
-	    const newContainer = createAppendSecurityPopup();
-	    
-	    businessUnits.entities.sort((a, b) => a.name.localeCompare(b.name));
+	    if (users && users.entities) {
+	        users.entities.sort((a, b) => (a.fullname || "").localeCompare(b.fullname || ""));
+	    }
 	
-	    renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
-	    renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
-	    
+	    const newContainer = createAppendSecurityPopup();
+	
+	    if (businessUnits && businessUnits.entities) {
+	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+	    }
+	
+	    if (users && users.entities) {
+	        renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+	    }
+	
+	    if (businessUnits && businessUnits.entities) {
+	        renderList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2');
+	    }
+	
 	    setupSearchFilter('searchInput1', 'user');
 	    setupSearchFilter('searchInput2', 'businessUnit');
 	
@@ -250,6 +258,7 @@ function securityUpdate2() {
 	        }
 	    );		
 	}
+	
 	fetchUsers(function(users) {
 		displayPopup(users);
 	});
