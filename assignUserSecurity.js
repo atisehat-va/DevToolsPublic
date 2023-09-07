@@ -81,30 +81,27 @@ function securityUpdate2() {
 	}
 
 	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
-		const userListDiv = document.getElementById(sectionId);
-		users.forEach(user => {
-			const userDiv = document.createElement('div');
-			userDiv.className = `user${sectionId.charAt(sectionId.length - 1)}`;
-			userDiv.textContent = user.fullname;
-			userDiv.dataset.id = user.systemuserid;
-			userDiv.onclick = () => selectUserCallback(user);
-			userListDiv.appendChild(userDiv);
-		});		
+	    const userListDiv = document.getElementById(sectionId);
+	    users.forEach(user => {
+		const userDiv = document.createElement('div');
+		userDiv.className = `user${sectionId.charAt(sectionId.length - 1)}`;
+		userDiv.textContent = user.fullname;
+		userDiv.dataset.id = user.systemuserid;
+		userDiv.onclick = () => selectUserCallback(user);
+		userListDiv.appendChild(userDiv);
+	    });		
 	}
 	
-	function renderList(businessUnits, selectBusinessUnitCallback, sectionId, searchInputId) {
-	    const businessUnitListDiv = document.getElementById(sectionId);
-	    businessUnits.forEach(businessUnit => {
-	        const businessUnitDiv = document.createElement('div');
-		console.log(`sectionId: ${sectionId}`);
-	        businessUnitDiv.className = `businessUnit${sectionId.charAt(sectionId.length - 1)}`;
-		console.log(`Created an element with class ${businessUnitDiv.className}`);
-	        businessUnitDiv.textContent = businessUnit.name;
-	        businessUnitDiv.dataset.id = businessUnit.id;
-	        businessUnitDiv.onclick = () => selectBusinessUnitCallback(businessUnit);
-	        businessUnitListDiv.appendChild(businessUnitDiv);
+	function renderList(entities, selectItemCallback, sectionId, searchInputId) {
+	    const listDiv = document.getElementById(sectionId);
+	    entities.forEach(entity => {
+	        const entityDiv = document.createElement('div');
+	        entityDiv.className = 'businessUnit';
+	        entityDiv.textContent = entity.name;
+	        entityDiv.dataset.id = entity.id;
+	        entityDiv.onclick = () => selectItemCallback(entity);
+	        listDiv.appendChild(entityDiv);
 	    });
-	    console.log("Elements with class businessUnit2:", document.querySelectorAll('.businessUnit2'));
 	}
 
 	function selectUser(user, sectionPrefix) {
