@@ -214,12 +214,15 @@ function securityUpdate2() {
 	}
 
 	function setupSearchFilter(searchInputId, targetClass) {
-	  document.getElementById(searchInputId).oninput = function() {
-	    const searchValue = this.value.toLowerCase();
-	    document.querySelectorAll(`.${targetClass}${searchInputId.charAt(searchInputId.length - 1)}`).forEach(el => {
-	      el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
-	    });
-	  };
+	    console.log(`Setting up search filter for ${searchInputId} and ${targetClass}`);
+	    document.getElementById(searchInputId).oninput = function() {
+	        const searchValue = this.value.toLowerCase();
+	        const targetClassName = `${targetClass}${searchInputId.charAt(searchInputId.length - 1)}`;
+	        console.log(`Searching in elements with class: ${targetClassName}`);
+	        document.querySelectorAll(`.${targetClassName}`).forEach(el => {
+	            el.style.display = el.textContent.toLowerCase().includes(searchValue) ? 'block' : 'none';
+	        });
+	    };
 	}
 	
 	function displayPopup(users, businessUnits) {
