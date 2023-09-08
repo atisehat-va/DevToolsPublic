@@ -44,7 +44,7 @@
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
 .leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
-.leftDetails-section-row { display: inline-block; width: 38%; height: 150px; margin-left: 20px; vertical-align: top; box-sizing: border-box; text-align: left; }
+.leftDetails-section-row { display: inline-block; width: 40%; height: 150px; margin-left: 20px; vertical-align: top; box-sizing: border-box; text-align: left; }
 
 .rightBuss-section { text-align: center; height: 190px; width: 60%;}
 .rightBuss-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
@@ -52,7 +52,7 @@
 .rightBuss-section #userList::-webkit-scrollbar { display: none; }        
 .rightBuss-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .rightBuss-list-container { max-height: 110px; overflow-y: auto; }
-.rightDetails-section-row { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
+.rightDetails-section-row { display: inline-block; width: 60%; height: 150px; margin-left: 19px; vertical-align: top; box-sizing: border-box; text-align: left; }
 
 .leftRoles-and-teams-list-row { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
     
