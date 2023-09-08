@@ -19,7 +19,10 @@ function securityUpdate2() {
 	}
 	function fetchBusinessUnits(callback) {
 	        Xrm.WebApi.retrieveMultipleRecords('businessunit', '?$select=businessunitid,name').then(callback);
-	}	
+	}
+	function fetchTeams(callback) {
+    	        Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name').then(callback);
+	}
 
 	function createAppendSecurityPopup() {		
 	  var newContainer = document.createElement('div');		
@@ -53,8 +56,9 @@ function securityUpdate2() {
 	      </div>
 	      <div class="commonSection rightDetails-section-row" id="section5">
 	        <h3>Update Team(s)</h3>
+	        <input type="text" id="searchInput3" placeholder="Search Teams">
 	        <div class="leftRoles-and-teams-list-row">
-	          <ul></ul>
+	          <div id="teamsList"></div>
 	        </div>
 	      </div>
 	    </div>
@@ -253,15 +257,22 @@ function securityUpdate2() {
 	
 	   if (businessUnits && businessUnits.entities) {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
-	   }	      
+	   }
+		
+	   if (teams && teams.entities) {
+               renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
+    	   }
+		
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
-	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`); 
+	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
+	      setupSearchFilter('searchInput3', `team${'teamsList'.charAt('teamsList'.length - 1)}`);
 	}
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
-	    new Promise(resolve => fetchBusinessUnits(resolve))
-	 ]).then(([users, businessUnits]) => {
-	    displayPopup(users, businessUnits);
+	    new Promise(resolve => fetchBusinessUnits(resolve)),
+	    new Promise(resolve => fetchTeams(resolve))
+	 ]).then(([users, businessUnits, teams]) => {
+	    displayPopup(users, businessUnits, teams);
 	});
 	
 	function loadScript(src, callback, errorCallback) {
