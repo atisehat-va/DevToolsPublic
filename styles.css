@@ -18,7 +18,7 @@
 
 /* copySecurity */
 .securityPopup-row { display: flex; }    
-.leftUser-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
+.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .user-section { text-align: center; height: 190px; width: 50%;}    
 .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
@@ -37,7 +37,7 @@
 
 /* AssignSecurity */
 .assignSecurityPopup-row { display: flex; }    
-.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
+.leftUser-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .leftUser-section { text-align: left; height: 190px; width: 38%; padding-left: 25px; }
 .leftUser-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .leftUser-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
