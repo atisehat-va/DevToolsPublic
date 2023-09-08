@@ -105,11 +105,8 @@ function securityUpdate2() {
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
 	
 	        // Create wrapper div for list
-	        let wrapperDiv = null;
-	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
-	            wrapperDiv = document.createElement('div');
-	            wrapperDiv.className = `sectionWrapper`;
-	        }
+	        const wrapperDiv = document.createElement('div');
+	        wrapperDiv.className = 'sectionWrapper';
 	
 	        // Add a checkbox if it's a Business Unit or Team list
 	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
@@ -125,15 +122,12 @@ function securityUpdate2() {
 	        textDiv.dataset.searchText = entity[textProperty];
 	        textDiv.onclick = () => selectCallback(entity);
 	
-	        if (wrapperDiv) {
-	            wrapperDiv.appendChild(textDiv);
-	            entityDiv.appendChild(wrapperDiv);
-	        } else {
-	            entityDiv.appendChild(textDiv);
-	        }
+	        wrapperDiv.appendChild(textDiv);
+	        entityDiv.appendChild(wrapperDiv);
 	
 	        listDiv.appendChild(entityDiv);
-	    });	    
+	    });   
+	   
 	}
 
 	function selectUser(user, sectionPrefix) {
