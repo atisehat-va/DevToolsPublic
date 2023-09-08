@@ -38,13 +38,20 @@
 /* AssignSecurity */
 .assignSecurityPopup-row { display: flex; }    
 .section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
-.leftUser-section { text-align: center; height: 190px; width: 35%; }  
-.rightBuss-section { text-align: center; height: 190px; width: 35%;} 
+.leftUser-section { text-align: center; height: 190px; width: 35%; }
 .leftUser-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .leftUser-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
 .leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
+
+.rightBuss-section { text-align: center; height: 190px; width: 35%;}
+.rightBuss-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
+.rightBuss-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
+.rightBuss-section #userList::-webkit-scrollbar { display: none; }        
+.rightBuss-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
+.rightBuss-list-container { max-height: 110px; overflow-y: auto; }
+
 .leftRoles-and-teams-list-row { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
 .leftDetails-section-row { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
 .userSelected { background-color: #e0e0e0; }        
