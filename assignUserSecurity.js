@@ -98,40 +98,44 @@ function securityUpdate2() {
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
+	    listDiv.innerHTML = ''; // Clear existing elements
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	        
-	        // Create wrapper div for Business Unit list
+	
+	        // Create wrapper div for Business Unit or Team list
 	        let wrapperDiv = null;
-	        if (classNamePrefix === 'businessUnit') {
+	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
 	            wrapperDiv = document.createElement('div');
-	            wrapperDiv.className = 'businessUnitWrapper';
+	            wrapperDiv.className = `${classNamePrefix}Wrapper`;
 	        }
-	        
-	        // If this is a Business Unit list, add a checkbox
-	        if (classNamePrefix === 'businessUnit') {
+	
+	        // Add a checkbox if it's a Business Unit or Team list
+	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
 	            const checkBox = document.createElement('input');
 	            checkBox.type = "checkbox";
-	            checkBox.className = "businessUnitCheckbox";
+	            checkBox.className = `${classNamePrefix}Checkbox`;
 	            wrapperDiv.appendChild(checkBox);
 	        }
-	        
+	
 	        const textDiv = document.createElement('div');
 	        textDiv.textContent = entity[textProperty];
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
 	        textDiv.onclick = () => selectCallback(entity);
-	        
+	
 	        if (wrapperDiv) {
 	            wrapperDiv.appendChild(textDiv);
 	            entityDiv.appendChild(wrapperDiv);
 	        } else {
 	            entityDiv.appendChild(textDiv);
 	        }
-	        
+	
 	        listDiv.appendChild(entityDiv);
 	    });
+	
+	    // Assuming you still want to setup the search filter
+	    setupSearchFilter(searchInputId, classNamePrefix + sectionId.charAt(sectionId.length - 1));
 	}
 
 	function selectUser(user, sectionPrefix) {
