@@ -103,31 +103,31 @@ function securityUpdate2() {
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	
-	        // Create wrapper div for list
+	        
+	        // Create wrapper div common for both Business Unit and Team
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
-	        
-	        // Add a checkbox if it's a Business Unit or Team
-	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
-	            const checkBox = document.createElement('input');
-	            checkBox.type = "checkbox";
-	            checkBox.className = `${classNamePrefix}Checkbox`;
-	            wrapperDiv.appendChild(checkBox);
-	        }
 	
+	        // Add a checkbox
+	        const checkBox = document.createElement('input');
+	        checkBox.type = "checkbox";
+	        checkBox.className = `${classNamePrefix}Checkbox`;
+	        wrapperDiv.appendChild(checkBox);
+	        
 	        const textDiv = document.createElement('div');
 	        textDiv.textContent = entity[textProperty];
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
 	        textDiv.onclick = () => selectCallback(entity);
-	
+	        
 	        wrapperDiv.appendChild(textDiv);
 	        entityDiv.appendChild(wrapperDiv);
-	
+	        
 	        listDiv.appendChild(entityDiv);
 	    });
-	    
+	
+	    // Assuming you still want to set up the search filter
+	    setupSearchFilter(searchInputId, classNamePrefix + sectionId.charAt(sectionId.length - 1));
 	}
 
 	function selectUser(user, sectionPrefix) {
