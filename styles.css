@@ -36,8 +36,21 @@
 #submitButton:hover { background-color: #103e89; }
 
 /* AssignSecurity */
-.user-leftsection { text-align: center; height: 190px; width: 35%;}
-.businessUnit-rightsection { text-align: center; height: 190px; width: 50%;} 
+.assignSecurityPopup-row { display: flex; }    
+.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
+.leftUser-section { text-align: center; height: 190px; width: 50%;}    
+.leftUser-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
+.leftUser-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
+.leftUser-section #userList::-webkit-scrollbar { display: none; }        
+.leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
+.leftUser-list-container { max-height: 110px; overflow-y: auto; }
+.leftRoles-and-teams-list-row { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
+.leftDetails-section-row { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
+.userSelected { background-color: #e0e0e0; }        
+.user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
+.user:hover { background-color: #f0f0f0; }    
+#sectionsRow { white-space: nowrap; }
+
 .businessUnit-list-container { max-height: 110px; overflow-y: auto; text-align: left; padding: 10px; }
 .businessUnitWrapper { display: flex; margin-left: 15px;}
 .businessUnitCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
