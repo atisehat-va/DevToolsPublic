@@ -133,10 +133,7 @@ function securityUpdate2() {
 	        }
 	
 	        listDiv.appendChild(entityDiv);
-	    });
-	
-	    // Assuming you still want to set up the search filter
-	    setupSearchFilter(searchInputId, classNamePrefix + sectionId.charAt(sectionId.length - 1));
+	    });	    
 	}
 
 	function selectUser(user, sectionPrefix) {
