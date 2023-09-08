@@ -23,6 +23,9 @@ function securityUpdate2() {
 	function fetchTeams(callback) {
     	        Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name').then(callback);
 	}
+	function fetchSecurityRoles(callback) {
+	    Xrm.WebApi.retrieveMultipleRecords('role', '?$select=roleid,name').then(callback);
+	}
 
 	function createAppendSecurityPopup() {		
 	  var newContainer = document.createElement('div');		
@@ -68,10 +71,11 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="commonSection rightDetails-section-row" id="section6">
+	      <div class="commonSection rightBuss-section" id="section6">
 	        <h3>Update Security Role(s)</h3>
-	        <div class="leftRoles-and-teams-list-row">
-	          <ul></ul>
+	        <input type="text" id="searchSecurityRoleInput" placeholder="Search Security Role">
+	        <div class="businessUnit-list-container">
+	          <div id="securityRoleSection"></div>	          
 	        </div>
 	      </div>
 	    </div>	    
@@ -108,8 +112,8 @@ function securityUpdate2() {
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
 	        
-	        // Add a checkbox if it's a Business Unit or Team
-	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
+	        // Add a checkbox if it's a Business Unit, Team, or Security Role
+	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team' || classNamePrefix === 'securityRole') {
 	            const checkBox = document.createElement('input');
 	            checkBox.type = "checkbox";
 	            checkBox.className = `${classNamePrefix}Checkbox`;
@@ -126,10 +130,7 @@ function securityUpdate2() {
 	        entityDiv.appendChild(wrapperDiv);
 	
 	        listDiv.appendChild(entityDiv);
-	    });
-	
-	    // Assuming you still want to set up the search filter
-	    setupSearchFilter(searchInputId, classNamePrefix + sectionId.charAt(sectionId.length - 1));
+	    });	    
 	}
 
 	function selectUser(user, sectionPrefix) {
@@ -238,7 +239,7 @@ function securityUpdate2() {
 	    };
 	}
 	
-	function displayPopup(users, businessUnits, teams) {
+	function displayPopup(users, businessUnits, teams, securityRoles) {
 	    if (users && users.entities) {
 	        users.entities.sort((a, b) => (a.fullname || "").localeCompare(b.fullname || ""));
 	    }	
@@ -259,17 +260,22 @@ function securityUpdate2() {
 	   if (teams && teams.entities) {
                renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
     	   }
-		
+	   if (securityRoles && securityRoles.entities) {
+	       renderGenericList(securityRoles.entities, securityRole => selectItem(securityRole, '4'), 'securityRolesList', 'searchInput4', 'securityRole', 'name', 'roleid');
+	   }
+			
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 	      setupSearchFilter('searchInput3', `team${'teamsList'.charAt('teamsList'.length - 1)}`);
+	      setupSearchFilter('searchInput4', `securityRole${'securityRolesList'.charAt('securityRolesList'.length - 1)}`);
 	}
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),
-	    new Promise(resolve => fetchTeams(resolve))
-	 ]).then(([users, businessUnits, teams]) => {
-	    displayPopup(users, businessUnits, teams);
+	    new Promise(resolve => fetchTeams(resolve)),
+	    new Promise(resolve => fetchSecurityRoles(resolve)) 
+	 ]).then(([users, businessUnits, teams, securityRoles]) => {
+	    displayPopup(users, businessUnits, teams, securityRoles);
 	});
 	
 	function loadScript(src, callback, errorCallback) {
