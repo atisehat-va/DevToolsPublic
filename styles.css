@@ -65,3 +65,4 @@
 .businessUnit-list-container { max-height: 110px; overflow-y: auto; text-align: left; }
 .sectionWrapper { display: flex; margin-left: 15px;}
 .businessUnitCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
+.teamCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
