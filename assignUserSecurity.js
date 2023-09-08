@@ -37,7 +37,7 @@ function securityUpdate2() {
 	          <div id="userList1"></div>
 	        </div>
 	      </div>                            
-	      <div class="commonSection leftUser-section" id="section2">
+	      <div class="commonSection rightBuss-section" id="section2">
 	        <h3>Change Business Unit</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="businessUnit-list-container">
