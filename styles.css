@@ -52,7 +52,7 @@
 .rightBuss-section #userList::-webkit-scrollbar { display: none; }        
 .rightBuss-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .rightBuss-list-container { max-height: 110px; overflow-y: auto; }
-.rightBuss-section-row { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
+.rightDetails-section-row { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
 
 .leftRoles-and-teams-list-row { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
     
