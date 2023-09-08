@@ -52,7 +52,7 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="commonSection leftDetails-section-row" id="section5">
+	      <div class="commonSection rightDetails-section-row" id="section5">
 	        <h3>Update Team(s)</h3>
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
@@ -66,7 +66,7 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="commonSection leftDetails-section-row" id="section6">
+	      <div class="commonSection rightDetails-section-row" id="section6">
 	        <h3>Update Security Role(s)</h3>
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
