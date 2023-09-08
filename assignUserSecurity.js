@@ -1,5 +1,4 @@
-function securityUpdate2() {
-        
+function securityUpdate2() {        
 	debugger;	
 	let selectedUserId = null;
 	let selectedBusinessUnitId = null;
@@ -81,7 +80,7 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-       /*
+       
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    entities.forEach(entity => {
@@ -92,7 +91,7 @@ function securityUpdate2() {
 	        entityDiv.onclick = () => selectCallback(entity);
 	        listDiv.appendChild(entityDiv);
 	    });
-	} */
+	}
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
