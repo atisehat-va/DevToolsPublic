@@ -102,6 +102,12 @@ function securityUpdate2() {
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
+	    
+	    if (!listDiv) {
+	        console.error(`Element with id '${sectionId}' not found. Make sure the element exists and the DOM is fully loaded.`);
+	        return;
+	    }
+	
 	    listDiv.innerHTML = ''; // Clear existing elements
 	    
 	    entities.forEach(entity => {
