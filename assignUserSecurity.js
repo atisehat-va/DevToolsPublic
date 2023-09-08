@@ -27,8 +27,7 @@ function securityUpdate2() {
 	function createAppendSecurityPopup() {		
 	  var newContainer = document.createElement('div');		
 	  newContainer.className = 'commonPopup';		
-	  newContainer.innerHTML =  `   
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+	  newContainer.innerHTML =  `               
 	    <div class="commonPopup-header">Assign User Security</div>
 	    <button class="commonback-button" id="commonback-button">Back</button>		  
 	    <div class="assignSecurityPopup-row">
