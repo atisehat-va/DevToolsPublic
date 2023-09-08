@@ -18,7 +18,7 @@
 
 /* copySecurity */
 .securityPopup-row { display: flex; }    
-.section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
+.user-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .user-section { text-align: center; height: 190px; width: 50%;}    
 .user-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .user-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
@@ -46,6 +46,7 @@
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
 .leftDetails-section-row { display: inline-block; width: 40%; height: 150px; margin-left: 20px; vertical-align: top; box-sizing: border-box; text-align: left; }
 
+.rightBuss-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .rightBuss-section { text-align: center; height: 190px; width: 60%;}
 .rightBuss-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .rightBuss-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
