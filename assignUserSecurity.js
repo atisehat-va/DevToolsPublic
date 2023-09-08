@@ -107,8 +107,8 @@ function securityUpdate2() {
 	        // Create wrapper div for list
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
-	
-	        // Add a checkbox if it's a Business Unit or Team list
+	        
+	        // Add a checkbox if it's a Business Unit or Team
 	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
 	            const checkBox = document.createElement('input');
 	            checkBox.type = "checkbox";
@@ -126,8 +126,8 @@ function securityUpdate2() {
 	        entityDiv.appendChild(wrapperDiv);
 	
 	        listDiv.appendChild(entityDiv);
-	    });   
-	   
+	    });
+	    
 	}
 
 	function selectUser(user, sectionPrefix) {
