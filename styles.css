@@ -44,6 +44,7 @@
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
 .leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
+.leftDetails-section-row { display: inline-block; width: 38%; height: 150px; margin-left: 20px; vertical-align: top; box-sizing: border-box; text-align: left; }
 
 .rightBuss-section { text-align: center; height: 190px; width: 60%;}
 .rightBuss-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
@@ -51,9 +52,10 @@
 .rightBuss-section #userList::-webkit-scrollbar { display: none; }        
 .rightBuss-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .rightBuss-list-container { max-height: 110px; overflow-y: auto; }
+.rightBuss-section-row { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }
 
 .leftRoles-and-teams-list-row { max-height: 75%; margin-left: 10px; overflow-y: auto; }    
-.leftDetails-section-row { display: inline-block; width: 50%; height: 150px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; }    
+    
 .userSelected { background-color: #e0e0e0; }        
 .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
 .user:hover { background-color: #f0f0f0; }    
