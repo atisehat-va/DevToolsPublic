@@ -62,6 +62,6 @@
 .user:hover { background-color: #f0f0f0; }    
 #sectionsRow { white-space: nowrap; }
 
-.businessUnit-list-container { max-height: 110px; overflow-y: auto; text-align: left; padding: 10px; }
+.businessUnit-list-container { max-height: 110px; overflow-y: auto; text-align: left; }
 .businessUnitWrapper { display: flex; margin-left: 15px;}
 .businessUnitCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
