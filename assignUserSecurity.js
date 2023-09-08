@@ -102,12 +102,6 @@ function securityUpdate2() {
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
-	    
-	    if (!listDiv) {
-	        console.error(`Element with id '${sectionId}' not found. Make sure the element exists and the DOM is fully loaded.`);
-	        return;
-	    }
-	
 	    listDiv.innerHTML = ''; // Clear existing elements
 	    
 	    entities.forEach(entity => {
@@ -119,7 +113,7 @@ function securityUpdate2() {
 	        wrapperDiv.className = 'sectionWrapper';
 	        
 	        // Add a checkbox if it's a Business Unit, Team, or Security Role
-	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team' || classNamePrefix === 'securityRole') {
+	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team' || classNamePrefix === 'role') {
 	            const checkBox = document.createElement('input');
 	            checkBox.type = "checkbox";
 	            checkBox.className = `${classNamePrefix}Checkbox`;
@@ -136,7 +130,7 @@ function securityUpdate2() {
 	        entityDiv.appendChild(wrapperDiv);
 	
 	        listDiv.appendChild(entityDiv);
-	    });	    
+	    });
 	}
 
 	function selectUser(user, sectionPrefix) {
