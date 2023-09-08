@@ -241,7 +241,7 @@ function securityUpdate2() {
 	    };
 	}
 	
-	function displayPopup(users, businessUnits) {
+	function displayPopup(users, businessUnits, teams) {
 	    if (users && users.entities) {
 	        users.entities.sort((a, b) => (a.fullname || "").localeCompare(b.fullname || ""));
 	    }	
