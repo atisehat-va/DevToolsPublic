@@ -267,13 +267,14 @@ function securityUpdate2() {
                renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
     	   }
 	   if (securityRoles && securityRoles.entities) {
-	       renderGenericList(securityRoles.entities, securityRole => selectItem(securityRole, '4'), 'securityRolesList', 'searchInput4', 'securityRole', 'name', 'roleid');
+	       renderGenericList(securityRoles.entities, securityRole => selectItem(securityRole, '4'), 'securityRolesList', 'searchInput4', 'role', 'name', 'roleid');
 	   }
 			
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 	      setupSearchFilter('searchInput3', `team${'teamsList'.charAt('teamsList'.length - 1)}`);
-	      setupSearchFilter('searchInput4', `securityRole${'securityRolesList'.charAt('securityRolesList'.length - 1)}`);
+	      setupSearchFilter('searchInput4', `role${'securityRolesList'.charAt('securityRolesList'.length - 1)}`);
+
 	}
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
