@@ -99,15 +99,16 @@ function securityUpdate2() {
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = ''; // Clear existing elements
+	    
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
 	
-	        // Create wrapper div for Business Unit or Team list
+	        // Create wrapper div for list
 	        let wrapperDiv = null;
 	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team') {
 	            wrapperDiv = document.createElement('div');
-	            wrapperDiv.className = `${classNamePrefix}Wrapper`;
+	            wrapperDiv.className = `sectionWrapper`;
 	        }
 	
 	        // Add a checkbox if it's a Business Unit or Team list
@@ -134,7 +135,7 @@ function securityUpdate2() {
 	        listDiv.appendChild(entityDiv);
 	    });
 	
-	    // Assuming you still want to setup the search filter
+	    // Assuming you still want to set up the search filter
 	    setupSearchFilter(searchInputId, classNamePrefix + sectionId.charAt(sectionId.length - 1));
 	}
 
