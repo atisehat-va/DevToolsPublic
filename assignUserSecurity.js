@@ -29,15 +29,15 @@ function securityUpdate2() {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 	    <div class="commonPopup-header">Assign User Security</div>
 	    <button class="commonback-button" id="commonback-button">Back</button>		  
-	    <div class="securityPopup-row">
-	      <div class="commonSection user-section" id="section1">
+	    <div class="assignSecurityPopup-row">
+	      <div class="commonSection leftUser-section" id="section1">
 	        <h3>FROM</h3>
 	        <input type="text" id="searchInput1" placeholder="Search Users">
-	        <div class="user-list-container">
+	        <div class="leftUser-list-container">
 	          <div id="userList1"></div>
 	        </div>
 	      </div>                            
-	      <div class="commonSection user-section" id="section2">
+	      <div class="commonSection leftUser-section" id="section2">
 	        <h3>Change Business Unit</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="businessUnit-list-container">
@@ -45,30 +45,30 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	    </div>
-	    <div id="sectionsRow1" class="securityPopup-row">
-	      <div class="commonSection details-section-row" id="section3">
+	    <div id="sectionsRow1" class="assignSecurityPopup-row">
+	      <div class="commonSection leftDetails-section-row" id="section3">
 	        <h3>Business Unit & Teams</h3>
-	        <div class="roles-and-teams-list-row">
+	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="commonSection details-section-row" id="section5">
+	      <div class="commonSection leftDetails-section-row" id="section5">
 	        <h3>Update Team(s)</h3>
-	        <div class="roles-and-teams-list-row">
+	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
 	    </div>
-	    <div id="sectionsRow2" class="securityPopup-row">
-	      <div class="commonSection details-section-row" id="section4">
+	    <div id="sectionsRow2" class="assignSecurityPopup-row">
+	      <div class="commonSection leftDetails-section-row" id="section4">
 	        <h3>Security Roles</h3>
-	        <div class="roles-and-teams-list-row">
+	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="commonSection details-section-row" id="section6">
+	      <div class="commonSection leftDetails-section-row" id="section6">
 	        <h3>Update Security Role(s)</h3>
-	        <div class="roles-and-teams-list-row">
+	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
@@ -139,9 +139,9 @@ function securityUpdate2() {
 				messageDiv.style.display = 'none';
 			}
 
-			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
+			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('userSelected'));
 			const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
-			userDiv.classList.add('selected');
+			userDiv.classList.add('userSelected');
 			if (sectionPrefix === '1') {
 				selectedUserId = user.systemuserid;
 			}		
