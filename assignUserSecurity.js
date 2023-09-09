@@ -91,10 +91,27 @@ function securityUpdate2() {
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section6">
 	        <h3>Update Security Role(s)</h3>
-	        <input type="text" id="searchInput4" placeholder="Search Security Role">
-	        <div class="businessUnit-list-container">
-	          <div id="securityRolesList"></div>	          
-	        </div>
+	        <input type="text" id="searchInput4" placeholder="Search Security Role">	 
+	         <div class="teams-wrapper">		        		  
+		   <div class="team-action-checkboxes">
+                    <div class="team-checkbox-container">
+                     <div class="sectionWrapper">
+                       <input type="checkbox" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
+		       <label for="removeTeam">Remove Team</label>
+       		     </div>
+	             <div class="sectionWrapper">
+		       <input type="checkbox" id="addTeam" class="assignCheckbox" name="teamAction" value="add">
+		       <label for="addTeam">Add Team</label>
+       		     </div>
+	             <div class="sectionWrapper">
+                      <input type="checkbox" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
+		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
+		     </div>      
+		     <div class="businessUnit-list-container">
+		        <div id="securityRolesList"></div>	          
+		     </div>
+	         </div>
+	       </div>
 	      </div>
 	    </div>	    
 	  `;		
