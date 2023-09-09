@@ -148,12 +148,19 @@ function securityUpdate2() {
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
 	        
-	        // Add a checkbox if it's a Business Unit, Team, or Security Role
+	        // Add a radio button for Business Units, or checkbox for Team and Security Role
 	        if (['businessUnit', 'team', 'role'].includes(classNamePrefix)) {
-	            const checkBox = document.createElement('input');
-	            checkBox.type = "checkbox";
-	            checkBox.className = "assignCheckbox";
-	            wrapperDiv.appendChild(checkBox);
+	            const inputElement = document.createElement('input');
+	            
+	            if (classNamePrefix === 'businessUnit') {
+	                inputElement.type = "radio";
+	                inputElement.name = "businessUnit";
+	            } else {
+	                inputElement.type = "checkbox";
+	            }
+	            
+	            inputElement.className = "assignCheckbox";
+	            wrapperDiv.appendChild(inputElement);
 	        }
 	
 	        const textDiv = document.createElement('div');
