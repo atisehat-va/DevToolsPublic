@@ -76,7 +76,7 @@ function securityUpdate2() {
 		     </div>		     		   
        	           </div>
 		  </div>
-	        <div class="businessUnit-list-container">	          
+	        <div class="teamsRoles-list-container">	          
 		  <div id="teamsList"></div>		   
 		</div>	  
 	       </div>
@@ -109,7 +109,7 @@ function securityUpdate2() {
 		     </div>		     		   
        	           </div>
 		  </div>      
-		 <div class="businessUnit-list-container">
+		 <div class="teamsRoles-list-container">
 		   <div id="securityRolesList"></div>	          		 
 	         </div>
 	       </div>
