@@ -64,6 +64,10 @@ function securityUpdate2() {
 	         <div class="teams-wrapper">		        		  
 		   <div class="team-action-checkboxes">
                     <div class="team-checkbox-container">
+		     <div class="sectionWrapper">
+                       <input type="radio" id="noTeamUpdate" class="assignCheckbox" name="roleAction" value="noTeamUpdates">
+		       <label for="noTeamUpdate">No Updates</label>
+       		     </div>
                      <div class="sectionWrapper">
 		       <input type="radio" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
 		       <label for="removeTeam">Remove</label>
@@ -73,7 +77,7 @@ function securityUpdate2() {
 		       <label for="addTeam">Add</label>
        		     </div>
 		     <div class="sectionWrapper">
-                      <input type="radio" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
+                      <input type="radio" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemoveTeam">
 		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
 		     </div>		     		   
        	           </div>
@@ -99,6 +103,10 @@ function securityUpdate2() {
 	         <div class="teams-wrapper">		        		  
 		   <div class="team-action-checkboxes">
                     <div class="team-checkbox-container">
+		    <div class="sectionWrapper">
+                       <input type="radio" id="noRoleUpdate" class="assignCheckbox" name="roleAction" value="noRoleUpdates">
+		       <label for="noRoleUpdate">No Updates</label>
+       		     </div>
                      <div class="sectionWrapper">
                        <input type="radio" id="removeRole" class="assignCheckbox" name="roleAction" value="remove">
 		       <label for="removeRole">Remove</label>
@@ -108,7 +116,7 @@ function securityUpdate2() {
 		       <label for="addRole">Add</label>
        		     </div>
 	             <div class="sectionWrapper">
-                      <input type="radio" id="addAndRemoveRole" class="assignCheckbox" name="roleAction" value="addAndRemove">
+                      <input type="radio" id="addAndRemoveRole" class="assignCheckbox" name="roleAction" value="addAndRemoveRole">
 		      <label for="addAndRemoveRole">Add + Remove Existing</label>
 		     </div>		     		   
        	           </div>
