@@ -79,8 +79,8 @@
 }
 .team-action-checkboxes {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;;
 }
 .team-action-checkboxes input[type="checkbox"] {
   margin-right: 8px;
