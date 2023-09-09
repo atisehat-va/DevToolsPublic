@@ -63,15 +63,15 @@ function securityUpdate2() {
 		  <div class="team-checkbox-container">
 		   <div class="team-action-checkboxes">
                      <div class="sectionWrapper">
-		       <input type="checkbox" id="removeTeam" name="teamAction" value="remove">
+		       <input type="checkbox" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
 		       <label for="removeTeam">Remove Team</label>
        		     </div>
 		     <div class="sectionWrapper">
-		       <input type="checkbox" id="addTeam" name="teamAction" value="add">
+		       <input type="checkbox" id="addTeam" class="assignCheckbox" name="teamAction" value="add">
 		       <label for="addTeam">Add Team</label>
        		     </div>
 		     <div class="sectionWrapper">
-                      <input type="checkbox" id="addAndRemoveTeam" name="teamAction" value="addAndRemove">
+                      <input type="checkbox" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
 		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
 		     </div>		     
 		   </div>
