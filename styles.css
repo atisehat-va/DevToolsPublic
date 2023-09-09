@@ -39,7 +39,7 @@
 .assignPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 55%; height: 85%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .assignSection { padding: 10px; border-right: 3px solid #ccc; }
 .assignSecurityPopup-row { display: flex; }    
-.leftUser-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
+.leftUser-section h3 { text-align: left; margin-bottom: 10px; color: #444; }    
 .leftUser-section { height: 220px; width: 40%; margin-left: 38px; box-sizing: border-box; }
 .leftUser-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .leftUser-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
@@ -48,7 +48,7 @@
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
 .leftDetails-section-row { display: inline-block; width: 40%; height: 235px; margin-left: 38px; box-sizing: border-box; }
 
-.rightBuss-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
+.rightBuss-section h3 { text-align: left; margin-bottom: 10px; color: #444; }    
 .rightBuss-section { text-align: center; height: 190px; width: 60%;}
 .rightTeam-section { text-align: center; height: 215px; width: 60%;}
 .rightBuss-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
