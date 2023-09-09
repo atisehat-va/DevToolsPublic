@@ -29,19 +29,19 @@ function securityUpdate2() {
 
 	function createAppendSecurityPopup() {		
 	  var newContainer = document.createElement('div');		
-	  newContainer.className = 'commonPopup';		
+	  newContainer.className = 'assignPopup';		
 	  newContainer.innerHTML =  `               
 	    <div class="commonPopup-header">Assign User Security</div>
 	    <button class="commonback-button" id="commonback-button">Back</button>		  
 	    <div class="assignSecurityPopup-row">
-	      <div class="commonSection leftUser-section" id="section1">
+	      <div class="assignSection leftUser-section" id="section1">
 	        <h3>FROM</h3>
 	        <input type="text" id="searchInput1" placeholder="Search Users">
 	        <div class="leftUser-list-container">
 	          <div id="userList1"></div>
 	        </div>
 	      </div>                            
-	      <div class="commonSection rightBuss-section" id="section2">
+	      <div class="assignSection rightBuss-section" id="section2">
 	        <h3>Change Business Unit</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="businessUnit-list-container">
@@ -50,13 +50,13 @@ function securityUpdate2() {
 	      </div>
 	    </div>
 	    <div id="sectionsRow1" class="assignSecurityPopup-row">
-	      <div class="commonSection leftDetails-section-row" id="section3">
+	      <div class="assignSection leftDetails-section-row" id="section3">
 	        <h3>Business Unit & Teams</h3>
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="commonSection rightBuss-section" id="section5">
+	      <div class="assignSection rightBuss-section" id="section5">
 	        <h3>Update Team(s)</h3>
 	        <input type="text" id="searchInput3" placeholder="Search Teams">
 	        <div class="businessUnit-list-container">
@@ -65,13 +65,13 @@ function securityUpdate2() {
 	      </div>
 	    </div>
 	    <div id="sectionsRow2" class="assignSecurityPopup-row">
-	      <div class="commonSection leftDetails-section-row" id="section4">
+	      <div class="assignSection leftDetails-section-row" id="section4">
 	        <h3>Security Roles</h3>
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="commonSection rightBuss-section" id="section6">
+	      <div class="assignSection rightBuss-section" id="section6">
 	        <h3>Update Security Role(s)</h3>
 	        <input type="text" id="searchInput4" placeholder="Search Security Role">
 	        <div class="businessUnit-list-container">
