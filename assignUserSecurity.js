@@ -96,7 +96,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section6">
-	        <h3>Add/Remove Security Role(s):</h3>
+	        <h3>Add | Remove Security Role(s):</h3>
 	        <div class="teamsRoles-input-wrapper">
 	           <input type="text" id="searchInput4" placeholder="Search Security Role">	 
 	        </div>
