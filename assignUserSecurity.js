@@ -102,7 +102,7 @@ function securityUpdate2() {
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
-	    listDiv.innerHTML = ''; // Clear existing elements
+	    listDiv.innerHTML = ''; 
 	    
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
@@ -113,10 +113,10 @@ function securityUpdate2() {
 	        wrapperDiv.className = 'sectionWrapper';
 	        
 	        // Add a checkbox if it's a Business Unit, Team, or Security Role
-	        if (classNamePrefix === 'businessUnit' || classNamePrefix === 'team' || classNamePrefix === 'role') {
+	        if (['businessUnit', 'team', 'role'].includes(classNamePrefix)) {
 	            const checkBox = document.createElement('input');
 	            checkBox.type = "checkbox";
-	            checkBox.className = `${classNamePrefix}Checkbox`;
+	            checkBox.className = "assignCheckbox";
 	            wrapperDiv.appendChild(checkBox);
 	        }
 	
