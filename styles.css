@@ -70,7 +70,8 @@
 .sectionWrapper { display: flex; }
 .assignCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
 
-.team-action-checkboxes { width: 35%; }
+.team-checkbox-container { border-left: 2px solid #ccc; }
+.team-action-checkboxes { width: 35%; height: 145px; }
 .team-action-checkboxes input[type="checkbox"] { margin-right: 8px; }
 .team-action-checkboxes label { margin-right: 16px; }
 .teams-wrapper { display: flex; align-items: flex-start; }
