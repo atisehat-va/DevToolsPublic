@@ -156,6 +156,7 @@ function securityUpdate2() {
 	        noChangeRadio.type = 'radio';
 	        noChangeRadio.name = 'businessUnit';
 	        noChangeRadio.value = 'noChange';
+		noChangeRadio.className = 'assignCheckbox';
 	        wrapperDiv.appendChild(noChangeRadio);
 	
 	        const textDiv = document.createElement('div');
