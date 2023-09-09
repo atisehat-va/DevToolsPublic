@@ -36,7 +36,7 @@
 #submitButton:hover { background-color: #103e89; }
 
 /* AssignSecurity */
-.assignPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 68%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.assignPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 55%; height: 85%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .assignSection { padding: 10px; border-right: 3px solid #ccc; overflow-y: scroll; }
 .assignSecurityPopup-row { display: flex; }    
 .leftUser-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
