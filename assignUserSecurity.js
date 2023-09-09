@@ -77,6 +77,7 @@ function securityUpdate2() {
        	           </div>
 		  </div>
 	        <div class="businessUnit-list-container">
+	          <input type="text" id="searchInput3" placeholder="Search Teams">
 		  <div id="teamsList"></div>		   
 		</div>	  
 	       </div>
