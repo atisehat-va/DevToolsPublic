@@ -57,7 +57,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section5">
-	        <h3>Change Team(s):</h3>
+	        <h3>Add/Remove Team(s):</h3>
 	         <div class="teamsRoles-input-wrapper">
 	            <input type="text" id="searchInput3" placeholder="Search Teams">
 	         </div>
@@ -96,7 +96,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section6">
-	        <h3>Change Security Role(s):</h3>
+	        <h3>Add | Remove Security Role(s):</h3>
 	        <div class="teamsRoles-input-wrapper">
 	           <input type="text" id="searchInput4" placeholder="Search Security Role">	 
 	        </div>
@@ -135,6 +135,18 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
+       
+	/* function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
+	    const listDiv = document.getElementById(sectionId);
+	    entities.forEach(entity => {
+	        const entityDiv = document.createElement('div');
+	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	        entityDiv.textContent = entity[textProperty];
+	        entityDiv.dataset.id = entity[idProperty];
+	        entityDiv.onclick = () => selectCallback(entity);
+	        listDiv.appendChild(entityDiv);
+	    });
+	} */
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
@@ -152,7 +164,7 @@ function securityUpdate2() {
 	        noChangeRadio.type = 'radio';
 	        noChangeRadio.name = 'businessUnit';
 	        noChangeRadio.value = 'noChange';
-	        noChangeRadio.className = 'assignCheckbox';
+		noChangeRadio.className = 'assignCheckbox';
 	        wrapperDiv.appendChild(noChangeRadio);
 	
 	        const textDiv = document.createElement('div');
@@ -234,19 +246,6 @@ function securityUpdate2() {
 				businessUnitListItem = document.createElement('li');
 				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
 				appendLists();
-
-				// New Code: Load teams and roles based on business unit
-		               fetchTeamsByBusinessUnit(businessUnitId)
-		                  .then(teams => {
-		                      // Assuming you implement renderGenericList for teams
-		                      renderGenericList(teams, teamSelected, 'teamsList', 'teamSearchInput', 'team', 'teamName', 'teamId');
-		                  });
-		
-		              fetchRolesByBusinessUnit(businessUnitId)
-		                  .then(roles => {
-		                      // Assuming you implement renderGenericList for roles
-		                      renderGenericList(roles, roleSelected, 'securityRolesList', 'roleSearchInput', 'role', 'roleName', 'roleId');
-		                  });
 			});
 
 			fetchTeamsForUser(user.systemuserid, function(response) {
