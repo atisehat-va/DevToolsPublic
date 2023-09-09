@@ -56,7 +56,7 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="assignSection rightBuss-section" id="section5">
+	      <div class="assignSection rightTeam-section" id="section5">
 	        <h3>Update Team(s)</h3>
 	        <input type="text" id="searchInput3" placeholder="Search Teams">
 	        <div class="businessUnit-list-container">
