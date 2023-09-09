@@ -106,10 +106,11 @@ function securityUpdate2() {
 	             <div class="sectionWrapper">
                       <input type="checkbox" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
 		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
-		     </div>      
-		     <div class="businessUnit-list-container">
-		        <div id="securityRolesList"></div>	          
-		     </div>
+		     </div>		     		   
+       	           </div>
+		  </div>      
+		 <div class="businessUnit-list-container">
+		   <div id="securityRolesList"></div>	          		 
 	         </div>
 	       </div>
 	      </div>
