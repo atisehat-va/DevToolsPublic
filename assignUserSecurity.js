@@ -59,8 +59,7 @@ function securityUpdate2() {
 	      <div class="assignSection rightTeam-section" id="section5">
 	        <h3>Update Team(s)</h3>
 	        <input type="text" id="searchInput3" placeholder="Search Teams">
-	         <div class="teams-wrapper">		        
-		  <div class="team-checkbox-container">
+	         <div class="teams-wrapper">		        		  
 		   <div class="team-action-checkboxes">
                      <div class="sectionWrapper">
 		       <input type="checkbox" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
@@ -73,8 +72,7 @@ function securityUpdate2() {
 		     <div class="sectionWrapper">
                       <input type="checkbox" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
 		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
-		     </div>		     
-		   </div>
+		     </div>		     		   
 		  </div>
 	        <div class="businessUnit-list-container">
 		  <div id="teamsList"></div>		   
