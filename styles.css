@@ -69,3 +69,7 @@
 .businessUnit-list-container { max-height: 145px; overflow-y: auto; text-align: left; margin-left: 40%; }
 .sectionWrapper { display: flex; }
 .assignCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
+
+.team-action-checkboxes { display: flex; flex-direction: row; align-items: flex-start; justify-content: flex-start; }
+.team-action-checkboxes input[type="checkbox"] { margin-right: 8px; }
+.team-action-checkboxes label { margin-right: 16px; }
