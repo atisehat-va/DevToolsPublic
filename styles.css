@@ -40,13 +40,13 @@
 .assignSection { padding: 10px; border-right: 3px solid #ccc; overflow-y: scroll; }
 .assignSecurityPopup-row { display: flex; }    
 .leftUser-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
-.leftUser-section { text-align: left; height: 235px; width: 40%; margin-left: 38px; box-sizing: border-box; }
+.leftUser-section { height: 235px; width: 40%; margin-left: 38px; box-sizing: border-box; }
 .leftUser-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .leftUser-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
 .leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
-.leftDetails-section-row { display: inline-block; width: 40%; height: 235px; margin-left: 38px; box-sizing: border-box; text-align: left; }
+.leftDetails-section-row { display: inline-block; width: 40%; height: 235px; margin-left: 38px; box-sizing: border-box; }
 
 .rightBuss-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .rightBuss-section { text-align: center; height: 190px; width: 60%;}
