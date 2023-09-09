@@ -152,7 +152,7 @@ function securityUpdate2() {
 	        noChangeRadio.type = 'radio';
 	        noChangeRadio.name = 'businessUnit';
 	        noChangeRadio.value = 'noChange';
-		noChangeRadio.className = 'assignCheckbox';
+	        noChangeRadio.className = 'assignCheckbox';
 	        wrapperDiv.appendChild(noChangeRadio);
 	
 	        const textDiv = document.createElement('div');
@@ -234,6 +234,19 @@ function securityUpdate2() {
 				businessUnitListItem = document.createElement('li');
 				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
 				appendLists();
+
+				// New Code: Load teams and roles based on business unit
+		               fetchTeamsByBusinessUnit(businessUnitId)
+		                  .then(teams => {
+		                      // Assuming you implement renderGenericList for teams
+		                      renderGenericList(teams, teamSelected, 'teamsList', 'teamSearchInput', 'team', 'teamName', 'teamId');
+		                  });
+		
+		              fetchRolesByBusinessUnit(businessUnitId)
+		                  .then(roles => {
+		                      // Assuming you implement renderGenericList for roles
+		                      renderGenericList(roles, roleSelected, 'securityRolesList', 'roleSearchInput', 'role', 'roleName', 'roleId');
+		                  });
 			});
 
 			fetchTeamsForUser(user.systemuserid, function(response) {
