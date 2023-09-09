@@ -35,7 +35,7 @@ function securityUpdate2() {
 	    <button class="commonback-button" id="commonback-button">Back</button>		  
 	    <div class="assignSecurityPopup-row">
 	      <div class="assignSection leftUser-section" id="section1">
-	        <h3>FROM</h3>
+	        <h3>Current User Security:</h3>
 	        <input type="text" id="searchInput1" placeholder="Search Users">
 	        <div class="leftUser-list-container">
 	          <div id="userList1"></div>
@@ -51,13 +51,13 @@ function securityUpdate2() {
 	    </div>
 	    <div id="sectionsRow1" class="assignSecurityPopup-row">
 	      <div class="assignSection leftDetails-section-row" id="section3">
-	        <h3>Business Unit & Teams</h3>
+	        <h3>Business Unit & Teams:</h3>
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section5">
-	        <h3>Update Team(s)</h3>
+	        <h3>Update Team(s):</h3>
 	         <div class="teamsRoles-input-wrapper">
 	            <input type="text" id="searchInput3" placeholder="Search Teams">
 	         </div>
@@ -86,13 +86,13 @@ function securityUpdate2() {
 	    </div>
 	    <div id="sectionsRow2" class="assignSecurityPopup-row">
 	      <div class="assignSection leftDetails-section-row" id="section4">
-	        <h3>Security Roles</h3>
+	        <h3>Security Roles:</h3>
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section6">
-	        <h3>Update Security Role(s)</h3>
+	        <h3>Update Security Role(s):</h3>
 	        <div class="teamsRoles-input-wrapper">
 	           <input type="text" id="searchInput4" placeholder="Search Security Role">	 
 	        </div>
