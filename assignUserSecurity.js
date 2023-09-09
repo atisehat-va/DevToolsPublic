@@ -71,7 +71,7 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="assignSection rightBuss-section" id="section6">
+	      <div class="assignSection rightTeam-section" id="section6">
 	        <h3>Update Security Role(s)</h3>
 	        <input type="text" id="searchInput4" placeholder="Search Security Role">
 	        <div class="businessUnit-list-container">
