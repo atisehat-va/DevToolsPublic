@@ -57,7 +57,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section5">
-	        <h3>Update Team(s):</h3>
+	        <h3>Add/Remove Team(s):</h3>
 	         <div class="teamsRoles-input-wrapper">
 	            <input type="text" id="searchInput3" placeholder="Search Teams">
 	         </div>
@@ -66,7 +66,7 @@ function securityUpdate2() {
                     <div class="team-checkbox-container">
 		     <div class="sectionWrapper">
                        <input type="radio" id="noTeamUpdate" class="assignCheckbox" name="roleAction" value="noTeamUpdates">
-		       <label for="noTeamUpdate">No Updates</label>
+		       <label for="noTeamUpdate">No Change</label>
        		     </div>
                      <div class="sectionWrapper">
 		       <input type="radio" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
@@ -96,7 +96,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section6">
-	        <h3>Update Security Role(s):</h3>
+	        <h3>Add/Remove Security Role(s):</h3>
 	        <div class="teamsRoles-input-wrapper">
 	           <input type="text" id="searchInput4" placeholder="Search Security Role">	 
 	        </div>
@@ -105,7 +105,7 @@ function securityUpdate2() {
                     <div class="team-checkbox-container">
 		    <div class="sectionWrapper">
                        <input type="radio" id="noRoleUpdate" class="assignCheckbox" name="roleAction" value="noRoleUpdates">
-		       <label for="noRoleUpdate">No Updates</label>
+		       <label for="noRoleUpdate">No Change</label>
        		     </div>
                      <div class="sectionWrapper">
                        <input type="radio" id="removeRole" class="assignCheckbox" name="roleAction" value="remove">
