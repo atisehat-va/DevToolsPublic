@@ -61,6 +61,16 @@ function securityUpdate2() {
 	        <input type="text" id="searchInput3" placeholder="Search Teams">
 	        <div class="businessUnit-list-container">
 	          <div id="teamsList"></div>
+		    <div class="team-action-checkboxes">
+		      <input type="checkbox" id="removeTeam" name="teamAction" value="Remove">
+		      <label for="removeTeam">Remove Team</label><br>
+		    
+		      <input type="checkbox" id="addTeam" name="teamAction" value="Add">
+		      <label for="addTeam">Add Team</label><br>
+		    
+		      <input type="checkbox" id="addRemoveExisting" name="teamAction" value="AddRemove">
+		      <label for="addRemoveExisting">Add + Remove Existing</label><br>
+		  </div>
 	        </div>
 	      </div>
 	    </div>
