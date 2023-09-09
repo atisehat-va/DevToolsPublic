@@ -36,6 +36,8 @@
 #submitButton:hover { background-color: #103e89; }
 
 /* AssignSecurity */
+.assignPopup { background-color: #f9f9f9; border: 3px solid #002050; border-radius: 20px; width: 40%; height: 68%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.assignSection { padding: 10px; border-right: 3px solid #ccc; overflow-y: scroll; }
 .assignSecurityPopup-row { display: flex; }    
 .leftUser-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .leftUser-section { text-align: left; height: 190px; width: 42%; padding-left: 25px; }
@@ -44,7 +46,7 @@
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
 .leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
-.leftDetails-section-row { display: inline-block; width: 40%; height: 150px; margin-left: 20px; vertical-align: top; box-sizing: border-box; text-align: left; }
+.leftDetails-section-row { display: inline-block; width: 45%; height: 150px; margin-left: 15px; vertical-align: top; box-sizing: border-box; text-align: left; }
 
 .rightBuss-section h3 { text-align: center; margin-bottom: 10px; color: #444; }    
 .rightBuss-section { text-align: center; height: 190px; width: 60%;}
