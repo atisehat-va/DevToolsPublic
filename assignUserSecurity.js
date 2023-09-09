@@ -140,41 +140,50 @@ function securityUpdate2() {
 	    });
 	} */
 
-	let lastClickedRadio = null; // Declare this outside of your function if you want to persist the state across function calls.
-
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = ''; 
-	    
+	
+	    // Add "No Change" radio button if it's a Business Unit
+	    if (classNamePrefix === 'businessUnit') {
+	        const noChangeDiv = document.createElement('div');
+	        noChangeDiv.className = 'businessUnit' + sectionId.charAt(sectionId.length - 1);
+	
+	        const wrapperDiv = document.createElement('div');
+	        wrapperDiv.className = 'sectionWrapper';
+	
+	        const noChangeRadio = document.createElement('input');
+	        noChangeRadio.type = 'radio';
+	        noChangeRadio.name = 'businessUnit';
+	        noChangeRadio.value = 'noChange';
+	        wrapperDiv.appendChild(noChangeRadio);
+	
+	        const textDiv = document.createElement('div');
+	        textDiv.textContent = 'No Change';
+	        wrapperDiv.appendChild(textDiv);
+	
+	        noChangeDiv.appendChild(wrapperDiv);
+	        listDiv.appendChild(noChangeDiv);
+	    }
+	
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
 	
-	        // Create wrapper div for list
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
 	        
-	        // Add a radio button for Business Units, or checkbox for Team and Security Role
 	        if (['businessUnit', 'team', 'role'].includes(classNamePrefix)) {
 	            const inputElement = document.createElement('input');
 	            
 	            if (classNamePrefix === 'businessUnit') {
-	                inputElement.type = "radio";
-	                inputElement.name = "businessUnit";
-	                
-	                inputElement.addEventListener('click', function() {
-	                    if (this === lastClickedRadio) {
-	                        this.checked = false;
-	                        lastClickedRadio = null;
-	                    } else {
-	                        lastClickedRadio = this;
-	                    }
-	                });
+	                inputElement.type = 'radio';
+	                inputElement.name = 'businessUnit';
 	            } else {
-	                inputElement.type = "checkbox";
+	                inputElement.type = 'checkbox';
 	            }
 	            
-	            inputElement.className = "assignCheckbox";
+	            inputElement.className = 'assignCheckbox';
 	            wrapperDiv.appendChild(inputElement);
 	        }
 	
@@ -186,7 +195,7 @@ function securityUpdate2() {
 	
 	        wrapperDiv.appendChild(textDiv);
 	        entityDiv.appendChild(wrapperDiv);
-	
+	        
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
