@@ -135,18 +135,6 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-       
-	/* function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
-	    const listDiv = document.getElementById(sectionId);
-	    entities.forEach(entity => {
-	        const entityDiv = document.createElement('div');
-	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	        entityDiv.textContent = entity[textProperty];
-	        entityDiv.dataset.id = entity[idProperty];
-	        entityDiv.onclick = () => selectCallback(entity);
-	        listDiv.appendChild(entityDiv);
-	    });
-	} */
 
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
