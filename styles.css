@@ -66,19 +66,23 @@
 .user:hover { background-color: #f0f0f0; }    
 #sectionsRow { white-space: nowrap; }
 
-.businessUnit-list-container { display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; max-height: 145px; overflow-y: auto; text-align: left; margin-left: 40%; }
+.businessUnit-list-container { max-height: 145px; overflow-y: auto; text-align: left; margin-left: 40%; }
 .sectionWrapper { display: flex; }
 .assignCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
 
 #teamsList {
-  flex: 1;
+  width: 100%;
+}
+.team-checkbox-container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 .team-action-checkboxes {
-  flex: 1;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
+  align-items: center;
 }
 .team-action-checkboxes input[type="checkbox"] {
   margin-right: 8px;
