@@ -159,6 +159,9 @@ function securityUpdate2() {
 	            if (classNamePrefix === 'businessUnit') {
 	                inputElement.type = "radio";
 	                inputElement.name = "businessUnit";
+	                inputElement.addEventListener('click', function() {
+	                    this.checked = !this.checked;
+	                });
 	            } else {
 	                inputElement.type = "checkbox";
 	            }
