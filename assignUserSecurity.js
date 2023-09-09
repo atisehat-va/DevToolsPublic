@@ -42,7 +42,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>                            
 	      <div class="assignSection rightBuss-section" id="section2">
-	        <h3>Change Business Unit</h3>
+	        <h3>Change Business Unit:</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="businessUnit-list-container">
 	          <div id="businessUnitList"></div>
