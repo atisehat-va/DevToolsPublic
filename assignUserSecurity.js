@@ -64,11 +64,11 @@ function securityUpdate2() {
                     <div class="team-checkbox-container">
                      <div class="sectionWrapper">
 		       <input type="checkbox" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
-		       <label for="removeTeam">Remove Team</label>
+		       <label for="removeTeam">Remove</label>
        		     </div>
 		     <div class="sectionWrapper">
 		       <input type="checkbox" id="addTeam" class="assignCheckbox" name="teamAction" value="add">
-		       <label for="addTeam">Add Team</label>
+		       <label for="addTeam">Add</label>
        		     </div>
 		     <div class="sectionWrapper">
                       <input type="checkbox" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
@@ -96,16 +96,16 @@ function securityUpdate2() {
 		   <div class="team-action-checkboxes">
                     <div class="team-checkbox-container">
                      <div class="sectionWrapper">
-                       <input type="checkbox" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
-		       <label for="removeTeam">Remove Team</label>
+                       <input type="checkbox" id="removeRole" class="assignCheckbox" name="roleAction" value="remove">
+		       <label for="removeRole">Remove</label>
        		     </div>
 	             <div class="sectionWrapper">
-		       <input type="checkbox" id="addTeam" class="assignCheckbox" name="teamAction" value="add">
-		       <label for="addTeam">Add Team</label>
+		       <input type="checkbox" id="addRole" class="assignCheckbox" name="roleAction" value="add">
+		       <label for="addRole">Add</label>
        		     </div>
 	             <div class="sectionWrapper">
-                      <input type="checkbox" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
-		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
+                      <input type="checkbox" id="addAndRemoveRole" class="assignCheckbox" name="roleAction" value="addAndRemove">
+		      <label for="addAndRemoveRole">Add + Remove Existing</label>
 		     </div>		     		   
        	           </div>
 		  </div>      
