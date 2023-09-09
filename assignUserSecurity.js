@@ -140,6 +140,8 @@ function securityUpdate2() {
 	    });
 	} */
 
+	let lastClickedRadio = null; // Declare this outside of your function if you want to persist the state across function calls.
+
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = ''; 
@@ -159,8 +161,14 @@ function securityUpdate2() {
 	            if (classNamePrefix === 'businessUnit') {
 	                inputElement.type = "radio";
 	                inputElement.name = "businessUnit";
+	                
 	                inputElement.addEventListener('click', function() {
-	                    this.checked = !this.checked;
+	                    if (this === lastClickedRadio) {
+	                        this.checked = false;
+	                        lastClickedRadio = null;
+	                    } else {
+	                        lastClickedRadio = this;
+	                    }
 	                });
 	            } else {
 	                inputElement.type = "checkbox";
