@@ -40,7 +40,7 @@
 .assignSection { padding: 10px; border-right: 3px solid #ccc; }
 .assignSecurityPopup-row { display: flex; }    
 .leftUser-section h3 { text-align: left; margin-bottom: 10px; color: #444; }    
-.leftUser-section { height: 220px; width: 40%; margin-left: 38px; box-sizing: border-box; }
+.leftUser-section { height: 220px; width: 40%; margin-left: 15px; box-sizing: border-box; }
 .leftUser-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }        
 .leftUser-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
