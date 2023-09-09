@@ -71,7 +71,7 @@
 .assignCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
 
 .team-checkbox-container { }
-.team-action-checkboxes { display: flex; flex-direction: column; align-items: flex-end; }
+.team-action-checkboxes { flex-direction: column; align-items: flex-end; }
 .team-action-checkboxes input[type="checkbox"] { margin-right: 8px; }
 .team-action-checkboxes label { margin-right: 16px; }
 .teams-wrapper { display: flex; align-items: flex-start; }
