@@ -61,6 +61,7 @@ function securityUpdate2() {
 	        <input type="text" id="searchInput3" placeholder="Search Teams">
 	         <div class="teams-wrapper">		        		  
 		   <div class="team-action-checkboxes">
+                    <div class="team-checkbox-container">
                      <div class="sectionWrapper">
 		       <input type="checkbox" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
 		       <label for="removeTeam">Remove Team</label>
@@ -73,6 +74,7 @@ function securityUpdate2() {
                       <input type="checkbox" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemove">
 		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
 		     </div>		     		   
+       	           </div>
 		  </div>
 	        <div class="businessUnit-list-container">
 		  <div id="teamsList"></div>		   
