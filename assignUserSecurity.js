@@ -57,8 +57,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section5">
-	        <h3>Update Team(s)</h3>
-	        <input type="text" id="searchInput3" placeholder="Search Teams">
+	        <h3>Update Team(s)</h3>	        
 	         <div class="teams-wrapper">		        		  
 		   <div class="team-action-checkboxes">
                     <div class="team-checkbox-container">
