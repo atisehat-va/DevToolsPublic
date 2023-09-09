@@ -49,8 +49,8 @@
 .leftDetails-section-row { display: inline-block; width: 40%; height: 235px; margin-left: 38px; box-sizing: border-box; }
 
 .rightBuss-section h3 { text-align: left; margin-bottom: 10px; color: #444; }    
-.rightBuss-section { text-align: left; height: 190px; width: 60%;}
-.rightTeam-section { text-align: left; height: 215px; width: 60%;}
+.rightBuss-section { text-align: left; height: 190px; width: 60%; margin-left: 15px; }
+.rightTeam-section { text-align: left; height: 215px; width: 60%; margin-left: 15px; }
 .rightBuss-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
 .rightTeam-section input { margin-bottom: 10px; width: 230px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }    
 .rightBuss-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
