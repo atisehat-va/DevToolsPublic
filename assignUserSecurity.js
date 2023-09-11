@@ -189,6 +189,12 @@ function securityUpdate2() {
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
 	        textDiv.onclick = () => selectCallback(entity);
+
+		if (classNamePrefix === 'team') {
+		    textDiv.textContent = `${entity[textProperty]} (${entity._businessunitid_value})`;
+		} else {
+		    textDiv.textContent = entity[textProperty];
+		}
 	
 	        wrapperDiv.appendChild(textDiv);
 	        entityDiv.appendChild(wrapperDiv);
