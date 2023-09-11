@@ -264,7 +264,7 @@ function securityUpdate2() {
 			});
 			//GetTeamsOnRight
 			// Fetch all teams and display them under a designated section (for example, under section7)
-		        const teamsList = document.getElementById('section7').querySelector('ul');
+		        const teamsList = document.getElementById('section5').querySelector('ul');
 		        teamsList.innerHTML = '';
 		
 		        fetchTeams(function(teams) {
