@@ -303,17 +303,17 @@ function securityUpdate2() {
 			    displayTeams(teamDetailsArr);
 			
 			    // Get the search input element
-			    const searchInput = document.getElementById('teamSearchInput');
+			    const searchInput = document.getElementById('searchInput4');
 			
 			    // Add a search functionality
-			    searchInput.addEventListener('input', function() {
-			        const query = this.value.toLowerCase();
-			        const filteredTeams = teamDetailsArr.filter(team => {
-			            const teamInfo = `${team.name} (${team.businessUnitName})`.toLowerCase();
-			            return teamInfo.includes(query);
-			        });
-			        displayTeams(filteredTeams);
-			    });
+			   searchInput.addEventListener('input', function() {
+			       const query = this.value.toLowerCase();
+			       const filteredTeams = teamDetailsArr.filter(team => {
+			           const teamInfo = `${team.name} (${team.businessUnitName})`.toLowerCase();
+			           return teamInfo.includes(query);
+			       });
+			       displayTeams(filteredTeams);
+			   });
 			});
 
 			// EndGetTeamsOnRight
