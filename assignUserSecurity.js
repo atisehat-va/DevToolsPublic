@@ -260,11 +260,50 @@ function securityUpdate2() {
 				   listItem.textContent = 'Team: ' + team.name;
 				   return listItem;
 				});
-				appendLists();
-
-				renderGenericList(response.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
+				appendLists();				
 			});
+			//GetTeamsOnRight
+			// Fetch all teams and display them under a designated section (for example, under section7)
+		        const teamsList = document.getElementById('section7').querySelector('ul');
+		        teamsList.innerHTML = '';
 		
+		        fetchTeams(function(teams) {
+		            if (!teams || !teams.entities) {
+		                console.error('Teams not found');
+		                return;
+		            }
+		            const teamDetailsArr = teams.entities.map(team => ({name: team.name, teamid: team.teamid}));
+		            teamDetailsArr.sort((a, b) => {
+		                if (a.name < b.name) return -1;
+		                if (a.name > b.name) return 1;
+		                return 0;
+		            });
+		
+		            teamDetailsArr.forEach(teamDetail => {
+		                // Create a div with class sectionWrapper
+		                const wrapperDiv = document.createElement('div');
+		                wrapperDiv.className = 'sectionWrapper';
+		
+		                // Create checkbox
+		                const assignCheckbox = document.createElement('input');
+		                assignCheckbox.type = 'checkbox';
+		                assignCheckbox.value = teamDetail.teamid; // set value to team's ID
+		                assignCheckbox.className = 'assignCheckbox'; // for styling or selection
+		
+		                // Create label for team name
+		                const label = document.createElement('label');
+		                label.textContent = teamDetail.name;
+		
+		                // Append checkbox and label to wrapperDiv
+		                wrapperDiv.appendChild(assignCheckbox);
+		                wrapperDiv.appendChild(label);
+		
+		                // Append wrapperDiv to the list (assuming the list is a 'ul' element)
+		                teamsList.appendChild(wrapperDiv);
+		            });
+		        });
+
+			//EndGetTeamsOnRight
 			if (sectionPrefix === '1') {
 		            // Fetch roles specific to the user and display them under section4
 		            const rolesListUser = document.getElementById('section4').querySelector('ul');
@@ -436,7 +475,7 @@ function securityUpdate2() {
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),
-	    new Promise(resolve => fetchTeams(resolve)),
+	    //new Promise(resolve => fetchTeams(resolve)),
 	    //new Promise(resolve => fetchSecurityRoles(resolve)) 
 	 ]).then(([users, businessUnits, teams, securityRoles]) => {
 	    displayPopup(users, businessUnits, teams, securityRoles);
