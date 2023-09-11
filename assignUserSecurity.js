@@ -23,7 +23,6 @@ function securityUpdate2() {
 	function fetchTeams(callback) {
 	  Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name&$expand=businessunitid($select=name)').then(callback);
 	}
-
 	function fetchSecurityRoles(businessUnitId, callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('role', `?$select=roleid,name&$filter=_businessunitid_value eq ${businessUnitId}`).then(callback);
 	}
@@ -170,15 +169,14 @@ function securityUpdate2() {
 	
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
-	
+		    
 	        if (classNamePrefix === 'businessUnit') {
 	            const inputElement = document.createElement('input');
 	            inputElement.type = 'radio';
 	            inputElement.name = 'businessUnit';
 	            inputElement.className = 'assignCheckbox';
 	            wrapperDiv.appendChild(inputElement);
-	        }
-	
+	        }	
 	        const textDiv = document.createElement('div');
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
@@ -198,7 +196,6 @@ function securityUpdate2() {
 			if (messageDiv) {
 				messageDiv.style.display = 'none';
 			}
-
 			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('userSelected'));
 		        const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
 		        userDiv.classList.add('userSelected');
@@ -206,8 +203,7 @@ function securityUpdate2() {
 		        if (sectionPrefix === '1') {
 		            selectedUserId = user.systemuserid;
 		            selectedBusinessUnitId = user._businessunitid_value;
-		        } 		
-
+		        }
 			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
 		        businessUnitAndTeamsList.innerHTML = '';
 		        let businessUnitListItem = null;
@@ -219,7 +215,6 @@ function securityUpdate2() {
 		            }
 		            teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
 		        };
-
 			fetchBusinessUnitName(user.systemuserid, function(response) {
 				if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
 					console.error('Business unit not found');
@@ -233,7 +228,6 @@ function securityUpdate2() {
 				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
 				appendLists();
 			});
-
 			fetchTeamsForUser(user.systemuserid, function(response) {
 				if (!response || !response.entities || !response.entities[0].teammembership_association) {
 					console.error('Teams not found');
@@ -251,9 +245,7 @@ function securityUpdate2() {
 				   return listItem;
 				});
 				appendLists();				
-			});
-			// GetTeamsOnRight
-			
+			});			
 			// Target the teamsList div where you'll populate the team information
 		        const teamsList = document.getElementById('teamsList');
 		        teamsList.innerHTML = '';
@@ -263,8 +255,7 @@ function securityUpdate2() {
 			    if (!teams || !teams.entities) {
 			        console.error('Teams not found');
 			        return;
-			    }
-				
+			    }				
 			    // Log the number of teams
     			    console.log(`Number of Teams: ${teams.entities.length}`);
 				
@@ -275,15 +266,13 @@ function securityUpdate2() {
 			        name: team.name,
 			        teamid: team.teamid,
 			        businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A'
-			    }));
-			
+			    }));			
 			    // Sort the teams alphabetically
 			    teamDetailsArr.sort((a, b) => {
 			        const nameA = `${a.name} (${a.businessUnitName})`;
 			        const nameB = `${b.name} (${b.businessUnitName})`;
 			        return nameA.localeCompare(nameB);
-			    });
-			
+			    });			
 			    // Function to display teams
 			    const displayTeams = (teamsToDisplay) => {
 			        teamsList.innerHTML = '';
@@ -300,8 +289,7 @@ function securityUpdate2() {
 			            wrapperDiv.appendChild(label);
 			            teamsList.appendChild(wrapperDiv);
 			        });
-			    };
-			
+			    };			
 			    // Initially display all teams
 			    displayTeams(teamDetailsArr);
 			
@@ -318,8 +306,7 @@ function securityUpdate2() {
 			       displayTeams(filteredTeams);
 			   });
 			});
-
-			// EndGetTeamsOnRight
+			
 			if (sectionPrefix === '1') {
 			    // Fetch roles specific to the user and display them under section4
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
@@ -384,7 +371,6 @@ function securityUpdate2() {
 					targetElement.appendChild(wrapperDiv);
 				    });
 				};
-
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
@@ -394,17 +380,13 @@ function securityUpdate2() {
 			        if (!response || !response.entities) {
 			            console.error('Roles not found');
 			            return;
-			        }
-			        // Log the number of security roles
-			        console.log(`Number of Security Roles: ${response.entities.length}`);
-			        
+			        }		        
 			        const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
 			        
 			        // Using localeCompare for sorting
 			        roleDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
-			        });
-			        
+			        });			        
 			        roleDetailsArr.forEach(roleDetail => {
 			            // Create checkbox
 			            const assignCheckbox = document.createElement('input');
@@ -465,21 +447,15 @@ function securityUpdate2() {
 	
 	    if (businessUnits && businessUnits.entities) {
 	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-	    }	
-
+	    }
 	    if (users && users.entities) {		    
 		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');	
-	    }
-	
+	    }	
 	   if (businessUnits && businessUnits.entities) {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
-	   }	   
-			
+	   }		
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
-	      setupSearchFilter('searchInput3', `team${'teamsList'.charAt('teamsList'.length - 1)}`);
-	      setupSearchFilter('searchInput4', `role${'securityRolesList'.charAt('securityRolesList'.length - 1)}`);
-
 	}
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
