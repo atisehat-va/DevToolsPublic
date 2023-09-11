@@ -261,6 +261,8 @@ function securityUpdate2() {
 				   return listItem;
 				});
 				appendLists();
+
+				renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
 			});
 		
 			if (sectionPrefix === '1') {
@@ -417,9 +419,9 @@ function securityUpdate2() {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
 	   }	 
 		
-	   if (teams && teams.entities) {
+	  /* if (teams && teams.entities) {
 	        renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
-	   }
+	   } */
 		
 	   if (securityRoles && securityRoles.entities) {
 	       renderGenericList(securityRoles.entities, securityRole => selectItem(securityRole, '4'), 'securityRolesList', 'searchInput4', 'role', 'name', 'roleid');
