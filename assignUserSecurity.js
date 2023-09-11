@@ -282,27 +282,27 @@ function securityUpdate2() {
 		            });
 		
 		            teamDetailsArr.forEach(teamDetail => {
-		                // Create a div with class sectionWrapper
-		                const wrapperDiv = document.createElement('div');
-		                wrapperDiv.className = 'sectionWrapper';
-		
-		                // Create checkbox
-		                const assignCheckbox = document.createElement('input');
-		                assignCheckbox.type = 'checkbox';
-		                assignCheckbox.value = teamDetail.teamid; // set value to team's ID
-		                assignCheckbox.className = 'assignCheckbox'; // for styling or selection
-		
-		                // Create label for team name
-		                const label = document.createElement('label');
-		                label.textContent = teamDetail.name;
-		
-		                // Append checkbox and label to wrapperDiv
-		                wrapperDiv.appendChild(assignCheckbox);
-		                wrapperDiv.appendChild(label);
-		
-		                // Append wrapperDiv to the teamsList div
-		                teamsList.appendChild(wrapperDiv);
-		            });
+				    // Create a div with class sectionWrapper
+				    const wrapperDiv = document.createElement('div');
+				    wrapperDiv.className = 'sectionWrapper';
+				
+				    // Create checkbox
+				    const assignCheckbox = document.createElement('input');
+				    assignCheckbox.type = 'checkbox';
+				    assignCheckbox.value = teamDetail.teamid; // set value to team's ID
+				    assignCheckbox.className = 'assignCheckbox'; // for styling or selection
+				
+				    // Create label for team name
+				    const label = document.createElement('label');
+				    label.textContent = `${teamDetail.name} (${teamDetail.businessUnitName})`; // Display as "Team Name (Business Unit)"
+				
+				    // Append checkbox and label to wrapperDiv
+				    wrapperDiv.appendChild(assignCheckbox);
+				    wrapperDiv.appendChild(label);
+				
+				    // Append wrapperDiv to the teamsList div
+				    teamsList.appendChild(wrapperDiv);
+				});
 		        });
 
 			// EndGetTeamsOnRight
