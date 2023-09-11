@@ -152,7 +152,7 @@ function securityUpdate2() {
 	        noChangeRadio.type = 'radio';
 	        noChangeRadio.name = 'businessUnit';
 	        noChangeRadio.value = 'noChange';
-		noChangeRadio.className = 'assignCheckbox';
+	        noChangeRadio.className = 'assignCheckbox';
 	        wrapperDiv.appendChild(noChangeRadio);
 	
 	        const textDiv = document.createElement('div');
@@ -164,7 +164,7 @@ function securityUpdate2() {
 	    }
 	
 	    entities.forEach(entity => {
-		console.log(entity);
+	        console.log(entity);
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
 	
@@ -186,18 +186,17 @@ function securityUpdate2() {
 	        }
 	
 	        const textDiv = document.createElement('div');
-	        textDiv.textContent = entity[textProperty];
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
 	        textDiv.onclick = () => selectCallback(entity);
-
-		if (classNamePrefix === 'team') {
-		    const businessUnitName = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
-		    const teamName = entity[textProperty] || 'Unknown';
-		    textDiv.textContent = `${teamName} (Business Unit: ${businessUnitName})`;
-		} else {
-		    textDiv.textContent = entity[textProperty] || 'N/A';
-		}
+	
+	        if (classNamePrefix === 'team') {
+	            const businessUnitName = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
+	            const teamName = entity[textProperty] || 'Unknown';
+	            textDiv.textContent = `${teamName} (Business Unit: ${businessUnitName})`;
+	        } else {
+	            textDiv.textContent = entity[textProperty] || 'N/A';
+	        }
 	
 	        wrapperDiv.appendChild(textDiv);
 	        entityDiv.appendChild(wrapperDiv);
