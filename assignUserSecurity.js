@@ -164,7 +164,7 @@ function securityUpdate2() {
 	    }
 	
 	    entities.forEach(entity => {
-	        console.log("Test: " entity);
+	        console.log("Test: " + entity);
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
 	
