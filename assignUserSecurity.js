@@ -136,56 +136,53 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 	
+	function createElementWithProps(tagName, properties = {}) {
+    const element = document.createElement(tagName);
+    Object.assign(element, properties);
+    return element;
+}
+
+	function appendElementsToParent(parent, elements = []) {
+	    elements.forEach(element => parent.appendChild(element));
+	    return parent;
+	}
+	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = '';
 	
-	    // Add "No Change" radio button if it's a Business Unit
 	    if (classNamePrefix === 'businessUnit') {
-	        const noChangeDiv = document.createElement('div');
-	        noChangeDiv.className = 'businessUnit' + sectionId.charAt(sectionId.length - 1);
-	
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-	
-	        const noChangeRadio = document.createElement('input');
-	        noChangeRadio.type = 'radio';
-	        noChangeRadio.name = 'businessUnit';
-	        noChangeRadio.value = 'noChange';
-	        noChangeRadio.className = 'assignCheckbox';
-	        wrapperDiv.appendChild(noChangeRadio);
-	
-	        const textDiv = document.createElement('div');
-	        textDiv.textContent = 'No Change';
-	        wrapperDiv.appendChild(textDiv);
-	
-	        noChangeDiv.appendChild(wrapperDiv);
+	        const noChangeDiv = createElementWithProps('div', { className: classNamePrefix + sectionId.slice(-1) });
+	        const wrapperDiv = createElementWithProps('div', { className: 'sectionWrapper' });
+	        const noChangeRadio = createElementWithProps('input', { type: 'radio', name: 'businessUnit', value: 'noChange', className: 'assignCheckbox' });
+	        const textDiv = createElementWithProps('div', { textContent: 'No Change' });
+	        appendElementsToParent(wrapperDiv, [noChangeRadio, textDiv]);
+	        appendElementsToParent(noChangeDiv, [wrapperDiv]);
 	        listDiv.appendChild(noChangeDiv);
 	    }
 	
 	    entities.forEach(entity => {
-	        const entityDiv = document.createElement('div');
-	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	        const entityDiv = createElementWithProps('div', { className: `${classNamePrefix}${sectionId.slice(-1)}` });
+	        const wrapperDiv = createElementWithProps('div', { className: 'sectionWrapper' });
+	        
+	        const elementsToAdd = [];
 	
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-		    
 	        if (classNamePrefix === 'businessUnit') {
-	            const inputElement = document.createElement('input');
-	            inputElement.type = 'radio';
-	            inputElement.name = 'businessUnit';
-	            inputElement.className = 'assignCheckbox';
-	            wrapperDiv.appendChild(inputElement);
-	        }	
-	        const textDiv = document.createElement('div');
-	        textDiv.dataset.id = entity[idProperty];
-	        textDiv.dataset.searchText = entity[textProperty];
-	        textDiv.onclick = () => selectCallback(entity);
-	        textDiv.textContent = entity[textProperty] || 'N/A';
+	            const radioElement = createElementWithProps('input', { type: 'radio', name: 'businessUnit', className: 'assignCheckbox' });
+	            elementsToAdd.push(radioElement);
+	        }
 	
-	        wrapperDiv.appendChild(textDiv);
-	        entityDiv.appendChild(wrapperDiv);
+	        const textDiv = createElementWithProps('div', {
+	            'dataset.id': entity[idProperty],
+	            'dataset.searchText': entity[textProperty],
+	            textContent: entity[textProperty] || 'N/A',
+	            onclick: () => selectCallback(entity)
+	        });
 	
+	        elementsToAdd.push(textDiv);
+	        
+	        appendElementsToParent(wrapperDiv, elementsToAdd);
+	        appendElementsToParent(entityDiv, [wrapperDiv]);
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
