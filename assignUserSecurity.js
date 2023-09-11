@@ -395,6 +395,18 @@ function securityUpdate2() {
 				        // Append wrapper div to the roles list
 				        rolesListBusinessUnit.appendChild(wrapperDiv);
 				    });
+					// Get the search input element
+					const searchInput6 = document.getElementById('searchInput6');
+					
+					// Add search functionality
+					searchInput6.addEventListener('input', function() {
+					    const query = this.value.toLowerCase();
+					    const filteredRoles = roleDetailsArr.filter(role => {
+					        const roleName = role.name.toLowerCase();
+					        return roleName.includes(query);
+					    });
+					    displayRoles(filteredRoles);
+					});
 				});
 				}			
 		} catch (e) {
