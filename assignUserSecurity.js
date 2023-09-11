@@ -136,7 +136,7 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 	
-	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, additionalProperty, idProperty) {
+	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = ''; 
 	
