@@ -21,7 +21,7 @@ function securityUpdate2() {
 	        Xrm.WebApi.retrieveMultipleRecords('businessunit', '?$select=businessunitid,name').then(callback);
 	}
 	function fetchTeams(callback) {
-    	        Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name').then(callback);
+	  Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name,businessunitid').then(callback);
 	}
 	function fetchSecurityRoles(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('role', '?$select=roleid,name').then(callback);
@@ -319,11 +319,12 @@ function securityUpdate2() {
 	
 	   if (businessUnits && businessUnits.entities) {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
+	   }	
+	   
+           if (teams && teams.entities) {
+	       renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', (team) => `${team.name} (${team.businessunitid})`, 'teamid');
 	   }
 		
-	   if (teams && teams.entities) {
-               renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
-    	   }
 	   if (securityRoles && securityRoles.entities) {
 	       renderGenericList(securityRoles.entities, securityRole => selectItem(securityRole, '4'), 'securityRolesList', 'searchInput4', 'role', 'name', 'roleid');
 	   }
