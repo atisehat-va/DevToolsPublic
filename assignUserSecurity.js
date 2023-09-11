@@ -191,9 +191,9 @@ function securityUpdate2() {
 	        textDiv.onclick = () => selectCallback(entity);
 	
 	       	if (classNamePrefix === 'team') {
-		    const businessUnitId = entity._businessunitid_value ? entity._businessunitid_value : 'Unknown';
-		    const teamName = entity[textProperty] || 'Unknown';
-		    textDiv.textContent = `${teamName} (Business Unit: ${businessUnitId})`;
+		    const teamName = entity.name || 'Unknown';
+		    const businessUnitId = entity._businessunitid_value || 'Unknown';
+		    textDiv.textContent = `${teamName} (Business Unit ID: ${businessUnitId})`;
 		} else {
 		    textDiv.textContent = entity[textProperty] || 'N/A';
 		}
@@ -327,9 +327,10 @@ function securityUpdate2() {
 	
 	   if (businessUnits && businessUnits.entities) {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
-	   }	          
+	   }	 
+		
 	   if (teams && teams.entities) {
-	        renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', (team) => `${team.name} (${team._businessunitid_value})`, 'teamid');
+	        renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
 	   }
 		
 	   if (securityRoles && securityRoles.entities) {
