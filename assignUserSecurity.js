@@ -306,28 +306,41 @@ function securityUpdate2() {
 				});
 
 				// Fetch roles based on the business unit and display them under section6
-				    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
-				    rolesListBusinessUnit.innerHTML = '';
-			
-				    fetchSecurityRoles(selectedBusinessUnitId, function(response) {
-					if (!response || !response.entities) {
-						console.error('Roles not found');
-						return;
-					}
-					    
-					const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
-					roleDetailsArr.sort((a, b) => {
-						if (a.name < b.name) return -1;
-						if (a.name > b.name) return 1;
-						return 0;
-					});
-					    
-					roleDetailsArr.forEach(roleDetail => {
-					    const listItem = document.createElement('li');
-					    listItem.textContent = roleDetail.name;
-					    rolesListBusinessUnit.appendChild(listItem);
-					});
+				const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
+				rolesListBusinessUnit.innerHTML = '';
+				
+				fetchSecurityRoles(selectedBusinessUnitId, function(response) {
+				    if (!response || !response.entities) {
+				        console.error('Roles not found');
+				        return;
+				    }
+				    
+				    const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
+				    roleDetailsArr.sort((a, b) => {
+				        if (a.name < b.name) return -1;
+				        if (a.name > b.name) return 1;
+				        return 0;
 				    });
+				    
+				    roleDetailsArr.forEach(roleDetail => {
+				        const listItem = document.createElement('li');
+				
+				        // Create checkbox
+				        const roleCheckbox = document.createElement('input');
+				        roleCheckbox.type = 'checkbox';
+				        roleCheckbox.value = roleDetail.roleid; // set value to role's ID
+				        roleCheckbox.className = 'roleCheckbox'; // for styling or selection
+				        
+				        // Append checkbox to listItem
+				        listItem.appendChild(roleCheckbox);
+				        
+				        // Append role name
+				        const roleName = document.createTextNode(roleDetail.name);
+				        listItem.appendChild(roleName);
+				
+				        rolesListBusinessUnit.appendChild(listItem);
+				    });
+				});
 				}							
 		} catch (e) {
 			console.error('Error in selectUser function', e);
