@@ -358,6 +358,13 @@ function securityUpdate2() {
 					   });
 					});
 				});
+				// Sort the teams alphabetically
+				roleDetailsArr.sort((a, b) => {
+				    const nameA = `${a.name} (${a.businessUnitName})`;
+				    const nameB = `${b.name} (${b.businessUnitName})`;
+				    return nameA.localeCompare(nameB);
+				});
+				
 				// Function to display roles
 				const displayRoles = (rolesArr, targetElement) => {
 				    targetElement.innerHTML = '';
