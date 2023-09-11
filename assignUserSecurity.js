@@ -262,7 +262,7 @@ function securityUpdate2() {
 				});
 				appendLists();
 
-				renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
+				renderGenericList(response.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
 			});
 		
 			if (sectionPrefix === '1') {
