@@ -23,8 +23,10 @@ function securityUpdate2() {
 	function fetchTeams(callback) {
 	  Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name&$expand=businessunitid($select=name)').then(callback);
 	}
-	function fetchSecurityRoles(callback) {
-	    Xrm.WebApi.retrieveMultipleRecords('role', '?$select=roleid,name').then(callback);
+	
+	function fetchSecurityRoles(businessUnitId, callback) {
+	    let filter = businessUnitId ? `?$filter=_businessunitid_value eq ${businessUnitId}&` : '?';
+	    Xrm.WebApi.retrieveMultipleRecords('role', `${filter}$select=roleid,name`).then(callback);
 	}
 
 	function createAppendSecurityPopup() {		
@@ -268,8 +270,8 @@ function securityUpdate2() {
 		
 			if (sectionPrefix === '1') {
 		            // Fetch roles specific to the user and display them under section4
-		            const rolesListUser = document.getElementById('section4').querySelector('ul');
-		            rolesListUser.innerHTML = '';
+		            const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
+			    rolesListBusinessUnit.innerHTML = '';
 				
 				fetchRolesForUser(user.systemuserid, function(roles) {
 					if (!roles || !roles.entities) {
@@ -309,17 +311,19 @@ function securityUpdate2() {
 				    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
 				    rolesListBusinessUnit.innerHTML = '';
 			
-				    fetchSecurityRoles(function(response) {
+				    fetchSecurityRoles(selectedBusinessUnitId, function(response) {
 					if (!response || !response.entities) {
-					    console.error('Roles not found');
-					    return;
+						console.error('Roles not found');
+						return;
 					}
+					    
 					const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
 					roleDetailsArr.sort((a, b) => {
-					    if (a.name < b.name) return -1;
-					    if (a.name > b.name) return 1;
-					    return 0;
+						if (a.name < b.name) return -1;
+						if (a.name > b.name) return 1;
+						return 0;
 					});
+					    
 					roleDetailsArr.forEach(roleDetail => {
 					    const listItem = document.createElement('li');
 					    listItem.textContent = roleDetail.name;
