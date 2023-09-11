@@ -258,48 +258,61 @@ function securityUpdate2() {
 		        const teamsList = document.getElementById('teamsList');
 		        teamsList.innerHTML = '';
 		
-		        fetchTeams(function(teams) {
+		       // Fetch the teams
+			fetchTeams(function(teams) {
 			    if (!teams || !teams.entities) {
 			        console.error('Teams not found');
 			        return;
 			    }
 			
+			    const teamsList = document.getElementById('teamsList');
+			    teamsList.innerHTML = '';
+			
 			    const teamDetailsArr = teams.entities.map(team => ({
 			        name: team.name,
 			        teamid: team.teamid,
-			        businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A' // Handle the case where businessunitid might be null
+			        businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A'
 			    }));
 			
-			    // Sorting the array alphabetically based on "Team Name (Business Unit)"
+			    // Sort the teams alphabetically
 			    teamDetailsArr.sort((a, b) => {
 			        const nameA = `${a.name} (${a.businessUnitName})`;
 			        const nameB = `${b.name} (${b.businessUnitName})`;
-			        if (nameA < nameB) return -1;
-			        if (nameA > nameB) return 1;
-			        return 0;
+			        return nameA.localeCompare(nameB);
 			    });
 			
-			    teamDetailsArr.forEach(teamDetail => {
-			        // Create a div with class sectionWrapper
-			        const wrapperDiv = document.createElement('div');
-			        wrapperDiv.className = 'sectionWrapper';
+			    // Function to display teams
+			    const displayTeams = (teamsToDisplay) => {
+			        teamsList.innerHTML = '';
+			        teamsToDisplay.forEach(teamDetail => {
+			            const wrapperDiv = document.createElement('div');
+			            wrapperDiv.className = 'sectionWrapper';
+			            const assignCheckbox = document.createElement('input');
+			            assignCheckbox.type = 'checkbox';
+			            assignCheckbox.value = teamDetail.teamid;
+			            assignCheckbox.className = 'assignCheckbox';
+			            const label = document.createElement('label');
+			            label.textContent = `${teamDetail.name} (${teamDetail.businessUnitName})`;
+			            wrapperDiv.appendChild(assignCheckbox);
+			            wrapperDiv.appendChild(label);
+			            teamsList.appendChild(wrapperDiv);
+			        });
+			    };
 			
-			        // Create checkbox
-			        const assignCheckbox = document.createElement('input');
-			        assignCheckbox.type = 'checkbox';
-			        assignCheckbox.value = teamDetail.teamid; // set value to team's ID
-			        assignCheckbox.className = 'assignCheckbox'; // for styling or selection
+			    // Initially display all teams
+			    displayTeams(teamDetailsArr);
 			
-			        // Create label for team name
-			        const label = document.createElement('label');
-			        label.textContent = `${teamDetail.name} (${teamDetail.businessUnitName})`; // Display as "Team Name (Business Unit)"
+			    // Get the search input element
+			    const searchInput = document.getElementById('teamSearchInput');
 			
-			        // Append checkbox and label to wrapperDiv
-			        wrapperDiv.appendChild(assignCheckbox);
-			        wrapperDiv.appendChild(label);
-			
-			        // Append wrapperDiv to the teamsList div
-			        teamsList.appendChild(wrapperDiv);
+			    // Add a search functionality
+			    searchInput.addEventListener('input', function() {
+			        const query = this.value.toLowerCase();
+			        const filteredTeams = teamDetailsArr.filter(team => {
+			            const teamInfo = `${team.name} (${team.businessUnitName})`.toLowerCase();
+			            return teamInfo.includes(query);
+			        });
+			        displayTeams(filteredTeams);
 			    });
 			});
 
