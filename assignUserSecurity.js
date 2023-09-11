@@ -419,15 +419,15 @@ function securityUpdate2() {
 			
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
-	      setupSearchFilter('searchInput3', `team${'teamsList'.charAt('teamsList'.length - 1)}`);
-	      setupSearchFilter('searchInput4', `role${'securityRolesList'.charAt('securityRolesList'.length - 1)}`);
+	      //setupSearchFilter('searchInput3', `team${'teamsList'.charAt('teamsList'.length - 1)}`);
+	      //setupSearchFilter('searchInput4', `role${'securityRolesList'.charAt('securityRolesList'.length - 1)}`);
 
 	}
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),
-	    new Promise(resolve => fetchTeams(resolve)),
-	    new Promise(resolve => fetchSecurityRoles(resolve)) 
+	    //new Promise(resolve => fetchTeams(resolve)),
+	    //new Promise(resolve => fetchSecurityRoles(resolve)) 
 	 ]).then(([users, businessUnits, teams, securityRoles]) => {
 	    displayPopup(users, businessUnits, teams, securityRoles);
 	});
