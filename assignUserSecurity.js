@@ -321,15 +321,15 @@ function securityUpdate2() {
 				    
 				    roleDetailsArr.forEach(roleDetail => {
 				        // Create checkbox
-				        const roleCheckbox = document.createElement('input');
-				        roleCheckbox.type = 'checkbox';
-				        roleCheckbox.value = roleDetail.roleid; // set value to role's ID
-				        roleCheckbox.className = 'roleCheckbox'; // for styling or selection
+				        const assignCheckbox = document.createElement('input');
+				        assignCheckbox.type = 'checkbox';
+				        assignCheckbox.value = roleDetail.roleid; // set value to role's ID
+				        assignCheckbox.className = 'assignCheckbox'; // for styling or selection
 				        
 				        // Create label for readability
 				        const label = document.createElement('label');
 				        label.innerHTML = roleDetail.name;
-				        label.insertBefore(roleCheckbox, label.firstChild);
+				        label.insertBefore(assignCheckbox, label.firstChild);
 				
 				        // Create wrapper div
 				        const wrapperDiv = document.createElement('div');
