@@ -23,10 +23,9 @@ function securityUpdate2() {
 	function fetchTeams(callback) {
 	  Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name&$expand=businessunitid($select=name)').then(callback);
 	}
-	
+
 	function fetchSecurityRoles(businessUnitId, callback) {
-	    let filter = businessUnitId ? `?$filter=_businessunitid_value eq ${businessUnitId}&` : '?';
-	    Xrm.WebApi.retrieveMultipleRecords('role', `${filter}$select=roleid,name`).then(callback);
+	    Xrm.WebApi.retrieveMultipleRecords('role', `?$select=roleid,name&$filter=_businessunitid_value eq ${businessUnitId}`).then(callback);
 	}
 
 	function createAppendSecurityPopup() {		
