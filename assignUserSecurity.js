@@ -415,15 +415,7 @@ function securityUpdate2() {
 	
 	   if (businessUnits && businessUnits.entities) {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
-	   }	 
-		
-	  /* if (teams && teams.entities) {
-	        renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
-	   } */
-		
-	   if (securityRoles && securityRoles.entities) {
-	       renderGenericList(securityRoles.entities, securityRole => selectItem(securityRole, '4'), 'securityRolesList', 'searchInput4', 'role', 'name', 'roleid');
-	   }
+	   }	   
 			
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
@@ -434,8 +426,8 @@ function securityUpdate2() {
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),
-	    //new Promise(resolve => fetchTeams(resolve)),
-	    //new Promise(resolve => fetchSecurityRoles(resolve)) 
+	    new Promise(resolve => fetchTeams(resolve)),
+	    new Promise(resolve => fetchSecurityRoles(resolve)) 
 	 ]).then(([users, businessUnits, teams, securityRoles]) => {
 	    displayPopup(users, businessUnits, teams, securityRoles);
 	});
