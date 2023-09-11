@@ -357,7 +357,35 @@ function securityUpdate2() {
 			            });
 			        });
 			    });     
-			
+
+			    // Function to display roles
+				const displayRoles = (rolesArr, targetElement) => {
+				    targetElement.innerHTML = '';
+				    rolesArr.forEach(roleDetail => {
+					// Create checkbox
+					const assignCheckbox = document.createElement('input');
+					assignCheckbox.type = 'checkbox';
+					assignCheckbox.value = roleDetail.roleid;
+					assignCheckbox.className = 'assignCheckbox';
+					
+					// Create label for readability
+					const label = document.createElement('label');
+					label.innerHTML = roleDetail.name;
+					label.insertBefore(assignCheckbox, label.firstChild);
+				
+					// Create wrapper div
+					const wrapperDiv = document.createElement('div');
+					wrapperDiv.className = 'sectionWrapper';
+				
+					// Append checkbox and label to wrapper div
+					wrapperDiv.appendChild(label);
+				
+					// Append wrapper div to the roles list
+					targetElement.appendChild(wrapperDiv);
+				    });
+				};
+
+			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
 			    rolesListBusinessUnit.innerHTML = '';
