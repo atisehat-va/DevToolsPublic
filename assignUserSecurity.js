@@ -330,7 +330,7 @@ function securityUpdate2() {
 	   }	          
 	   
 	   if (teams && teams.entities) {
-	      renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', (team) => `${team.name} (${team._businessunitid_value})`, 'teamid');
+	      renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', (team) => `${name} (${team._businessunitid_value})`, 'teamid');
 	   }
 		
 	   if (securityRoles && securityRoles.entities) {
