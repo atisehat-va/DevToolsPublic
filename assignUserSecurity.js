@@ -262,7 +262,7 @@ function securityUpdate2() {
 				});
 				appendLists();				
 			});
-			//GetTeamsOnRight
+			// GetTeamsOnRight
 			
 			// Target the teamsList div where you'll populate the team information
 		        const teamsList = document.getElementById('teamsList');
@@ -305,7 +305,7 @@ function securityUpdate2() {
 		            });
 		        });
 
-			//EndGetTeamsOnRight
+			// EndGetTeamsOnRight
 			if (sectionPrefix === '1') {
 		            // Fetch roles specific to the user and display them under section4
 		            const rolesListUser = document.getElementById('section4').querySelector('ul');
