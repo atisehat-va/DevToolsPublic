@@ -269,40 +269,49 @@ function securityUpdate2() {
 		        teamsList.innerHTML = '';
 		
 		        fetchTeams(function(teams) {
-		            if (!teams || !teams.entities) {
-		                console.error('Teams not found');
-		                return;
-		            }
-		
-		            const teamDetailsArr = teams.entities.map(team => ({
-			 	name: team.name, 
-			 	teamid: team.teamid, 
-			   	businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A' // Make sure to handle the case where businessunitid is null or undefined
+			    if (!teams || !teams.entities) {
+			        console.error('Teams not found');
+			        return;
+			    }
+			
+			    const teamDetailsArr = teams.entities.map(team => ({
+			        name: team.name,
+			        teamid: team.teamid,
+			        businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A' // Handle the case where businessunitid might be null
 			    }));
-		
-		            teamDetailsArr.forEach(teamDetail => {
-				    // Create a div with class sectionWrapper
-				    const wrapperDiv = document.createElement('div');
-				    wrapperDiv.className = 'sectionWrapper';
-				
-				    // Create checkbox
-				    const assignCheckbox = document.createElement('input');
-				    assignCheckbox.type = 'checkbox';
-				    assignCheckbox.value = teamDetail.teamid; // set value to team's ID
-				    assignCheckbox.className = 'assignCheckbox'; // for styling or selection
-				
-				    // Create label for team name
-				    const label = document.createElement('label');
-				    label.textContent = `${teamDetail.name} (${teamDetail.businessUnitName})`; // Display as "Team Name (Business Unit)"
-				
-				    // Append checkbox and label to wrapperDiv
-				    wrapperDiv.appendChild(assignCheckbox);
-				    wrapperDiv.appendChild(label);
-				
-				    // Append wrapperDiv to the teamsList div
-				    teamsList.appendChild(wrapperDiv);
-				});
-		        });
+			
+			    // Sorting the array alphabetically based on "Team Name (Business Unit)"
+			    teamDetailsArr.sort((a, b) => {
+			        const nameA = `${a.name} (${a.businessUnitName})`;
+			        const nameB = `${b.name} (${b.businessUnitName})`;
+			        if (nameA < nameB) return -1;
+			        if (nameA > nameB) return 1;
+			        return 0;
+			    });
+			
+			    teamDetailsArr.forEach(teamDetail => {
+			        // Create a div with class sectionWrapper
+			        const wrapperDiv = document.createElement('div');
+			        wrapperDiv.className = 'sectionWrapper';
+			
+			        // Create checkbox
+			        const assignCheckbox = document.createElement('input');
+			        assignCheckbox.type = 'checkbox';
+			        assignCheckbox.value = teamDetail.teamid; // set value to team's ID
+			        assignCheckbox.className = 'assignCheckbox'; // for styling or selection
+			
+			        // Create label for team name
+			        const label = document.createElement('label');
+			        label.textContent = `${teamDetail.name} (${teamDetail.businessUnitName})`; // Display as "Team Name (Business Unit)"
+			
+			        // Append checkbox and label to wrapperDiv
+			        wrapperDiv.appendChild(assignCheckbox);
+			        wrapperDiv.appendChild(label);
+			
+			        // Append wrapperDiv to the teamsList div
+			        teamsList.appendChild(wrapperDiv);
+			    });
+			});
 
 			// EndGetTeamsOnRight
 			if (sectionPrefix === '1') {
