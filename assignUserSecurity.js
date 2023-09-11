@@ -264,7 +264,10 @@ function securityUpdate2() {
 			        console.error('Teams not found');
 			        return;
 			    }
-			
+				
+			    // Log the number of teams
+    			    console.log(`Number of Teams: ${teams.entities.length}`);
+				
 			    const teamsList = document.getElementById('teamsList');
 			    teamsList.innerHTML = '';
 			
@@ -390,6 +393,8 @@ function securityUpdate2() {
 				        console.error('Roles not found');
 				        return;
 				    }
+				    // Log the number of security roles
+			            console.log(`Number of Security Roles: ${response.entities.length}`);
 				    
 				    const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
 				    roleDetailsArr.sort((a, b) => {
