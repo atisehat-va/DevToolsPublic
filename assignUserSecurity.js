@@ -303,7 +303,7 @@ function securityUpdate2() {
 			    displayTeams(teamDetailsArr);
 			
 			    // Get the search input element
-			    const searchInput = document.getElementById('searchInput4');
+			    const searchInput = document.getElementById('searchInput3');
 			
 			    // Add a search functionality
 			   searchInput.addEventListener('input', function() {
