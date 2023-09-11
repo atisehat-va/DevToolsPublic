@@ -323,22 +323,18 @@ function securityUpdate2() {
 				    });
 				    
 				    roleDetailsArr.forEach(roleDetail => {
-				        const listItem = document.createElement('li');
-				
 				        // Create checkbox
 				        const roleCheckbox = document.createElement('input');
 				        roleCheckbox.type = 'checkbox';
 				        roleCheckbox.value = roleDetail.roleid; // set value to role's ID
 				        roleCheckbox.className = 'roleCheckbox'; // for styling or selection
 				        
-				        // Append checkbox to listItem
-				        listItem.appendChild(roleCheckbox);
-				        
-				        // Append role name
-				        const roleName = document.createTextNode(roleDetail.name);
-				        listItem.appendChild(roleName);
+				        // Create label for readability
+				        const label = document.createElement('label');
+				        label.innerHTML = roleDetail.name;
+				        label.insertBefore(roleCheckbox, label.firstChild);
 				
-				        rolesListBusinessUnit.appendChild(listItem);
+				        rolesListBusinessUnit.appendChild(label);
 				    });
 				});
 				}							
