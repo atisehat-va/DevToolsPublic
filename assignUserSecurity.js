@@ -396,10 +396,10 @@ function securityUpdate2() {
 				        rolesListBusinessUnit.appendChild(wrapperDiv);
 				    });
 					// Get the search input element
-					const searchInput6 = document.getElementById('searchInput6');
+					const searchInput = document.getElementById('searchInput4');
 					
 					// Add search functionality
-					searchInput6.addEventListener('input', function() {
+					searchInput.addEventListener('input', function() {
 					    const query = this.value.toLowerCase();
 					    const filteredRoles = roleDetailsArr.filter(role => {
 					        const roleName = role.name.toLowerCase();
