@@ -165,45 +165,44 @@ function securityUpdate2() {
 	    }
 	
 	    entities.forEach(entity => {
-	        console.log("Test:", entity);
-	        const entityDiv = document.createElement('div');
-	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-	        
-	        if (['businessUnit', 'team', 'role'].includes(classNamePrefix)) {
-	            const inputElement = document.createElement('input');
-	            
-	            if (classNamePrefix === 'businessUnit') {
-	                inputElement.type = 'radio';
-	                inputElement.name = 'businessUnit';
-	            } else {
-	                inputElement.type = 'checkbox';
-	            }
-	            
-	            inputElement.className = 'assignCheckbox';
-	            wrapperDiv.appendChild(inputElement);
-	        }
-	
-	        const textDiv = document.createElement('div');
-	        textDiv.dataset.id = entity[idProperty];
-	        textDiv.dataset.searchText = entity[textProperty];
-	        textDiv.onclick = () => selectCallback(entity);
-	
-	       	if (classNamePrefix === 'team') {
-		    const teamName = entity.name || 'Unknown';
-		    const businessUnitId = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
-		    textDiv.textContent = `${teamName} (${businessUnitId})`;
-		} else {
-		    textDiv.textContent = entity[textProperty] || 'N/A';
-		}
-	
-	        wrapperDiv.appendChild(textDiv);
-	        entityDiv.appendChild(wrapperDiv);
-	        
-	        listDiv.appendChild(entityDiv);
-	    });
+		    const entityDiv = document.createElement('div');
+		    entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+		
+		    const wrapperDiv = document.createElement('div');
+		    wrapperDiv.className = 'sectionWrapper';
+		    
+		    if (['businessUnit', 'team', 'role'].includes(classNamePrefix)) {
+		        const inputElement = document.createElement('input');
+		        
+		        if (classNamePrefix === 'businessUnit') {
+		            inputElement.type = 'radio';
+		            inputElement.name = 'businessUnit';
+		        } else {
+		            inputElement.type = 'checkbox';
+		        }
+		        
+		        inputElement.className = 'assignCheckbox';
+		        wrapperDiv.appendChild(inputElement);
+		    }
+		
+		    const textDiv = document.createElement('div');
+		    textDiv.dataset.id = entity[idProperty];
+		    textDiv.dataset.searchText = entity[textProperty];
+		    textDiv.onclick = () => selectCallback(entity);
+		
+		    if (classNamePrefix === 'team') {
+		        const teamName = entity.name || 'Unknown';
+		        const businessUnitId = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
+		        textDiv.textContent = `${teamName} (${businessUnitId})`;
+		    } else {
+		        textDiv.textContent = entity[textProperty] || 'N/A';
+		    }
+		
+		    wrapperDiv.appendChild(textDiv);
+		    entityDiv.appendChild(wrapperDiv);
+		    
+		    listDiv.appendChild(entityDiv);
+		});
 	}
 
 	function selectUser(user, sectionPrefix) {
