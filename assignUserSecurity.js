@@ -21,7 +21,7 @@ function securityUpdate2() {
 	        Xrm.WebApi.retrieveMultipleRecords('businessunit', '?$select=businessunitid,name').then(callback);
 	}
 	function fetchTeams(callback) {
-	  Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name,_businessunitid_value').then(callback);
+	  Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name&$expand=businessunitid($select=name)').then(callback);
 	}
 	function fetchSecurityRoles(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('role', '?$select=roleid,name').then(callback);
@@ -191,9 +191,10 @@ function securityUpdate2() {
 	        textDiv.onclick = () => selectCallback(entity);
 
 		if (classNamePrefix === 'team') {
-		    textDiv.textContent = `${entity[textProperty]} (${entity._businessunitid_value})`;
+		  const businessUnitName = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
+		  textDiv.textContent = `${entity[textProperty]} (Business Unit: ${businessUnitName})`;
 		} else {
-		    textDiv.textContent = entity[textProperty];
+		  textDiv.textContent = entity[textProperty];
 		}
 	
 	        wrapperDiv.appendChild(textDiv);
