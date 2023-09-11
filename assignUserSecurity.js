@@ -263,8 +263,9 @@ function securityUpdate2() {
 				appendLists();				
 			});
 			//GetTeamsOnRight
-			// Fetch all teams and display them under a designated section (for example, under section7)
-		        const teamsList = document.getElementById('section5').querySelector('ul');
+			
+			// Target the teamsList div where you'll populate the team information
+		        const teamsList = document.getElementById('teamsList');
 		        teamsList.innerHTML = '';
 		
 		        fetchTeams(function(teams) {
@@ -272,6 +273,7 @@ function securityUpdate2() {
 		                console.error('Teams not found');
 		                return;
 		            }
+		
 		            const teamDetailsArr = teams.entities.map(team => ({name: team.name, teamid: team.teamid}));
 		            teamDetailsArr.sort((a, b) => {
 		                if (a.name < b.name) return -1;
@@ -298,7 +300,7 @@ function securityUpdate2() {
 		                wrapperDiv.appendChild(assignCheckbox);
 		                wrapperDiv.appendChild(label);
 		
-		                // Append wrapperDiv to the list (assuming the list is a 'ul' element)
+		                // Append wrapperDiv to the teamsList div
 		                teamsList.appendChild(wrapperDiv);
 		            });
 		        });
