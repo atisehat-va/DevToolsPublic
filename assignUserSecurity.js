@@ -136,7 +136,7 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 	
-	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
+	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, additionalProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = ''; 
 	
@@ -329,7 +329,7 @@ function securityUpdate2() {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
 	   }	          
 	   if (teams && teams.entities) {
-	        renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', 'name', 'teamid');
+	        renderGenericList(teams.entities, team => selectItem(team, '3'), 'teamsList', 'searchInput3', 'team', (team) => `${team.name} (${team._businessunitid_value})`, 'teamid');
 	   }
 		
 	   if (securityRoles && securityRoles.entities) {
