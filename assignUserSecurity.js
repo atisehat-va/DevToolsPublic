@@ -342,7 +342,48 @@ function securityUpdate2() {
 				        rolesListBusinessUnit.appendChild(wrapperDiv);
 				    });
 				});
-				}							
+				}
+
+				// Fetch all teams and display them under a designated section (for example, under section7)
+			        const teamsList = document.getElementById('section7').querySelector('ul');
+			        teamsList.innerHTML = '';
+			
+			        fetchTeams(function(teams) {
+			            if (!teams || !teams.entities) {
+			                console.error('Teams not found');
+			                return;
+			            }
+			            const teamDetailsArr = teams.entities.map(team => ({name: team.name, teamid: team.teamid}));
+			            teamDetailsArr.sort((a, b) => {
+			                if (a.name < b.name) return -1;
+			                if (a.name > b.name) return 1;
+			                return 0;
+			            });
+			
+			            teamDetailsArr.forEach(teamDetail => {
+			                // Create a div with class sectionWrapper
+			                const wrapperDiv = document.createElement('div');
+			                wrapperDiv.className = 'sectionWrapper';
+			
+			                // Create checkbox
+			                const assignCheckbox = document.createElement('input');
+			                assignCheckbox.type = 'checkbox';
+			                assignCheckbox.value = teamDetail.teamid; // set value to team's ID
+			                assignCheckbox.className = 'assignCheckbox'; // for styling or selection
+			
+			                // Create label for team name
+			                const label = document.createElement('label');
+			                label.textContent = teamDetail.name;
+			
+			                // Append checkbox and label to wrapperDiv
+			                wrapperDiv.appendChild(assignCheckbox);
+			                wrapperDiv.appendChild(label);
+			
+			                // Append wrapperDiv to the list (assuming the list is a 'ul' element)
+			                teamsList.appendChild(wrapperDiv);
+			            });
+			        });
+			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
 		}
