@@ -192,8 +192,8 @@ function securityUpdate2() {
 	
 	       	if (classNamePrefix === 'team') {
 		    const teamName = entity.name || 'Unknown';
-		    const businessUnitId = entity._businessunitid_value || 'Unknown';
-		    textDiv.textContent = `${teamName} (Business Unit ID: ${businessUnitId})`;
+		    const businessUnitId = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
+		    textDiv.textContent = `${teamName} (Business Unit: ${businessUnitId})`;
 		} else {
 		    textDiv.textContent = entity[textProperty] || 'N/A';
 		}
