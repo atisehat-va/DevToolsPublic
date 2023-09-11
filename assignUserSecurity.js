@@ -190,13 +190,13 @@ function securityUpdate2() {
 	        textDiv.dataset.searchText = entity[textProperty];
 	        textDiv.onclick = () => selectCallback(entity);
 	
-	        if (classNamePrefix === 'team') {
-	            const businessUnitName = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
-	            const teamName = entity[textProperty] || 'Unknown';
-	            textDiv.textContent = `${teamName} (Business Unit: ${businessUnitName})`;
-	        } else {
-	            textDiv.textContent = entity[textProperty] || 'N/A';
-	        }
+	       	if (classNamePrefix === 'team') {
+		    const businessUnitId = entity._businessunitid_value ? entity._businessunitid_value : 'Unknown';
+		    const teamName = entity[textProperty] || 'Unknown';
+		    textDiv.textContent = `${teamName} (Business Unit: ${businessUnitId})`;
+		} else {
+		    textDiv.textContent = entity[textProperty] || 'N/A';
+		}
 	
 	        wrapperDiv.appendChild(textDiv);
 	        entityDiv.appendChild(wrapperDiv);
