@@ -214,18 +214,15 @@ function securityUpdate2() {
 	
 	        document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('userSelected'));
 	        const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
-	        userDiv.classList.add('userSelected');
-	
+	        userDiv.classList.add('userSelected');	
 	        if (sectionPrefix === '1') {
 	            selectedUserId = user.systemuserid;
 	        }
 	
 	        const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
-	        businessUnitAndTeamsList.innerHTML = '';
-	
+	        businessUnitAndTeamsList.innerHTML = '';	
 	        let businessUnitListItem = null;
-	        let teamListItems = [];
-	
+	        let teamListItems = [];	
 	        const appendLists = () => {
 	            if (businessUnitListItem) {
 	                businessUnitAndTeamsList.appendChild(businessUnitListItem);
@@ -237,13 +234,11 @@ function securityUpdate2() {
 	            if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
 	                console.error('Business unit not found');
 	                return;
-	            }
-	
+	            }	
 	            const businessUnitName = response.entities[0].businessunitid.name;
 	            if (sectionPrefix === '1') {
 	                selectedBusinessUnitId = user._businessunitid_value;
-	            }
-	
+	            }	
 	            businessUnitListItem = document.createElement('li');
 	            businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
 	            appendLists();
@@ -253,22 +248,18 @@ function securityUpdate2() {
 	            if (!response || !response.entities || !response.entities[0].teammembership_association) {
 	                console.error('Teams not found');
 	                return;
-	            }
-	
+	            }	
 	            if (sectionPrefix === '1') {
 	                selectedTeamIds = [];
-	            }
-	
+	            }	
 	            teamListItems = response.entities[0].teammembership_association.map(team => {
 	                if (sectionPrefix === '1') {
 	                    selectedTeamIds.push(team.teamid);
-	                }
-	
+	                }	
 	                const listItem = document.createElement('li');
 	                listItem.textContent = 'Team: ' + team.name;
 	                return listItem;
-	            });
-	
+	            });	
 	            appendLists();
 	        });
 	
@@ -277,14 +268,13 @@ function securityUpdate2() {
 	            selectedRoleIds = [];
 	
 	            fetchRolesForUser(user.systemuserid, function(roles) {
-	                if (!roles || !roles.entities) {
-	                    console.error('Roles not found');
-	                    return;
-	                }
-	
-	                const rolesList = document.getElementById('section6').querySelector('ul');
-	                rolesList.innerHTML = '';
-	
+	           	 if (!roles || !roles.entities) {
+	              	     console.error('Roles not found');
+	                     return;
+	             	 }
+	                const rolesList = document.getElementById('securityRolesList');
+           		rolesList.innerHTML = '';	
+			    
 	                const roleDetailsArr = [];
 	                const rolePromises = roles.entities.map(role => {
 	                    const roleId = role['roleid'];
@@ -293,20 +283,18 @@ function securityUpdate2() {
 	                    return Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
 	                        roleDetailsArr.push(roleDetail);
 	                    });
-	                });
-	
+	                });	
 	                Promise.all(rolePromises).then(() => {
 	                    roleDetailsArr.sort((a, b) => {
 	                        if (a.name < b.name) return -1;
 	                        if (a.name > b.name) return 1;
 	                        return 0;
-	                    });
-	
+	                    });	
 	                    roleDetailsArr.forEach(roleDetail => {
-	                        const listItem = document.createElement('li');
-	                        listItem.textContent = roleDetail.name;
-	                        rolesList.appendChild(listItem);
-	                    });
+		                const listItem = document.createElement('div'); // Using 'div' instead of 'li'
+		                listItem.textContent = roleDetail.name;
+		                rolesList.appendChild(listItem);
+		            });
 	                });
 	            });
 	        }
