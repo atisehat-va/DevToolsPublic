@@ -188,13 +188,13 @@ function securityUpdate2() {
 		    textDiv.dataset.id = entity[idProperty];
 		    textDiv.dataset.searchText = entity[textProperty];
 		    textDiv.onclick = () => selectCallback(entity);		
-		    if (classNamePrefix === 'team') {
+		 /*   if (classNamePrefix === 'team') {
 		        const teamName = entity.name || 'Unknown';
 		        const businessUnitId = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
 		        textDiv.textContent = `${teamName} (${businessUnitId})`;
 		    } else {
 		        textDiv.textContent = entity[textProperty] || 'N/A';
-		    }		
+		    }		*/
 		    wrapperDiv.appendChild(textDiv);
 		    entityDiv.appendChild(wrapperDiv);
 		    
