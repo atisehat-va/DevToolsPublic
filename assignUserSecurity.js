@@ -274,12 +274,11 @@ function securityUpdate2() {
 		                return;
 		            }
 		
-		            const teamDetailsArr = teams.entities.map(team => ({name: team.name, teamid: team.teamid}));
-		            teamDetailsArr.sort((a, b) => {
-		                if (a.name < b.name) return -1;
-		                if (a.name > b.name) return 1;
-		                return 0;
-		            });
+		            const teamDetailsArr = teams.entities.map(team => ({
+			 	name: team.name, 
+			 	teamid: team.teamid, 
+			   	businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A' // Make sure to handle the case where businessunitid is null or undefined
+			    }));
 		
 		            teamDetailsArr.forEach(teamDetail => {
 				    // Create a div with class sectionWrapper
