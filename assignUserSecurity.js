@@ -164,6 +164,7 @@ function securityUpdate2() {
 	    }
 	
 	    entities.forEach(entity => {
+		console.log(entity);
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
 	
@@ -191,10 +192,10 @@ function securityUpdate2() {
 	        textDiv.onclick = () => selectCallback(entity);
 
 		if (classNamePrefix === 'team') {
-		  const businessUnitName = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
-		  textDiv.textContent = `${entity[textProperty]} (Business Unit: ${businessUnitName})`;
+		    const businessUnitName = entity.businessunitid ? entity.businessunitid.name : 'Unknown';
+		    textDiv.textContent = `${entity[textProperty] || 'N/A'} (Business Unit: ${businessUnitName})`;
 		} else {
-		  textDiv.textContent = entity[textProperty];
+		    textDiv.textContent = entity[textProperty] || 'N/A';
 		}
 	
 	        wrapperDiv.appendChild(textDiv);
