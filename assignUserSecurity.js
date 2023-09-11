@@ -362,8 +362,8 @@ function securityUpdate2() {
 				        // Create checkbox
 				        const assignCheckbox = document.createElement('input');
 				        assignCheckbox.type = 'checkbox';
-				        assignCheckbox.value = roleDetail.roleid; // set value to role's ID
-				        assignCheckbox.className = 'assignCheckbox'; // for styling or selection
+				        assignCheckbox.value = roleDetail.roleid;
+				        assignCheckbox.className = 'assignCheckbox';
 				        
 				        // Create label for readability
 				        const label = document.createElement('label');
@@ -430,7 +430,7 @@ function securityUpdate2() {
 					        const roleName = role.name.toLowerCase();
 					        return roleName.includes(query);
 					    });
-					    displayRoles(filteredRoles);
+					    displayRoles(filteredRoles, rolesListBusinessUnit); // Added the target element here
 					});
 				});
 				}			
