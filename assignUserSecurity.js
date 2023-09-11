@@ -381,7 +381,7 @@ function securityUpdate2() {
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),
 	    new Promise(resolve => fetchTeams(resolve)),
-	    new Promise(resolve => fetchSecurityRoles(resolve)) 
+	    //new Promise(resolve => fetchSecurityRoles(resolve)) 
 	 ]).then(([users, businessUnits, teams, securityRoles]) => {
 	    displayPopup(users, businessUnits, teams, securityRoles);
 	});
