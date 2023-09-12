@@ -189,6 +189,21 @@ function securityUpdate2() {
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
+	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
+	    const searchInput = document.getElementById(inputElementId);
+	
+	    searchInput.addEventListener('input', function() {
+	        const query = this.value.toLowerCase();
+	        const filteredArray = array.filter(item => {
+	            let name = item.hasOwnProperty('name') ? item.name : '';
+	            let businessUnitName = item.hasOwnProperty('businessUnitName') ? `(${item.businessUnitName})` : '';
+	            const itemInfo = `${name} ${businessUnitName}`.toLowerCase().trim();
+	            return itemInfo.includes(query);
+	        });
+	
+	        displayFunction(filteredArray, targetElement);
+	    });
+	}
 
 	function selectUser(user, sectionPrefix) {
 		try {
@@ -289,22 +304,23 @@ function securityUpdate2() {
 			            wrapperDiv.appendChild(label);
 			            teamsList.appendChild(wrapperDiv);
 			        });
-			    };			
+			    };	
+			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);	
 			    // Initially display all teams
-			    displayTeams(teamDetailsArr);
+			   /* displayTeams(teamDetailsArr);
 			
 			    // Get the search input element
 			    const searchInput = document.getElementById('searchInput3');
 			
 			    // Add a search functionality
-			   searchInput.addEventListener('input', function() {
+			    searchInput.addEventListener('input', function() {
 			       const query = this.value.toLowerCase();
 			       const filteredTeams = teamDetailsArr.filter(team => {
 			           const teamInfo = `${team.name} (${team.businessUnitName})`.toLowerCase();
 			           return teamInfo.includes(query);
 			       });
 			       displayTeams(filteredTeams);
-			   });
+			   }); */
 			});
 			
 			if (sectionPrefix === '1') {
@@ -409,9 +425,11 @@ function securityUpdate2() {
 			            // Append wrapper div to the roles list
 			            rolesListBusinessUnit.appendChild(wrapperDiv);
 			        });
-			        
+
+				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);
+				    
 			        // Get the search input element
-			        const searchInput = document.getElementById('searchInput4');
+			    /*    const searchInput = document.getElementById('searchInput4');
 			        
 			        // Add search functionality
 			        searchInput.addEventListener('input', function() {
@@ -421,7 +439,7 @@ function securityUpdate2() {
 			                return roleName.includes(query);
 			            });
 			            displayRoles(filteredRoles, rolesListBusinessUnit); // Added the target element here
-			        });
+			        }); */
 			    });
 			}			
 		} catch (e) {
