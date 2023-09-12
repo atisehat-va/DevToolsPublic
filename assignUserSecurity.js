@@ -439,7 +439,7 @@ function securityUpdate2() {
 	    };
 	}
 	
-	function displayPopup(users, businessUnits, teams, securityRoles) {
+	function displayPopup(users, businessUnits) {
 	    if (users && users.entities) {
 	        users.entities.sort((a, b) => (a.fullname || "").localeCompare(b.fullname || ""));
 	    }	
@@ -460,8 +460,8 @@ function securityUpdate2() {
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),	    
-	 ]).then(([users, businessUnits, teams, securityRoles]) => {
-	    displayPopup(users, businessUnits, teams, securityRoles);
+	 ]).then(([users, businessUnits]) => {
+	    displayPopup(users, businessUnits);
 	});
 	
 	function loadScript(src, callback, errorCallback) {
