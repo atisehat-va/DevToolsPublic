@@ -270,9 +270,7 @@ function securityUpdate2() {
 			    if (!teams || !teams.entities) {
 			        console.error('Teams not found');
 			        return;
-			    }				
-			    // Log the number of teams
-    			    console.log(`Number of Teams: ${teams.entities.length}`);
+			    }						    
 				
 			    const teamsList = document.getElementById('teamsList');
 			    teamsList.innerHTML = '';
@@ -301,8 +299,7 @@ function securityUpdate2() {
 			    };	
 			    	
 			    // Initially display all teams
-			    displayTeams(teamDetailsArr);
-		            
+			    displayTeams(teamDetailsArr);		            
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);			
 			});
 			
@@ -393,7 +390,6 @@ function securityUpdate2() {
 						            
 			            rolesListBusinessUnit.appendChild(wrapperDiv);
 			        });
-
 				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
 			    });
 			}			
