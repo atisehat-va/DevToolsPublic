@@ -353,26 +353,18 @@ function securityUpdate2() {
 			    // Function to display roles
 			    const displayRoles = (rolesArr, targetElement) => {
 				targetElement.innerHTML = '';
-				rolesArr.forEach(roleDetail => {
-				// Create checkbox
+				rolesArr.forEach(roleDetail => {				
 				const assignCheckbox = document.createElement('input');
 				assignCheckbox.type = 'checkbox';
 				assignCheckbox.value = roleDetail.roleid;
-				assignCheckbox.className = 'assignCheckbox';
-					
-				// Create label for readability
+				assignCheckbox.className = 'assignCheckbox';				
 				const label = document.createElement('label');
 				label.innerHTML = roleDetail.name;
-				label.insertBefore(assignCheckbox, label.firstChild);
-				
-				// Create wrapper div
+				label.insertBefore(assignCheckbox, label.firstChild);				
 				const wrapperDiv = document.createElement('div');
-				wrapperDiv.className = 'sectionWrapper';
-				
-				// Append checkbox and label to wrapper div
+				wrapperDiv.className = 'sectionWrapper';				
 				wrapperDiv.appendChild(label);
-				
-				// Append wrapper div to the roles list
+								
 				targetElement.appendChild(wrapperDiv);
 				});
 			    };
@@ -392,26 +384,19 @@ function securityUpdate2() {
 			        roleDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
 			        });			        
-			        roleDetailsArr.forEach(roleDetail => {
-			            // Create checkbox
+			        roleDetailsArr.forEach(roleDetail => {			            
 			            const assignCheckbox = document.createElement('input');
 			            assignCheckbox.type = 'checkbox';
-			            assignCheckbox.value = roleDetail.roleid; // set value to role's ID
-			            assignCheckbox.className = 'assignCheckbox'; // for styling or selection
-			            
-			            // Create label for readability
+			            assignCheckbox.value = roleDetail.roleid; 
+			            assignCheckbox.className = 'assignCheckbox'; 			            			            
 			            const label = document.createElement('label');
 			            label.innerHTML = roleDetail.name;
-			            label.insertBefore(assignCheckbox, label.firstChild);
-			
-			            // Create wrapper div
+			            label.insertBefore(assignCheckbox, label.firstChild);	
+			            
 			            const wrapperDiv = document.createElement('div');
-			            wrapperDiv.className = 'sectionWrapper';
-			
-			            // Append checkbox and label to wrapper div
+			            wrapperDiv.className = 'sectionWrapper';						            
 			            wrapperDiv.appendChild(label);
-			
-			            // Append wrapper div to the roles list
+						            
 			            rolesListBusinessUnit.appendChild(wrapperDiv);
 			        });
 
