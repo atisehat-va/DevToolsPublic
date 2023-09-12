@@ -340,8 +340,7 @@ function securityUpdate2() {
 			if (sectionPrefix === '1') {
 			    // Fetch roles specific to the user and display them under section4
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
-			    
-			    displayItems(roleDetailsArr, rolesListUser, 'roleid', roleLabelFormatter);
+			    displayItems(roleDetailsArr, rolesListUser, 'roleid', roleLabelFormatter);			    
 				
 			    rolesListUser.innerHTML = '';
 			
@@ -407,6 +406,7 @@ function securityUpdate2() {
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
+			    displayItems(anotherRoleDetailsArr, rolesListBusinessUnit, 'roleid', roleLabelFormatter);
 			    rolesListBusinessUnit.innerHTML = '';
 			    
 			    fetchSecurityRoles(selectedBusinessUnitId, function(response) {
