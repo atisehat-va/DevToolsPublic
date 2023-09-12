@@ -341,7 +341,7 @@ function securityUpdate2() {
 			    // Initially display all teams
 			   // displayTeams(teamDetailsArr);
 		            
-			    //addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);			
+			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);			
 			});
 			
 			if (sectionPrefix === '1') {
@@ -451,7 +451,7 @@ function securityUpdate2() {
 			            rolesListBusinessUnit.appendChild(wrapperDiv);
 			        });
 
-				//addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
+				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
 			    });
 			}			
 		} catch (e) {
