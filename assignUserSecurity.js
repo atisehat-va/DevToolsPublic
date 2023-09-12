@@ -207,27 +207,21 @@ function securityUpdate2() {
 
 	const displayItems = (items, targetElement, valueKey, labelFormatter) => {
 	    targetElement.innerHTML = '';
-	
 	    items.forEach(item => {
-	        // Create wrapper div
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
 	        
-	        // Create checkbox
 	        const assignCheckbox = document.createElement('input');
 	        assignCheckbox.type = 'checkbox';
 	        assignCheckbox.value = item[valueKey];
 	        assignCheckbox.className = 'assignCheckbox';
 	        
-	        // Create label
 	        const label = document.createElement('label');
 	        label.innerHTML = labelFormatter(item);
 	        
-	        // Append checkbox and label to wrapper div
 	        wrapperDiv.appendChild(assignCheckbox);
 	        wrapperDiv.appendChild(label);
 	        
-	        // Append wrapper div to the target element
 	        targetElement.appendChild(wrapperDiv);
 	    });
 	};
@@ -290,6 +284,7 @@ function securityUpdate2() {
 			});			
 			// Target the teamsList div where you'll populate the team information
 		        const teamsList = document.getElementById('teamsList');
+			displayItems(teamDetailsArr, teamsList, 'teamid', teamLabelFormatter);
 		        teamsList.innerHTML = '';
 		
 		       // Fetch the teams
@@ -314,11 +309,7 @@ function securityUpdate2() {
 			        const nameA = `${a.name} (${a.businessUnitName})`;
 			        const nameB = `${b.name} (${b.businessUnitName})`;
 			        return nameA.localeCompare(nameB);
-			    });	
-
-			   const teamLabelFormatter = team => `${team.name} (${team.businessUnitName})`;
-			   const teamsList = document.getElementById('your_team_list_element_id_here');
-			   displayItems(teamDetailsArr, teamsList, 'teamid', teamLabelFormatter);
+			    });				   			   
 				
 			    // Function to display teams
 			   /* const displayTeams = (teamsToDisplay) => {
@@ -343,10 +334,15 @@ function securityUpdate2() {
 		            
 			    //addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);			
 			});
+			const teamLabelFormatter = team => `${team.name} (${team.businessUnitName})`;
+			const roleLabelFormatter = role => role.name;
 			
 			if (sectionPrefix === '1') {
 			    // Fetch roles specific to the user and display them under section4
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
+			    
+			    displayItems(roleDetailsArr, rolesListUser, 'roleid', roleLabelFormatter);
+				
 			    rolesListUser.innerHTML = '';
 			
 			    fetchRolesForUser(user.systemuserid, function(roles) {
@@ -380,11 +376,7 @@ function securityUpdate2() {
 			                rolesList.appendChild(listItem);
 			            });
 			        });
-			    });     
-
-			    const roleLabelFormatter = role => role.name;
-			    const rolesListBusinessUnit = document.getElementById('your_role_list_element_id_here');
-			    displayItems(roleDetailsArr, rolesListBusinessUnit, 'roleid', roleLabelFormatter);
+			    });     			     
 
 			    // Function to display roles
 			/*    const displayRoles = (rolesArr, targetElement) => {
