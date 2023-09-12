@@ -205,33 +205,6 @@ function securityUpdate2() {
 	    });
 	}
 
-	const displayItems = (items, targetElement, valueKey, labelFormatter) => {
-	    targetElement.innerHTML = '';
-	
-	    items.forEach(item => {
-	        // Create wrapper div
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-	        
-	        // Create checkbox
-	        const assignCheckbox = document.createElement('input');
-	        assignCheckbox.type = 'checkbox';
-	        assignCheckbox.value = item[valueKey];
-	        assignCheckbox.className = 'assignCheckbox';
-	        
-	        // Create label
-	        const label = document.createElement('label');
-	        label.innerHTML = labelFormatter(item);
-	        
-	        // Append checkbox and label to wrapper div
-	        wrapperDiv.appendChild(assignCheckbox);
-	        wrapperDiv.appendChild(label);
-	        
-	        // Append wrapper div to the target element
-	        targetElement.appendChild(wrapperDiv);
-	    });
-	};
-
 	function selectUser(user, sectionPrefix) {
 		try {
 			const messageDiv = document.getElementById('updateMessage');
@@ -314,14 +287,9 @@ function securityUpdate2() {
 			        const nameA = `${a.name} (${a.businessUnitName})`;
 			        const nameB = `${b.name} (${b.businessUnitName})`;
 			        return nameA.localeCompare(nameB);
-			    });	
-
-			   const teamLabelFormatter = team => `${team.name} (${team.businessUnitName})`;
-			   const teamsList = document.getElementById('your_team_list_element_id_here');
-			   displayItems(teamDetailsArr, teamsList, 'teamid', teamLabelFormatter);
-				
+			    });			
 			    // Function to display teams
-			   /* const displayTeams = (teamsToDisplay) => {
+			    const displayTeams = (teamsToDisplay) => {
 			        teamsList.innerHTML = '';
 			        teamsToDisplay.forEach(teamDetail => {
 			            const wrapperDiv = document.createElement('div');
@@ -336,10 +304,10 @@ function securityUpdate2() {
 			            wrapperDiv.appendChild(label);
 			            teamsList.appendChild(wrapperDiv);
 			        });
-			    };	*/
+			    };	
 			    	
 			    // Initially display all teams
-			   // displayTeams(teamDetailsArr);
+			    displayTeams(teamDetailsArr);
 		            
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);			
 			});
@@ -382,12 +350,8 @@ function securityUpdate2() {
 			        });
 			    });     
 
-			    const roleLabelFormatter = role => role.name;
-			    const rolesListBusinessUnit = document.getElementById('your_role_list_element_id_here');
-			    displayItems(roleDetailsArr, rolesListBusinessUnit, 'roleid', roleLabelFormatter);
-
 			    // Function to display roles
-			/*    const displayRoles = (rolesArr, targetElement) => {
+			    const displayRoles = (rolesArr, targetElement) => {
 				targetElement.innerHTML = '';
 				rolesArr.forEach(roleDetail => {
 				// Create checkbox
@@ -411,7 +375,7 @@ function securityUpdate2() {
 				// Append wrapper div to the roles list
 				targetElement.appendChild(wrapperDiv);
 				});
-			    }; */
+			    };
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
