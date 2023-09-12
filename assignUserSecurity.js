@@ -308,20 +308,8 @@ function securityUpdate2() {
 			    	
 			    // Initially display all teams
 			    displayTeams(teamDetailsArr);
-		            addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);
-				
-			    // Get the search input element
-			/*  const searchInput = document.getElementById('searchInput3');
-			
-			    // Add a search functionality
-			    searchInput.addEventListener('input', function() {
-			       const query = this.value.toLowerCase();
-			       const filteredTeams = teamDetailsArr.filter(team => {
-			           const teamInfo = `${team.name} (${team.businessUnitName})`.toLowerCase();
-			           return teamInfo.includes(query);
-			       });
-			       displayTeams(filteredTeams);
-			   }); */
+		            
+			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);			
 			});
 			
 			if (sectionPrefix === '1') {
@@ -427,20 +415,7 @@ function securityUpdate2() {
 			            rolesListBusinessUnit.appendChild(wrapperDiv);
 			        });
 
-				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);
-				    
-			        // Get the search input element
-			    /*    const searchInput = document.getElementById('searchInput4');
-			        
-			        // Add search functionality
-			        searchInput.addEventListener('input', function() {
-			            const query = this.value.toLowerCase();
-			            const filteredRoles = roleDetailsArr.filter(role => {
-			                const roleName = role.name.toLowerCase();
-			                return roleName.includes(query);
-			            });
-			            displayRoles(filteredRoles, rolesListBusinessUnit); // Added the target element here
-			        }); */
+				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
 			    });
 			}			
 		} catch (e) {
