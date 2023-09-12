@@ -277,13 +277,7 @@ function securityUpdate2() {
 			    const teamsList = document.getElementById('teamsList');
 			    teamsList.innerHTML = '';
 			
-			    const teamDetailsArr = teams.entities.map(team => ({name: team.name, teamid: team.teamid, businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A'}));			
-			/*    // Sort the teams alphabetically
-			    teamDetailsArr.sort((a, b) => {
-			        const nameA = `${a.name} (${a.businessUnitName})`;
-			        const nameB = `${b.name} (${b.businessUnitName})`;
-			        return nameA.localeCompare(nameB);
-			    }); */
+			    const teamDetailsArr = teams.entities.map(team => ({name: team.name, teamid: team.teamid, businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A'}));						
 		            teamDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
 			    });		   
