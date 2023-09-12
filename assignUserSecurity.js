@@ -305,12 +305,13 @@ function securityUpdate2() {
 			            teamsList.appendChild(wrapperDiv);
 			        });
 			    };	
-			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);	
+			    	
 			    // Initially display all teams
-			   /* displayTeams(teamDetailsArr);
-			
+			    displayTeams(teamDetailsArr);
+		            addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);
+				
 			    // Get the search input element
-			    const searchInput = document.getElementById('searchInput3');
+			/*  const searchInput = document.getElementById('searchInput3');
 			
 			    // Add a search functionality
 			    searchInput.addEventListener('input', function() {
