@@ -136,59 +136,52 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 	
-	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
+	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, inputType, inputName) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = '';
 	
-	    // Add "No Change" radio button if it's a Business Unit
-	    if (classNamePrefix === 'businessUnit') {
-	        const noChangeDiv = document.createElement('div');
-	        noChangeDiv.className = 'businessUnit' + sectionId.charAt(sectionId.length - 1);
-	
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-	
-	        const noChangeRadio = document.createElement('input');
-	        noChangeRadio.type = 'radio';
-	        noChangeRadio.name = 'businessUnit';
-	        noChangeRadio.value = 'noChange';
-	        noChangeRadio.className = 'assignCheckbox';
-	        wrapperDiv.appendChild(noChangeRadio);
-	
-	        const textDiv = document.createElement('div');
-	        textDiv.textContent = 'No Change';
-	        wrapperDiv.appendChild(textDiv);
-	
-	        noChangeDiv.appendChild(wrapperDiv);
+	    // Add "No Change" radio button if needed
+	    if (inputType === 'radio') {
+	        const noChangeDiv = createSectionWrapper(inputType, inputName, 'No Change', 'noChange', 'assignCheckbox');
 	        listDiv.appendChild(noChangeDiv);
 	    }
 	
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	        const text = entity[textProperty] || 'N/A';
 	
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-		    
-	        if (classNamePrefix === 'businessUnit') {
-	            const inputElement = document.createElement('input');
-	            inputElement.type = 'radio';
-	            inputElement.name = 'businessUnit';
-	            inputElement.className = 'assignCheckbox';
-	            wrapperDiv.appendChild(inputElement);
-	        }	
-	        const textDiv = document.createElement('div');
-	        textDiv.dataset.id = entity[idProperty];
-	        textDiv.dataset.searchText = entity[textProperty];
-	        textDiv.onclick = () => selectCallback(entity);
-	        textDiv.textContent = entity[textProperty] || 'N/A';
+	        const wrapperDiv = createSectionWrapper(inputType, inputName, text, entity[idProperty], 'assignCheckbox', () => selectCallback(entity));
 	
-	        wrapperDiv.appendChild(textDiv);
 	        entityDiv.appendChild(wrapperDiv);
-	
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
+	
+	function createSectionWrapper(inputType, inputName, textContent, value, className, onClick) {
+	    const wrapperDiv = document.createElement('div');
+	    wrapperDiv.className = 'sectionWrapper';
+	
+	    if (inputType) {
+	        const inputElement = document.createElement('input');
+	        inputElement.type = inputType;
+	        inputElement.name = inputName;
+	        inputElement.value = value;
+	        inputElement.className = className;
+	        wrapperDiv.appendChild(inputElement);
+	    }
+	    
+	    const textDiv = document.createElement('div');
+	    textDiv.dataset.id = value;
+	    textDiv.dataset.searchText = textContent;
+	    textDiv.onclick = onClick;
+	    textDiv.textContent = textContent;
+	
+	    wrapperDiv.appendChild(textDiv);
+	
+	    return wrapperDiv;
+	}
+	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
 	    const searchInput = document.getElementById(inputElementId);
 	
@@ -400,10 +393,12 @@ function securityUpdate2() {
 	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 	    }
 	    if (users && users.entities) {		    
-		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');	
+		//renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');
+		renderGenericList(entities, selectCallback, 'sectionId', 'searchInputId', 'classNamePrefix', 'textProperty', 'idProperty', 'radio', 'businessUnit');
 	    }	
 	   if (businessUnits && businessUnits.entities) {
-	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
+	        //renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
+		renderGenericList(entities, selectCallback, 'sectionId', 'searchInputId', 'classNamePrefix', 'textProperty', 'idProperty', 'radio', 'businessUnit');
 	   }		
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
