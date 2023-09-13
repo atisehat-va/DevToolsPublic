@@ -371,9 +371,13 @@ function securityUpdate2() {
 			        // Using localeCompare for sorting
 			        roleDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
-			        });	
-				  				 							
-				addSearchFunctionality(roleDetailsArr, 'searchInput4', rolesListBusinessUnit);			       
+			        });					  				 							
+				
+				addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
+				    const teamsList = document.getElementById('rolesListBusinessUnit');
+				    createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+				});
+				    
 				createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 			    });
 			}			
