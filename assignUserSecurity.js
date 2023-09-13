@@ -306,9 +306,7 @@ function securityUpdate2() {
 			            return a.name.localeCompare(b.name);
 			    });	
 					    	
-			    // Initially display all teams
-			    //displayTeams(teamDetailsArr);		            
-			    //addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);
+			    // Initially display all teams			    			    
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', (filteredItems) => {
 			  	const teamsList = document.getElementById('teamsList');
 				createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
