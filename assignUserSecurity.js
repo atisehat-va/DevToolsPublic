@@ -338,6 +338,9 @@ function securityUpdate2() {
 			                roleDetailsArr.push(roleDetail);
 			            });
 			        });
+				
+				createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+				    
 			        Promise.all(rolePromises).then(() => {
 			            // Using localeCompare for sorting
 			            roleDetailsArr.sort((a, b) => {
@@ -349,9 +352,7 @@ function securityUpdate2() {
 			                rolesList.appendChild(listItem);
 			            });
 			        });
-			    });     	
-			    
-			    createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');			
+			    });     			    			
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
