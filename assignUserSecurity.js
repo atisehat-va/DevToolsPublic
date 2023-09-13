@@ -368,10 +368,9 @@ function securityUpdate2() {
 			        roleDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
 			        });	
-				  
-				  createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox'); 			
-				    
-				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
+				  				 							
+				addSearchFunctionality(roleDetailsArr, 'searchInput4', rolesListBusinessUnit);			       
+				createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 			    });
 			}			
 		} catch (e) {
