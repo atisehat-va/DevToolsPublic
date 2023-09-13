@@ -305,9 +305,8 @@ function securityUpdate2() {
 		            teamDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
 			    });	
-
-			const teamsList = document.getElementById('teamsList');
-			createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');		  
+			
+			    createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');		  
 			    	
 			    // Initially display all teams
 			    displayTeams(teamDetailsArr);		            
@@ -350,10 +349,8 @@ function securityUpdate2() {
 			                rolesList.appendChild(listItem);
 			            });
 			        });
-			    });     
-
-				
-			    const rolesListUser = document.getElementById('section4').querySelector('ul');
+			    });     	
+			    
 			    createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');			
 			     
 			    // Fetch roles based on the business unit and display them under section6
@@ -371,9 +368,9 @@ function securityUpdate2() {
 			        roleDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
 			        });	
-
-				  const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
+				  
 				  createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox'); 			
+				    
 				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
 			    });
 			}			
