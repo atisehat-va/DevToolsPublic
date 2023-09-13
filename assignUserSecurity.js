@@ -305,12 +305,11 @@ function securityUpdate2() {
 		            teamDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
 			    });	
-			
-			    createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');		  
-			    	
+					    	
 			    // Initially display all teams
 			    displayTeams(teamDetailsArr);		            
-			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);			
+			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);
+			    createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
 			});
 			
 			if (sectionPrefix === '1') {
