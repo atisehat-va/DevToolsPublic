@@ -401,12 +401,10 @@ function securityUpdate2() {
 	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 	    }
 	    if (users && users.entities) {		    
-		//renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');
-		renderGenericList(entities, selectCallback, 'sectionId', 'searchInputId', 'classNamePrefix', 'textProperty', 'idProperty', 'radio', 'businessUnit');
+		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');		
 	    }	
 	   if (businessUnits && businessUnits.entities) {
-	        //renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');
-		renderGenericList(entities, selectCallback, 'sectionId', 'searchInputId', 'classNamePrefix', 'textProperty', 'idProperty', 'radio', 'businessUnit');
+	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 	   }		
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
