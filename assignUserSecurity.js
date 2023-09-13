@@ -205,6 +205,32 @@ function securityUpdate2() {
 	    });
 	}
 
+	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames) {
+	  // Clear the existing content
+	  targetElement.innerHTML = '';
+	
+	  // Loop through each item in the array
+	  itemArray.forEach(item => {
+	    const wrapperDiv = document.createElement('div');
+	    wrapperDiv.className = 'sectionWrapper';
+	
+	    const assignCheckbox = document.createElement('input');
+	    assignCheckbox.type = 'checkbox';
+	    assignCheckbox.value = item[valueKey];
+	    assignCheckbox.className = additionalClassNames;
+	
+	    const label = document.createElement('label');
+	    label.textContent = textKeys.map(key => item[key]).join(' ');
+	
+	    // Append checkbox and label to wrapper div
+	    wrapperDiv.appendChild(assignCheckbox);
+	    wrapperDiv.appendChild(label);
+	
+	    // Append wrapper div to target element
+	    targetElement.appendChild(wrapperDiv);
+	  });
+	}
+
 	function selectUser(user, sectionPrefix) {
 		try {
 			const messageDiv = document.getElementById('updateMessage');
@@ -278,9 +304,12 @@ function securityUpdate2() {
 			    const teamDetailsArr = teams.entities.map(team => ({name: team.name, teamid: team.teamid, businessUnitName: team.businessunitid ? team.businessunitid.name : 'N/A'}));						
 		            teamDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
-			    });		   
+			    });	
+
+			const teamsList = document.getElementById('teamsList');
+			createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
 			    
-			    // Function to display teams
+			  /*  // Function to display teams
 			    const displayTeams = (teamsToDisplay) => {
 			        teamsList.innerHTML = '';
 			        teamsToDisplay.forEach(teamDetail => {
@@ -296,7 +325,7 @@ function securityUpdate2() {
 			            wrapperDiv.appendChild(label);
 			            teamsList.appendChild(wrapperDiv);
 			        });
-			    };	
+			    };	*/
 			    	
 			    // Initially display all teams
 			    displayTeams(teamDetailsArr);		            
@@ -341,7 +370,10 @@ function securityUpdate2() {
 			        });
 			    });     
 
-			    // Function to display roles
+				
+			    const rolesListUser = document.getElementById('section4').querySelector('ul');
+			    createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+			/*    // Function to display roles
 			    const displayRoles = (rolesArr, targetElement) => {
 				targetElement.innerHTML = '';
 				rolesArr.forEach(roleDetail => {				
@@ -358,7 +390,7 @@ function securityUpdate2() {
 								
 				targetElement.appendChild(wrapperDiv);
 				});
-			    };
+			    }; */
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
@@ -374,8 +406,11 @@ function securityUpdate2() {
 			        // Using localeCompare for sorting
 			        roleDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
-			        });			        
-			        roleDetailsArr.forEach(roleDetail => {			            
+			        });	
+
+				  const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
+				  createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox'); 
+			/*        roleDetailsArr.forEach(roleDetail => {			            
 			            const assignCheckbox = document.createElement('input');
 			            assignCheckbox.type = 'checkbox';
 			            assignCheckbox.value = roleDetail.roleid; 
@@ -389,7 +424,7 @@ function securityUpdate2() {
 			            wrapperDiv.appendChild(label);
 						            
 			            rolesListBusinessUnit.appendChild(wrapperDiv);
-			        });
+			        }); */
 				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
 			    });
 			}			
