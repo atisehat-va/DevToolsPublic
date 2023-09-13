@@ -307,7 +307,7 @@ function securityUpdate2() {
 			    });	
 					    	
 			    // Initially display all teams
-			    displayTeams(teamDetailsArr);		            
+			    //displayTeams(teamDetailsArr);		            
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);
 			    createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
 			});
