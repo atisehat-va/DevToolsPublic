@@ -107,6 +107,7 @@ function securityUpdate() {
 	}
 
 	function selectUser(user, sectionPrefix) {
+		console.log("selectUser called with user: ", user, "and sectionPrefix: ", sectionPrefix);
 		try {
 			const messageDiv = document.getElementById('updateMessage');
 			if (messageDiv) {
