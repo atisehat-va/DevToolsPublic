@@ -308,7 +308,7 @@ function securityUpdate2() {
 					    	
 			    // Initially display all teams
 			    //displayTeams(teamDetailsArr);		            
-			    addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);
+			    //addSearchFunctionality(teamDetailsArr, 'searchInput3', displayTeams);
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', (filteredItems) => {
 			  	const teamsList = document.getElementById('teamsList');
 				createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
