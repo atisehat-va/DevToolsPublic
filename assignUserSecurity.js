@@ -375,7 +375,7 @@ function securityUpdate2() {
 				
 				addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
 				    const rolesListBusinessUnit = document.getElementById('rolesListBusinessUnit');
-				    createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+				    createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				});
 				    
 				createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
