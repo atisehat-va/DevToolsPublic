@@ -374,7 +374,7 @@ function securityUpdate2() {
 			        });					  				 							
 				
 				addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
-				    const teamsList = document.getElementById('rolesListBusinessUnit');
+				    const rolesListBusinessUnit = document.getElementById('rolesListBusinessUnit');
 				    createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				});
 				    
