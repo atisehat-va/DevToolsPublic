@@ -241,7 +241,12 @@ function securityUpdate2() {
 			
 			console.log("All users before removing 'userSelected': ", document.querySelectorAll('.user' + sectionPrefix));
 			
-			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('userSelected'));
+			document.querySelectorAll('.user' + sectionPrefix).forEach(el => {
+				console.log("Removing class 'userSelected' from: ", el);
+				el.classList.remove('userSelected');
+			});
+		        
+			
 		        const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
 			
 			console.log("User to be selected: ", userDiv);
