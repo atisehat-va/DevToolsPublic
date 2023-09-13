@@ -378,7 +378,7 @@ function securityUpdate2() {
 				    createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				});
 				    
-				createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+				//createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 			    });
 			}			
 		} catch (e) {
