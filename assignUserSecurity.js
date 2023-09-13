@@ -359,27 +359,25 @@ function securityUpdate2() {
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
-			    rolesListBusinessUnit.innerHTML = '';
-			    
-			    fetchSecurityRoles(selectedBusinessUnitId, function(response) {
-			        if (!response || !response.entities) {
-			            console.error('Roles not found');
-			            return;
-			        }		        
-			        const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
-			        
-			        // Using localeCompare for sorting
-			        roleDetailsArr.sort((a, b) => {
-			            return a.name.localeCompare(b.name);
-			        });					  				 							
+				rolesListBusinessUnit.innerHTML = '';
 				
-				addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
-				    const rolesListBusinessUnit = document.getElementById('rolesListBusinessUnit');
-				    createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
-				});
+				fetchSecurityRoles(selectedBusinessUnitId, function(response) {
+				    if (!response || !response.entities) {
+				        console.error('Roles not found');
+				        return;
+				    }		        
+				    const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
 				    
-				//createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
-			    });
+				    // Using localeCompare for sorting
+				    roleDetailsArr.sort((a, b) => {
+				        return a.name.localeCompare(b.name);
+				    });
+				
+				    addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
+				        createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+				    });
+				    createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+				});
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
