@@ -237,10 +237,18 @@ function securityUpdate2() {
 			const messageDiv = document.getElementById('updateMessage');
 			if (messageDiv) {
 				messageDiv.style.display = 'none';
-			}
+			}			
+			
+			console.log("All users before removing 'userSelected': ", document.querySelectorAll('.user' + sectionPrefix));
+			
 			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('userSelected'));
 		        const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
-		        userDiv.classList.add('userSelected');
+			
+			console.log("User to be selected: ", userDiv);
+			
+		        userDiv.classList.add('userSelected');	
+
+			console.log("All users after adding 'userSelected': ", document.querySelectorAll('.user' + sectionPrefix));
 		        
 		        if (sectionPrefix === '1') {
 		            selectedUserId = user.systemuserid;
