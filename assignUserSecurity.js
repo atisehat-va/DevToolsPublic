@@ -340,8 +340,7 @@ function securityUpdate2() {
 			            return Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
 			                roleDetailsArr.push(roleDetail);
 			            });
-			        });
-				
+			        });				
 				createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				    
 			        Promise.all(rolePromises).then(() => {
@@ -371,10 +370,9 @@ function securityUpdate2() {
 				    // Using localeCompare for sorting
 				    roleDetailsArr.sort((a, b) => {
 				        return a.name.localeCompare(b.name);
-				    });
-				
-				    addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
-				        createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+				    });				
+				       addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
+				       createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				    });
 				    createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				});
