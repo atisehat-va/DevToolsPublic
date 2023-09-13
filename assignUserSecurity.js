@@ -135,6 +135,18 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
+
+	function renderUserList(users, selectUserCallback, sectionId, searchInputId) {
+		const userListDiv = document.getElementById(sectionId);
+		users.forEach(user => {
+			const userDiv = document.createElement('div');
+			userDiv.className = `user${sectionId.charAt(sectionId.length - 1)}`;
+			userDiv.textContent = user.fullname;
+			userDiv.dataset.id = user.systemuserid;
+			userDiv.onclick = () => selectUserCallback(user);
+			userListDiv.appendChild(userDiv);
+		});
+	}
 	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
 	    const listDiv = document.getElementById(sectionId);
@@ -233,27 +245,16 @@ function securityUpdate2() {
 	}
 
 	function selectUser(user, sectionPrefix) {
+		console.log("selectUser called with user: ", user, "and sectionPrefix: ", sectionPrefix);
 		try {
 			const messageDiv = document.getElementById('updateMessage');
 			if (messageDiv) {
 				messageDiv.style.display = 'none';
-			}			
+			}
 			
-			console.log("All users before removing 'userSelected': ", document.querySelectorAll('.user' + sectionPrefix));
-			
-			document.querySelectorAll('.user' + sectionPrefix).forEach(el => {
-				console.log("Removing class 'userSelected' from: ", el);
-				el.classList.remove('userSelected');
-			});
-		        
-			
+			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('userSelected'));			
 		        const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
-			
-			console.log("User to be selected: ", userDiv);
-			
-		        userDiv.classList.add('userSelected');	
-
-			console.log("All users after adding 'userSelected': ", document.querySelectorAll('.user' + sectionPrefix));
+			userDiv.classList.add('userSelected');			
 		        
 		        if (sectionPrefix === '1') {
 		            selectedUserId = user.systemuserid;
@@ -409,6 +410,7 @@ function securityUpdate2() {
 	        users.entities.sort((a, b) => (a.fullname || "").localeCompare(b.fullname || ""));
 	    }	
 	    const newContainer = createAppendSecurityPopup();
+	    renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
 	
 	    if (businessUnits && businessUnits.entities) {
 	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
