@@ -313,7 +313,7 @@ function securityUpdate2() {
 			  	const teamsList = document.getElementById('teamsList');
 				createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
 			    });
-			    //createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
+			    createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
 			});
 			
 			if (sectionPrefix === '1') {
