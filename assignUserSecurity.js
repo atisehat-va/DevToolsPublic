@@ -307,25 +307,7 @@ function securityUpdate2() {
 			    });	
 
 			const teamsList = document.getElementById('teamsList');
-			createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
-			    
-			  /*  // Function to display teams
-			    const displayTeams = (teamsToDisplay) => {
-			        teamsList.innerHTML = '';
-			        teamsToDisplay.forEach(teamDetail => {
-			            const wrapperDiv = document.createElement('div');
-			            wrapperDiv.className = 'sectionWrapper';
-			            const assignCheckbox = document.createElement('input');
-			            assignCheckbox.type = 'checkbox';
-			            assignCheckbox.value = teamDetail.teamid;
-			            assignCheckbox.className = 'assignCheckbox';
-			            const label = document.createElement('label');
-			            label.textContent = `${teamDetail.name} (${teamDetail.businessUnitName})`;
-			            wrapperDiv.appendChild(assignCheckbox);
-			            wrapperDiv.appendChild(label);
-			            teamsList.appendChild(wrapperDiv);
-			        });
-			    };	*/
+			createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');		  
 			    	
 			    // Initially display all teams
 			    displayTeams(teamDetailsArr);		            
@@ -372,25 +354,7 @@ function securityUpdate2() {
 
 				
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
-			    createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
-			/*    // Function to display roles
-			    const displayRoles = (rolesArr, targetElement) => {
-				targetElement.innerHTML = '';
-				rolesArr.forEach(roleDetail => {				
-				const assignCheckbox = document.createElement('input');
-				assignCheckbox.type = 'checkbox';
-				assignCheckbox.value = roleDetail.roleid;
-				assignCheckbox.className = 'assignCheckbox';				
-				const label = document.createElement('label');
-				label.innerHTML = roleDetail.name;
-				label.insertBefore(assignCheckbox, label.firstChild);				
-				const wrapperDiv = document.createElement('div');
-				wrapperDiv.className = 'sectionWrapper';				
-				wrapperDiv.appendChild(label);
-								
-				targetElement.appendChild(wrapperDiv);
-				});
-			    }; */
+			    createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');			
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
@@ -409,22 +373,7 @@ function securityUpdate2() {
 			        });	
 
 				  const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
-				  createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox'); 
-			/*        roleDetailsArr.forEach(roleDetail => {			            
-			            const assignCheckbox = document.createElement('input');
-			            assignCheckbox.type = 'checkbox';
-			            assignCheckbox.value = roleDetail.roleid; 
-			            assignCheckbox.className = 'assignCheckbox'; 			            			            
-			            const label = document.createElement('label');
-			            label.innerHTML = roleDetail.name;
-			            label.insertBefore(assignCheckbox, label.firstChild);	
-			            
-			            const wrapperDiv = document.createElement('div');
-			            wrapperDiv.className = 'sectionWrapper';						            
-			            wrapperDiv.appendChild(label);
-						            
-			            rolesListBusinessUnit.appendChild(wrapperDiv);
-			        }); */
+				  createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox'); 			
 				addSearchFunctionality(roleDetailsArr, 'searchInput4', displayRoles, rolesListBusinessUnit);			       
 			    });
 			}			
