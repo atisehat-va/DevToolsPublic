@@ -80,27 +80,7 @@ function securityUpdate2() {
 	        <div class="teamsRoles-input-wrapper">
 	           <input type="text" id="searchInput4" placeholder="Search Security Role">	 
 	        </div>
-	         <div class="teams-wrapper">		        		  
-		   <div class="team-action-checkboxes">
-                    <div class="team-checkbox-container">
-		    <div class="sectionWrapper">
-                       <input type="radio" id="noRoleUpdate" class="assignCheckbox" name="roleAction" value="noRoleUpdates">
-		       <label for="noRoleUpdate">No Change</label>
-       		     </div>
-                     <div class="sectionWrapper">
-                       <input type="radio" id="removeRole" class="assignCheckbox" name="roleAction" value="remove">
-		       <label for="removeRole">Remove</label>
-       		     </div>
-	             <div class="sectionWrapper">
-		       <input type="radio" id="addRole" class="assignCheckbox" name="roleAction" value="add">
-		       <label for="addRole">Add</label>
-       		     </div>
-	             <div class="sectionWrapper">
-                      <input type="radio" id="addAndRemoveRole" class="assignCheckbox" name="roleAction" value="addAndRemoveRole">
-		      <label for="addAndRemoveRole">Add + Remove Existing</label>
-		     </div>		     		   
-       	           </div>
-		  </div>      
+	         <div class="teams-wrapper">	        
 		 <div class="teamsRoles-list-container">
 		   <div id="securityRolesList"></div>	          		 
 	         </div>
@@ -401,11 +381,20 @@ function securityUpdate2() {
 				    createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				});
 				//newStuff
-				addRadioButtonsToSection('section5', 'teamAction', [
+				// Add radio buttons for section5 (Team Actions)
+			        addRadioButtonsToSection('section5', 'teamAction', [
 			            { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
 			            { id: 'removeTeam', label: 'Remove', value: 'remove' },
 			            { id: 'addTeam', label: 'Add', value: 'add' },
 			            { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
+			        ]);
+			
+			        // Add radio buttons for section6 (Security Role Actions)
+			        addRadioButtonsToSection('section6', 'roleAction', [
+			            { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
+			            { id: 'removeRole', label: 'Remove', value: 'remove' },
+			            { id: 'addRole', label: 'Add', value: 'add' },
+			            { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 			        ]);
 
 				//endNewStuff
