@@ -383,7 +383,7 @@ function securityUpdate2() {
 				    { id: 'removeTeam', label: 'Remove', value: 'remove' },
 				    { id: 'addTeam', label: 'Add', value: 'add' },
 				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-				], 'Add/Remove Team(s):');
+				], 'Add/Remove Team(s):', 'Search Teams', 'searchInput3');
 			
 			        // Add radio buttons for section6 (Security Role Actions)
 			        addRadioButtonsToSection('section6', 'roleAction', [
@@ -401,7 +401,7 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId) {    
 	    const sectionElement = document.getElementById(sectionId);
 	
 	    // Add the h3 heading if it's passed
@@ -411,17 +411,18 @@ function securityUpdate2() {
 	        sectionElement.appendChild(heading); // Append heading first
 	    }
 	
-	    // Add the teamsRoles-input-wrapper div and its nested input element
-	    const inputWrapper = document.createElement('div');
-	    inputWrapper.className = 'teamsRoles-input-wrapper';
+	    if (inputIds) {
+	        const inputWrapper = document.createElement('div');
+	        inputWrapper.className = 'teamsRoles-input-wrapper';
 	
-	    const searchInput = document.createElement('input');
-	    searchInput.type = 'text';
-	    searchInput.id = 'searchInput3';
-	    searchInput.placeholder = 'Search Teams';
+	        const searchInput = document.createElement('input');
+	        searchInput.type = 'text';
+	        searchInput.id = inputId;  // Use the passed in id, or 'searchInput3' as default
+	        searchInput.placeholder = inputIds;
 	
-	    inputWrapper.appendChild(searchInput);
-	    sectionElement.appendChild(inputWrapper); // Append inputWrapper second
+	        inputWrapper.appendChild(searchInput);
+	        sectionElement.appendChild(inputWrapper);
+	    }
 	
 	    // Create or find the teams-wrapper div
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
@@ -429,6 +430,7 @@ function securityUpdate2() {
 	    if (!teamsWrapper) {
 	        teamsWrapper = document.createElement('div');
 	        teamsWrapper.className = 'teams-wrapper';
+		sectionElement.appendChild(teamsWrapper);
 	    }
 	
 	    const container = document.createElement('div');
