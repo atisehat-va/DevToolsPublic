@@ -418,7 +418,8 @@ function securityUpdate2() {
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(sectionId, radioName, radioData) {
 	    const sectionElement = document.getElementById(sectionId);
-	    const container = sectionElement.querySelector('.team-action-checkboxes') || document.createElement('div');
+	    const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
 	    container.innerHTML = '';
 	
@@ -442,7 +443,7 @@ function securityUpdate2() {
 	        container.appendChild(wrapperDiv);
 	    });
 	
-	    sectionElement.appendChild(container);
+	    teamsWrapper.appendChild(container);
 	}
 	//EndNewStuff
 	
