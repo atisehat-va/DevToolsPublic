@@ -405,25 +405,33 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, searchInputId, searchPlaceholder) {
 	    const sectionElement = document.getElementById(sectionId);
 	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
+	        sectionElement.appendChild(heading);
+	    }
 	
-	        const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	        
-	        if (teamsWrapper) {
-	            sectionElement.insertBefore(heading, teamsWrapper);
-	        } else {
-	            sectionElement.appendChild(heading);
-	        }
+	    // Add the search input div if searchInputId and searchPlaceholder are passed
+	    if (searchInputId && searchPlaceholder) {
+	        const inputWrapper = document.createElement('div');
+	        inputWrapper.className = 'teamsRoles-input-wrapper';
+	
+	        const inputElement = document.createElement('input');
+	        inputElement.type = 'text';
+	        inputElement.id = searchInputId;
+	        inputElement.placeholder = searchPlaceholder;
+	
+	        inputWrapper.appendChild(inputElement);
+	        sectionElement.appendChild(inputWrapper);
 	    }
 	
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
 	
+	    // Create teams-wrapper if it doesn't exist
 	    if (!teamsWrapper) {
 	        teamsWrapper = document.createElement('div');
 	        teamsWrapper.className = 'teams-wrapper';
