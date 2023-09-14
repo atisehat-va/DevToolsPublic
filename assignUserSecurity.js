@@ -127,7 +127,7 @@ function securityUpdate2() {
 	       </div>
 	      </div>
 	    </div>
-	    <div class="submit-button-container">
+	    <div class="assignSubmit-button-container">
 	       <button id="submitButton">Submit</button>
 	    </div>	    
 	  `;		
