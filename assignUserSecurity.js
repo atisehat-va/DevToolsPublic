@@ -56,11 +56,7 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="assignSection rightTeam-section" id="section5">
-	        <h3>Add/Remove Team(s):</h3>
-	         <div class="teamsRoles-input-wrapper">
-	            <input type="text" id="searchInput3" placeholder="Search Teams">
-	         </div>
+	      <div class="assignSection rightTeam-section" id="section5">	        
 	     	 <div class="teams-wrapper">		  
 	          <div class="teamsRoles-list-container">	          
 		  <div id="teamsList"></div>		   
