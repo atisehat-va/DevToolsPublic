@@ -132,14 +132,9 @@ function securityUpdate2() {
 	    </div>	    
 	  `;		
 	  document.body.appendChild(newContainer);
-	  document.getElementById('commonback-button').addEventListener('click', function() {
-	    newContainer.remove();
-	    openPopup();  
-	  });		
-	  makePopupMovable(newContainer);	
-	}
-	//NewStuff
-	// Add event listeners to radio buttons
+
+	  //newStuff
+	 // Add event listeners to radio buttons
 	const radioButtons = document.querySelectorAll('input[name="teamAction"]');
 	
 	radioButtons.forEach(radioButton => {
@@ -149,6 +144,15 @@ function securityUpdate2() {
 	});
 	// Initially disable all team checkboxes
 	toggleTeamCheckboxes(null);
+
+	  //EndNewStuff
+	  document.getElementById('commonback-button').addEventListener('click', function() {
+	    newContainer.remove();
+	    openPopup();  
+	  });		
+	  makePopupMovable(newContainer);	
+	}
+	//NewStuff	
 	
 	// Function to enable or disable team checkboxes
 	function toggleTeamCheckboxes(selectedRadioValue) {
