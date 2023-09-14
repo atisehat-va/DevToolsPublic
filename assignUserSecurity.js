@@ -128,7 +128,7 @@ function securityUpdate2() {
 	      </div>
 	    </div>
 	    <div class="assignSubmit-button-container">
-	       <button id="submitButton">Submit</button>
+	       <button id="assignSubmitButton">Submit</button>
 	    </div>	    
 	  `;		
 	  document.body.appendChild(newContainer);
