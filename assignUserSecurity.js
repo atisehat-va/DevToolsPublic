@@ -57,6 +57,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section5">	        	     	 	  
+       	      <div id="teamsList"></div>
 	       </div>
 	      </div>
 	    </div>
