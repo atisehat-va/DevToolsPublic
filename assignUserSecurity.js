@@ -404,6 +404,9 @@ function securityUpdate2() {
 	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, searchInputId, searchPlaceholder) {
 	    const sectionElement = document.getElementById(sectionId);
 	
+	    // Clear existing children
+	    sectionElement.innerHTML = '';
+	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
 	        const heading = document.createElement('h3');
@@ -425,15 +428,10 @@ function securityUpdate2() {
 	        sectionElement.appendChild(inputWrapper);
 	    }
 	
-	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	
-	    // Create teams-wrapper if it doesn't exist
-	    if (!teamsWrapper) {
-	        teamsWrapper = document.createElement('div');
-	        teamsWrapper.className = 'teams-wrapper';
-	        sectionElement.appendChild(teamsWrapper);
-	    }
-	
+	    // Create teams-wrapper
+	    const teamsWrapper = document.createElement('div');
+	    teamsWrapper.className = 'teams-wrapper';
+	    
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
 	    container.innerHTML = '';
@@ -459,6 +457,7 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container);
+	    sectionElement.appendChild(teamsWrapper);
 	}
 	//EndNewStuff
 	
