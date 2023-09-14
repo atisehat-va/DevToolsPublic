@@ -56,8 +56,15 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="assignSection rightTeam-section" id="section5">	        	     	 	  
-       	      <div id="teamsList"></div>
+	      <div class="assignSection rightTeam-section" id="section5">
+	        <h3>Add/Remove Team(s):</h3>
+	         <div class="teamsRoles-input-wrapper">
+	            <input type="text" id="searchInput3" placeholder="Search Teams">
+	         </div>
+	     	 <div class="teams-wrapper">		  
+	          <div class="teamsRoles-list-container">	          
+		  <div id="teamsList"></div>		   
+		</div>	  
 	       </div>
 	      </div>
 	    </div>
@@ -68,7 +75,11 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="assignSection rightTeam-section" id="section6">	        
+	      <div class="assignSection rightTeam-section" id="section6">
+	        <h3>Add | Remove Security Role(s):</h3>
+	        <div class="teamsRoles-input-wrapper">
+	           <input type="text" id="searchInput4" placeholder="Search Security Role">	 
+	        </div>
 	         <div class="teams-wrapper">	        
 		 <div class="teamsRoles-list-container">
 		   <div id="securityRolesList"></div>	          		 
@@ -376,7 +387,7 @@ function securityUpdate2() {
 			            { id: 'removeTeam', label: 'Remove', value: 'remove' },
 			            { id: 'addTeam', label: 'Add', value: 'add' },
 			            { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-			        ], 'searchInput3', 'Search Teams', 'Add/Remove Team(s):');
+			        ]);
 			
 			        // Add radio buttons for section6 (Security Role Actions)
 			        addRadioButtonsToSection('section6', 'roleAction', [
@@ -384,7 +395,7 @@ function securityUpdate2() {
 			            { id: 'removeRole', label: 'Remove', value: 'remove' },
 			            { id: 'addRole', label: 'Add', value: 'add' },
 			            { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
-			        ], 'searchInput4', 'Search Security Role', 'Add | Remove Security Role(s):');
+			        ]);
 
 				//endNewStuff
 			}			
