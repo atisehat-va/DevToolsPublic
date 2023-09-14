@@ -412,10 +412,23 @@ function securityUpdate2() {
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
-	        sectionElement.appendChild(heading);
+	
+	        const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	        
+	        if (teamsWrapper) {
+	            sectionElement.insertBefore(heading, teamsWrapper);
+	        } else {
+	            sectionElement.appendChild(heading);
+	        }
 	    }
 	
-	    const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	
+	    if (!teamsWrapper) {
+	        teamsWrapper = document.createElement('div');
+	        teamsWrapper.className = 'teams-wrapper';
+	        sectionElement.appendChild(teamsWrapper);
+	    }
 	
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
