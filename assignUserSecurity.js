@@ -387,7 +387,7 @@ function securityUpdate2() {
 			            { id: 'removeTeam', label: 'Remove', value: 'remove' },
 			            { id: 'addTeam', label: 'Add', value: 'add' },
 			            { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-			        ]);
+			        ], 'searchInput3', 'Search Teams', 'Add/Remove Team(s):');
 			
 			        // Add radio buttons for section6 (Security Role Actions)
 			        addRadioButtonsToSection('section6', 'roleAction', [
@@ -395,7 +395,7 @@ function securityUpdate2() {
 			            { id: 'removeRole', label: 'Remove', value: 'remove' },
 			            { id: 'addRole', label: 'Add', value: 'add' },
 			            { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
-			        ]);
+			        ], 'searchInput4', 'Search Security Role', 'Add | Remove Security Role(s):');
 
 				//endNewStuff
 			}			
@@ -405,12 +405,31 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData, searchInputId, placeholder, headingText) {
 	    const sectionElement = document.getElementById(sectionId);
 	    const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	    teamsWrapper.innerHTML = '';
+	
+	    // Create the <h3> element
+	    const h3 = document.createElement('h3');
+	    h3.appendChild(document.createTextNode(headingText));
+	    teamsWrapper.appendChild(h3);
+	
+	    // Create the search input wrapper
+	    const inputWrapper = document.createElement('div');
+	    inputWrapper.className = 'teamsRoles-input-wrapper';
+	
+	    const searchInput = document.createElement('input');
+	    searchInput.type = 'text';
+	    searchInput.id = searchInputId;
+	    searchInput.placeholder = placeholder;
+	
+	    inputWrapper.appendChild(searchInput);
+	    teamsWrapper.appendChild(inputWrapper);
+	
+	    // Create the radio buttons container
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
-	    container.innerHTML = '';
 	
 	    radioData.forEach(({ id, label, value }) => {
 	        const radioButton = document.createElement('input');
