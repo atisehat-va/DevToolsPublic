@@ -383,11 +383,11 @@ function securityUpdate2() {
 				//newStuff
 				// Add radio buttons for section5 (Team Actions)
 			        addRadioButtonsToSection('section5', 'teamAction', [
-			            { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
-			            { id: 'removeTeam', label: 'Remove', value: 'remove' },
-			            { id: 'addTeam', label: 'Add', value: 'add' },
-			            { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-			        ]);
+				    { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
+				    { id: 'removeTeam', label: 'Remove', value: 'remove' },
+				    { id: 'addTeam', label: 'Add', value: 'add' },
+				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
+				], 'Add/Remove Team(s):');
 			
 			        // Add radio buttons for section6 (Security Role Actions)
 			        addRadioButtonsToSection('section6', 'roleAction', [
@@ -405,9 +405,17 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText) {
 	    const sectionElement = document.getElementById(sectionId);
 	    const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	
+	    // Add the h3 heading if it's passed
+	    if (headingText) {
+	        const heading = document.createElement('h3');
+	        heading.appendChild(document.createTextNode(headingText));
+	        teamsWrapper.appendChild(heading);
+	    }
+	
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
 	    container.innerHTML = '';
