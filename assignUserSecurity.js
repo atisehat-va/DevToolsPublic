@@ -400,6 +400,11 @@ function securityUpdate2() {
 	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputPlaceholder, inputId) {
 	    const sectionElement = document.getElementById(sectionId);
 	
+	    if (!sectionElement) {
+	        console.warn(`Element with id ${sectionId} not found`);
+	        return;
+	    }
+	
 	    // Clear existing content in the section
 	    sectionElement.innerHTML = '';
 	
@@ -417,7 +422,7 @@ function securityUpdate2() {
 	
 	        const searchInput = document.createElement('input');
 	        searchInput.type = 'text';
-	        searchInput.id = inputId || 'searchInput3';  // Use the passed in id, or 'searchInput3' as default
+	        searchInput.id = inputId || 'searchInput3';  // Use the passed-in id or 'searchInput3' as default
 	        searchInput.placeholder = inputPlaceholder;
 	
 	        inputWrapper.appendChild(searchInput);
