@@ -56,7 +56,11 @@ function securityUpdate2() {
 	          <ul></ul>
 	        </div>
 	      </div>
-	      <div class="assignSection rightTeam-section" id="section5">	        
+	      <div class="assignSection rightTeam-section" id="section5">
+	        <h3>Add/Remove Team(s):</h3>
+	         <div class="teamsRoles-input-wrapper">
+	            <input type="text" id="searchInput3" placeholder="Search Teams">
+	         </div>
 	     	 <div class="teams-wrapper">		  
 	          <div class="teamsRoles-list-container">	          
 		  <div id="teamsList"></div>		   
@@ -383,7 +387,7 @@ function securityUpdate2() {
 				    { id: 'removeTeam', label: 'Remove', value: 'remove' },
 				    { id: 'addTeam', label: 'Add', value: 'add' },
 				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-				], 'Add/Remove Team(s):', 'searchInput3', 'Search Teams');
+				], 'Add/Remove Team(s):');
 			
 			        // Add radio buttons for section6 (Security Role Actions)
 			        addRadioButtonsToSection('section6', 'roleAction', [
@@ -401,37 +405,31 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, searchInputId, searchPlaceholder) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText) {
 	    const sectionElement = document.getElementById(sectionId);
-	
-	    // Clear existing children
-	    //sectionElement.innerHTML = '';
 	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
-	        sectionElement.appendChild(heading);
+	
+	        const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	        
+	        if (teamsWrapper) {
+	            sectionElement.insertBefore(heading, teamsWrapper);
+	        } else {
+	            sectionElement.appendChild(heading);
+	        }
 	    }
 	
-	    // Add the search input div if searchInputId and searchPlaceholder are passed
-	    if (searchInputId && searchPlaceholder) {
-	        const inputWrapper = document.createElement('div');
-	        inputWrapper.className = 'teamsRoles-input-wrapper';
+	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
 	
-	        const inputElement = document.createElement('input');
-	        inputElement.type = 'text';
-	        inputElement.id = searchInputId;
-	        inputElement.placeholder = searchPlaceholder;
-	
-	        inputWrapper.appendChild(inputElement);
-	        sectionElement.appendChild(inputWrapper);
+	    if (!teamsWrapper) {
+	        teamsWrapper = document.createElement('div');
+	        teamsWrapper.className = 'teams-wrapper';
+	        sectionElement.appendChild(teamsWrapper);
 	    }
 	
-	    // Create teams-wrapper
-	    const teamsWrapper = document.createElement('div');
-	    teamsWrapper.className = 'teams-wrapper';
-	    
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
 	    container.innerHTML = '';
@@ -457,7 +455,6 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container);
-	    sectionElement.appendChild(teamsWrapper);
 	}
 	//EndNewStuff
 	
