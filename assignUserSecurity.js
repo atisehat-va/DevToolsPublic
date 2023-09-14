@@ -312,7 +312,7 @@ function securityUpdate2() {
 			    const teamDetailsArr = teams.entities.map(team => ({
 				    name: team.name, 
 				    teamid: team.teamid, 
-				    businessUnitName: team.businessunitid ? `BU: ${team.businessunitid.name}` : 'BU: N/A'
+				    businessUnitName: team.businessunitid ? `(BU: ${team.businessunitid.name})` : 'BU: N/A'
 			    }));						
 		            teamDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
