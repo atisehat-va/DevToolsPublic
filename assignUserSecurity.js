@@ -446,9 +446,8 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container);
-	    sectionElement.appendChild(teamsWrapper);
 	
-	    // Add back the teamsRoles-list-container, if you've removed it
+	    // Create and append teamsRoles-list-container to teams-wrapper
 	    const listContainer = document.createElement('div');
 	    listContainer.className = 'teamsRoles-list-container';
 	
@@ -456,7 +455,10 @@ function securityUpdate2() {
 	    listDiv.id = 'securityRolesList';
 	
 	    listContainer.appendChild(listDiv);
-	    sectionElement.appendChild(listContainer);
+	    teamsWrapper.appendChild(listContainer);
+	
+	    // Append teams-wrapper to the main section
+	    sectionElement.appendChild(teamsWrapper);
 	}
 	//EndNewStuff
 	
