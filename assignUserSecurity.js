@@ -157,6 +157,7 @@ function securityUpdate2() {
 	// Function to enable or disable team checkboxes
 	function toggleTeamCheckboxes(selectedRadioValue) {
 	  const teamCheckboxes = document.querySelectorAll('#teamsList input[type=checkbox]');
+          console.log(teamCheckboxes);  
 	
 	  if (['remove', 'add', 'addAndRemoveTeam'].includes(selectedRadioValue)) {
 	    // Enable checkboxes
