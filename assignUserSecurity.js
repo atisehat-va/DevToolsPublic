@@ -394,33 +394,12 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, searchInputId, placeholder, headingText) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData) {
 	    const sectionElement = document.getElementById(sectionId);
-	
-	    // Create the <h3> element
-	    const h3 = document.createElement('h3');
-	    h3.appendChild(document.createTextNode(headingText));
-	    sectionElement.appendChild(h3);
-	
-	    // Create the search input wrapper
-	    const inputWrapper = document.createElement('div');
-	    inputWrapper.className = 'teamsRoles-input-wrapper';
-	
-	    const searchInput = document.createElement('input');
-	    searchInput.type = 'text';
-	    searchInput.id = searchInputId;
-	    searchInput.placeholder = placeholder;
-	
-	    inputWrapper.appendChild(searchInput);
-	    sectionElement.appendChild(inputWrapper);
-	
-	    // Create the teams-wrapper
-	    const teamsWrapper = document.createElement('div');
-	    teamsWrapper.className = 'teams-wrapper';
-	
-	    // Create the radio buttons container
+	    const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
+	    container.innerHTML = '';
 	
 	    radioData.forEach(({ id, label, value }) => {
 	        const radioButton = document.createElement('input');
@@ -443,19 +422,6 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container);
-	
-	    // Create and append teamsRoles-list-container to teams-wrapper
-	    const listContainer = document.createElement('div');
-	    listContainer.className = 'teamsRoles-list-container';
-	
-	    const listDiv = document.createElement('div');
-	    listDiv.id = 'securityRolesList';
-	
-	    listContainer.appendChild(listDiv);
-	    teamsWrapper.appendChild(listContainer);
-	
-	    // Append teams-wrapper to the main section
-	    sectionElement.appendChild(teamsWrapper);
 	}
 	//EndNewStuff
 	
