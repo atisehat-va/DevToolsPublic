@@ -405,7 +405,7 @@ function securityUpdate2() {
 	    const sectionElement = document.getElementById(sectionId);
 	
 	    // Clear existing children
-	    sectionElement.innerHTML = '';
+	    //sectionElement.innerHTML = '';
 	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
