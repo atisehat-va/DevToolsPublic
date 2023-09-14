@@ -391,7 +391,7 @@ function securityUpdate2() {
 			            { id: 'removeRole', label: 'Remove', value: 'remove' },
 			            { id: 'addRole', label: 'Add', value: 'add' },
 			            { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
-			        ]);
+			        ], 'Add | Remove Security Role(s):');
 
 				//endNewStuff
 			}			
