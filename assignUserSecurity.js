@@ -412,22 +412,27 @@ function securityUpdate2() {
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
-	
-	        const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	        
-	        if (teamsWrapper) {
-	            sectionElement.insertBefore(heading, teamsWrapper);
-	        } else {
-	            sectionElement.appendChild(heading);
-	        }
+	        sectionElement.appendChild(heading);  // Insert heading at the end of the section element
 	    }
+	
+	    // Add the teamsRoles-input-wrapper div and its nested input element
+	    const inputWrapper = document.createElement('div');
+	    inputWrapper.className = 'teamsRoles-input-wrapper';
+	
+	    const searchInput = document.createElement('input');
+	    searchInput.type = 'text';
+	    searchInput.id = 'searchInput3';
+	    searchInput.placeholder = 'Search Teams';
+	
+	    inputWrapper.appendChild(searchInput);
+	    sectionElement.appendChild(inputWrapper);  // Insert input wrapper at the end of the section element
 	
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
 	
 	    if (!teamsWrapper) {
 	        teamsWrapper = document.createElement('div');
 	        teamsWrapper.className = 'teams-wrapper';
-	        sectionElement.appendChild(teamsWrapper);
+	        sectionElement.appendChild(teamsWrapper);  // Insert teams-wrapper at the end of the section element
 	    }
 	
 	    const container = document.createElement('div');
