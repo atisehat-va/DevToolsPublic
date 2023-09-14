@@ -46,7 +46,7 @@
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
 .leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
 .leftUser-list-container { max-height: 110px; overflow-y: auto; }
-.leftDetails-section-row { display: inline-block; width: 40%; height: 235px; margin-left: 15px; box-sizing: border-box; }
+.leftDetails-section-row { display: inline-block; width: 40%; height: 260px; margin-left: 15px; box-sizing: border-box; }
 
 .rightBuss-section h3 { text-align: left; margin-bottom: 10px; color: #444; }    
 .rightBuss-section { text-align: left; width: 60%; margin-left: 15px; }
@@ -76,6 +76,6 @@
 .team-action-checkboxes input[type="checkbox"] { margin-right: 8px; }
 .team-action-checkboxes label { margin-right: 16px; }
 .teams-wrapper { display: flex; align-items: flex-start; }
-#assignSubmitButton { margin-top: 2%; margin-left: 59%; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 10px; transition: background-color 0.3s; }      
+#assignSubmitButton { margin-top: 1%; margin-left: 59%; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 10px; transition: background-color 0.3s; }      
 #assignSubmitButton:hover { background-color: #103e89; }
 
