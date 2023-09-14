@@ -61,28 +61,8 @@ function securityUpdate2() {
 	         <div class="teamsRoles-input-wrapper">
 	            <input type="text" id="searchInput3" placeholder="Search Teams">
 	         </div>
-	         <div class="teams-wrapper">		        		  
-		   <div class="team-action-checkboxes">
-                    <div class="team-checkbox-container">
-		     <div class="sectionWrapper">
-                       <input type="radio" id="noTeamUpdate" class="assignCheckbox" name="roleAction" value="noTeamUpdates">
-		       <label for="noTeamUpdate">No Change</label>
-       		     </div>
-                     <div class="sectionWrapper">
-		       <input type="radio" id="removeTeam" class="assignCheckbox" name="teamAction" value="remove">
-		       <label for="removeTeam">Remove</label>
-       		     </div>
-		     <div class="sectionWrapper">
-		       <input type="radio" id="addTeam" class="assignCheckbox" name="teamAction" value="add">
-		       <label for="addTeam">Add</label>
-       		     </div>
-		     <div class="sectionWrapper">
-                      <input type="radio" id="addAndRemoveTeam" class="assignCheckbox" name="teamAction" value="addAndRemoveTeam">
-		      <label for="addAndRemoveTeam">Add + Remove Existing</label>
-		     </div>		     		   
-       	           </div>
-		  </div>
-	        <div class="teamsRoles-list-container">	          
+	     	 <div class="teams-wrapper">		  
+	          <div class="teamsRoles-list-container">	          
 		  <div id="teamsList"></div>		   
 		</div>	  
 	       </div>
