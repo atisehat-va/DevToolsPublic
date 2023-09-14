@@ -420,11 +420,51 @@ function securityUpdate2() {
 				    });
 				    createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
 				});
+				//newStuff
+				addRadioButtonsToSection('section5', 'teamAction', [
+			            { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
+			            { id: 'removeTeam', label: 'Remove', value: 'remove' },
+			            { id: 'addTeam', label: 'Add', value: 'add' },
+			            { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
+			        ]);
+
+				//endNewStuff
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
 		}
 	}
+	//newStuff
+	// Function to add radio buttons to a given section
+	function addRadioButtonsToSection(sectionId, radioName, radioData) {
+	    const sectionElement = document.getElementById(sectionId);
+	    const container = sectionElement.querySelector('.team-action-checkboxes') || document.createElement('div');
+	    container.className = 'team-action-checkboxes';
+	    container.innerHTML = '';
+	
+	    radioData.forEach(({ id, label, value }) => {
+	        const radioButton = document.createElement('input');
+	        radioButton.type = 'radio';
+	        radioButton.id = id;
+	        radioButton.className = 'assignCheckbox';
+	        radioButton.name = radioName;
+	        radioButton.value = value;
+	
+	        const labelElement = document.createElement('label');
+	        labelElement.htmlFor = id;
+	        labelElement.appendChild(document.createTextNode(label));
+	
+	        const wrapperDiv = document.createElement('div');
+	        wrapperDiv.className = 'sectionWrapper';
+	        wrapperDiv.appendChild(radioButton);
+	        wrapperDiv.appendChild(labelElement);
+	
+	        container.appendChild(wrapperDiv);
+	    });
+	
+	    sectionElement.appendChild(container);
+	}
+	//EndNewStuff
 	
 	function setupSearchFilter(searchInputId, targetClassSuffix) {
 	    document.getElementById(searchInputId).oninput = function() {
