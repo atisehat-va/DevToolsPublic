@@ -403,13 +403,14 @@ function securityUpdate2() {
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(sectionId, radioName, radioData, searchInputId, placeholder, headingText) {
 	    const sectionElement = document.getElementById(sectionId);
-	    const teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	    teamsWrapper.innerHTML = '';
+	
+	    // Clear existing content, if any.
+	    sectionElement.innerHTML = '';
 	
 	    // Create the <h3> element
 	    const h3 = document.createElement('h3');
 	    h3.appendChild(document.createTextNode(headingText));
-	    teamsWrapper.appendChild(h3);
+	    sectionElement.appendChild(h3);
 	
 	    // Create the search input wrapper
 	    const inputWrapper = document.createElement('div');
@@ -421,7 +422,11 @@ function securityUpdate2() {
 	    searchInput.placeholder = placeholder;
 	
 	    inputWrapper.appendChild(searchInput);
-	    teamsWrapper.appendChild(inputWrapper);
+	    sectionElement.appendChild(inputWrapper);
+	
+	    // Create the teams-wrapper
+	    const teamsWrapper = document.createElement('div');
+	    teamsWrapper.className = 'teams-wrapper';
 	
 	    // Create the radio buttons container
 	    const container = document.createElement('div');
@@ -448,6 +453,7 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container);
+	    sectionElement.appendChild(teamsWrapper);
 	}
 	//EndNewStuff
 	
