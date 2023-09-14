@@ -387,7 +387,7 @@ function securityUpdate2() {
 				    { id: 'removeTeam', label: 'Remove', value: 'remove' },
 				    { id: 'addTeam', label: 'Add', value: 'add' },
 				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-				], 'Add/Remove Team(s):');
+				], 'Add/Remove Team(s):', 'searchInput3', 'Search Teams');
 			
 			        // Add radio buttons for section6 (Security Role Actions)
 			        addRadioButtonsToSection('section6', 'roleAction', [
