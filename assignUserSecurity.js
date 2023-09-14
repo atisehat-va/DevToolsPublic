@@ -243,9 +243,11 @@ function securityUpdate2() {
 				messageDiv.style.display = 'none';
 			}		
 			
-			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('userSelected'));			
-		        const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);					
-		        userDiv.classList.add('userSelected');			
+			document.querySelectorAll('.userSelected').forEach(el => el.classList.remove('userSelected'));		
+		        const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
+		        if (userDiv) {
+		            userDiv.classList.add('userSelected');
+		        }		
 		        
 		        if (sectionPrefix === '1') {
 		            selectedUserId = user.systemuserid;
