@@ -412,7 +412,7 @@ function securityUpdate2() {
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
-	        sectionElement.appendChild(heading);  // Insert heading at the end of the section element
+	        sectionElement.appendChild(heading); // Append heading first
 	    }
 	
 	    // Add the teamsRoles-input-wrapper div and its nested input element
@@ -425,14 +425,14 @@ function securityUpdate2() {
 	    searchInput.placeholder = 'Search Teams';
 	
 	    inputWrapper.appendChild(searchInput);
-	    sectionElement.appendChild(inputWrapper);  // Insert input wrapper at the end of the section element
+	    sectionElement.appendChild(inputWrapper); // Append inputWrapper second
 	
+	    // Create or find the teams-wrapper div
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	
+	    
 	    if (!teamsWrapper) {
 	        teamsWrapper = document.createElement('div');
 	        teamsWrapper.className = 'teams-wrapper';
-	        sectionElement.appendChild(teamsWrapper);  // Insert teams-wrapper at the end of the section element
 	    }
 	
 	    const container = document.createElement('div');
@@ -459,7 +459,8 @@ function securityUpdate2() {
 	        container.appendChild(wrapperDiv);
 	    });
 	
-	    teamsWrapper.appendChild(container);
+	    teamsWrapper.appendChild(container); // Append container to teams-wrapper
+	    sectionElement.appendChild(teamsWrapper); // Append teams-wrapper third
 	}
 	//EndNewStuff
 	
