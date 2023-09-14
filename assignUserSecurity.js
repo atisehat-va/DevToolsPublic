@@ -400,9 +400,6 @@ function securityUpdate2() {
 	function addRadioButtonsToSection(sectionId, radioName, radioData, searchInputId, placeholder, headingText) {
 	    const sectionElement = document.getElementById(sectionId);
 	
-	    // Clear existing content, if any.
-	    sectionElement.innerHTML = '';
-	
 	    // Create the <h3> element
 	    const h3 = document.createElement('h3');
 	    h3.appendChild(document.createTextNode(headingText));
@@ -450,6 +447,16 @@ function securityUpdate2() {
 	
 	    teamsWrapper.appendChild(container);
 	    sectionElement.appendChild(teamsWrapper);
+	
+	    // Add back the teamsRoles-list-container, if you've removed it
+	    const listContainer = document.createElement('div');
+	    listContainer.className = 'teamsRoles-list-container';
+	
+	    const listDiv = document.createElement('div');
+	    listDiv.id = 'securityRolesList';
+	
+	    listContainer.appendChild(listDiv);
+	    sectionElement.appendChild(listContainer);
 	}
 	//EndNewStuff
 	
