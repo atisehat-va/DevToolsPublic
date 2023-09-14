@@ -136,7 +136,7 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 	
-	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty) {
+	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, skipSectionWrapper = false) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = '';
 	
@@ -146,7 +146,9 @@ function securityUpdate2() {
 	        noChangeDiv.className = 'businessUnit' + sectionId.charAt(sectionId.length - 1);
 	
 	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
+	        if (!skipSectionWrapper) {
+	            wrapperDiv.className = 'sectionWrapper';
+	        }
 	
 	        const noChangeRadio = document.createElement('input');
 	        noChangeRadio.type = 'radio';
@@ -168,15 +170,17 @@ function securityUpdate2() {
 	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
 	
 	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-		    
+	        if (!skipSectionWrapper) {
+	            wrapperDiv.className = 'sectionWrapper';
+	        }
+	
 	        if (classNamePrefix === 'businessUnit') {
 	            const inputElement = document.createElement('input');
 	            inputElement.type = 'radio';
 	            inputElement.name = 'businessUnit';
 	            inputElement.className = 'assignCheckbox';
 	            wrapperDiv.appendChild(inputElement);
-	        }	
+	        }
 	        const textDiv = document.createElement('div');
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
@@ -402,7 +406,7 @@ function securityUpdate2() {
 	        businessUnits.entities.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 	    }
 	    if (users && users.entities) {		    
-		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid');		
+		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid', true);		
 	    }	
 	   if (businessUnits && businessUnits.entities) {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
