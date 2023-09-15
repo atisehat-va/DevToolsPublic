@@ -167,15 +167,8 @@ function securityUpdate2() {
 	            inputElement.type = 'radio';
 	            inputElement.name = 'businessUnit';
 	            inputElement.className = 'assignCheckbox';
-	
-	            // Add an onclick event to set the selectedBuId
-	            inputElement.onclick = () => {
-	                selectedBuId = entity[idProperty];
-	            };
-	
 	            wrapperDiv.appendChild(inputElement);
 	        }
-	
 	        const textDiv = document.createElement('div');
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
