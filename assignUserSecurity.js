@@ -86,40 +86,13 @@ function securityUpdate2() {
 	  `;		
 	  document.body.appendChild(newContainer);
 
-	  //newStuff
-	 // Add event listeners to radio buttons
-	const radioButtons = document.querySelectorAll('input[name="teamAction"]');
-	
-	radioButtons.forEach(radioButton => {
-	  radioButton.addEventListener('change', function() {
-	    toggleTeamCheckboxes(this.value);
-	  });
-	});
-	// Initially disable all team checkboxes
-	toggleTeamCheckboxes(null);
-
-	  //EndNewStuff
-	  document.getElementById('commonback-button').addEventListener('click', function() {
+	 document.getElementById('commonback-button').addEventListener('click', function() {
 	    newContainer.remove();
 	    openPopup();  
 	  });		
 	  makePopupMovable(newContainer);	
 	}
 	//NewStuff	
-	
-	// Function to enable or disable team checkboxes
-	function toggleTeamCheckboxes(selectedRadioValue) {
-	  const teamCheckboxes = document.querySelectorAll('#teamsList input[type=checkbox]');
-          console.log(teamCheckboxes);  
-	
-	  if (['remove', 'add', 'addAndRemoveTeam'].includes(selectedRadioValue)) {
-	    // Enable checkboxes
-	    teamCheckboxes.forEach(checkbox => checkbox.disabled = false);
-	  } else {
-	    // Disable checkboxes
-	    teamCheckboxes.forEach(checkbox => checkbox.disabled = true);
-	  }
-	}
 	
 	function toggleCheckboxes(action) {
 	  // Locate all checkboxes by their class name
