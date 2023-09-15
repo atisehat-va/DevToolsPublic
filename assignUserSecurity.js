@@ -378,15 +378,15 @@ function securityUpdate2() {
 				    { id: 'removeTeam', label: 'Remove', value: 'remove' },
 				    { id: 'addTeam', label: 'Add', value: 'add' },
 				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-				], 'Change Team(s):', 'Search Teams', 'searchInput3');
-			
-			        // Add radio buttons for section6 (Security Role Actions)
-			        addRadioButtonsToSection('section6', 'roleAction', [
-			            { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
-			            { id: 'removeRole', label: 'Remove', value: 'remove' },
-			            { id: 'addRole', label: 'Add', value: 'add' },
-			            { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
-			        ], 'Change Security Role(s):', 'Search Security Role', 'searchInput4');
+				], 'Change Team(s):', 'Search Teams', 'searchInput3', 'teamsRadioButtons');
+				
+				// For roles, with the class name "roleRadioButtonClass"
+				addRadioButtonsToSection('section6', 'roleAction', [
+				    { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
+				    { id: 'removeRole', label: 'Remove', value: 'remove' },
+				    { id: 'addRole', label: 'Add', value: 'add' },
+				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
+				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
 				//endNewStuff
 			}			
@@ -401,16 +401,16 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId) {    
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId, radioButtonClassName) {    
 	    const sectionElement = document.getElementById(sectionId);
-
+	
 	    // Check if the section already has radio buttons
 	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
 	        return;
 	    }
-
-            // Set a flag to indicate that radio buttons have been added
-    	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
+	
+	    // Set a flag to indicate that radio buttons have been added
+	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
 	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
@@ -425,7 +425,7 @@ function securityUpdate2() {
 	
 	        const searchInput = document.createElement('input');
 	        searchInput.type = 'text';
-	        searchInput.id = inputId;  // Use the passed in id, or 'searchInput3' as default
+	        searchInput.id = inputId;
 	        searchInput.placeholder = inputIds;
 	
 	        inputWrapper.appendChild(searchInput);
@@ -448,7 +448,7 @@ function securityUpdate2() {
 	        const radioButton = document.createElement('input');
 	        radioButton.type = 'radio';
 	        radioButton.id = id;
-	        radioButton.className = 'assignCheckbox';
+	        radioButton.className = radioButtonClassName;  // New line to set the class dynamically
 	        radioButton.name = radioName;
 	        radioButton.value = value;
 	
