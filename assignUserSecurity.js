@@ -380,16 +380,16 @@ function securityUpdate2() {
 				// Add radio buttons for section5 (Team Actions)
 			        addRadioButtonsToSection('section5', 'teamAction', [
 				    { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
-				    { id: 'removeTeam', label: 'Remove', value: 'remove' },
-				    { id: 'addTeam', label: 'Add', value: 'add' },
+				    { id: 'removeTeam', label: 'Remove', value: 'removeTeam' },
+				    { id: 'addTeam', label: 'Add', value: 'addTeam' },
 				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
 				], 'Change Team(s):', 'Search Teams', 'searchInput3', 'teamsRadioButtons');
 				
 				// For roles, with the class name "roleRadioButtonClass"
 				addRadioButtonsToSection('section6', 'roleAction', [
 				    { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
-				    { id: 'removeRole', label: 'Remove', value: 'remove' },
-				    { id: 'addRole', label: 'Add', value: 'add' },
+				    { id: 'removeRole', label: 'Remove', value: 'removeRole' },
+				    { id: 'addRole', label: 'Add', value: 'addRole' },
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
@@ -455,22 +455,20 @@ function securityUpdate2() {
 	        radioButton.id = id;
 	        radioButton.className = radioButtonClassName;  // New line to set the class dynamically
 	        radioButton.name = radioName;
-	        radioButton.value = value;
+	        radioButton.value = value;		    
 
 		const actionMap = {
 		  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
-		  'add': { action: 'enable', classes: ['teamsCheckbox'] },
-		  'remove': { action: 'enable', classes: ['teamsCheckbox'] },
+		  'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+		  'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+		  'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
+		  'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
 		  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-		  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },
-		  // Add more mappings as needed
-		};
-		
-		// The default action and classes if the value doesn't match any key in actionMap
-		const defaultAction = { action: 'enable', classes: ['teamsCheckbox'] };
+		  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
+		};	
 		
 		radioButton.addEventListener('change', () => {
-		  const selectedAction = actionMap[value] || defaultAction;
+		  const selectedAction = actionMap[value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
 		  toggleCheckboxes(selectedAction.action, selectedAction.classes);
 		});
 	
