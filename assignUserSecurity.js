@@ -397,25 +397,8 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId) {    
 	    const sectionElement = document.getElementById(sectionId);
-	    
-	    // Check if sectionElement exists
-	    if (!sectionElement) {
-	        console.error(`Element with ID ${sectionId} not found.`);
-	        return;
-	    }
-	
-	    // Clear existing radio buttons by removing the entire 'teams-wrapper' div
-	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	    if (teamsWrapper) {
-	        teamsWrapper.remove();
-	    }
-	
-	    // Recreate teams-wrapper after clearing
-	    teamsWrapper = document.createElement('div');
-	    teamsWrapper.className = 'teams-wrapper';
-	    sectionElement.appendChild(teamsWrapper);
 	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
@@ -430,16 +413,25 @@ function securityUpdate2() {
 	
 	        const searchInput = document.createElement('input');
 	        searchInput.type = 'text';
-	        searchInput.id = inputId;
+	        searchInput.id = inputId;  // Use the passed in id, or 'searchInput3' as default
 	        searchInput.placeholder = inputIds;
 	
 	        inputWrapper.appendChild(searchInput);
 	        sectionElement.appendChild(inputWrapper);
 	    }
 	
-	    // Create the container div
+	    // Create or find the teams-wrapper div
+	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	    
+	    if (!teamsWrapper) {
+	        teamsWrapper = document.createElement('div');
+	        teamsWrapper.className = 'teams-wrapper';
+		sectionElement.appendChild(teamsWrapper);
+	    }
+	
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
+	    container.innerHTML = '';
 	
 	    radioData.forEach(({ id, label, value }) => {
 	        const radioButton = document.createElement('input');
@@ -462,6 +454,7 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container); // Append container to teams-wrapper
+	    sectionElement.appendChild(teamsWrapper); // Append teams-wrapper third
 	}
 	//EndNewStuff
 	
