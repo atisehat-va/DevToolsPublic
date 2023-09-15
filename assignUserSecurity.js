@@ -456,6 +456,23 @@ function securityUpdate2() {
 	        radioButton.className = radioButtonClassName;  // New line to set the class dynamically
 	        radioButton.name = radioName;
 	        radioButton.value = value;
+
+		const actionMap = {
+		  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
+		  'add': { action: 'enable', classes: ['teamsCheckbox'] },
+		  'remove': { action: 'enable', classes: ['teamsCheckbox'] },
+		  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+		  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },
+		  // Add more mappings as needed
+		};
+		
+		// The default action and classes if the value doesn't match any key in actionMap
+		const defaultAction = { action: 'enable', classes: ['teamsCheckbox'] };
+		
+		radioButton.addEventListener('change', () => {
+		  const selectedAction = actionMap[value] || defaultAction;
+		  toggleCheckboxes(selectedAction.action, selectedAction.classes);
+		});
 	
 	        const labelElement = document.createElement('label');
 	        labelElement.htmlFor = id;
