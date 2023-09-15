@@ -129,7 +129,7 @@ function securityUpdate2() {
 	            const inputElement = document.createElement('input');
 	            inputElement.type = 'radio';
 	            inputElement.name = 'businessUnit';
-	            inputElement.className = 'bUCheckbox';
+	            inputElement.className = 'businessUnitRadioButtons';
 	            inputElement.value = entity['businessunitid']; 
 	            wrapperDiv.appendChild(inputElement);
 
@@ -160,7 +160,7 @@ function securityUpdate2() {
 	    noChangeRadio.type = 'radio';
 	    noChangeRadio.name = 'businessUnit';
 	    noChangeRadio.value = 'noChange';
-	    noChangeRadio.className = 'bUCheckbox';
+	    noChangeRadio.className = 'businessUnitRadioButtons';
 	    wrapperDiv.appendChild(noChangeRadio);
 	
 	    const textDiv = document.createElement('div');
