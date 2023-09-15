@@ -397,44 +397,41 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputPlaceholder, inputId) {
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId) {    
 	    const sectionElement = document.getElementById(sectionId);
-	
-	    if (!sectionElement) {
-	        console.warn(`Element with id ${sectionId} not found`);
-	        return;
-	    }
-	
-	    // Clear existing content in the section
-	    sectionElement.innerHTML = '';
 	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
-	        sectionElement.appendChild(heading);
+	        sectionElement.appendChild(heading); // Append heading first
 	    }
 	
-	    // Add the teamsRoles-input-wrapper div and its nested input element
-	    if (inputPlaceholder) {
+	    if (inputIds) {
 	        const inputWrapper = document.createElement('div');
 	        inputWrapper.className = 'teamsRoles-input-wrapper';
 	
 	        const searchInput = document.createElement('input');
 	        searchInput.type = 'text';
-	        searchInput.id = inputId || 'searchInput3';  // Use the passed-in id or 'searchInput3' as default
-	        searchInput.placeholder = inputPlaceholder;
+	        searchInput.id = inputId;  // Use the passed in id, or 'searchInput3' as default
+	        searchInput.placeholder = inputIds;
 	
 	        inputWrapper.appendChild(searchInput);
 	        sectionElement.appendChild(inputWrapper);
 	    }
 	
-	    let teamsWrapper = document.createElement('div');
-	    teamsWrapper.className = 'teams-wrapper';
-	    sectionElement.appendChild(teamsWrapper);
+	    // Create or find the teams-wrapper div
+	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	    
+	    if (!teamsWrapper) {
+	        teamsWrapper = document.createElement('div');
+	        teamsWrapper.className = 'teams-wrapper';
+		sectionElement.appendChild(teamsWrapper);
+	    }
 	
 	    const container = document.createElement('div');
 	    container.className = 'team-action-checkboxes';
+	    container.innerHTML = '';
 	
 	    radioData.forEach(({ id, label, value }) => {
 	        const radioButton = document.createElement('input');
@@ -456,7 +453,8 @@ function securityUpdate2() {
 	        container.appendChild(wrapperDiv);
 	    });
 	
-	    teamsWrapper.appendChild(container);
+	    teamsWrapper.appendChild(container); // Append container to teams-wrapper
+	    sectionElement.appendChild(teamsWrapper); // Append teams-wrapper third
 	}
 	//EndNewStuff
 	
