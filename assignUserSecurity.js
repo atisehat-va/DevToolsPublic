@@ -405,6 +405,7 @@ function securityUpdate2() {
 		}
 		console.log(selectedUserId);
 		console.log(selectedBusinessUnitId);
+		console.log(selectedBuId);
 		console.log(selectedTeamIds);
 		console.log(selectedRoleIds);	
 	}
