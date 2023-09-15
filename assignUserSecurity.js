@@ -305,11 +305,11 @@ function securityUpdate2() {
 					    	
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', (filteredItems) => {
 			    	const teamsList = document.getElementById('teamsList');
-			   	 // Added 'team' as the last argument to specify the item type
-			   	 createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox', 'team');
+			   	 // Added 'team' as the last argument for item type
+			   	 createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'teamsCheckbox', 'team');
 				});
-				// Added 'team' as the last argument to specify the item type
-				createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox', 'team');
+				// Added 'team' as the last argument for item type
+				createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'teamsCheckbox', 'team');
 			   });
 			
 			if (sectionPrefix === '1') {
