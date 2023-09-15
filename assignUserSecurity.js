@@ -121,6 +121,15 @@ function securityUpdate2() {
 	  }
 	}
 
+	function disableCheckboxes() {
+	  // Locate all checkboxes by their class name
+	  const checkboxes = document.querySelectorAll('.assignCheckbox');
+	  
+	  checkboxes.forEach(checkbox => {
+	    checkbox.disabled = true;
+	  });
+	}
+
 	//endNewStuff
 	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, skipSectionWrapper = false) {
@@ -146,8 +155,10 @@ function securityUpdate2() {
 	            inputElement.type = 'radio';
 	            inputElement.name = 'businessUnit';
 	            inputElement.className = 'assignCheckbox';
-	            inputElement.value = entity['businessunitid']; // Set the Business Unit ID here
+	            inputElement.value = entity['businessunitid']; 
 	            wrapperDiv.appendChild(inputElement);
+
+		    inputElement.addEventListener('change', disableCheckboxes);
 	        }
 	
 	        const textDiv = document.createElement('div');
