@@ -336,8 +336,8 @@ function securityUpdate2() {
 			            return Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
 			                roleDetailsArr.push(roleDetail);
 			            });
-			        });				
-				createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox');
+			        });								
+				createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox', 'role');
 				    
 			        Promise.all(rolePromises).then(() => {
 			            // Using localeCompare for sorting
