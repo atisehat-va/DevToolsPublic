@@ -120,13 +120,13 @@ function securityUpdate2() {
 	    teamCheckboxes.forEach(checkbox => checkbox.disabled = true);
 	  }
 	}
-
-	function disableCheckboxes() {
+	
+	function toggleCheckboxes(action) {
 	  // Locate all checkboxes by their class name
 	  const checkboxes = document.querySelectorAll('.assignCheckbox');
 	  
 	  checkboxes.forEach(checkbox => {
-	    checkbox.disabled = true;
+	    checkbox.disabled = (action === 'disable');
 	  });
 	}
 
@@ -158,7 +158,7 @@ function securityUpdate2() {
 	            inputElement.value = entity['businessunitid']; 
 	            wrapperDiv.appendChild(inputElement);
 
-		    inputElement.addEventListener('change', disableCheckboxes);
+		    inputElement.addEventListener('change', () => toggleCheckboxes('disable'));
 	        }
 	
 	        const textDiv = document.createElement('div');
@@ -194,6 +194,8 @@ function securityUpdate2() {
 	
 	    noChangeDiv.appendChild(wrapperDiv);
 	    listDiv.appendChild(noChangeDiv);
+
+	    inputElement.addEventListener('change', () => toggleCheckboxes('enable'));
 	}
 	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
