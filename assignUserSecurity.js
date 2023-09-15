@@ -146,7 +146,7 @@ function securityUpdate2() {
 	            inputElement.type = 'radio';
 	            inputElement.name = 'businessUnit';
 	            inputElement.className = 'assignCheckbox';
-	            inputElement.value = entity[idProperty]; // Set the Business Unit ID here
+	            inputElement.value = entity['businessunitid']; // Set the Business Unit ID here
 	            wrapperDiv.appendChild(inputElement);
 	        }
 	
