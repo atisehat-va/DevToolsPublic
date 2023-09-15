@@ -189,32 +189,38 @@ function securityUpdate2() {
 	    });
 	}
 
-	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames) {
-	  // Clear the existing content
-	  targetElement.innerHTML = '';
+	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {
+	    // Clear the existing content
+	    targetElement.innerHTML = '';
 	
-	  // Loop through each item in the array
-	  itemArray.forEach(item => {
-	    const wrapperDiv = document.createElement('div');
-	    wrapperDiv.className = 'sectionWrapper';
+	    // Loop through each item in the array
+	    itemArray.forEach(item => {
+	        const wrapperDiv = document.createElement('div');
+	        wrapperDiv.className = 'sectionWrapper';
 	
-	    const assignCheckbox = document.createElement('input');
-	    assignCheckbox.type = 'checkbox';
-	    assignCheckbox.value = item[valueKey];
-	    assignCheckbox.className = additionalClassNames;
+	        // Conditionally assign class name based on item type
+	        if (itemType === 'team') {
+	            wrapperDiv.classList.add('teamClass'); // Replace 'teamClass' with your desired class name
+	        } else if (itemType === 'role') {
+	            wrapperDiv.classList.add('roleClass'); // Replace 'roleClass' with your desired class name
+	        }
 	
-	    const label = document.createElement('label');
-	    label.textContent = textKeys.map(key => item[key]).join(' ');
+	        const assignCheckbox = document.createElement('input');
+	        assignCheckbox.type = valueType;
+	        assignCheckbox.value = item[valueKey];
+	        assignCheckbox.className = additionalClassNames;
 	
-	    // Append checkbox and label to wrapper div
-	    wrapperDiv.appendChild(assignCheckbox);
-	    wrapperDiv.appendChild(label);
+	        const label = document.createElement('label');
+	        label.textContent = textKeys.map(key => item[key]).join(' ');
 	
-	    // Append wrapper div to target element
-	    targetElement.appendChild(wrapperDiv);
-	  });
+	        // Append checkbox and label to wrapper div
+	        wrapperDiv.appendChild(assignCheckbox);
+	        wrapperDiv.appendChild(label);
+	
+	        // Append wrapper div to target element
+	        targetElement.appendChild(wrapperDiv);
+	    });
 	}
-
 	function selectUser(user, sectionPrefix) {
 		try {
 			const messageDiv = document.getElementById('updateMessage');
@@ -297,13 +303,14 @@ function securityUpdate2() {
 			            return a.name.localeCompare(b.name);
 			    });	
 					    	
-			    // Initially display all teams			    			    
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', (filteredItems) => {
-			  	const teamsList = document.getElementById('teamsList');
-				createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
-			    });
-			    createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox');
-			});
+			    	const teamsList = document.getElementById('teamsList');
+			   	 // Added 'team' as the last argument to specify the item type
+			   	 createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox', 'team');
+				});
+				// Added 'team' as the last argument to specify the item type
+				createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'assignCheckbox', 'team');
+			   });
 			
 			if (sectionPrefix === '1') {
 			    // Fetch roles specific to the user and display them under section4
