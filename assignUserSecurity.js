@@ -126,10 +126,12 @@ function securityUpdate2() {
 	  const checkboxes = document.querySelectorAll('.assignCheckbox');
 	  
 	  checkboxes.forEach(checkbox => {
+	    if (action === 'disable') {
+	      checkbox.checked = false; // Deselect the checkbox
+	    }
 	    checkbox.disabled = (action === 'disable');
 	  });
 	}
-
 	//endNewStuff
 	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, skipSectionWrapper = false) {
