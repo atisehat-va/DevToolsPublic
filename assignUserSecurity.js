@@ -1,6 +1,7 @@
 function securityUpdate2() {        
 	debugger;	
 	let selectedUserId = null;
+	let selectedBuId = null;
 	let selectedBusinessUnitId = null;
 	let selectedTeamIds = [];
 	let selectedRoleIds = [];
@@ -122,6 +123,7 @@ function securityUpdate2() {
 
 	//endNewStuff
 	
+	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, skipSectionWrapper = false) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = '';
@@ -150,6 +152,42 @@ function securityUpdate2() {
 	        noChangeDiv.appendChild(wrapperDiv);
 	        listDiv.appendChild(noChangeDiv);
 	    }
+	
+	    entities.forEach(entity => {
+	        const entityDiv = document.createElement('div');
+	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
+	
+	        const wrapperDiv = document.createElement('div');
+	        if (!skipSectionWrapper) {
+	            wrapperDiv.className = 'sectionWrapper';
+	        }
+	
+	        if (classNamePrefix === 'businessUnit') {
+	            const inputElement = document.createElement('input');
+	            inputElement.type = 'radio';
+	            inputElement.name = 'businessUnit';
+	            inputElement.className = 'assignCheckbox';
+	
+	            // Add an onclick event to set the selectedBuId
+	            inputElement.onclick = () => {
+	                selectedBuId = entity[idProperty];
+	            };
+	
+	            wrapperDiv.appendChild(inputElement);
+	        }
+	
+	        const textDiv = document.createElement('div');
+	        textDiv.dataset.id = entity[idProperty];
+	        textDiv.dataset.searchText = entity[textProperty];
+	        textDiv.onclick = () => selectCallback(entity);
+	        textDiv.textContent = entity[textProperty] || 'N/A';
+	
+	        wrapperDiv.appendChild(textDiv);
+	        entityDiv.appendChild(wrapperDiv);
+	
+	        listDiv.appendChild(entityDiv);
+	    });
+	}
 	
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
