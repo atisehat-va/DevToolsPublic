@@ -399,6 +399,14 @@ function securityUpdate2() {
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId) {    
 	    const sectionElement = document.getElementById(sectionId);
+
+	    // Check if the section already has radio buttons
+	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
+	        return;
+	    }
+
+            // Set a flag to indicate that radio buttons have been added
+    	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
 	
 	    // Add the h3 heading if it's passed
 	    if (headingText) {
@@ -420,13 +428,12 @@ function securityUpdate2() {
 	        sectionElement.appendChild(inputWrapper);
 	    }
 	
-	    // Create or find the teams-wrapper div
+	    // Creating radio buttons
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	    
 	    if (!teamsWrapper) {
 	        teamsWrapper = document.createElement('div');
 	        teamsWrapper.className = 'teams-wrapper';
-		sectionElement.appendChild(teamsWrapper);
+	        sectionElement.appendChild(teamsWrapper);
 	    }
 	
 	    const container = document.createElement('div');
