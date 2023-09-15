@@ -94,14 +94,18 @@ function securityUpdate2() {
 	}
 	//NewStuff	
 	
-	function toggleCheckboxes(action) {
-	  // Locate all checkboxes by their class name
-	  const checkboxes = document.querySelectorAll('.assignCheckbox, .teamsCheckbox, .rolesCheckbox');	  
-	  checkboxes.forEach(checkbox => {
-	    if (action === 'disable') {
-	      checkbox.checked = false; // Deselect the checkbox
-	    }
-	    checkbox.disabled = (action === 'disable');
+	function toggleCheckboxes(action, classNames) {
+	  // Accept either a single class name or an array of class names
+	  const classes = Array.isArray(classNames) ? classNames : [classNames];
+	  classes.forEach(className => {
+	    const checkboxes = document.querySelectorAll(`.${className}`);
+	    
+	    checkboxes.forEach(checkbox => {
+	      if (action === 'disable') {
+	        checkbox.checked = false;
+	      }
+	      checkbox.disabled = (action === 'disable');
+	    });
 	  });
 	}
 	//endNewStuff
@@ -131,8 +135,9 @@ function securityUpdate2() {
 	            inputElement.className = 'businessUnitRadioButtons';
 	            inputElement.value = entity['businessunitid']; 
 	            wrapperDiv.appendChild(inputElement);
-
-		    inputElement.addEventListener('change', () => toggleCheckboxes('disable'));
+		    
+		    inputElement.addEventListener('change', () => toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']));
+			
 	        }
 	
 	        const textDiv = document.createElement('div');
@@ -169,7 +174,7 @@ function securityUpdate2() {
 	    noChangeDiv.appendChild(wrapperDiv);
 	    listDiv.appendChild(noChangeDiv);
 
-	    noChangeRadio.addEventListener('change', () => toggleCheckboxes('enable'));
+	    noChangeRadio.addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']));
 	}
 	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
