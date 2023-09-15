@@ -189,35 +189,6 @@ function securityUpdate2() {
 	    });
 	}
 	
-	    entities.forEach(entity => {
-	        const entityDiv = document.createElement('div');
-	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	
-	        const wrapperDiv = document.createElement('div');
-	        if (!skipSectionWrapper) {
-	            wrapperDiv.className = 'sectionWrapper';
-	        }
-	
-	        if (classNamePrefix === 'businessUnit') {
-	            const inputElement = document.createElement('input');
-	            inputElement.type = 'radio';
-	            inputElement.name = 'businessUnit';
-	            inputElement.className = 'assignCheckbox';
-	            wrapperDiv.appendChild(inputElement);
-	        }
-	        const textDiv = document.createElement('div');
-	        textDiv.dataset.id = entity[idProperty];
-	        textDiv.dataset.searchText = entity[textProperty];
-	        textDiv.onclick = () => selectCallback(entity);
-	        textDiv.textContent = entity[textProperty] || 'N/A';
-	
-	        wrapperDiv.appendChild(textDiv);
-	        entityDiv.appendChild(wrapperDiv);
-	
-	        listDiv.appendChild(entityDiv);
-	    });
-	}
-	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
 	    const searchInput = document.getElementById(inputElementId);
 	
