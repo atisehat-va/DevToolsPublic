@@ -379,17 +379,17 @@ function securityUpdate2() {
 				//newStuff
 				// Add radio buttons for section5 (Team Actions)
 			        addRadioButtonsToSection('section5', 'teamAction', [
-				    { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
-				    { id: 'removeTeam', label: 'Remove', value: 'removeTeam' },
+				    { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },				    
 				    { id: 'addTeam', label: 'Add', value: 'addTeam' },
+				    { id: 'removeTeam', label: 'Remove', value: 'removeTeam' },
 				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
 				], 'Change Team(s):', 'Search Teams', 'searchInput3', 'teamsRadioButtons');
 				
 				// For roles, with the class name "roleRadioButtonClass"
 				addRadioButtonsToSection('section6', 'roleAction', [
 				    { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
-				    { id: 'removeRole', label: 'Remove', value: 'removeRole' },
 				    { id: 'addRole', label: 'Add', value: 'addRole' },
+				    { id: 'removeRole', label: 'Remove', value: 'removeRole' },				    
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
