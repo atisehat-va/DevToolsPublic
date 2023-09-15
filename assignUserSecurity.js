@@ -461,7 +461,7 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container); // Append container to teams-wrapper
-	    //sectionElement.appendChild(teamsWrapper); // Append teams-wrapper third
+	    sectionElement.appendChild(teamsWrapper); // Append teams-wrapper third
 	}
 	//EndNewStuff
 	
