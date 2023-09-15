@@ -70,6 +70,7 @@
 .teamsRoles-list-container { flex: 1; max-height: 145px; overflow-y: auto; text-align: left; }
 .sectionWrapper { display: flex; }
 .assignCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
+.bUCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
 
 .teamsRoles-input-wrapper { padding: 10px; width: 255px; } 
 .team-action-checkboxes { width: 34%; height: 145px; padding-left: 15px;}
