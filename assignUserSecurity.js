@@ -123,34 +123,13 @@ function securityUpdate2() {
 
 	//endNewStuff
 	
-	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, skipSectionWrapper = false) {
 	    const listDiv = document.getElementById(sectionId);
 	    listDiv.innerHTML = '';
 	
 	    // Add "No Change" radio button if it's a Business Unit
 	    if (classNamePrefix === 'businessUnit') {
-	        const noChangeDiv = document.createElement('div');
-	        noChangeDiv.className = 'businessUnit' + sectionId.charAt(sectionId.length - 1);
-	
-	        const wrapperDiv = document.createElement('div');
-	        if (!skipSectionWrapper) {
-	            wrapperDiv.className = 'sectionWrapper';
-	        }
-	
-	        const noChangeRadio = document.createElement('input');
-	        noChangeRadio.type = 'radio';
-	        noChangeRadio.name = 'businessUnit';
-	        noChangeRadio.value = 'noChange';
-	        noChangeRadio.className = 'assignCheckbox';
-	        wrapperDiv.appendChild(noChangeRadio);
-	
-	        const textDiv = document.createElement('div');
-	        textDiv.textContent = 'No Change';
-	        wrapperDiv.appendChild(textDiv);
-	
-	        noChangeDiv.appendChild(wrapperDiv);
-	        listDiv.appendChild(noChangeDiv);
+	        addNoChangeRadioButton(listDiv, sectionId);
 	    }
 	
 	    entities.forEach(entity => {
@@ -167,8 +146,10 @@ function securityUpdate2() {
 	            inputElement.type = 'radio';
 	            inputElement.name = 'businessUnit';
 	            inputElement.className = 'assignCheckbox';
+	            inputElement.value = entity[idProperty]; // Set the Business Unit ID here
 	            wrapperDiv.appendChild(inputElement);
 	        }
+	
 	        const textDiv = document.createElement('div');
 	        textDiv.dataset.id = entity[idProperty];
 	        textDiv.dataset.searchText = entity[textProperty];
@@ -180,6 +161,28 @@ function securityUpdate2() {
 	
 	        listDiv.appendChild(entityDiv);
 	    });
+	}
+	
+	function addNoChangeRadioButton(listDiv, sectionId) {
+	    const noChangeDiv = document.createElement('div');
+	    noChangeDiv.className = 'businessUnit' + sectionId.charAt(sectionId.length - 1);
+	
+	    const wrapperDiv = document.createElement('div');
+	    wrapperDiv.className = 'sectionWrapper';
+	
+	    const noChangeRadio = document.createElement('input');
+	    noChangeRadio.type = 'radio';
+	    noChangeRadio.name = 'businessUnit';
+	    noChangeRadio.value = 'noChange';
+	    noChangeRadio.className = 'assignCheckbox';
+	    wrapperDiv.appendChild(noChangeRadio);
+	
+	    const textDiv = document.createElement('div');
+	    textDiv.textContent = 'No Change';
+	    wrapperDiv.appendChild(textDiv);
+	
+	    noChangeDiv.appendChild(wrapperDiv);
+	    listDiv.appendChild(noChangeDiv);
 	}
 	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
