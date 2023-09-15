@@ -93,6 +93,16 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 	//NewStuff	
+        //for laterUse
+	function uncheckRadioButtonsByClass(className) {
+	  const radioButtons = document.querySelectorAll(`.${className}`);
+	  
+	  radioButtons.forEach(radioButton => {
+	    radioButton.checked = false;
+	  });
+	}
+	//uncheckRadioButtonsByClass('myRadioButtons');
+	//EndOfLaterUseCode
 	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
@@ -397,12 +407,7 @@ function securityUpdate2() {
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
-		}
-		console.log(selectedUserId);
-		console.log(selectedBusinessUnitId);
-		console.log(selectedBuId);
-		console.log(selectedTeamIds);
-		console.log(selectedRoleIds);	
+		}			
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
