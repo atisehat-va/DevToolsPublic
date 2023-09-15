@@ -136,7 +136,7 @@ function securityUpdate2() {
 	            inputElement.value = entity['businessunitid']; 
 	            wrapperDiv.appendChild(inputElement);
 		    
-		    inputElement.addEventListener('change', () => toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']));
+		    inputElement.addEventListener('change', () => toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));
 			
 	        }
 	
@@ -174,7 +174,7 @@ function securityUpdate2() {
 	    noChangeDiv.appendChild(wrapperDiv);
 	    listDiv.appendChild(noChangeDiv);
 
-	    noChangeRadio.addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']));
+	    noChangeRadio.addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));
 	}
 	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
