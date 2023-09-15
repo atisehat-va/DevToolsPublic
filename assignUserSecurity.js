@@ -337,7 +337,7 @@ function securityUpdate2() {
 			                roleDetailsArr.push(roleDetail);
 			            });
 			        });								
-				createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'assignCheckbox', 'role');
+				createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				    
 			        Promise.all(rolePromises).then(() => {
 			            // Using localeCompare for sorting
@@ -368,9 +368,9 @@ function securityUpdate2() {
 				        return a.name.localeCompare(b.name);
 				    });				
 				       addSearchFunctionality(roleDetailsArr, 'searchInput4', (filteredItems) => {
-					   createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox', 'role');
+					   createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				       });
-				       createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'assignCheckbox', 'role');
+				       createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				});
 				//newStuff
 				// Add radio buttons for section5 (Team Actions)
