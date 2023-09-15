@@ -96,8 +96,7 @@ function securityUpdate2() {
 	
 	function toggleCheckboxes(action) {
 	  // Locate all checkboxes by their class name
-	  const checkboxes = document.querySelectorAll('.assignCheckbox');
-	  
+	  const checkboxes = document.querySelectorAll('.assignCheckbox, .teamsCheckbox, .rolesCheckbox');	  
 	  checkboxes.forEach(checkbox => {
 	    if (action === 'disable') {
 	      checkbox.checked = false; // Deselect the checkbox
