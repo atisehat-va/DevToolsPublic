@@ -195,7 +195,7 @@ function securityUpdate2() {
 	    noChangeDiv.appendChild(wrapperDiv);
 	    listDiv.appendChild(noChangeDiv);
 
-	    inputElement.addEventListener('change', () => toggleCheckboxes('enable'));
+	    noChangeRadio.addEventListener('change', () => toggleCheckboxes('enable'));
 	}
 	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
