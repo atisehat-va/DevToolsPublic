@@ -455,7 +455,11 @@ function securityUpdate2() {
 	        radioButton.id = id;
 	        radioButton.className = radioButtonClassName;  // New line to set the class dynamically
 	        radioButton.name = radioName;
-	        radioButton.value = value;		    
+	        radioButton.value = value;
+
+		 if (data.value === 'noTeamUpdates' || data.value === 'noRoleUpdates') {
+		      radioButton.checked = true;
+		}
 
 		const actionMap = {
 		  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
