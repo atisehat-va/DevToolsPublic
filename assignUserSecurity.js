@@ -394,6 +394,10 @@ function securityUpdate2() {
 		} catch (e) {
 			console.error('Error in selectUser function', e);
 		}
+		console.log(selectedUserId);
+		console.log(selectedBusinessUnitId);
+		console.log(selectedTeamIds);
+		console.log(selectedRoleIds);	
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
