@@ -34,6 +34,7 @@ loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity1.js', () => console.log('Security loaded!'));
 loadScript('assignUserSecurity.js', () => console.log('Security loaded!')); //Assign Security
 loadScript('advanceFind_userProvision.js', () => console.log('Security loaded!')); 
+loadScript('security1.js', () => console.log('Security loaded!'));
 
 function openPopup() {
   closeSubPopups();
