@@ -234,6 +234,8 @@ function securityUpdate2() {
 	
 	        // Append wrapper div to target element
 	        targetElement.appendChild(wrapperDiv);
+
+		toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
 	    });
 	}
 	function selectUser(user, sectionPrefix) {
@@ -404,8 +406,18 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
+				const actionMap = {
+				  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
+				  'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+				  'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+				  'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
+				  'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
+				  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+				  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
+				};	
+				
 				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']); 				
-    				toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);		
+    				//toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);		
 				
 				//endNewStuff
 			}			
