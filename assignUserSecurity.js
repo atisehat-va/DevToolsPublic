@@ -406,7 +406,7 @@ function securityUpdate2() {
 
 				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);
 				
-    				toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));		
+    				toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);		
 				//endNewStuff
 			}			
 		} catch (e) {
