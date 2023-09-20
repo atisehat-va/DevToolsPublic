@@ -404,7 +404,7 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
-				uncheckRadioButtonsByClasses(['businessUnitRadioButtons', 'teamsRadioButtons', 'rolesRadioButtons']);				
+				uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);				
 				//endNewStuff
 			}			
 		} catch (e) {
