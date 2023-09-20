@@ -523,6 +523,48 @@ function securityUpdate2() {
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 	}
+	//Submit
+	const submitButton = document.getElementById("assignSubmitButton");
+	if (submitButton) {
+	    console.log("Found submitButton element, adding event listener.");
+	    submitButton.addEventListener("click", async function() {
+	        console.log("submitButton clicked.");
+	
+	        const existingMessageDiv = document.getElementById('updateMessage');
+	        if (existingMessageDiv) {
+	            existingMessageDiv.remove();
+	        }
+	        this.style.display = 'none';
+	
+	        const messageDiv = document.createElement('div');
+	        messageDiv.id = 'updateMessage';
+	        messageDiv.innerHTML = `Your update is in progress, please be patient...`;
+	        messageDiv.style.fontSize = "20px";
+	        messageDiv.style.fontWeight = "bold";
+	        this.parentNode.appendChild(messageDiv);
+	
+	        if (typeof updateUserDetails === "function") {
+	            await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+	            console.log("updateUserDetails function called.");
+	            if (messageDiv) {
+	                messageDiv.remove();
+	            }
+	            const newMessageDiv = document.createElement('div');
+	            newMessageDiv.id = 'updateMessage';
+	            newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserId}</span>`;
+	            newMessageDiv.style.fontSize = "20px";
+	            newMessageDiv.style.fontWeight = "bold";
+	            this.parentNode.appendChild(newMessageDiv);
+	        } else {
+	            console.log("updateUserDetails is NOT accessible");
+	        }
+	    });
+	} else {
+	    console.log("submitButton element not found");
+	}
+
+	//EndSubmit
+	
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),	    
