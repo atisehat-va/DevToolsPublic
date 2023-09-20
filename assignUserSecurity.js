@@ -101,7 +101,7 @@ function securityUpdate2() {
 	    radioButton.checked = false;
 	  });
 	}
-	//uncheckRadioButtonsByClass('myRadioButtons');
+	//uncheckRadioButtonsByClass('teamsRadioButtons');
 	//EndOfLaterUseCode
 	
 	function toggleCheckboxes(action, classNames) {
@@ -403,6 +403,7 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
+				uncheckRadioButtonsByClass('teamsRadioButtons');
 				//endNewStuff
 			}			
 		} catch (e) {
