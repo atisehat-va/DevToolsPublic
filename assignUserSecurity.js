@@ -405,9 +405,8 @@ function securityUpdate2() {
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
 				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);
-
-				const userSelect = document.getElementById('userSelect');
-    				userSelect.addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));		
+				
+    				toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));		
 				//endNewStuff
 			}			
 		} catch (e) {
