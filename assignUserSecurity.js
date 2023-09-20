@@ -404,7 +404,18 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
-				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);				
+				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);
+
+				const actionMap = {
+				  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
+				  'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+				  'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+				  'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
+				  'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
+				  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+				  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
+				};
+				
 				  const selectedAction = actionMap[value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
 				  toggleCheckboxes(selectedAction.action, selectedAction.classes);				
 				//endNewStuff
