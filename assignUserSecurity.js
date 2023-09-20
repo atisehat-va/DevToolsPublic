@@ -536,15 +536,19 @@ function securityUpdate2() {
 	        radioButton.value = value;
 	
 	        radioButton.addEventListener('change', function() {
-		    const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-		    toggleCheckboxes(selectedAction.action, selectedAction.classes);
+		        console.log('Change event fired!');  // Debugging log
 		
-		    if (radioName === 'team') {
-		        teamsRadioSelected = this.value;
-		    } else if (radioName === 'role') {
-		        rolesRadioSelected = this.value;
-		    }
-		});
+		        const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+		        toggleCheckboxes(selectedAction.action, selectedAction.classes);
+		
+		        if (radioName === 'team') {
+		            teamsRadioSelected = this.value;
+		            console.log('teamsRadioSelected set to:', this.value);  // Debugging log
+		        } else if (radioName === 'role') {
+		            rolesRadioSelected = this.value;
+		            console.log('rolesRadioSelected set to:', this.value);  // Debugging log
+		        }
+		    });
 	
 	        const labelElement = document.createElement('label');
 	        labelElement.htmlFor = id;
