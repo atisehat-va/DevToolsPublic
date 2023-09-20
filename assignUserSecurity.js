@@ -404,11 +404,9 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
-				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);
-				radioButton.addEventListener('change', () => {
+				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);				
 				  const selectedAction = actionMap[value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-				  toggleCheckboxes(selectedAction.action, selectedAction.classes);
-				});
+				  toggleCheckboxes(selectedAction.action, selectedAction.classes);				
 				//endNewStuff
 			}			
 		} catch (e) {
