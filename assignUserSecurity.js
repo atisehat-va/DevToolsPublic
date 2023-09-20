@@ -543,46 +543,36 @@ function securityUpdate2() {
 	    return messageDiv;
 	}
 	
-	// Event Listener for Submit Button
-	const submitButton = document.getElementById("assignSubmitButton");
-	if (submitButton) {
-	    console.log("Found submitButton element, adding event listener.");
-	    submitButton.addEventListener("click", async function () {
-	        console.log("submitButton clicked.");
+	document.addEventListener("DOMContentLoaded", function() {
+	    document.body.addEventListener("click", async function(event) {
+	        const target = event.target;
 	
-	        const existingMessageDiv = document.getElementById('updateMessage');
-	        existingMessageDiv?.remove();
+	        if (target.id === "assignSubmitButton") {
+	            console.log("submitButton clicked.");
 	
-	        this.style.display = 'none';
+	            const existingMessageDiv = document.getElementById('updateMessage');
+	            if (existingMessageDiv) {
+	                existingMessageDiv.remove();
+	            }
 	
-	        const messageDiv = createAndAppendMessageDiv(
-	            this.parentNode, 
-	            `Your update is in progress, please be patient...`, 
-	            'updateMessage'
-	        );
+	            target.style.display = 'none';
+	            const messageDiv = createAndAppendMessageDiv(target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 	
-	        try {
 	            if (typeof updateUserDetails === "function") {
 	                await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
 	                console.log("updateUserDetails function called.");
 	
-	                messageDiv.remove();
+	                if (messageDiv) {
+	                    messageDiv.remove();
+	                }
 	                
-	                createAndAppendMessageDiv(
-	                    this.parentNode,
-	                    `<span>Security updated for ${selectedUserId}</span>`,
-	                    'updateMessage'
-	                );
+	                createAndAppendMessageDiv(target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
 	            } else {
 	                console.log("updateUserDetails is NOT accessible");
 	            }
-	        } catch (err) {
-	            console.log("Error in updating user details: ", err);
 	        }
 	    });
-	} else {
-	    console.log("submitButton element not found");
-	}
+	});
 	//EndSubmit
 	
 	 Promise.all([
