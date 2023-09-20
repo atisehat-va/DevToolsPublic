@@ -8,8 +8,8 @@ function securityUpdate2() {
 
 	let teamsCheckedValues = [];
 	let rolesCheckedValues = [];
-	let teamsRadioSelected = null;
-	let rolesRadioSelected = null;
+	let teamsRadioSelected;
+	let rolesRadioSelected;
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -536,15 +536,15 @@ function securityUpdate2() {
 	        radioButton.value = value;
 	
 	        radioButton.addEventListener('change', function() {
-	            const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-	            toggleCheckboxes(selectedAction.action, selectedAction.classes);
-	
-	            if (radioName === 'team') {
-	                teamsRadioSelected = this.value;
-	            } else if (radioName === 'role') {
-	                rolesRadioSelected = this.value;
-	            }
-	        });
+		    const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+		    toggleCheckboxes(selectedAction.action, selectedAction.classes);
+		
+		    if (radioName === 'team') {
+		        teamsRadioSelected = this.value;
+		    } else if (radioName === 'role') {
+		        rolesRadioSelected = this.value;
+		    }
+		});
 	
 	        const labelElement = document.createElement('label');
 	        labelElement.htmlFor = id;
