@@ -226,6 +226,26 @@ function securityUpdate2() {
 	    });
 	    toggleCheckboxes('disable', ['teamsCheckbox', 'rolesCheckbox']);
 	}
+	//newStuff
+	function createElementWithAttributes(tag, attributes = {}) {
+	    const element = document.createElement(tag);
+	    Object.entries(attributes).forEach(([key, value]) => {
+	        element[key] = value;
+	    });
+	    return element;
+	}
+	
+	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
+	    const messageDiv = createElementWithAttributes('div', {
+	        id,
+	        innerHTML: message,
+	        style: { fontSize, fontWeight }
+	    });
+	    parentNode.appendChild(messageDiv);
+	    return messageDiv;
+	}
+	//EndNewStuff
+	
 	function selectUser(user, sectionPrefix) {
 		try {
 			const messageDiv = document.getElementById('updateMessage');
