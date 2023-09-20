@@ -80,8 +80,8 @@ function securityUpdate2() {
 	       </div>
 	      </div>
 	    </div>
-	    <div class="assignSubmit-button-container">
-	       <button id="assignSubmitButton">Submit</button>
+	    <div class="assignSubmit-button-container">	       
+	       <button id="assignSubmitButton" style="display: none;">Submit</button>
 	    </div>	    
 	  `;		
 	  document.body.appendChild(newContainer);
@@ -394,17 +394,12 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
-				const actionMap = {
-				  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
-				  'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-				  'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-				  'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
-				  'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
-				  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-				  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
-				};	   				
-				
+				const submitButton = document.getElementById('assignSubmitButton');
+			        if (submitButton) {
+			            submitButton.style.display = 'block';
+			        }
 				//endNewStuff
+				
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
@@ -524,25 +519,6 @@ function securityUpdate2() {
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 	}
 	//Submit
-	// Helper Functions
-	function createElementWithAttributes(tag, attributes = {}) {
-	    const element = document.createElement(tag);
-	    Object.entries(attributes).forEach(([key, value]) => {
-	        element[key] = value;
-	    });
-	    return element;
-	}
-	
-	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
-	    const messageDiv = createElementWithAttributes('div', {
-	        id,
-	        innerHTML: message,
-	        style: { fontSize, fontWeight }
-	    });
-	    parentNode.appendChild(messageDiv);
-	    return messageDiv;
-	}
-	
 	document.addEventListener("DOMContentLoaded", function() {
 	    document.body.addEventListener("click", async function(event) {
 	        const target = event.target;
@@ -567,6 +543,9 @@ function securityUpdate2() {
 	                }
 	                
 	                createAndAppendMessageDiv(target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
+	
+	                // Re-hide the submit button after operation completion
+	                target.style.display = 'none';
 	            } else {
 	                console.log("updateUserDetails is NOT accessible");
 	            }
