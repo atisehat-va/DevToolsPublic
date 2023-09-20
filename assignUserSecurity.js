@@ -404,8 +404,7 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
-				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);
-				
+				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);				
     				toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);		
 				//endNewStuff
 			}			
