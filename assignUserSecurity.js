@@ -541,10 +541,10 @@ function securityUpdate2() {
 		        const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
 		        toggleCheckboxes(selectedAction.action, selectedAction.classes);
 		
-		        if (radioName === 'team') {
+		        if (radioName === 'teamAction') {
 		            teamsRadioSelected = this.value;
 		            console.log('teamsRadioSelected set to:', this.value);  // Debugging log
-		        } else if (radioName === 'role') {
+		        } else if (radioName === 'roleAction') {
 		            rolesRadioSelected = this.value;
 		            console.log('rolesRadioSelected set to:', this.value);  // Debugging log
 		        }
