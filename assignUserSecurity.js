@@ -94,11 +94,12 @@ function securityUpdate2() {
 	}
 	//NewStuff	
         //for laterUse
-	function uncheckRadioButtonsByClass(className) {
-	  const radioButtons = document.querySelectorAll(`.${className}`);
-	  
-	  radioButtons.forEach(radioButton => {
-	    radioButton.checked = false;
+	function uncheckRadioButtonsByClasses(classNames) {
+	  classNames.forEach(className => {
+	    const radioButtons = document.querySelectorAll(`.${className}`);
+	    radioButtons.forEach(radioButton => {
+	      radioButton.checked = false;
+	    });
 	  });
 	}
 	//uncheckRadioButtonsByClass('teamsRadioButtons');
@@ -403,7 +404,7 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
-				uncheckRadioButtonsByClass('teamsRadioButtons');
+				uncheckRadioButtonsByClasses(['businessUnitRadioButtons', 'teamsRadioButtons', 'rolesRadioButtons']);				
 				//endNewStuff
 			}			
 		} catch (e) {
