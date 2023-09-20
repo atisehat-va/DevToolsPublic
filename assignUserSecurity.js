@@ -406,7 +406,8 @@ function securityUpdate2() {
 
 				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);
 
-				addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));				
+				const userSelect = document.getElementById('userSelect');
+    				userSelect.addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));		
 				//endNewStuff
 			}			
 		} catch (e) {
