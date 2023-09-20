@@ -92,18 +92,7 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-	//NewStuff	
-        //for laterUse
-	function uncheckRadioButtonsByClasses(classNames) {
-	  classNames.forEach(className => {
-	    const radioButtons = document.querySelectorAll(`.${className}`);
-	    radioButtons.forEach(radioButton => {
-	      radioButton.checked = false;
-	    });
-	  });
-	}
-	//uncheckRadioButtonsByClass('teamsRadioButtons');
-	//EndOfLaterUseCode
+	//NewStuff	     
 	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
@@ -413,10 +402,7 @@ function securityUpdate2() {
 				  'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
 				  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
 				  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
-				};	
-				
-				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']); 				
-    				//toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);		
+				};	   				
 				
 				//endNewStuff
 			}			
