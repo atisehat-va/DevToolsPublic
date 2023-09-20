@@ -554,14 +554,14 @@ function securityUpdate2() {
 					this.parentNode.appendChild(messageDiv);
 
 					if (typeof updateUserDetails === "function") {
-						await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+						await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
 						console.log("updateUserDetails function called.");
 						if (messageDiv) {
 							messageDiv.remove();
 						}
 						const newMessageDiv = document.createElement('div');
 						newMessageDiv.id = 'updateMessage';
-						newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;
+						newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserId}</span>`;
 						newMessageDiv.style.fontSize = "20px";
 						newMessageDiv.style.fontWeight = "bold";
 						this.parentNode.appendChild(newMessageDiv);
