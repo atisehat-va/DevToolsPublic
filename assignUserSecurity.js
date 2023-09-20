@@ -524,6 +524,7 @@ function securityUpdate2() {
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 	}
 	//Submit
+	document.addEventListener("DOMContentLoaded", function() {
 	loadScript(
 		"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
 		function() {
@@ -577,6 +578,7 @@ function securityUpdate2() {
 			console.log("Failed to load script.");
 		}
 	);
+	});
 
 	//EndSubmit
 	
