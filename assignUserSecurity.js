@@ -192,7 +192,7 @@ function securityUpdate2() {
 	        displayFunction(filteredArray, targetElement);
 	    });
 	}
-
+	let checkedValues = [];
 	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {
 	    // Clear the existing content
 	    targetElement.innerHTML = '';
@@ -213,7 +213,23 @@ function securityUpdate2() {
 	        assignCheckbox.type = valueType;
 	        assignCheckbox.value = item[valueKey];
 	        assignCheckbox.className = additionalClassNames;
-	
+		    
+		//new
+		// Add event listener to checkbox
+	        assignCheckbox.addEventListener('change', function() {
+	            if (this.checked) {
+	                // Add the value to the array if checkbox is checked
+	                checkedValues.push(this.value);
+	            } else {
+	                // Remove the value from the array if checkbox is unchecked
+	                const index = checkedValues.indexOf(this.value);
+	                if (index > -1) {
+	                    checkedValues.splice(index, 1);
+	                }
+	            }
+	        });
+		//EndNew
+		    
 	        const label = document.createElement('label');
 	        label.textContent = textKeys.map(key => item[key]).join(' ');
 	
