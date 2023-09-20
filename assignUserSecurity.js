@@ -406,18 +406,7 @@ function securityUpdate2() {
 
 				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);
 
-				const actionMap = {
-				  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
-				  'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-				  'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-				  'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
-				  'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
-				  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-				  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
-				};
-				
-				  const selectedAction = actionMap[value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-				  toggleCheckboxes(selectedAction.action, selectedAction.classes);				
+				addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));				
 				//endNewStuff
 			}			
 		} catch (e) {
