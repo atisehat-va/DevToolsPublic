@@ -397,6 +397,31 @@ function securityUpdate2() {
 				const submitButton = document.getElementById('assignSubmitButton');
 			        if (submitButton) {
 			            submitButton.style.display = 'block';
+
+				    submitButton.addEventListener('click', async function(event) {
+				        console.log("submitButton clicked.");
+				
+				        const existingMessageDiv = document.getElementById('updateMessage');
+				        if (existingMessageDiv) {
+				            existingMessageDiv.remove();
+				        }
+				
+				        event.target.style.display = 'none';
+				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
+				
+				        if (typeof updateUserDetails === "function") {
+				            await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+				            console.log("updateUserDetails function called.");
+				
+				            if (messageDiv) {
+				                messageDiv.remove();
+				            }
+				            
+				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
+				        } else {
+				            console.log("updateUserDetails is NOT accessible");
+				        }
+				    });
 			        }
 				//endNewStuff
 				
@@ -523,43 +548,7 @@ function securityUpdate2() {
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),	    
 	 ]).then(([users, businessUnits]) => {
-	    displayPopup(users, businessUnits);
-
-	     //Submit
-		document.addEventListener("DOMContentLoaded", function() {
-		    document.body.addEventListener("click", async function(event) {
-			const target = event.target;
-		
-			if (target.id === "assignSubmitButton") {
-			    console.log("submitButton clicked.");
-		
-			    const existingMessageDiv = document.getElementById('updateMessage');
-			    if (existingMessageDiv) {
-				existingMessageDiv.remove();
-			    }
-		
-			    target.style.display = 'none';
-			    const messageDiv = createAndAppendMessageDiv(target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
-		
-			    if (typeof updateUserDetails === "function") {
-				await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-				console.log("updateUserDetails function called.");
-		
-				if (messageDiv) {
-				    messageDiv.remove();
-				}
-				
-				createAndAppendMessageDiv(target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
-		
-				// Re-hide the submit button after operation completion
-				target.style.display = 'none';
-			    } else {
-				console.log("updateUserDetails is NOT accessible");
-			    }
-			}
-		    });
-		});
-	//EndSubmit
+	    displayPopup(users, businessUnits);	     
 	});
 	
 	function loadScript(src, callback, errorCallback) {
