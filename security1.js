@@ -43,6 +43,23 @@ async function disassociateUserFromRoles(selectedUserId2, clientUrl) {
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
+//NewCode
+// Disassociate user from specific roles
+async function disassociateUserFromSpecificRoles(selectedUserId2, selectedRoleIds, clientUrl) {
+  await Promise.all(selectedRoleIds.map(async (roleId) => {
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${roleId})`;
+    await fetch(disassociateUrl, { method: "DELETE" });
+  }));
+}
+
+// Disassociate user from specific teams
+async function disassociateUserFromSpecificTeams(selectedUserId2, selectedTeamIds, clientUrl) {
+  await Promise.all(selectedTeamIds.map(async (teamId) => {
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`;
+    await fetch(disassociateUrl, { method: "DELETE" });
+  }));
+}
+//EndNewCode
 
 async function disassociateUserFromTeams(selectedUserId2, clientUrl) {
   const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/teammembership_association`;
