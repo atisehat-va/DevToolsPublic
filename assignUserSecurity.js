@@ -141,7 +141,10 @@ function securityUpdate2() {
 	            inputElement.value = entity['businessunitid']; 
 	            wrapperDiv.appendChild(inputElement);
 		    
-		    inputElement.addEventListener('change', () => toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));
+		    inputElement.addEventListener('change', function() {
+	               toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+                       businessUnitRadioSelected = this.value; // Set the global variable here
+                    });
 			
 	        }
 	
@@ -535,20 +538,16 @@ function securityUpdate2() {
 	        radioButton.name = radioName;
 	        radioButton.value = value;
 	
-	        radioButton.addEventListener('change', function() {
-		        console.log('Change event fired!');  // Debugging log
+	        radioButton.addEventListener('change', function() {		
+		    const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+		    toggleCheckboxes(selectedAction.action, selectedAction.classes);
 		
-		        const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-		        toggleCheckboxes(selectedAction.action, selectedAction.classes);
-		
-		        if (radioName === 'teamAction') {
-		            teamsRadioSelected = this.value;
-		            console.log('teamsRadioSelected set to:', this.value);  // Debugging log
-		        } else if (radioName === 'roleAction') {
-		            rolesRadioSelected = this.value;
-		            console.log('rolesRadioSelected set to:', this.value);  // Debugging log
-		        }
-		    });
+		    if (radioName === 'teamAction') {
+		        teamsRadioSelected = this.value;		            
+		    } else if (radioName === 'roleAction') {
+		        rolesRadioSelected = this.value;		            
+		    }
+		});
 	
 	        const labelElement = document.createElement('label');
 	        labelElement.htmlFor = id;
