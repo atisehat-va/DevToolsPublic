@@ -10,7 +10,7 @@ function loadCSS(href) {
   link.href = baseUrl + href;
   link.rel = 'stylesheet';
   link.type = 'text/css';
-  document.head.appendChild(link);
+  document.head.appendChild(link); 
 }
 
 // Load CSS
