@@ -5,6 +5,9 @@ function securityUpdate2() {
 	let selectedBusinessUnitId = null;
 	let selectedTeamIds = [];
 	let selectedRoleIds = [];
+
+	let teamsCheckedValues = [];
+	let rolesCheckedValues = [];
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -192,8 +195,7 @@ function securityUpdate2() {
 	        displayFunction(filteredArray, targetElement);
 	    });
 	}
-	let teamsCheckedValues = [];
-	let rolesCheckedValues = [];
+	
 	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {
 	    // Clear the existing content
 	    targetElement.innerHTML = '';
@@ -474,22 +476,19 @@ function securityUpdate2() {
 	}
 	//newStuff
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId, radioButtonClassName) {    
+	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId, radioButtonClassName) {
 	    const sectionElement = document.getElementById(sectionId);
 	
-	    // Check if the section already has radio buttons
 	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
 	        return;
 	    }
 	
-	    // Set a flag to indicate that radio buttons have been added
 	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
 	
-	    // Add the h3 heading if it's passed
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
-	        sectionElement.appendChild(heading); // Append heading first
+	        sectionElement.appendChild(heading);
 	    }
 	
 	    if (inputIds) {
@@ -505,7 +504,6 @@ function securityUpdate2() {
 	        sectionElement.appendChild(inputWrapper);
 	    }
 	
-	    // Creating radio buttons
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
 	    if (!teamsWrapper) {
 	        teamsWrapper = document.createElement('div');
@@ -517,28 +515,34 @@ function securityUpdate2() {
 	    container.className = 'team-action-checkboxes';
 	    container.innerHTML = '';
 	
+	    const actionMap = {
+	      'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
+	      'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+	      'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+	      'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
+	      'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
+	      'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+	      'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
+	    };
+	
 	    radioData.forEach(({ id, label, value }) => {
 	        const radioButton = document.createElement('input');
 	        radioButton.type = 'radio';
 	        radioButton.id = id;
-	        radioButton.className = radioButtonClassName;  // New line to set the class dynamically
+	        radioButton.className = radioButtonClassName;
 	        radioButton.name = radioName;
-	        radioButton.value = value;		 
-
-		const actionMap = {
-		  'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
-		  'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-		  'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-		  'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
-		  'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
-		  'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-		  'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
-		};	
-		
-		radioButton.addEventListener('change', () => {
-		  const selectedAction = actionMap[value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-		  toggleCheckboxes(selectedAction.action, selectedAction.classes);
-		});
+	        radioButton.value = value;
+	
+	        radioButton.addEventListener('change', function() {
+	            const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+	            toggleCheckboxes(selectedAction.action, selectedAction.classes);
+	
+	            if (radioName === 'team') {
+	                teamsRadioSelected = this.value;
+	            } else if (radioName === 'role') {
+	                rolesRadioSelected = this.value;
+	            }
+	        });
 	
 	        const labelElement = document.createElement('label');
 	        labelElement.htmlFor = id;
@@ -552,8 +556,8 @@ function securityUpdate2() {
 	        container.appendChild(wrapperDiv);
 	    });
 	
-	    teamsWrapper.appendChild(container); // Append container to teams-wrapper
-	    sectionElement.appendChild(teamsWrapper); // Append teams-wrapper third
+	    teamsWrapper.appendChild(container);
+	    sectionElement.appendChild(teamsWrapper);
 	}
 	//EndNewStuff
 	
