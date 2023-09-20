@@ -183,7 +183,11 @@ function securityUpdate2() {
 	    noChangeDiv.appendChild(wrapperDiv);
 	    listDiv.appendChild(noChangeDiv);
 
-	    noChangeRadio.addEventListener('change', () => toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']));
+	    
+	    noChangeRadio.addEventListener('change', function() {
+	      toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+              businessUnitRadioSelected = this.value; 
+           });
 	}
 	
 	function addSearchFunctionality(array, inputElementId, displayFunction, targetElement) {
