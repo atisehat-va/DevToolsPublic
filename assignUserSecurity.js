@@ -233,10 +233,9 @@ function securityUpdate2() {
 	        wrapperDiv.appendChild(label);
 	
 	        // Append wrapper div to target element
-	        targetElement.appendChild(wrapperDiv);
-
-		toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+	        targetElement.appendChild(wrapperDiv);		
 	    });
+	    toggleCheckboxes('disable', ['teamsCheckbox', 'rolesCheckbox']);
 	}
 	function selectUser(user, sectionPrefix) {
 		try {
