@@ -405,7 +405,7 @@ function securityUpdate2() {
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
 				//uncheckRadioButtonsByClasses(['teamsRadioButtons', 'rolesRadioButtons']);				
-    				toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);		
+    				toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);		
 				
 				//endNewStuff
 			}			
