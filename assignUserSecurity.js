@@ -11,6 +11,7 @@ function securityUpdate2() {
 	let teamsRadioSelected = null;
 	let rolesRadioSelected = null;
 	let businessUnitRadioSelected = null;
+	let stateArray = { 'team': [], 'role': [] };
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -210,7 +211,7 @@ function securityUpdate2() {
 	    targetElement.innerHTML = '';
 	
 	    // Choose the appropriate array to check the state
-	    const stateArray = (itemType === 'team') ? teamsCheckedValues : rolesCheckedValues;
+	    const relevantStateArray = stateArray[itemType] || [];
 	
 	    // Loop through each item in the array
 	    itemArray.forEach(item => {
@@ -229,22 +230,22 @@ function securityUpdate2() {
 	        assignCheckbox.className = additionalClassNames;
 	
 	        // Check if this checkbox was selected earlier
-	        if (stateArray.includes(assignCheckbox.value)) {
-	            assignCheckbox.checked = true;
-	        }
+	        if (relevantStateArray.includes(assignCheckbox.value)) {
+		    assignCheckbox.checked = true;
+		}
 	
 	        assignCheckbox.addEventListener('change', function() {
-	            if (this.checked) {
-	                if (!stateArray.includes(this.value)) {
-	                    stateArray.push(this.value);
-	                }
-	            } else {
-	                const index = stateArray.indexOf(this.value);
-	                if (index > -1) {
-	                    stateArray.splice(index, 1);
-	                }
-	            }
-	        });
+		    if (this.checked) {
+		        if (!relevantStateArray.includes(this.value)) {
+		            relevantStateArray.push(this.value);
+		        }
+		    } else {
+		        const index = relevantStateArray.indexOf(this.value);
+		        if (index > -1) {
+		            relevantStateArray.splice(index, 1);
+		        }
+		    }
+		});
 	
 	        const label = document.createElement('label');
 	        label.textContent = textKeys.map(key => item[key]).join(' ');
@@ -274,11 +275,13 @@ function securityUpdate2() {
 		            selectedBusinessUnitId = user._businessunitid_value;
 				
    			    //clear Selected Values
-			    let teamsCheckedValues = [];
-			    let rolesCheckedValues = [];
-			    let teamsRadioSelected = null;
-			    let rolesRadioSelected = null;
-			    let businessUnitRadioSelected = null;
+			    teamsCheckedValues = [];
+			    rolesCheckedValues = [];
+			    teamsRadioSelected = null;
+			    rolesRadioSelected = null;
+			    businessUnitRadioSelected = null;
+			    stateArray['team'] = [];
+			    stateArray['role'] = [];
 		        }
 			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
 		        businessUnitAndTeamsList.innerHTML = '';
