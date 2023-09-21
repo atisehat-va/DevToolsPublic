@@ -474,8 +474,8 @@ function securityUpdate2() {
 				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 				
 				        if (typeof updateUserDetails === "function") {
-				            //await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-					    handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues); 
+				            await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+					    //handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues); 
 				            console.log("updateUserDetails function called.");					    
 				
 				            // Remove message and show update
@@ -492,7 +492,7 @@ function securityUpdate2() {
 		} catch (e) {
 			console.error('Error in selectUser function', e);
 		}			
-	}
+	}	
 	function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if (businessUnitRadioSelected) {
 	        await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
