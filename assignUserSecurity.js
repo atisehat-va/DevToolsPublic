@@ -495,7 +495,7 @@ function securityUpdate2() {
 	}	
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if (businessUnitRadioSelected) {
-	        await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, "ChangeBU");
+	        await updateUserDetails(selectedUserId, businessUnitRadioSelected, selectedTeamIds, selectedRoleIds, "ChangeBU");
 	        console.log('Business unit selected.');
 	    }
 	    
