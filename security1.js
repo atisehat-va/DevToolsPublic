@@ -1,3 +1,4 @@
+/*
 window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
@@ -17,7 +18,60 @@ window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitI
   } catch (error) {
     console.error('An error occurred:', error);
   }
+} */
+//NewCode
+window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
+  const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
+
+  try {
+    switch (actionType) {
+      case 'Change BUTR':
+        await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
+        await disassociateUserFromTeams(selectedUserId2, clientUrl);
+        await disassociateUserFromRoles(selectedUserId2, clientUrl);    
+    
+        for (const roleId of selectedRoleIds) {
+          await associateUserToRole(selectedUserId2, roleId, clientUrl);
+        }
+        
+        for (const teamId of selectedTeamIds) {
+          await associateUserToTeam(selectedUserId2, teamId, clientUrl);
+        } 
+        break;
+
+      case 'Change BU':
+        await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
+        break;
+
+      case 'Add Teams':
+        for (const teamId of selectedTeamIds) {
+          await associateUserToTeam(selectedUserId2, teamId, clientUrl);
+        }
+        break;
+
+      case 'Remove Teams':
+        await disassociateUserFromSpecificTeams(selectedUserId2, selectedTeamIds, clientUrl);
+        break;
+
+      case 'Add Roles':
+        for (const roleId of selectedRoleIds) {
+          await associateUserToRole(selectedUserId2, roleId, clientUrl);
+        }
+        break;
+
+      case 'Remove Roles':
+        await disassociateUserFromSpecificRoles(selectedUserId2, selectedRoleIds, clientUrl);
+        break;
+
+      default:
+        console.error(`Invalid actionType: ${actionType}`);
+        break;
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
 }
+//EndNewCode
 
 async function changeBusinessUnit(selectedUserId2, selectedBusinessUnitId) {
   const data1 = {
