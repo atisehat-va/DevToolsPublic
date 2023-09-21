@@ -495,7 +495,9 @@ function securityUpdate2() {
 					    rolesCheckedValues = [];
 					    teamsRadioSelected = null;
 					    rolesRadioSelected = null;
-					    businessUnitRadioSelected = null;				            
+					    businessUnitRadioSelected = null;
+					    businessUnitListItem = null;
+		        		    teamListItems = [];				            
 				
 				            // Remove message and show update
 				            removeElementById('updateMessage');
