@@ -495,15 +495,17 @@ function securityUpdate2() {
 					    rolesCheckedValues = [];
 					    teamsRadioSelected = null;
 					    rolesRadioSelected = null;
-					    businessUnitRadioSelected = null;
-					    businessUnitListItem = null;
-		        		    teamListItems = [];				            
+					    businessUnitRadioSelected = null;					    				            
 				
 				            // Remove message and show update
 				            removeElementById('updateMessage');
 				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
-					    selectUser(user, sectionPrefix);					    
-					    
+
+					    // Clear teamsList
+				            const teamsList = document.getElementById('teamsList');
+				            if (teamsList) {
+				                teamsList.innerHTML = '';
+				            }
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
 				        }
