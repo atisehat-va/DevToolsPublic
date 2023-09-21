@@ -487,7 +487,14 @@ function securityUpdate2() {
 				        toggleElementDisplay(event.target, 'none');
 				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 				
-				        if (typeof updateUserDetails === "function") {				            					    
+				        if (typeof updateUserDetails === "function") {
+					    // Clear teamsList
+					    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
+					    const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
+				            if (businessUnitAndTeamsList || rolesList) {
+				                businessUnitAndTeamsList.innerHTML = '';
+						rolesList.innerHTML = '';
+				            }
 					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 					    await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);					    
 					    toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
@@ -501,13 +508,7 @@ function securityUpdate2() {
 				            removeElementById('updateMessage');
 				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
 
-					    // Clear teamsList
-					    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
-					    const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
-				            if (businessUnitAndTeamsList || rolesList) {
-				                businessUnitAndTeamsList.innerHTML = '';
-						rolesList.innerHTML = '';
-				            }
+					    
 					    selectUser(user, sectionPrefix);
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
