@@ -12,6 +12,8 @@ function securityUpdate2() {
 	let rolesRadioSelected = null;
 	let businessUnitRadioSelected = null;
 	let stateArray = { 'team': [], 'role': [] };
+	let businessUnitListItem = null;
+	let teamListItems = [];
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -293,9 +295,7 @@ function securityUpdate2() {
 			    stateArray['role'] = [];
 		        }
 			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
-		        businessUnitAndTeamsList.innerHTML = '';
-		        let businessUnitListItem = null;
-		        let teamListItems = [];
+		        businessUnitAndTeamsList.innerHTML = '';		        
 			
 			const appendLists = () => {
 		            if (businessUnitListItem) {
@@ -502,7 +502,8 @@ function securityUpdate2() {
 				            // Remove message and show update
 				            removeElementById('updateMessage');
 				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
-					    selectUser(selectedUserId, "1");					    
+					    selectUser(user, sectionPrefix);					    
+					    
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
 				        }
