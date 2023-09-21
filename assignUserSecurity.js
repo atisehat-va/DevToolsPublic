@@ -8,9 +8,9 @@ function securityUpdate2() {
 
 	let teamsCheckedValues = [];
 	let rolesCheckedValues = [];
-	let teamsRadioSelected;
-	let rolesRadioSelected;
-	let businessUnitRadioSelected;
+	let teamsRadioSelected = null;
+	let rolesRadioSelected = null;
+	let businessUnitRadioSelected = null;
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -495,7 +495,7 @@ function securityUpdate2() {
 	}	
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if (businessUnitRadioSelected) {
-	        await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+	        await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, "ChangeBU");
 	        console.log('Business unit selected.');
 	    }
 	    
