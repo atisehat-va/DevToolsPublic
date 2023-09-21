@@ -20,47 +20,47 @@ window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitI
   }
 } */
 //NewCode
-window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
+window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
   try {
     switch (actionType) {
       case 'Change BUTR':
-        await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
-        await disassociateUserFromTeams(selectedUserId2, clientUrl);
-        await disassociateUserFromRoles(selectedUserId2, clientUrl);    
+        await changeBusinessUnit(selectedUserId, selectedBusinessUnitId);
+        await disassociateUserFromTeams(selectedUserId, clientUrl);
+        await disassociateUserFromRoles(selectedUserId, clientUrl);    
     
         for (const roleId of selectedRoleIds) {
-          await associateUserToRole(selectedUserId2, roleId, clientUrl);
+          await associateUserToRole(selectedUserId, roleId, clientUrl);
         }
         
         for (const teamId of selectedTeamIds) {
-          await associateUserToTeam(selectedUserId2, teamId, clientUrl);
+          await associateUserToTeam(selectedUserId, teamId, clientUrl);
         } 
         break;
 
       case 'Change BU':
-        await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
+        await changeBusinessUnit(selectedUserId, selectedBusinessUnitId);
         break;
 
       case 'Add Teams':
         for (const teamId of selectedTeamIds) {
-          await associateUserToTeam(selectedUserId2, teamId, clientUrl);
+          await associateUserToTeam(selectedUserId, teamId, clientUrl);
         }
         break;
 
       case 'Remove Teams':
-        await disassociateUserFromSpecificTeams(selectedUserId2, selectedTeamIds, clientUrl);
+        await disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds, clientUrl);
         break;
 
       case 'Add Roles':
         for (const roleId of selectedRoleIds) {
-          await associateUserToRole(selectedUserId2, roleId, clientUrl);
+          await associateUserToRole(selectedUserId, roleId, clientUrl);
         }
         break;
 
       case 'Remove Roles':
-        await disassociateUserFromSpecificRoles(selectedUserId2, selectedRoleIds, clientUrl);
+        await disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds, clientUrl);
         break;
 
       default:
@@ -73,15 +73,15 @@ window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitI
 }
 //EndNewCode
 
-async function changeBusinessUnit(selectedUserId2, selectedBusinessUnitId) {
+async function changeBusinessUnit(selectedUserId, selectedBusinessUnitId) {
   const data1 = {
     "businessunitid@odata.bind": `/businessunits(${selectedBusinessUnitId})`
   };
-  return Xrm.WebApi.updateRecord("systemuser", selectedUserId2, data1);
+  return Xrm.WebApi.updateRecord("systemuser", selectedUserId, data1);
 }
 
-async function disassociateUserFromRoles(selectedUserId2, clientUrl) {
-  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/systemuserroles_association`;
+async function disassociateUserFromRoles(selectedUserId, clientUrl) {
+  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association`;
   const response = await fetch(rolesUrl, {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
   });
@@ -93,30 +93,30 @@ async function disassociateUserFromRoles(selectedUserId2, clientUrl) {
   const results = await response.json();
     
   await Promise.all(results.value.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 //NewCode
 // Disassociate user from specific roles
-async function disassociateUserFromSpecificRoles(selectedUserId2, selectedRoleIds, clientUrl) {
+async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds, clientUrl) {
   await Promise.all(selectedRoleIds.map(async (roleId) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${roleId})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${roleId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 
 // Disassociate user from specific teams
-async function disassociateUserFromSpecificTeams(selectedUserId2, selectedTeamIds, clientUrl) {
+async function disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds, clientUrl) {
   await Promise.all(selectedTeamIds.map(async (teamId) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 //EndNewCode
 
-async function disassociateUserFromTeams(selectedUserId2, clientUrl) {
-  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})/teammembership_association`;
+async function disassociateUserFromTeams(selectedUserId, clientUrl) {
+  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/teammembership_association`;
   const response = await fetch(teamsUrl, {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
   });
@@ -128,15 +128,15 @@ async function disassociateUserFromTeams(selectedUserId2, clientUrl) {
   const results = await response.json();
   
   await Promise.all(results.value.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 
-async function associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl) {
+async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
   const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${selectedTeamIds})/teammembership_association/$ref`;
   const associateTeamData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`
   };
   await fetch(associateTeamUrl, {
     method: "POST",
@@ -145,10 +145,10 @@ async function associateUserToTeam(selectedUserId2, selectedTeamIds, clientUrl) 
   });
 }
 
-async function associateUserToRole(selectedUserId2, selectedRoleIds, clientUrl) {
+async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
   const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
   const associateRoleData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId2})`
+    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`
   };
   await fetch(associateRoleUrl, {
     method: "POST",
