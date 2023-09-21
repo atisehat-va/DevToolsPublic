@@ -503,9 +503,7 @@ function securityUpdate2() {
 					    
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
-				        }					
-					document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
-					selectUser(user, sectionPrefix);
+				        }										
 				    });
 				}
 				//endNewStuff				
