@@ -519,13 +519,13 @@ function securityUpdate2() {
 	    }
 	
 	    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
-	        if (teamsRadioSelected === "addTeam") {
-		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
-		} else if (teamsRadioSelected === "removeTeam") {
-		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveTeams");
-		} else if (teamsRadioSelected === "addAndRemoveTeam") {
-		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllTeams");
-		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
+	        if (teamsRadioSelected === "addRole") {
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
+		} else if (teamsRadioSelected === "removeRole") {
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveRoles");
+		} else if (teamsRadioSelected === "addAndRemoveRoles") {
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 		} else {
 		    console.log('No update needed on Teams');
 		}
