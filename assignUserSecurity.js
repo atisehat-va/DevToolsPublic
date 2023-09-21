@@ -274,12 +274,7 @@ function securityUpdate2() {
 		            selectedUserId = user.systemuserid;
 		            selectedBusinessUnitId = user._businessunitid_value;
 				
-   			    //clear Selected Values
-			    teamsCheckedValues = [];
-			    rolesCheckedValues = [];
-			    teamsRadioSelected = null;
-			    rolesRadioSelected = null;
-			    businessUnitRadioSelected = null;
+   			    //clear Selected Values			    
 			    stateArray['team'] = [];
 			    stateArray['role'] = [];
 		        }
