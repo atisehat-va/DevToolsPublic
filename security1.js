@@ -34,13 +34,17 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
         await disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds, clientUrl);
         break;
 
-      case 'Add Roles':
+      case 'RemoveAllRoles':
+        await disassociateUserFromRoles(selectedUserId, clientUrl);
+        break;
+
+      case 'AddRoles':
         for (const roleId of selectedRoleIds) {
           await associateUserToRole(selectedUserId, roleId, clientUrl);
         }
         break;
 
-      case 'Remove Roles':
+      case 'RemoveRoles':
         await disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds, clientUrl);
         break;
 
