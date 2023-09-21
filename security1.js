@@ -1,25 +1,3 @@
-/*
-window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
-  const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
-
-  try {    
-    await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
-    await disassociateUserFromTeams(selectedUserId2, clientUrl);
-    await disassociateUserFromRoles(selectedUserId2, clientUrl);    
-
-    for (const roleId of selectedRoleIds) {
-      await associateUserToRole(selectedUserId2, roleId, clientUrl);
-    }
-    
-    for (const teamId of selectedTeamIds) {
-      await associateUserToTeam(selectedUserId2, teamId, clientUrl);
-    } 
-
-  } catch (error) {
-    console.error('An error occurred:', error);
-  }
-} */
-//NewCode
 window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
@@ -71,7 +49,6 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
     console.error('An error occurred:', error);
   }
 }
-//EndNewCode
 
 async function changeBusinessUnit(selectedUserId, selectedBusinessUnitId) {
   const data1 = {
