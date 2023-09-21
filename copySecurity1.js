@@ -240,7 +240,7 @@ function securityUpdate() {
 		setupSearchFilter('searchInput2');
 
 		loadScript(
-			"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
+			//"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
 			function() {
 				console.log("The script has been loaded and callback function executed.");
 				if (typeof updateUserDetails === "function") {
