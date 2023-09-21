@@ -1,4 +1,4 @@
-window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds) {
+window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
   try {    
