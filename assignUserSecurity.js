@@ -475,9 +475,9 @@ function securityUpdate2() {
 				
 				        if (typeof updateUserDetails === "function") {
 				            //await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);					    
 					    await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);
-					    toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+					    toggleCheckboxes('enable', ['teamsCheckbox', 'rolesCheckbox', 'businessUnitRadioButtons']);
 					    teamsCheckedValues = [];
 					    rolesCheckedValues = [];
 					    teamsRadioSelected = null;
