@@ -502,9 +502,9 @@ function securityUpdate2() {
 				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
 
 					    // Clear teamsList
-				            const teamsList = document.getElementById('teamsList');
-				            if (teamsList) {
-				                teamsList.innerHTML = '';
+					    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');				            
+				            if (businessUnitAndTeamsList) {
+				                businessUnitAndTeamsList.innerHTML = '';
 				            }
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
