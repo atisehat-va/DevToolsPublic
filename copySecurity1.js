@@ -264,7 +264,7 @@ function securityUpdate() {
 				messageDiv.style.fontSize = "20px";
 				messageDiv.style.fontWeight = "bold";
 				this.parentNode.appendChild(messageDiv);
-				const actionType = "Update BUTR"; //BUTR = Business Unit, Teams, Roles
+				const actionType = "Change BUTR"; //BUTR = Business Unit, Teams, Roles
 				if (typeof updateUserDetails === "function") {
 					await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 
 					console.log("updateUserDetails function called.");
