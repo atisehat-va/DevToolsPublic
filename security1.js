@@ -1,9 +1,9 @@
 window.updateUserDetails = async function(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds) {
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
 
-  try {
-    await disassociateUserFromTeams(selectedUserId2, clientUrl);
+  try {    
     await changeBusinessUnit(selectedUserId2, selectedBusinessUnitId);
+    await disassociateUserFromTeams(selectedUserId2, clientUrl);
     await disassociateUserFromRoles(selectedUserId2, clientUrl);    
 
     for (const roleId of selectedRoleIds) {
