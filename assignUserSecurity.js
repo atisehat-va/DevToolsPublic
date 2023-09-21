@@ -499,17 +499,7 @@ function securityUpdate2() {
 				
 				            // Remove message and show update
 				            removeElementById('updateMessage');
-				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
-					    // Clear teamsList
-					    const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
-					    const rolesList = document.getElementById('section' + (4 + (sectionPrefix - 1) * 2)).querySelector('ul');
-				            if (businessUnitAndTeamsList || rolesList) {
-				                businessUnitAndTeamsList.innerHTML = '';
-						rolesList.innerHTML = '';
-						businessUnitListItem = null;
-						teamListItems = [];
-						selectUser(user, sectionPrefix);
-				            }				    
+				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');					        
 						
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
