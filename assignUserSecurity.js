@@ -231,21 +231,35 @@ function securityUpdate2() {
 	
 	        // Check if this checkbox was selected earlier
 	        if (relevantStateArray.includes(assignCheckbox.value)) {
-		    assignCheckbox.checked = true;
-		}
+	            assignCheckbox.checked = true;
+	        }
 	
 	        assignCheckbox.addEventListener('change', function() {
-		    if (this.checked) {
-		        if (!relevantStateArray.includes(this.value)) {
-		            relevantStateArray.push(this.value);
-		        }
-		    } else {
-		        const index = relevantStateArray.indexOf(this.value);
-		        if (index > -1) {
-		            relevantStateArray.splice(index, 1);
-		        }
-		    }
-		});
+	            // Update the relevantStateArray
+	            if (this.checked) {
+	                if (!relevantStateArray.includes(this.value)) {
+	                    relevantStateArray.push(this.value);
+	                }
+	            } else {
+	                const index = relevantStateArray.indexOf(this.value);
+	                if (index > -1) {
+	                    relevantStateArray.splice(index, 1);
+	                }
+	            }
+	            
+	            // Add or remove from teamsCheckedValues or rolesCheckedValues
+	            const arrayToUse = (itemType === 'team') ? teamsCheckedValues : rolesCheckedValues;
+	            if (this.checked) {
+	                if (!arrayToUse.includes(this.value)) {
+	                    arrayToUse.push(this.value);
+	                }
+	            } else {
+	                const index = arrayToUse.indexOf(this.value);
+	                if (index > -1) {
+	                    arrayToUse.splice(index, 1);
+	                }
+	            }
+	        });
 	
 	        const label = document.createElement('label');
 	        label.textContent = textKeys.map(key => item[key]).join(' ');
