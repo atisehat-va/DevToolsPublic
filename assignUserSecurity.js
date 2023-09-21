@@ -519,11 +519,11 @@ function securityUpdate2() {
 	    }
 	
 	    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
-	        if (teamsRadioSelected === "addRole") {
+	        if (rolesRadioSelected === "addRole") {
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
-		} else if (teamsRadioSelected === "removeRole") {
+		} else if (rolesRadioSelected === "removeRole") {
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveRoles");
-		} else if (teamsRadioSelected === "addAndRemoveRoles") {
+		} else if (rolesRadioSelected === "addAndRemoveRoles") {
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 		} else {
