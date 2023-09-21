@@ -1,11 +1,11 @@
 function securityUpdate() {
 	debugger;
-	let selectedUserId2 = null;
+	let selectedUserId2 = null; 
 	let selectedUserName2 = '';
 	let selectedUserId = null;
-	let selectedBusinessUnitId = null;
-	let selectedTeamIds = [];
-	let selectedRoleIds = [];
+	let selectedBusinessUnitId = null; 
+	let selectedTeamIds = []; 
+	let selectedRoleIds = [];	
 	
 	function fetchUsers(callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -238,61 +238,7 @@ function securityUpdate() {
 		renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
 		setupSearchFilter('searchInput1');
 		setupSearchFilter('searchInput2');
-
-/*		loadScript(
-			"https://cdn.jsdelivr.net/gh/atisehat-va/DevToolsPublic@main/security1.js",
-			function() {
-				console.log("The script has been loaded and callback function executed.");
-				if (typeof updateUserDetails === "function") {
-					console.log("updateUserDetails is accessible");
-				} else {
-					console.log("updateUserDetails is NOT accessible");
-				}
-
-				const submitButton = document.getElementById("submitButton");
-				if (submitButton) {
-					console.log("Found submitButton element, adding event listener.");
-					submitButton.addEventListener("click", async function() {
-						console.log("submitButton clicked.");
-
-						const existingMessageDiv = document.getElementById('updateMessage');
-						if (existingMessageDiv) {
-							existingMessageDiv.remove();
-						}
-						this.style.display = 'none';
-
-						const messageDiv = document.createElement('div');
-						messageDiv.id = 'updateMessage';
-						messageDiv.innerHTML = `Your update is in progress, please be patient...`;
-						messageDiv.style.fontSize = "20px";
-						messageDiv.style.fontWeight = "bold";
-						this.parentNode.appendChild(messageDiv);
-
-						if (typeof updateUserDetails === "function") {
-							await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-							console.log("updateUserDetails function called.");
-							if (messageDiv) {
-								messageDiv.remove();
-							}
-							const newMessageDiv = document.createElement('div');
-							newMessageDiv.id = 'updateMessage';
-							newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;
-							newMessageDiv.style.fontSize = "20px";
-							newMessageDiv.style.fontWeight = "bold";
-							this.parentNode.appendChild(newMessageDiv);
-						} else {
-							console.log("updateUserDetails is NOT accessible");
-						}
-					});
-				} else {
-					console.log("submitButton element not found");
-				}
-			},
-			function() {
-				console.log("Failed to load script.");
-			}
-		); */
-		//TEst		
+		
 		console.log("The script has been loaded and callback function executed.");
 		if (typeof updateUserDetails === "function") {
 			console.log("updateUserDetails is accessible");
@@ -318,9 +264,9 @@ function securityUpdate() {
 				messageDiv.style.fontSize = "20px";
 				messageDiv.style.fontWeight = "bold";
 				this.parentNode.appendChild(messageDiv);
-
+				const actionType = "Update BUTR"; //BUTR = Business Unit, Teams, Roles
 				if (typeof updateUserDetails === "function") {
-					await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+					await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 
 					console.log("updateUserDetails function called.");
 					if (messageDiv) {
 						messageDiv.remove();
@@ -337,9 +283,8 @@ function securityUpdate() {
 			});
 		} else {
 			console.log("submitButton element not found");
-		}			
-					
-		//EndTest
+		}
+		
 		updateSubmitButtonVisibility();
 	}
 	fetchUsers(function(users) {
