@@ -259,26 +259,7 @@ function securityUpdate2() {
 	        targetElement.appendChild(wrapperDiv);		
 	    });
 	    toggleCheckboxes('disable', ['teamsCheckbox', 'rolesCheckbox']);
-	}
-	//newStuff
-	function createElementWithAttributes(tag, attributes = {}) {
-	    const element = document.createElement(tag);
-	    Object.entries(attributes).forEach(([key, value]) => {
-	        element[key] = value;
-	    });
-	    return element;
-	}
-	
-	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
-	    const messageDiv = createElementWithAttributes('div', {
-	        id,
-	        innerHTML: message,
-	        style: { fontSize, fontWeight }
-	    });
-	    parentNode.appendChild(messageDiv);
-	    return messageDiv;
-	}
-	//EndNewStuff
+	}	
 	
 	function selectUser(user, sectionPrefix) {
 		try {
@@ -448,35 +429,63 @@ function securityUpdate2() {
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
-				const submitButton = document.getElementById('assignSubmitButton');
-			        if (submitButton) {
-			            submitButton.style.display = 'block';
+				//newStuff
+				function createElementWithAttributes(tag, attributes = {}) {
+				    const element = document.createElement(tag);
+				    Object.entries(attributes).forEach(([key, value]) => {
+				        element[key] = value;
+				    });
+				    return element;
+				}
+				
+				function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
+				    const messageDiv = createElementWithAttributes('div', {
+				        id,
+				        innerHTML: message,
+				        style: { fontSize, fontWeight }
+				    });
+				    parentNode.appendChild(messageDiv);
+				    return messageDiv;
+				}
 
+				// Helper function to toggle element visibility
+				function toggleElementDisplay(element, state = 'none') {
+				    if (element) element.style.display = state;
+				}
+				
+				// Helper function to remove element by ID
+				function removeElementById(id) {
+				    const existingElement = document.getElementById(id);
+				    if (existingElement) existingElement.remove();
+				}
+				//EndNewStuff
+				
+				const submitButton = document.getElementById('assignSubmitButton');
+				if (submitButton) {
+				    toggleElementDisplay(submitButton, 'block');
 				    submitButton.addEventListener('click', async function(event) {
 				        console.log("submitButton clicked.");
 				
-				        const existingMessageDiv = document.getElementById('updateMessage');
-				        if (existingMessageDiv) {
-				            existingMessageDiv.remove();
-				        }
+				        // Remove existing message if it exists
+				        removeElementById('updateMessage');
 				
-				        event.target.style.display = 'none';
+				        // Hide submit button and show message
+				        toggleElementDisplay(event.target, 'none');
 				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 				
 				        if (typeof updateUserDetails === "function") {
-				            await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-				            console.log("updateUserDetails function called.");
+				            //await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+					    handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues); //newCode
+				            console.log("updateUserDetails function called.");					    
 				
-				            if (messageDiv) {
-				                messageDiv.remove();
-				            }
-				            
+				            // Remove message and show update
+				            removeElementById('updateMessage');
 				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
 				        }
 				    });
-			        }
+				}
 				//endNewStuff
 				
 			}			
@@ -484,6 +493,26 @@ function securityUpdate2() {
 			console.error('Error in selectUser function', e);
 		}			
 	}
+	function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
+	    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
+	        await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, "ChangeBU");
+	        console.log('Business unit selected.');
+	    }
+	    
+	    if (teamsRadioSelected && teamsCheckedValues.length > 0) {
+	        // Do something specific for teamsRadioSelected and teamsCheckedValues
+	        console.log('Teams radio and checked values are selected.');
+	    }
+	
+	    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
+	        // Do something specific for rolesRadioSelected and rolesCheckedValues
+	        console.log('Roles radio and checked values are selected.');
+	    }
+	}
+
+
+
+	
 	//newStuff
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId, radioButtonClassName) {
