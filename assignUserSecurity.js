@@ -475,7 +475,7 @@ function securityUpdate2() {
 				
 				        if (typeof updateUserDetails === "function") {
 				            //await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-					    handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues); //newCode
+					    handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues); 
 				            console.log("updateUserDetails function called.");					    
 				
 				            // Remove message and show update
