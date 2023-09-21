@@ -272,6 +272,13 @@ function securityUpdate2() {
 		        if (sectionPrefix === '1') {
 		            selectedUserId = user.systemuserid;
 		            selectedBusinessUnitId = user._businessunitid_value;
+				
+   			    //clear Selected Values
+			    let teamsCheckedValues = [];
+			    let rolesCheckedValues = [];
+			    let teamsRadioSelected = null;
+			    let rolesRadioSelected = null;
+			    let businessUnitRadioSelected = null;
 		        }
 			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
 		        businessUnitAndTeamsList.innerHTML = '';
