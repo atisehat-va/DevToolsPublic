@@ -473,9 +473,9 @@ function securityUpdate2() {
 				        toggleElementDisplay(event.target, 'none');
 				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 				
-				        if (typeof updateUserDetails === "function") {				            
-					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);					    
+				        if (typeof updateUserDetails === "function") {				            					    
 					    await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);
+					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 					    toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 					    teamsCheckedValues = [];
 					    rolesCheckedValues = [];
