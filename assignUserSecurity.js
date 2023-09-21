@@ -475,7 +475,12 @@ function securityUpdate2() {
 				
 				        if (typeof updateUserDetails === "function") {
 				            //await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
-					   await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues); 
+					   await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);
+					    teamsCheckedValues = [];
+					    rolesCheckedValues = [];
+					    teamsRadioSelected = null;
+					    rolesRadioSelected = null;
+					    businessUnitRadioSelected = null;
 				            console.log("updateUserDetails function called.");					    
 				
 				            // Remove message and show update
@@ -513,8 +518,16 @@ function securityUpdate2() {
 	    }
 	
 	    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
-	        // Do something specific for rolesRadioSelected and rolesCheckedValues
-	        console.log('Roles radio and checked values are selected.');
+	        if (teamsRadioSelected === "addTeam") {
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
+		} else if (teamsRadioSelected === "removeTeam") {
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveTeams");
+		} else if (teamsRadioSelected === "addAndRemoveTeam") {
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllTeams");
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
+		} else {
+		    console.log('No update needed on Teams');
+		}
 	    }
 	}
 
