@@ -495,7 +495,7 @@ function securityUpdate2() {
 	}
 	function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
-	        await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, "ChangeBU");
+	        await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
 	        console.log('Business unit selected.');
 	    }
 	    
