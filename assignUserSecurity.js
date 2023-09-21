@@ -473,8 +473,7 @@ function securityUpdate2() {
 				        toggleElementDisplay(event.target, 'none');
 				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 				
-				        if (typeof updateUserDetails === "function") {
-				            //await updateUserDetails(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds);
+				        if (typeof updateUserDetails === "function") {				            
 					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);					    
 					    await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);
 					    toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
@@ -482,8 +481,7 @@ function securityUpdate2() {
 					    rolesCheckedValues = [];
 					    teamsRadioSelected = null;
 					    rolesRadioSelected = null;
-					    businessUnitRadioSelected = null;
-				            console.log("updateUserDetails function called.");					    
+					    businessUnitRadioSelected = null;				            
 				
 				            // Remove message and show update
 				            removeElementById('updateMessage');
@@ -493,8 +491,7 @@ function securityUpdate2() {
 				        }
 				    });
 				}
-				//endNewStuff
-				
+				//endNewStuff				
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
@@ -524,7 +521,7 @@ function securityUpdate2() {
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 		} else if (rolesRadioSelected === "removeRole") {
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveRoles");
-		} else if (rolesRadioSelected === "addAndRemoveRoles") {
+		} else if (rolesRadioSelected === "addAndRemoveRole") {
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
 		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 		} else {
