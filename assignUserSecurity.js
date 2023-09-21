@@ -98,8 +98,7 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-	//NewStuff	     
-	
+	//NewStuff	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
 	  const classes = Array.isArray(classNames) ? classNames : [classNames];
