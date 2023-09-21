@@ -17,7 +17,7 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
         } 
         break;
 
-      case 'Change BU':
+      case 'ChangeBU':
         await changeBusinessUnit(selectedUserId, selectedBusinessUnitId);
         break;
 
