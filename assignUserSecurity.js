@@ -209,56 +209,52 @@ function securityUpdate2() {
 	    // Clear the existing content
 	    targetElement.innerHTML = '';
 	
+	    // Choose the appropriate array to check the state
+	    const stateArray = (itemType === 'team') ? teamsCheckedValues : rolesCheckedValues;
+	
 	    // Loop through each item in the array
 	    itemArray.forEach(item => {
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
 	
-	        // Conditionally assign class name based on item type
 	        if (itemType === 'team') {
-	            wrapperDiv.classList.add('teamClass'); // Replace 'teamClass' with your desired class name
+	            wrapperDiv.classList.add('teamClass'); 
 	        } else if (itemType === 'role') {
-	            wrapperDiv.classList.add('roleClass'); // Replace 'roleClass' with your desired class name
+	            wrapperDiv.classList.add('roleClass'); 
 	        }
 	
 	        const assignCheckbox = document.createElement('input');
 	        assignCheckbox.type = valueType;
 	        assignCheckbox.value = item[valueKey];
 	        assignCheckbox.className = additionalClassNames;
-		    
-		//new
-		// Add event listener to checkbox
+	
+	        // Check if this checkbox was selected earlier
+	        if (stateArray.includes(assignCheckbox.value)) {
+	            assignCheckbox.checked = true;
+	        }
+	
 	        assignCheckbox.addEventListener('change', function() {
 	            if (this.checked) {
-	                // Add the value to the appropriate array based on itemType
-	                if (itemType === 'team') {
-	                    teamsCheckedValues.push(this.value);
-	                } else if (itemType === 'role') {
-	                    rolesCheckedValues.push(this.value);
+	                if (!stateArray.includes(this.value)) {
+	                    stateArray.push(this.value);
 	                }
 	            } else {
-	                // Remove the value from the appropriate array based on itemType
-	                const arrayToUse = (itemType === 'team') ? teamsCheckedValues : rolesCheckedValues;
-	                const index = arrayToUse.indexOf(this.value);
+	                const index = stateArray.indexOf(this.value);
 	                if (index > -1) {
-	                    arrayToUse.splice(index, 1);
+	                    stateArray.splice(index, 1);
 	                }
 	            }
 	        });
-		//EndNew
-		    
+	
 	        const label = document.createElement('label');
 	        label.textContent = textKeys.map(key => item[key]).join(' ');
 	
-	        // Append checkbox and label to wrapper div
 	        wrapperDiv.appendChild(assignCheckbox);
 	        wrapperDiv.appendChild(label);
 	
-	        // Append wrapper div to target element
-	        targetElement.appendChild(wrapperDiv);		
+	        targetElement.appendChild(wrapperDiv);
 	    });
-	    //toggleCheckboxes('disable', ['teamsCheckbox', 'rolesCheckbox']);
-	}	
+	}
 	
 	function selectUser(user, sectionPrefix) {
 		try {
