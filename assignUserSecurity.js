@@ -12,7 +12,7 @@ function securityUpdate2() {
 	let teamsRadioSelected = null;
 	let rolesRadioSelected = null;
 	let businessUnitRadioSelected = null;
-	let stateArray = { 'team': [], 'role': [] };	
+	let stateArray = { 'team': [], 'role': [] };
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
