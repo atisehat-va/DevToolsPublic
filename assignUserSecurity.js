@@ -51,7 +51,7 @@ function securityUpdate2() {
 	        </div>
 	      </div> 
 	      <div class="assignSection rightBuss-section" id="section2">
-       		<h3 id="bUh3">Change Business Unit:</h3>
+       		<h3 id="bUh3">To modify a user's security settings, please choose a user from the list.</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units" style="display: none;">
 	        <div class="businessUnit-list-container">
 	          <div id="businessUnitList"></div>
@@ -465,7 +465,7 @@ function securityUpdate2() {
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
 				});
-				toggleChangeBuInputAndHeading('New Header Text');
+				toggleChangeBuInputAndHeading('Change Business Unit:');
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
