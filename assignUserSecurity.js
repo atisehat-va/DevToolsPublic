@@ -419,23 +419,7 @@ function securityUpdate2() {
 				       createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				});
 				
-				//newStuff
-				// Add radio buttons for section5 (Team Actions)
-			/*        addRadioButtonsToSection('section5', 'teamAction', [
-				    { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },				    
-				    { id: 'addTeam', label: 'Add', value: 'addTeam' },
-				    { id: 'removeTeam', label: 'Remove', value: 'removeTeam' },
-				    { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-				], 'Change Team(s):', 'Search Teams', 'searchInput3', 'teamsRadioButtons');
-				
-				// For roles, with the class name "roleRadioButtonClass"
-				addRadioButtonsToSection('section6', 'roleAction', [
-				    { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
-				    { id: 'addRole', label: 'Add', value: 'addRole' },
-				    { id: 'removeRole', label: 'Remove', value: 'removeRole' },				    
-				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
-				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons'); */
-				
+				//newStuff				
 				addRadioButtonsToSection({
 				    sectionId: 'section5',
 				    radioName: 'teamAction',
@@ -568,104 +552,16 @@ function securityUpdate2() {
 		    console.log('No update needed on Teams');
 		}
 	    }
-	}
+	}	
 	
-	/*
-	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId, radioButtonClassName) {
-	    const sectionElement = document.getElementById(sectionId);
-	
-	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
-	        return;
-	    }
-	
-	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
-	
-	    if (headingText) {
-	        const heading = document.createElement('h3');
-	        heading.appendChild(document.createTextNode(headingText));
-	        sectionElement.appendChild(heading);
-	    }
-	
-	    if (inputIds) {
-	        const inputWrapper = document.createElement('div');
-	        inputWrapper.className = 'teamsRoles-input-wrapper';
-	
-	        const searchInput = document.createElement('input');
-	        searchInput.type = 'text';
-	        searchInput.id = inputId;
-	        searchInput.placeholder = inputIds;
-	
-	        inputWrapper.appendChild(searchInput);
-	        sectionElement.appendChild(inputWrapper);
-	    }
-	
-	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
-	    if (!teamsWrapper) {
-	        teamsWrapper = document.createElement('div');
-	        teamsWrapper.className = 'teams-wrapper';
-	        sectionElement.appendChild(teamsWrapper);
-	    }
-	
-	    const container = document.createElement('div');
-	    container.className = 'team-action-checkboxes';
-	    container.innerHTML = '';
-	
-	    const actionMap = {
-	      'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
-	      'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-	      'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-	      'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
-	      'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
-	      'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-	      'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
-	    };
-	
-	    radioData.forEach(({ id, label, value }) => {
-	        const radioButton = document.createElement('input');
-	        radioButton.type = 'radio';
-	        radioButton.id = id;
-	        radioButton.className = radioButtonClassName;
-	        radioButton.name = radioName;
-	        radioButton.value = value;
-	
-	        radioButton.addEventListener('change', function() {		
-		    const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-		    toggleCheckboxes(selectedAction.action, selectedAction.classes);
-		
-		    if (radioName === 'teamAction') {
-		        teamsRadioSelected = this.value;		            
-		    } else if (radioName === 'roleAction') {
-		        rolesRadioSelected = this.value;		            
-		    }
-		});
-	
-	        const labelElement = document.createElement('label');
-	        labelElement.htmlFor = id;
-	        labelElement.appendChild(document.createTextNode(label));
-	
-	        const wrapperDiv = document.createElement('div');
-	        wrapperDiv.className = 'sectionWrapper';
-	        wrapperDiv.appendChild(radioButton);
-	        wrapperDiv.appendChild(labelElement);
-	
-	        container.appendChild(wrapperDiv);
-	    });
-	
-	    teamsWrapper.appendChild(container);
-	    sectionElement.appendChild(teamsWrapper);
-	} */
-
 	function setupSection(options) {
 	    const { sectionId, headingText } = options;
 	    const sectionElement = document.getElementById(sectionId);
 	
 	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
 	        return;
-	    }
-	
-	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
-	
+	    }	
+	    sectionElement.setAttribute('data-hasRadioButtons', 'true');	
 	    if (headingText) {
 	        const heading = document.createElement('h3');
 	        heading.appendChild(document.createTextNode(headingText));
@@ -774,11 +670,11 @@ function securityUpdate2() {
 	    if (users && users.entities) {		    
 		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid', true);		
 	    }	
-	   if (businessUnits && businessUnits.entities) {
+	/*   if (businessUnits && businessUnits.entities) {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
-	   }		
+	   }	*/	
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
-	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
+	     // setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 
 	      setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
 	      setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
