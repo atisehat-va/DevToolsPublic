@@ -144,8 +144,7 @@ function securityUpdate2() {
 		    inputElement.addEventListener('change', function() {
 	               toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
                        businessUnitRadioSelected = this.value; // Set the global variable here
-                    });
-			
+                    });			
 	        }
 	
 	        const textDiv = document.createElement('div');
