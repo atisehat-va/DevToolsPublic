@@ -499,10 +499,8 @@ function securityUpdate2() {
 				
 				            // Remove message and show update
 				            removeElementById('updateMessage');
-				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
-
-					    document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul').innerHTML = '';					    
-					    selectUser(user, sectionPrefix);
+				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');								    
+					    
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
 				        }										
