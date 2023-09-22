@@ -446,7 +446,11 @@ function securityUpdate2() {
 				    inputIds: 'Search Security Role',
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
-				});				
+				});
+				if (businessUnits && businessUnits.entities) {
+				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
+				}
+				setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 				
 				initSubmitButton();
 				//endNewStuff				
