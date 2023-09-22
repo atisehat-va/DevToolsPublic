@@ -465,7 +465,7 @@ function securityUpdate2() {
 				    if (existingElement) existingElement.remove();
 				}
 				//EndNewStuff
-				
+				/*
 				const submitButton = document.getElementById('assignSubmitButton');
 				if (submitButton) {
 				    toggleElementDisplay(submitButton, 'block');
@@ -480,9 +480,9 @@ function securityUpdate2() {
 				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 				
 				        if (typeof updateUserDetails === "function") {					    
-					    //toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
+					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 					    await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);					    
-					    //toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
+					    toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 					    teamsCheckedValues = [];
 					    rolesCheckedValues = [];
 					    teamsRadioSelected = null;
@@ -497,13 +497,51 @@ function securityUpdate2() {
 				            console.log("updateUserDetails is NOT accessible");
 				        }										
 				    });
-				}
+				} */
+				initSubmitButton();
 				//endNewStuff				
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
 		}			
 	}	
+	//ENDNEWCODE092223
+	// This function handles the logic on submit button click
+	async function handleSubmitButtonClick(event) {
+	    console.log("submitButton clicked.");
+	
+	    // Remove existing message if it exists
+	    removeElementById('updateMessage');
+	
+	    // Hide submit button and show message
+	    toggleElementDisplay(event.target, 'none');
+	    const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
+	
+	    if (typeof updateUserDetails === "function") {					    
+	        toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
+	        await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);					    
+	        toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
+	        teamsCheckedValues = [];
+	        rolesCheckedValues = [];
+	        teamsRadioSelected = null;
+	        rolesRadioSelected = null;
+	        businessUnitRadioSelected = null;					    			    				            
+	        // Remove message and show update
+	        removeElementById('updateMessage');
+	        createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');								    
+	    } else {
+	        console.log("updateUserDetails is NOT accessible");
+	    }
+	}
+	// This function will only be invoked when you explicitly call it, like on clicking the submit button.
+	function initSubmitButton() {
+	    const submitButton = document.getElementById('assignSubmitButton');
+	    if (submitButton) {
+	        toggleElementDisplay(submitButton, 'block');
+	        submitButton.addEventListener('click', handleSubmitButtonClick);
+	    }
+	}
+	//ENDNEWCODE092223
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
 	        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
