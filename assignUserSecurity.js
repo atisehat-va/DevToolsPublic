@@ -259,8 +259,7 @@ function securityUpdate2() {
 	        label.textContent = textKeys.map(key => item[key]).join(' ');
 	
 	        wrapperDiv.appendChild(assignCheckbox);
-	        wrapperDiv.appendChild(label);
-	
+	        wrapperDiv.appendChild(label);	
 	        targetElement.appendChild(wrapperDiv);
 	    });
 	}
