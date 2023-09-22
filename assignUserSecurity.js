@@ -453,17 +453,7 @@ function securityUpdate2() {
 				    parentNode.appendChild(messageDiv);
 				    return messageDiv;
 				}
-
-				// Helper function to toggle element visibility
-				function toggleElementDisplay(element, state = 'none') {
-				    if (element) element.style.display = state;
-				}
 				
-				// Helper function to remove element by ID
-				function removeElementById(id) {
-				    const existingElement = document.getElementById(id);
-				    if (existingElement) existingElement.remove();
-				}
 				//EndNewStuff
 				/*
 				const submitButton = document.getElementById('assignSubmitButton');
@@ -506,6 +496,17 @@ function securityUpdate2() {
 		}			
 	}	
 	//ENDNEWCODE092223
+	// Helper function to toggle element visibility
+	function toggleElementDisplay(element, state = 'none') {
+	    if (element) element.style.display = state;
+	}
+	
+	// Helper function to remove element by ID
+	function removeElementById(id) {
+	    const existingElement = document.getElementById(id);
+	    if (existingElement) existingElement.remove();
+	}
+
 	// This function handles the logic on submit button click
 	async function handleSubmitButtonClick(event) {
 	    console.log("submitButton clicked.");
