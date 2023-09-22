@@ -658,13 +658,8 @@ function securityUpdate2() {
 	    sectionElement.appendChild(teamsWrapper);
 	} */
 
-	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(options) {
-	    const {
-	        sectionId, radioName, radioData, headingText,
-	        inputIds, inputId, radioButtonClassName
-	    } = options;
-		
+	function setupSection(options) {
+	    const { sectionId, headingText } = options;
 	    const sectionElement = document.getElementById(sectionId);
 	
 	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
@@ -678,18 +673,16 @@ function securityUpdate2() {
 	        heading.appendChild(document.createTextNode(headingText));
 	        sectionElement.appendChild(heading);
 	    }
+	}
 	
-	    if (inputIds) {
-	        const inputWrapper = document.createElement('div');
-	        inputWrapper.className = 'teamsRoles-input-wrapper';
+	// Function to add radio buttons to a given section
+	function addRadioButtonsToSection(options) {
+	    const { sectionId, radioName, radioData, radioButtonClassName } = options;
+	    const sectionElement = document.getElementById(sectionId);
 	
-	        const searchInput = document.createElement('input');
-	        searchInput.type = 'text';
-	        searchInput.id = inputId;
-	        searchInput.placeholder = inputIds;
-	
-	        inputWrapper.appendChild(searchInput);
-	        sectionElement.appendChild(inputWrapper);
+	    // Exit if radioData is not provided or not an array
+	    if (!radioData || !Array.isArray(radioData)) {
+	        return;
 	    }
 	
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
@@ -710,7 +703,7 @@ function securityUpdate2() {
 	      'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
 	      'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
 	      'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
-	      'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
+	      'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },
 	    };
 	
 	    radioData.forEach(({ id, label, value }) => {
@@ -722,15 +715,15 @@ function securityUpdate2() {
 	        radioButton.value = value;
 	
 	        radioButton.addEventListener('change', function() {		
-		    const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-		    toggleCheckboxes(selectedAction.action, selectedAction.classes);
-		
-		    if (radioName === 'teamAction') {
-		        teamsRadioSelected = this.value;		            
-		    } else if (radioName === 'roleAction') {
-		        rolesRadioSelected = this.value;		            
-		    }
-		});
+	            const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+	            toggleCheckboxes(selectedAction.action, selectedAction.classes);
+	
+	            if (radioName === 'teamAction') {
+	                teamsRadioSelected = this.value;		            
+	            } else if (radioName === 'roleAction') {
+	                rolesRadioSelected = this.value;		            
+	            }
+	        });
 	
 	        const labelElement = document.createElement('label');
 	        labelElement.htmlFor = id;
@@ -776,8 +769,8 @@ function securityUpdate2() {
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 
-	      addRadioButtonsToSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
-	      addRadioButtonsToSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
+	      setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
+	      setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
 	}	
 	
 	 Promise.all([
