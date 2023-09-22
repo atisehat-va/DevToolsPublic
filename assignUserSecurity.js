@@ -465,7 +465,7 @@ function securityUpdate2() {
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
 				});
-				toggleInputAndHeading('New Header Text');
+				toggleChangeBuInputAndHeading('New Header Text');
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
