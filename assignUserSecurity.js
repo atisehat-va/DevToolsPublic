@@ -436,23 +436,7 @@ function securityUpdate2() {
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
 
 				//newStuff
-				function createElementWithAttributes(tag, attributes = {}) {
-				    const element = document.createElement(tag);
-				    Object.entries(attributes).forEach(([key, value]) => {
-				        element[key] = value;
-				    });
-				    return element;
-				}
 				
-				function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
-				    const messageDiv = createElementWithAttributes('div', {
-				        id,
-				        innerHTML: message,
-				        style: { fontSize, fontWeight }
-				    });
-				    parentNode.appendChild(messageDiv);
-				    return messageDiv;
-				}
 				
 				//EndNewStuff
 				/*
@@ -496,6 +480,24 @@ function securityUpdate2() {
 		}			
 	}	
 	//ENDNEWCODE092223
+	function createElementWithAttributes(tag, attributes = {}) {
+	    const element = document.createElement(tag);
+	    Object.entries(attributes).forEach(([key, value]) => {
+		element[key] = value;
+	    });
+	    return element;
+	}
+	
+	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
+	    const messageDiv = createElementWithAttributes('div', {
+		id,
+		innerHTML: message,
+		style: { fontSize, fontWeight }
+	    });
+	    parentNode.appendChild(messageDiv);
+	    return messageDiv;
+	}
+	
 	// Helper function to toggle element visibility
 	function toggleElementDisplay(element, state = 'none') {
 	    if (element) element.style.display = state;
