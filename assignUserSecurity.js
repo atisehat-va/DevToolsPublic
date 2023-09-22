@@ -50,7 +50,9 @@ function securityUpdate2() {
 	          <div id="userList1"></div>
 	        </div>
 	      </div>                            
-	      <div class="assignSection rightBuss-section" id="section2">	       
+	      <div class="assignSection rightBuss-section" id="section2">
+       		<h3>Change Business Unit:</h3>
+	        <input type="text" id="searchInput2" placeholder="Search Business Units">
 	        <div class="businessUnit-list-container">
 	          <div id="businessUnitList"></div>
 	        </div>
@@ -418,13 +420,7 @@ function securityUpdate2() {
 				       createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				});
 				
-				//newStuff				
-				addRadioButtonsToSection({
-				    sectionId: 'section2',
-				    headingText: 'Change Business Unit1:',
-				    inputIds: 'Search Security Role',
-				    inputId: 'searchInput2'				    
-				});
+				//newStuff								
 				addRadioButtonsToSection({
 				    sectionId: 'section5',
 				    radioName: 'teamAction',
