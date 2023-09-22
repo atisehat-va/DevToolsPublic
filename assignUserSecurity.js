@@ -177,8 +177,7 @@ function securityUpdate2() {
 	
 	    const textDiv = document.createElement('div');
 	    textDiv.textContent = 'No Change';
-	    wrapperDiv.appendChild(textDiv);
-	
+	    wrapperDiv.appendChild(textDiv);	
 	    noChangeDiv.appendChild(wrapperDiv);
 	    listDiv.appendChild(noChangeDiv);
 	    
