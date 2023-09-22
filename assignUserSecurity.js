@@ -11,9 +11,7 @@ function securityUpdate2() {
 	let teamsRadioSelected = null;
 	let rolesRadioSelected = null;
 	let businessUnitRadioSelected = null;
-	let stateArray = { 'team': [], 'role': [] };
-	let businessUnitListItem = null;
-	let teamListItems = [];
+	let stateArray = { 'team': [], 'role': [] };	
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
@@ -295,7 +293,9 @@ function securityUpdate2() {
 			    stateArray['role'] = [];
 		        }
 			const businessUnitAndTeamsList = document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul');
-		        businessUnitAndTeamsList.innerHTML = '';		        
+		        businessUnitAndTeamsList.innerHTML = '';
+			let businessUnitListItem = null;
+		        let teamListItems = [];
 			
 			const appendLists = () => {
 		            if (businessUnitListItem) {
