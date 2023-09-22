@@ -49,10 +49,10 @@ function securityUpdate2() {
 	        <div class="leftUser-list-container">
 	          <div id="userList1"></div>
 	        </div>
-	      </div>                            
+	      </div> 
 	      <div class="assignSection rightBuss-section" id="section2">
-       		<h3>Change Business Unit:</h3>
-	        <input type="text" id="searchInput2" placeholder="Search Business Units">
+       		<h3 id="bUh3">Change Business Unit:</h3>
+	        <input type="text" id="searchInput2" placeholder="Search Business Units" style="display: none;">
 	        <div class="businessUnit-list-container">
 	          <div id="businessUnitList"></div>
 	        </div>
@@ -99,6 +99,23 @@ function securityUpdate2() {
 	    openPopup();  
 	  });		
 	  makePopupMovable(newContainer);	
+	}
+	
+	function toggleChangeBuInputAndHeading(newHeaderText) {
+	  const h3Element = document.getElementById('bUh3');
+	  const inputElement = document.getElementById('searchInput2');
+	
+	  if (h3Element && inputElement) {
+	    // Update the text of the h3 element
+	    h3Element.textContent = newHeaderText;
+	
+	    // Toggle the visibility of the input element
+	    if (inputElement.style.display === 'none') {
+	      inputElement.style.display = 'block';
+	    } else {
+	      inputElement.style.display = 'none';
+	    }
+	  }
 	}
 	
 	function toggleCheckboxes(action, classNames) {
@@ -448,6 +465,7 @@ function securityUpdate2() {
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
 				});
+				toggleInputAndHeading('New Header Text');
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
