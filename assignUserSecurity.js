@@ -126,8 +126,7 @@ function securityUpdate2() {
 	
 	    entities.forEach(entity => {
 	        const entityDiv = document.createElement('div');
-	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;
-	
+	        entityDiv.className = `${classNamePrefix}${sectionId.charAt(sectionId.length - 1)}`;	
 	        const wrapperDiv = document.createElement('div');
 	        if (!skipSectionWrapper) {
 	            wrapperDiv.className = 'sectionWrapper';
