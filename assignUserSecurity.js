@@ -464,9 +464,7 @@ function securityUpdate2() {
 				    inputIds: 'Search Security Role',
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
-				});
-
-				//addRadioButtonsToSection({ headingText: "Change Security Role(s):" });
+				});				
 				
 				initSubmitButton();
 				//endNewStuff				
@@ -776,7 +774,8 @@ function securityUpdate2() {
 	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 	   }		
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
-	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);	 
+	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
+	      addRadioButtonsToSection({ headingText: "Change Security Role(s):" });
 	}	
 	
 	 Promise.all([
