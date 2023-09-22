@@ -418,9 +418,10 @@ function securityUpdate2() {
 				       });
 				       createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				});
+				
 				//newStuff
 				// Add radio buttons for section5 (Team Actions)
-			        addRadioButtonsToSection('section5', 'teamAction', [
+			/*        addRadioButtonsToSection('section5', 'teamAction', [
 				    { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },				    
 				    { id: 'addTeam', label: 'Add', value: 'addTeam' },
 				    { id: 'removeTeam', label: 'Remove', value: 'removeTeam' },
@@ -433,7 +434,39 @@ function securityUpdate2() {
 				    { id: 'addRole', label: 'Add', value: 'addRole' },
 				    { id: 'removeRole', label: 'Remove', value: 'removeRole' },				    
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
-				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
+				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons'); */
+				
+				addRadioButtonsToSection({
+				    sectionId: 'section5',
+				    radioName: 'teamAction',
+				    radioData: [
+				        { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
+				        { id: 'addTeam', label: 'Add', value: 'addTeam' },
+				        { id: 'removeTeam', label: 'Remove', value: 'removeTeam' },
+				        { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
+				    ],
+				    headingText: 'Change Team(s):',
+				    inputIds: 'Search Teams',
+				    inputId: 'searchInput3',
+				    radioButtonClassName: 'teamsRadioButtons'
+				});
+
+				addRadioButtonsToSection({
+				    sectionId: 'section6',
+				    radioName: 'roleAction',
+				    radioData: [
+				        { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
+				        { id: 'addRole', label: 'Add', value: 'addRole' },
+				        { id: 'removeRole', label: 'Remove', value: 'removeRole' },
+				        { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
+				    ],
+				    headingText: 'Change Security Role(s):',
+				    inputIds: 'Search Security Role',
+				    inputId: 'searchInput4',
+				    radioButtonClassName: 'rolesRadioButtons'
+				});
+
+				//addRadioButtonsToSection({ headingText: "Change Security Role(s):" });
 				
 				initSubmitButton();
 				//endNewStuff				
@@ -539,8 +572,9 @@ function securityUpdate2() {
 		    console.log('No update needed on Teams');
 		}
 	    }
-	}	
+	}
 	
+	/*
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId, radioButtonClassName) {
 	    const sectionElement = document.getElementById(sectionId);
@@ -624,7 +658,97 @@ function securityUpdate2() {
 	
 	    teamsWrapper.appendChild(container);
 	    sectionElement.appendChild(teamsWrapper);
-	}	
+	} */
+
+	// Function to add radio buttons to a given section
+	function addRadioButtonsToSection(options) {
+	    const {
+	        sectionId, radioName, radioData, headingText,
+	        inputIds, inputId, radioButtonClassName
+	    } = options;
+		
+	    const sectionElement = document.getElementById(sectionId);
+	
+	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
+	        return;
+	    }
+	
+	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
+	
+	    if (headingText) {
+	        const heading = document.createElement('h3');
+	        heading.appendChild(document.createTextNode(headingText));
+	        sectionElement.appendChild(heading);
+	    }
+	
+	    if (inputIds) {
+	        const inputWrapper = document.createElement('div');
+	        inputWrapper.className = 'teamsRoles-input-wrapper';
+	
+	        const searchInput = document.createElement('input');
+	        searchInput.type = 'text';
+	        searchInput.id = inputId;
+	        searchInput.placeholder = inputIds;
+	
+	        inputWrapper.appendChild(searchInput);
+	        sectionElement.appendChild(inputWrapper);
+	    }
+	
+	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
+	    if (!teamsWrapper) {
+	        teamsWrapper = document.createElement('div');
+	        teamsWrapper.className = 'teams-wrapper';
+	        sectionElement.appendChild(teamsWrapper);
+	    }
+	
+	    const container = document.createElement('div');
+	    container.className = 'team-action-checkboxes';
+	    container.innerHTML = '';
+	
+	    const actionMap = {
+	      'noTeamUpdates': { action: 'disable', classes: ['teamsCheckbox'] },
+	      'addTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+	      'removeTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+	      'addRole': { action: 'enable', classes: ['rolesCheckbox'] },
+	      'removeRole': { action: 'enable', classes: ['rolesCheckbox'] },
+	      'addAndRemoveTeam': { action: 'enable', classes: ['teamsCheckbox'] },
+	      'noRoleUpdates': { action: 'disable', classes: ['rolesCheckbox'] },		  
+	    };
+	
+	    radioData.forEach(({ id, label, value }) => {
+	        const radioButton = document.createElement('input');
+	        radioButton.type = 'radio';
+	        radioButton.id = id;
+	        radioButton.className = radioButtonClassName;
+	        radioButton.name = radioName;
+	        radioButton.value = value;
+	
+	        radioButton.addEventListener('change', function() {		
+		    const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+		    toggleCheckboxes(selectedAction.action, selectedAction.classes);
+		
+		    if (radioName === 'teamAction') {
+		        teamsRadioSelected = this.value;		            
+		    } else if (radioName === 'roleAction') {
+		        rolesRadioSelected = this.value;		            
+		    }
+		});
+	
+	        const labelElement = document.createElement('label');
+	        labelElement.htmlFor = id;
+	        labelElement.appendChild(document.createTextNode(label));
+	
+	        const wrapperDiv = document.createElement('div');
+	        wrapperDiv.className = 'sectionWrapper';
+	        wrapperDiv.appendChild(radioButton);
+	        wrapperDiv.appendChild(labelElement);
+	
+	        container.appendChild(wrapperDiv);
+	    });
+	
+	    teamsWrapper.appendChild(container);
+	    sectionElement.appendChild(teamsWrapper);
+	}
 	
 	function setupSearchFilter(searchInputId, targetClassSuffix) {
 	    document.getElementById(searchInputId).oninput = function() {
