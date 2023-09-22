@@ -51,7 +51,7 @@ function securityUpdate2() {
 	        </div>
 	      </div> 
 	      <div class="assignSection rightBuss-section" id="section2">
-       		<h3 id="bUh3">To modify a user's security settings, please choose a user from the list.</h3>
+       		<h3 id="bUh3">To modify user security settings, please choose a user from the list.</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units" style="display: none;">
 	        <div class="businessUnit-list-container">
 	          <div id="businessUnitList"></div>
@@ -466,6 +466,8 @@ function securityUpdate2() {
 				    radioButtonClassName: 'rolesRadioButtons'
 				});
 				toggleChangeBuInputAndHeading('Change Business Unit:');
+				setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
+	      			setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
@@ -699,8 +701,8 @@ function securityUpdate2() {
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	     // setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
 
-	      setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
-	      setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
+	      //setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
+	      //setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
 	}	
 	
 	 Promise.all([
