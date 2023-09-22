@@ -1,5 +1,6 @@
 function securityUpdate2() {        
 	debugger;
+	let businessUnits = [];
 	let selectedUserId = null;
 	let selectedBuId = null;
 	let selectedBusinessUnitId = null;
@@ -687,8 +688,9 @@ function securityUpdate2() {
 	 Promise.all([
 	    new Promise(resolve => fetchUsers(resolve)),
 	    new Promise(resolve => fetchBusinessUnits(resolve)),	    
-	 ]).then(([users, businessUnits]) => {
-	    displayPopup(users, businessUnits);	     
+	 ]).then(([users, fetchedBusinessUnits]) => {
+	    displayPopup(users, fetchedBusinessUnits);
+	    businessUnits = fetchedBusinessUnits;
 	});
 	
 	function loadScript(src, callback, errorCallback) {
