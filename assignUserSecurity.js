@@ -422,6 +422,12 @@ function securityUpdate2() {
 				
 				//newStuff				
 				addRadioButtonsToSection({
+				    sectionId: 'section2',
+				    headingText: 'Change Business Unit1:',
+				    inputIds: 'Search Security Role',
+				    inputId: 'searchInput2'				    
+				});
+				addRadioButtonsToSection({
 				    sectionId: 'section5',
 				    radioName: 'teamAction',
 				    radioData: [
