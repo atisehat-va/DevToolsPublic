@@ -775,7 +775,7 @@ function securityUpdate2() {
 	   }		
 	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
 	      setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
-	      addRadioButtonsToSection({ headingText: "Change Security Role(s):" });
+	      addRadioButtonsToSection({ ectionId: 'section6', headingText: "Change Security Role(s):" });
 	}	
 	
 	 Promise.all([
