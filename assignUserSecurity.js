@@ -502,7 +502,7 @@ function securityUpdate2() {
 				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');
 
 					    document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul').innerHTML = '';					    
-					    
+					    selectUser(user, sectionPrefix);
 				        } else {
 				            console.log("updateUserDetails is NOT accessible");
 				        }										
