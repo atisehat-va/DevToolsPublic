@@ -444,8 +444,7 @@ function securityUpdate2() {
 				        { id: 'addTeam', label: 'Add', value: 'addTeam' },
 				        { id: 'removeTeam', label: 'Remove', value: 'removeTeam' },
 				        { id: 'addAndRemoveTeam', label: 'Add + Remove Existing', value: 'addAndRemoveTeam' }
-				    ],
-				    headingText: 'Change Team(s):',
+				    ],				    
 				    inputIds: 'Search Teams',
 				    inputId: 'searchInput3',
 				    radioButtonClassName: 'teamsRadioButtons'
@@ -459,8 +458,7 @@ function securityUpdate2() {
 				        { id: 'addRole', label: 'Add', value: 'addRole' },
 				        { id: 'removeRole', label: 'Remove', value: 'removeRole' },
 				        { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
-				    ],
-				    headingText: 'Change Security Role(s):',
+				    ],				    
 				    inputIds: 'Search Security Role',
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
@@ -676,8 +674,8 @@ function securityUpdate2() {
 	}
 	
 	// Function to add radio buttons to a given section
-	function addRadioButtonsToSection(options) {
-	    const { sectionId, radioName, radioData, radioButtonClassName } = options;
+	function addRadioButtonsToSection(options) {	    
+	    const { sectionId, radioName, radioData, inputIds, inputId, radioButtonClassName } = options;
 	    const sectionElement = document.getElementById(sectionId);
 	
 	    // Exit if radioData is not provided or not an array
