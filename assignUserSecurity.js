@@ -437,7 +437,14 @@ function securityUpdate2() {
 				       createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				});
 				
-				//newStuff								
+				//newStuff
+				toggleChangeBuInputAndHeading('Change Business Unit:');      			
+				if (businessUnits && businessUnits.entities) {
+				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
+				}
+				setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
+				
+				setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });
 				addRadioButtonsToSection({
 				    sectionId: 'section5',
 				    radioName: 'teamAction',
@@ -451,7 +458,8 @@ function securityUpdate2() {
 				    inputId: 'searchInput3',
 				    radioButtonClassName: 'teamsRadioButtons'
 				});
-
+				
+				setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
 				addRadioButtonsToSection({
 				    sectionId: 'section6',
 				    radioName: 'roleAction',
@@ -464,14 +472,7 @@ function securityUpdate2() {
 				    inputIds: 'Search Security Role',
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
-				});
-				toggleChangeBuInputAndHeading('Change Business Unit:');
-				setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
-	      			setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
-				if (businessUnits && businessUnits.entities) {
-				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
-				}
-				setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
+				});				
 				
 				initSubmitButton();
 				//endNewStuff				
