@@ -682,7 +682,20 @@ function securityUpdate2() {
 	    if (!radioData || !Array.isArray(radioData)) {
 	        return;
 	    }
+
+	    if (inputIds) {
+	        const inputWrapper = document.createElement('div');
+	        inputWrapper.className = 'teamsRoles-input-wrapper';
 	
+	        const searchInput = document.createElement('input');
+	        searchInput.type = 'text';
+	        searchInput.id = inputId;
+	        searchInput.placeholder = inputIds;
+	
+	        inputWrapper.appendChild(searchInput);
+	        sectionElement.appendChild(inputWrapper);
+	    }
+		
 	    let teamsWrapper = sectionElement.querySelector('.teams-wrapper');
 	    if (!teamsWrapper) {
 	        teamsWrapper = document.createElement('div');
