@@ -396,7 +396,7 @@ function securityUpdate2() {
 			                rolesList.appendChild(listItem);
 			            });
 			        });
-			    });     			    			
+			    });     	 		    			
 			     
 			    // Fetch roles based on the business unit and display them under section6
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
