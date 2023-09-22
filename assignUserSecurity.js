@@ -99,7 +99,7 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-	//NewStuff	
+	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
 	  const classes = Array.isArray(classNames) ? classNames : [classNames];
@@ -113,8 +113,7 @@ function securityUpdate2() {
 	      checkbox.disabled = (action === 'disable');
 	    });
 	  });
-	}
-	//endNewStuff
+	}	
 	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, skipSectionWrapper = false) {
 	    const listDiv = document.getElementById(sectionId);
