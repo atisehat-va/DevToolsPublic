@@ -434,44 +434,7 @@ function securityUpdate2() {
 				    { id: 'removeRole', label: 'Remove', value: 'removeRole' },				    
 				    { id: 'addAndRemoveRole', label: 'Add + Remove Existing', value: 'addAndRemoveRole' }
 				], 'Change Security Role(s):', 'Search Security Role', 'searchInput4', 'rolesRadioButtons');
-
-				//newStuff
 				
-				
-				//EndNewStuff
-				/*
-				const submitButton = document.getElementById('assignSubmitButton');
-				if (submitButton) {
-				    toggleElementDisplay(submitButton, 'block');
-				    submitButton.addEventListener('click', async function(event) {
-				        console.log("submitButton clicked.");
-				
-				        // Remove existing message if it exists
-				        removeElementById('updateMessage');
-				
-				        // Hide submit button and show message
-				        toggleElementDisplay(event.target, 'none');
-				        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
-				
-				        if (typeof updateUserDetails === "function") {					    
-					    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
-					    await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);					    
-					    toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
-					    teamsCheckedValues = [];
-					    rolesCheckedValues = [];
-					    teamsRadioSelected = null;
-					    rolesRadioSelected = null;
-					    businessUnitRadioSelected = null;					    			    				            
-				
-				            // Remove message and show update
-				            removeElementById('updateMessage');
-				            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');								    
-					    
-				        } else {
-				            console.log("updateUserDetails is NOT accessible");
-				        }										
-				    });
-				} */
 				initSubmitButton();
 				//endNewStuff				
 			}			
@@ -479,7 +442,7 @@ function securityUpdate2() {
 			console.error('Error in selectUser function', e);
 		}			
 	}	
-	//ENDNEWCODE092223
+	//NEWCODE092223
 	function createElementWithAttributes(tag, attributes = {}) {
 	    const element = document.createElement(tag);
 	    Object.entries(attributes).forEach(([key, value]) => {
