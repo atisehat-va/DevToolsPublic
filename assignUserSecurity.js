@@ -1,6 +1,6 @@
 function securityUpdate2() {        
 	debugger;
-	let businessUnits = [];
+	let businessUnits = null;
 	let selectedUserId = null;
 	let selectedBuId = null;
 	let selectedBusinessUnitId = null;
