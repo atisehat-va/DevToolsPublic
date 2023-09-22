@@ -1,5 +1,5 @@
 function securityUpdate2() {        
-	debugger;	
+	debugger;
 	let selectedUserId = null;
 	let selectedBuId = null;
 	let selectedBusinessUnitId = null;
