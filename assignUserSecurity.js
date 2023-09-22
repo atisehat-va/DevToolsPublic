@@ -542,12 +542,8 @@ function securityUpdate2() {
 		    console.log('No update needed on Teams');
 		}
 	    }
-	}
-
-
-
+	}	
 	
-	//newStuff
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(sectionId, radioName, radioData, headingText, inputIds, inputId, radioButtonClassName) {
 	    const sectionElement = document.getElementById(sectionId);
@@ -631,8 +627,7 @@ function securityUpdate2() {
 	
 	    teamsWrapper.appendChild(container);
 	    sectionElement.appendChild(teamsWrapper);
-	}
-	//EndNewStuff
+	}	
 	
 	function setupSearchFilter(searchInputId, targetClassSuffix) {
 	    document.getElementById(searchInputId).oninput = function() {
