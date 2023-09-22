@@ -143,7 +143,7 @@ function securityUpdate2() {
 		    
 		    inputElement.addEventListener('change', function() {
 	               toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
-                       businessUnitRadioSelected = this.value; // Set the global variable here
+                       businessUnitRadioSelected = this.value; 
                     });			
 	        }
 	
@@ -154,8 +154,7 @@ function securityUpdate2() {
 	        textDiv.textContent = entity[textProperty] || 'N/A';
 	
 	        wrapperDiv.appendChild(textDiv);
-	        entityDiv.appendChild(wrapperDiv);
-	
+	        entityDiv.appendChild(wrapperDiv);	
 	        listDiv.appendChild(entityDiv);
 	    });
 	}
