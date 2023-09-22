@@ -195,8 +195,7 @@ function securityUpdate2() {
 	            let businessUnitName = item.hasOwnProperty('businessUnitName') ? `(${item.businessUnitName})` : '';
 	            const itemInfo = `${name} ${businessUnitName}`.toLowerCase().trim();
 	            return itemInfo.includes(query);
-	        });
-	
+	        });	
 	        displayFunction(filteredArray, targetElement);
 	    });
 	}
