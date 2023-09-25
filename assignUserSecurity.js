@@ -493,13 +493,24 @@ function securityUpdate2() {
 	    });
 	    return element;
 	}
-	
+	/*
 	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
 	    const messageDiv = createElementWithAttributes('div', {
 		id,
 		innerHTML: message,
 		style: { fontSize, fontWeight }
 	    });
+	    parentNode.appendChild(messageDiv);
+	    return messageDiv;
+	} */
+	
+	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
+	    const messageDiv = document.createElement('div');
+	    messageDiv.id = id;
+	    messageDiv.innerHTML = message;
+	    messageDiv.style.fontSize = fontSize;
+	    messageDiv.style.fontWeight = fontWeight;
+	    
 	    parentNode.appendChild(messageDiv);
 	    return messageDiv;
 	}
