@@ -530,7 +530,7 @@ function securityUpdate2() {
 	}
 
 	// This function handles the logic on submit button click
-/*	async function handleSubmitButtonClick(event) {
+	async function handleSubmitButtonClick(event) {
 	    console.log("submitButton clicked.");
 	
 	    // Remove existing message if it exists
@@ -555,41 +555,7 @@ function securityUpdate2() {
 	    } else {
 	        console.log("updateUserDetails is NOT accessible");
 	    }
-	} */
-	
-	async function handleSubmitButtonClick(event) {
-	    console.log("submitButton clicked.");
-	    
-	    // Check conditions before proceeding
-	    const isTeamsOrRolesSelected = (teamsCheckedValues && teamsRadioSelected) || (rolesCheckedValues && rolesRadioSelected);
-	    if (isTeamsOrRolesSelected && !businessUnitRadioSelected) {
-	        // Remove existing message if it exists
-	        removeElementById('updateMessage');
-	    
-	        // Hide submit button and show message
-	        toggleElementDisplay(event.target, 'none');
-	        const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
-	    
-	        if (typeof updateUserDetails === "function") {                       
-	            toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
-	            await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);                    
-	            toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
-	            teamsCheckedValues = [];
-	            rolesCheckedValues = [];
-	            teamsRadioSelected = null;
-	            rolesRadioSelected = null;
-	            businessUnitRadioSelected = null;                                                        
-	            // Remove message and show update
-	            removeElementById('updateMessage');
-	            createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserFullName}`, 'updateMessage');                                  
-	        } else {
-	            console.log("updateUserDetails is NOT accessible");
-	        }
-	    } else {
-	        // Show a message to indicate that businessUnitRadioSelected must be null and either of the other conditions must be met
-	        createAndAppendMessageDiv(event.target.parentNode, "Please select change", 'warningMessage');
-	    }
-	}
+	} 
 	
 	// This function will only be invoked when you explicitly call it, like on clicking the submit button.
 	function initSubmitButton() {
