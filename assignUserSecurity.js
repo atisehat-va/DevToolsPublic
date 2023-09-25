@@ -599,11 +599,11 @@ function securityUpdate2() {
 	    if (!radioData || !Array.isArray(radioData)) {
 	        return;
 	    }
-		
+	/*	
 	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
 	        return;
 	    }	
-	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
+	    sectionElement.setAttribute('data-hasRadioButtons', 'true'); */
 
 	    if (inputIds) {
 	        const inputWrapper = document.createElement('div');
