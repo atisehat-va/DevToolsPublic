@@ -432,7 +432,7 @@ function securityUpdate2() {
 				});
 				
 				//newStuff
-				//toggleChangeBuInputAndHeading();      			
+				toggleChangeBuInputAndHeading();      			
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
