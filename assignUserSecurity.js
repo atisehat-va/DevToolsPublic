@@ -599,7 +599,7 @@ function securityUpdate2() {
 		    }
 	     } else {
 		initSubmitButton();
-		createAndAppendMessageDiv(document.body, 'Nothing was selected to change.', 'noChangeMessage'); 
+		alert('Nothing was selected to change.');
 		console.log('Nothing was selected to change.');
 	    }
 	}		
