@@ -107,7 +107,7 @@ function securityUpdate2() {
 	  const inputElement = document.getElementById('searchInput2');
 	  const teamsElement = document.getElementById('teamsH3');
 	
-	  if (h3Element && inputElement) {
+	  if (bUElement && inputElement && teamsElement) {
 	    // Update the text of the h3 element
 	    //h3Element.textContent = newHeaderText;
 
