@@ -505,7 +505,7 @@ function securityUpdate2() {
 	    parentNode.appendChild(messageDiv);
 	    return messageDiv;
 	} */
-	
+	/*
 	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
 	    const messageDiv = document.createElement('div');
 	    messageDiv.id = id;
@@ -516,6 +516,31 @@ function securityUpdate2() {
 	    
 	    parentNode.appendChild(messageDiv);
 	    return messageDiv;
+	} */
+	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
+	  // Create the container div
+	  const containerDiv = document.createElement('div');
+	  containerDiv.className = 'message-container';
+	  containerDiv.style.width = '100%';
+	  containerDiv.style.display = 'flex';
+	  containerDiv.style.justifyContent = 'center';
+	  containerDiv.style.alignItems = 'center';
+	
+	  // Create the message div
+	  const messageDiv = document.createElement('div');
+	  messageDiv.id = id;
+	  messageDiv.innerHTML = message;
+	  messageDiv.style.fontSize = fontSize;
+	  messageDiv.style.fontWeight = fontWeight;
+	  messageDiv.style.padding = "30px";
+	
+	  // Append the messageDiv to the container
+	  containerDiv.appendChild(messageDiv);
+	  
+	  // Append the container to the parentNode
+	  parentNode.appendChild(containerDiv);
+	  
+	  return containerDiv; // Return the container if you need a reference to it
 	}
 	
 	// Helper function to toggle element visibility
