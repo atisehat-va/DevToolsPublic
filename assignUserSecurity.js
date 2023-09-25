@@ -113,7 +113,7 @@ function securityUpdate2() {
 
 	    // Toggle the visibility of the input element
 	    if (bUElement.style.display === 'none') {
-	      teamsEbUElementlement.style.display = 'block';
+	      bUElement.style.display = 'block';
 	    } else {
 	      bUElement.style.display = 'none';
 	    }
