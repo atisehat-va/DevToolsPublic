@@ -51,7 +51,7 @@ function securityUpdate2() {
 	        </div>
 	      </div> 
 	      <div class="assignSection rightBuss-section" id="section2">
-       		<h3 id="bUh3" style="display: none;" >Change Business Unit:</h3>
+       		<h3 id="bUh3">To modify user security settings, please choose a user from the list.</h3>
 	        <input type="text" id="searchInput2" placeholder="Search Business Units" style="display: none;">
 	        <div class="businessUnit-list-container">
 	          <div id="businessUnitList"></div>
@@ -66,8 +66,7 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section5">	        
-	     	 <div class="teams-wrapper">
-		 <h3 id="teamsH3" style="display: block;" >To modify user security settings, please choose a user from the list.</h3>
+	     	 <div class="teams-wrapper">		  
 	          <div class="teamsRoles-list-container">	          
 		  <div id="teamsList"></div>		   
 		</div>	  
@@ -101,16 +100,23 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-
-	function toggleChangeBuInputAndHeading() {
-	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];	
-	  idsToToggle.forEach(elementId => {
-	    const element = document.getElementById(elementId);
-	    if (element) {
-	      element.style.display = element.style.display === 'none' ? 'block' : 'none';
+	
+	function toggleChangeBuInputAndHeading(newHeaderText) {
+	  const h3Element = document.getElementById('bUh3');
+	  const inputElement = document.getElementById('searchInput2');
+	
+	  if (h3Element && inputElement) {
+	    // Update the text of the h3 element
+	    h3Element.textContent = newHeaderText;
+	
+	    // Toggle the visibility of the input element
+	    if (inputElement.style.display === 'none') {
+	      inputElement.style.display = 'block';
+	    } else {
+	      inputElement.style.display = 'none';
 	    }
-	  });
-	}	
+	  }
+	}
 	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
@@ -432,7 +438,7 @@ function securityUpdate2() {
 				});
 				
 				//newStuff
-				//toggleChangeBuInputAndHeading();      			
+				toggleChangeBuInputAndHeading('Change Business Unit:');      			
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
