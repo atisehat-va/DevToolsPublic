@@ -477,11 +477,11 @@ function securityUpdate2() {
 				    radioButtonClassName: 'rolesRadioButtons'
 				});				
 				initSubmitButton();				
-			}
-			toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']);
+			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
-		}			
+		}
+		toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']);
 	}		
 	function createElementWithAttributes(tag, attributes = {}) {
 	    const element = document.createElement(tag);
