@@ -476,9 +476,9 @@ function securityUpdate2() {
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
 				});				
-				initSubmitButton();
-				toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']);
-			}			
+				initSubmitButton();				
+			}
+			toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']);
 		} catch (e) {
 			console.error('Error in selectUser function', e);
 		}			
