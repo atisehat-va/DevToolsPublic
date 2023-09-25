@@ -2,17 +2,15 @@ function securityUpdate2() {
 	debugger;
 	let businessUnits = null;
 	let selectedUserId = null;
-	let selectedUserFullName = null;
-	let selectedBuId = null;
+	let selectedUserFullName = null;	
 	let selectedBusinessUnitId = null;
-	let selectedTeamIds = [];
-	let selectedRoleIds = [];
-
-	let teamsCheckedValues = [];
-	let rolesCheckedValues = [];
 	let teamsRadioSelected = null;
 	let rolesRadioSelected = null;
 	let businessUnitRadioSelected = null;
+	let selectedTeamIds = [];
+	let selectedRoleIds = [];
+	let teamsCheckedValues = [];
+	let rolesCheckedValues = [];	
 	let stateArray = { 'team': [], 'role': [] };
 	
 	function fetchUsers(callback) {
@@ -478,7 +476,8 @@ function securityUpdate2() {
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
 				});				
-				initSubmitButton();				
+				initSubmitButton();
+				toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']);
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
