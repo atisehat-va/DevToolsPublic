@@ -11,7 +11,7 @@ function securityUpdate2() {
 	let selectedRoleIds = [];
 	let teamsCheckedValues = [];
 	let rolesCheckedValues = [];	
-	let stateArray = { 'team': [], 'role': [] };
+	let stateArray = { 'team': [], 'role': [] }; 
 	
 	function fetchUsers(callback) {
 	    Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
