@@ -432,7 +432,7 @@ function securityUpdate2() {
 				});
 				
 				//newStuff
-				//toggleChangeBuInputAndHeading();      			
+				toggleChangeBuInputAndHeading();      			
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
@@ -597,9 +597,7 @@ function securityUpdate2() {
 	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
 	        return;
 	    }	
-	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
-
-	    toggleChangeBuInputAndHeading();
+	    sectionElement.setAttribute('data-hasRadioButtons', 'true');	    
 		
 	    if (headingText) {
 	        const heading = document.createElement('h3');
