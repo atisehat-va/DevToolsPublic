@@ -200,7 +200,7 @@ function securityUpdate2() {
 	    listDiv.appendChild(noChangeDiv);
 	    
 	    noChangeRadio.addEventListener('change', function() {
-	      toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+	      toggleCheckboxes('enable', ['assignCheckbox', 'teamsRadioButtons', 'rolesRadioButtons']);
               businessUnitRadioSelected = this.value; 
            });
 	}
