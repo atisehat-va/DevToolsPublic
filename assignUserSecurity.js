@@ -441,9 +441,8 @@ function securityUpdate2() {
 					   createAndAppendItems(filteredItems, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				       });
 				       createAndAppendItems(roleDetailsArr, rolesListBusinessUnit, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
-				});
+				});				
 				
-				//newStuff
 				toggleChangeBuInputAndHeading();      			
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
@@ -479,15 +478,12 @@ function securityUpdate2() {
 				    inputId: 'searchInput4',
 				    radioButtonClassName: 'rolesRadioButtons'
 				});				
-				
-				initSubmitButton();
-				//endNewStuff				
+				initSubmitButton();				
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
 		}			
-	}	
-	//NEWCODE092223
+	}		
 	function createElementWithAttributes(tag, attributes = {}) {
 	    const element = document.createElement(tag);
 	    Object.entries(attributes).forEach(([key, value]) => {
@@ -495,28 +491,7 @@ function securityUpdate2() {
 	    });
 	    return element;
 	}
-	/*
-	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
-	    const messageDiv = createElementWithAttributes('div', {
-		id,
-		innerHTML: message,
-		style: { fontSize, fontWeight }
-	    });
-	    parentNode.appendChild(messageDiv);
-	    return messageDiv;
-	} */
-	/*
-	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
-	    const messageDiv = document.createElement('div');
-	    messageDiv.id = id;
-	    messageDiv.innerHTML = message;
-	    messageDiv.style.fontSize = fontSize;
-	    messageDiv.style.fontWeight = fontWeight;
-	    messageDiv.style.padding = "30px";
-	    
-	    parentNode.appendChild(messageDiv);
-	    return messageDiv;
-	} */
+	
 	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
 	  // Create the container div
 	  const containerDiv = document.createElement('div');
@@ -540,7 +515,7 @@ function securityUpdate2() {
 	  // Append the container to the parentNode
 	  parentNode.appendChild(containerDiv);
 	  
-	  return containerDiv; // Return the container if you need a reference to it
+	  return containerDiv; 
 	}
 	
 	// Helper function to toggle element visibility
@@ -589,7 +564,7 @@ function securityUpdate2() {
 	        submitButton.addEventListener('click', handleSubmitButtonClick);
 	    }
 	}
-	//ENDNEWCODE092223
+	
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
 	        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
@@ -734,15 +709,8 @@ function securityUpdate2() {
 	    }
 	    if (users && users.entities) {		    
 		renderGenericList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1', 'user', 'fullname', 'systemuserid', true);		
-	    }	
-	/*   if (businessUnits && businessUnits.entities) {
-	        renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
-	   }	*/	
-	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);
-	     // setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
-
-	      //setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });	
-	      //setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
+	    }			
+	      setupSearchFilter('searchInput1', `user${'userList1'.charAt('userList1'.length - 1)}`);	     
 	}	
 	
 	 Promise.all([
