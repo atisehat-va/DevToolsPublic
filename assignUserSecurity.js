@@ -593,11 +593,17 @@ function securityUpdate2() {
 	function addRadioButtonsToSection(options) {	    
 	    const { sectionId, radioName, radioData, inputIds, inputId, radioButtonClassName } = options;
 	    const sectionElement = document.getElementById(sectionId);
+	    
 	
 	    // Exit if radioData is not provided or not an array
 	    if (!radioData || !Array.isArray(radioData)) {
 	        return;
 	    }
+		
+	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
+	        return;
+	    }	
+	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
 
 	    if (inputIds) {
 	        const inputWrapper = document.createElement('div');
