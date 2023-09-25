@@ -123,7 +123,7 @@ function securityUpdate2() {
 	        element.style.display = 'inline-block';
 	      } else if (elementId === 'teamsH3') {
 	        if (element.style.display === 'none') {
-	          element.style.display = 'flex';
+	          element.style.display === 'none' ? 'flex' : 'none';
 	        } else if (element.style.display === 'block' || element.style.display === 'flex') {
 	          element.style.display = 'none';
 	        }
