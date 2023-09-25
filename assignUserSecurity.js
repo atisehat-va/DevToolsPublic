@@ -101,7 +101,7 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-
+/*
 	function toggleChangeBuInputAndHeading() {
 	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];	
 	  idsToToggle.forEach(elementId => {
@@ -110,7 +110,27 @@ function securityUpdate2() {
 	      element.style.display = element.style.display === 'none' ? 'block' : 'none';
 	    }
 	  });
-	}	
+	} */
+ 
+	function toggleChangeBuInputAndHeading() {
+	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];
+	  idsToToggle.forEach(elementId => {
+	    const element = document.getElementById(elementId);
+	    if (element) {
+	      if (elementId === 'bUh3' && element.style.display === 'none') {
+	        element.style.display = 'block';
+	      } else if (elementId === 'searchInput2' && element.style.display === 'none') {
+	        element.style.display = 'inline-block';
+	      } else if (elementId === 'teamsH3') {
+	        if (element.style.display === 'none') {
+	          element.style.display = 'flex';
+	        } else if (element.style.display === 'block' || element.style.display === 'flex') {
+	          element.style.display = 'none';
+	        }
+	      }
+	    }
+	  });
+	}
 	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
