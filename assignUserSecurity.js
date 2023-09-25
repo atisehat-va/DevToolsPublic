@@ -66,7 +66,8 @@ function securityUpdate2() {
 	        </div>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section5">	        
-	     	 <div class="teams-wrapper">		 
+	     	 <div class="teams-wrapper">
+		 <h3 id="teamsH3" style="display: block;" >To modify user security settings, please choose a user from the list.</h3>
 	          <div class="teamsRoles-list-container">	          
 		  <div id="teamsList"></div>		   
 		</div>	  
