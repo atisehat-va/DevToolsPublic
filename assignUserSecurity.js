@@ -510,6 +510,7 @@ function securityUpdate2() {
 	    messageDiv.innerHTML = message;
 	    messageDiv.style.fontSize = fontSize;
 	    messageDiv.style.fontWeight = fontWeight;
+	    messageDiv.style.padding = "30px";
 	    
 	    parentNode.appendChild(messageDiv);
 	    return messageDiv;
