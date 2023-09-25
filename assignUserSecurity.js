@@ -640,6 +640,7 @@ function securityUpdate2() {
 	  // Create the message paragraph
 	  const messageParagraph = document.createElement('p');
 	  messageParagraph.textContent = message;
+	  messageParagraph.style.fontSize = '24px';
 	
 	  // Append everything
 	  alertBox.appendChild(closeButton);
