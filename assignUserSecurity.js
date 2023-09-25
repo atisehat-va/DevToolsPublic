@@ -538,7 +538,7 @@ function securityUpdate2() {
 	
 	    // Hide submit button and show message
 	    toggleElementDisplay(event.target, 'none');
-	    const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
+	    //const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 	
 	    if (typeof updateUserDetails === "function") {					    
 	        toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
@@ -567,8 +567,8 @@ function securityUpdate2() {
 	}
 	
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
-
-	    if ((businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0) {		
+	    if ((businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0) {
+		    const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 		    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
 		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
 		        console.log('Business unit selected.');
@@ -598,6 +598,7 @@ function securityUpdate2() {
 			}
 		    }
 	     } else {
+		toggleElementDisplay(submitButton, 'block');
 		console.log('Nothing was selected to change.');
 	    }
 	}		
