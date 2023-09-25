@@ -480,8 +480,7 @@ function securityUpdate2() {
 			}			
 		} catch (e) {
 			console.error('Error in selectUser function', e);
-		}
-		toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'rolesCheckbox']);
+		}		
 	}		
 	function createElementWithAttributes(tag, attributes = {}) {
 	    const element = document.createElement(tag);
@@ -661,7 +660,8 @@ function securityUpdate2() {
 	        radioButton.value = value;
 	
 	        radioButton.addEventListener('change', function() {		
-	            const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+	            //const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+		    const selectedAction = actionMap[this.value] || { action: 'disable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
 	            toggleCheckboxes(selectedAction.action, selectedAction.classes);
 	
 	            if (radioName === 'teamAction') {
@@ -685,6 +685,7 @@ function securityUpdate2() {
 	
 	    teamsWrapper.appendChild(container);
 	    sectionElement.appendChild(teamsWrapper);
+	    //toggleCheckboxes('disable', ['teamsCheckbox', 'rolesCheckbox']);
 	}
 	
 	function setupSearchFilter(searchInputId, targetClassSuffix) {
