@@ -101,16 +101,6 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-/*
-	function toggleChangeBuInputAndHeading() {
-	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];	
-	  idsToToggle.forEach(elementId => {
-	    const element = document.getElementById(elementId);
-	    if (element) {
-	      element.style.display = element.style.display === 'none' ? 'block' : 'none';
-	    }
-	  });
-	} */
  
 	function toggleChangeBuInputAndHeading() {
 	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];
@@ -592,22 +582,7 @@ function securityUpdate2() {
 		    console.log('No update needed on Teams');
 		}
 	    }
-	}	
-	/*
-	function setupSection(options) {
-	    const { sectionId, headingText } = options;
-	    const sectionElement = document.getElementById(sectionId);
-	
-	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
-	        return;
-	    }	
-	    sectionElement.setAttribute('data-hasRadioButtons', 'true');	
-	    if (headingText) {
-	        const heading = document.createElement('h3');
-	        heading.appendChild(document.createTextNode(headingText));
-	        sectionElement.appendChild(heading);
-	    }
-	} */
+	}		
 	
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(options) {	    
