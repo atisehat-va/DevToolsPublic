@@ -102,49 +102,15 @@ function securityUpdate2() {
 	  makePopupMovable(newContainer);	
 	}
 
-	function toggleElementVisibility(elementId) {
-	  const element = document.getElementById(elementId);
-	  if (element) {
-	    element.style.display = element.style.display === 'none' ? 'block' : 'none';
-	  }
-	}
-	
 	function toggleChangeBuInputAndHeading() {
-	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];
-	  idsToToggle.forEach(toggleElementVisibility);
-	}
-	/*	
-	function toggleChangeBuInputAndHeading() {
-	  const bUElement = document.getElementById('bUh3');
-	  const inputElement = document.getElementById('searchInput2');
-	  const teamsElement = document.getElementById('teamsH3');
-	
-	  if (bUElement && inputElement && teamsElement) {
-	    // Update the text of the h3 element
-	    //h3Element.textContent = newHeaderText;
-
-	    // Toggle the visibility of the input element
-	    if (bUElement.style.display === 'none') {
-	      bUElement.style.display = 'block';
-	    } else {
-	      bUElement.style.display = 'none';
+	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];	
+	  idsToToggle.forEach(elementId => {
+	    const element = document.getElementById(elementId);
+	    if (element) {
+	      element.style.display = element.style.display === 'none' ? 'block' : 'none';
 	    }
-	
-	    // Toggle the visibility of the input element
-	    if (inputElement.style.display === 'none') {
-	      inputElement.style.display = 'block';
-	    } else {
-	      inputElement.style.display = 'none';
-	    }
-		  
-            // Toggle the visibility of the input element
-	    if (teamsElement.style.display === 'none') {
-	      teamsElement.style.display = 'block';
-	    } else {
-	      teamsElement.style.display = 'none';
-	    }
-	  }
-	} */
+	  });
+	}	
 	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
