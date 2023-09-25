@@ -101,7 +101,19 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-		
+
+	function toggleElementVisibility(elementId) {
+	  const element = document.getElementById(elementId);
+	  if (element) {
+	    element.style.display = element.style.display === 'none' ? 'block' : 'none';
+	  }
+	}
+	
+	function toggleChangeBuInputAndHeading() {
+	  const idsToToggle = ['bUh3', 'searchInput2', 'teamsH3'];
+	  idsToToggle.forEach(toggleElementVisibility);
+	}
+	/*	
 	function toggleChangeBuInputAndHeading() {
 	  const bUElement = document.getElementById('bUh3');
 	  const inputElement = document.getElementById('searchInput2');
@@ -132,7 +144,7 @@ function securityUpdate2() {
 	      teamsElement.style.display = 'none';
 	    }
 	  }
-	}
+	} */
 	
 	function toggleCheckboxes(action, classNames) {
 	  // Accept either a single class name or an array of class names
