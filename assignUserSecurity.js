@@ -2,6 +2,7 @@ function securityUpdate2() {
 	debugger;
 	let businessUnits = null;
 	let selectedUserId = null;
+	let selectedUserFullName = null;
 	let selectedBuId = null;
 	let selectedBusinessUnitId = null;
 	let selectedTeamIds = [];
@@ -301,6 +302,7 @@ function securityUpdate2() {
 		        if (sectionPrefix === '1') {
 		            selectedUserId = user.systemuserid;
 		            selectedBusinessUnitId = user._businessunitid_value;
+			    selectedUserFullName = user.fullname;
 				
    			    //clear Selected Values			    
 			    stateArray['team'] = [];
@@ -549,7 +551,7 @@ function securityUpdate2() {
 	        businessUnitRadioSelected = null;					    			    				            
 	        // Remove message and show update
 	        removeElementById('updateMessage');
-	        createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserId}`, 'updateMessage');								    
+	        createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserFullName}`, 'updateMessage');								    
 	    } else {
 	        console.log("updateUserDetails is NOT accessible");
 	    }
