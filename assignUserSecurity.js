@@ -282,6 +282,7 @@ function securityUpdate2() {
 	        wrapperDiv.appendChild(label);	
 	        targetElement.appendChild(wrapperDiv);
 	    });
+	    toggleCheckboxes('disable', ['teamsCheckbox', 'rolesCheckbox']);
 	}
 	
 	function selectUser(user, sectionPrefix) {
@@ -660,8 +661,7 @@ function securityUpdate2() {
 	        radioButton.value = value;
 	
 	        radioButton.addEventListener('change', function() {		
-	            //const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
-		    const selectedAction = actionMap[this.value] || { action: 'disable', classes: ['teamsCheckbox', 'rolesCheckbox'] };
+	            const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };		    
 	            toggleCheckboxes(selectedAction.action, selectedAction.classes);
 	
 	            if (radioName === 'teamAction') {
@@ -684,8 +684,7 @@ function securityUpdate2() {
 	    });
 	
 	    teamsWrapper.appendChild(container);
-	    sectionElement.appendChild(teamsWrapper);
-	    //toggleCheckboxes('disable', ['teamsCheckbox', 'rolesCheckbox']);
+	    sectionElement.appendChild(teamsWrapper);	    
 	}
 	
 	function setupSearchFilter(searchInputId, targetClassSuffix) {
