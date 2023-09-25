@@ -436,11 +436,11 @@ function securityUpdate2() {
 				if (businessUnits && businessUnits.entities) {
 				    renderGenericList(businessUnits.entities, businessUnit => selectItem(businessUnit, '1'), 'businessUnitList', 'searchInput2', 'businessUnit', 'name', 'id');		
 				}
-				setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);
+				setupSearchFilter('searchInput2', `businessUnit${'businessUnitList'.charAt('businessUnitList'.length - 1)}`);				
 				
-				setupSection({ sectionId: 'section5', headingText: 'Change Team(s):' });
 				addRadioButtonsToSection({
 				    sectionId: 'section5',
+				    headingText: 'Change Team(s):',
 				    radioName: 'teamAction',
 				    radioData: [
 				        { id: 'noTeamUpdate', label: 'No Change', value: 'noTeamUpdates' },
@@ -451,11 +451,11 @@ function securityUpdate2() {
 				    inputIds: 'Search Teams',
 				    inputId: 'searchInput3',
 				    radioButtonClassName: 'teamsRadioButtons'
-				});
+				});				
 				
-				setupSection({ sectionId: 'section6', headingText: 'Change Security Role(s):' });
 				addRadioButtonsToSection({
 				    sectionId: 'section6',
+				    headingText: 'Change Security Role(s):',
 				    radioName: 'roleAction',
 				    radioData: [
 				        { id: 'noRoleUpdate', label: 'No Change', value: 'noRoleUpdates' },
@@ -573,7 +573,7 @@ function securityUpdate2() {
 		}
 	    }
 	}	
-	
+	/*
 	function setupSection(options) {
 	    const { sectionId, headingText } = options;
 	    const sectionElement = document.getElementById(sectionId);
@@ -587,17 +587,23 @@ function securityUpdate2() {
 	        heading.appendChild(document.createTextNode(headingText));
 	        sectionElement.appendChild(heading);
 	    }
-	}
+	} */
 	
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(options) {	    
-	    const { sectionId, radioName, radioData, inputIds, inputId, radioButtonClassName } = options;
-	    const sectionElement = document.getElementById(sectionId);
-	    
+	    const { sectionId, headingText, radioName, radioData, inputIds, inputId, radioButtonClassName } = options;
+	    const sectionElement = document.getElementById(sectionId); 
+
 	    if (sectionElement.getAttribute('data-hasRadioButtons') === 'true') {
 	        return;
 	    }	
-	    sectionElement.setAttribute('data-hasRadioButtons', 'true');
+	    sectionElement.setAttribute('data-hasRadioButtons', 'true');	
+		
+	    if (headingText) {
+	        const heading = document.createElement('h3');
+	        heading.appendChild(document.createTextNode(headingText));
+	        sectionElement.appendChild(heading);
+	    }
 		
 	    // Exit if radioData is not provided or not an array
 	    if (!radioData || !Array.isArray(radioData)) {
