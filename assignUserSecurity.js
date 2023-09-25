@@ -101,9 +101,7 @@ function securityUpdate2() {
 	  });		
 	  makePopupMovable(newContainer);	
 	}
-	<h3 id="TeamsH3" style="display: block;" >To modify user security settings, please choose a user from the list.</h3>
-	<input type="text" id="searchInput2" placeholder="Search Business Units" style="display: none;">
-	
+		
 	function toggleChangeBuInputAndHeading(newHeaderText) {
 	  const h3Element = document.getElementById('bUh3');
 	  const inputElement = document.getElementById('searchInput2');
