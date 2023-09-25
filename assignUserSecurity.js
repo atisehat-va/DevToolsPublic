@@ -599,7 +599,7 @@ function securityUpdate2() {
 		    }
 	     } else {
 		initSubmitButton();
-		showCustomAlert('Nothing was selected to change.');
+		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');
 		console.log('Nothing was selected to change.');
 	    }
 	}
