@@ -599,10 +599,55 @@ function securityUpdate2() {
 		    }
 	     } else {
 		initSubmitButton();
-		alert('Nothing was selected to change.');
+		showCustomAlert('Nothing was selected to change.');
 		console.log('Nothing was selected to change.');
 	    }
-	}		
+	}
+	//custom alert
+	function showCustomAlert(message) {
+	  // Create the overlay div
+	  const overlay = document.createElement('div');
+	  overlay.style.position = 'fixed';
+	  overlay.style.left = '0';
+	  overlay.style.top = '0';
+	  overlay.style.width = '100%';
+	  overlay.style.height = '100%';
+	  overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+	  overlay.style.zIndex = '1000';
+	
+	  // Create the alert box
+	  const alertBox = document.createElement('div');
+	  alertBox.style.position = 'relative';
+	  alertBox.style.margin = '15% auto';
+	  alertBox.style.padding = '20px';
+	  alertBox.style.width = '30%';
+	  alertBox.style.backgroundColor = '#fff';
+	  alertBox.style.textAlign = 'center';
+	  alertBox.style.borderRadius = '10px';
+	  alertBox.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+	
+	  // Create the close button
+	  const closeButton = document.createElement('span');
+	  closeButton.innerHTML = '&times;';
+	  closeButton.style.position = 'absolute';
+	  closeButton.style.top = '10px';
+	  closeButton.style.right = '15px';
+	  closeButton.style.fontSize = '20px';
+	  closeButton.style.cursor = 'pointer';
+	  closeButton.addEventListener('click', function() {
+	    document.body.removeChild(overlay);
+	  });
+	
+	  // Create the message paragraph
+	  const messageParagraph = document.createElement('p');
+	  messageParagraph.textContent = message;
+	
+	  // Append everything
+	  alertBox.appendChild(closeButton);
+	  alertBox.appendChild(messageParagraph);
+	  overlay.appendChild(alertBox);
+	  document.body.appendChild(overlay);
+	}
 	
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(options) {	    
