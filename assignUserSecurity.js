@@ -598,7 +598,7 @@ function securityUpdate2() {
 			}
 		    }
 	     } else {
-		toggleElementDisplay(submitButton, 'block');
+		initSubmitButton();
 		console.log('Nothing was selected to change.');
 	    }
 	}		
