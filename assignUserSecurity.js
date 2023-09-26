@@ -656,58 +656,72 @@ function securityUpdate2() {
 	function showCustomAlert(message) {
 	  // Create the overlay div
 	  const overlay = document.createElement('div');
-	  overlay.id = 'custom-alert-overlay';
-	
-	  overlay.innerHTML = `
-	    <style>
-	      #custom-alert-overlay {
-	        position: fixed;
-	        left: 0;
-	        top: 0;
-	        width: 100%;
-	        height: 100%;
-	        background-color: rgba(0,0,0,0.5);
-	        z-index: 1000;
-	      }
-	      .alert-box {
-	        position: relative;
-	        margin: 15% auto;
-	        padding: 20px;
-	        background-color: #fff;
-	        text-align: center;
-	        border-radius: 10px;
-	        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-	      }
-	      .close-button {
-	        position: absolute;
-	        top: 10px;
-	        right: 15px;
-	        font-size: 20px;
-	        cursor: pointer;
-	      }
-	      .message-paragraph {
-	        font-size: 16px;
-	      }
-	    </style>
-	    <div class="alert-box">
-	      <span class="close-button">&times;</span>
-	      <p class="message-paragraph">${message}</p>
-	    </div>
-	  `;
-	
-	  // Append the overlay to the body
-	  document.body.appendChild(overlay);
-	
-	  // Get the width of the message paragraph and set the width of the alert box
-	  const messageParagraph = document.querySelector('.message-paragraph');
-	  const alertBox = document.querySelector('.alert-box');
-	  const messageWidth = messageParagraph.offsetWidth;
-	  alertBox.style.width = `${messageWidth + 20}px`;
-	
-	  // Add click event for the close button
-	  document.querySelector('.close-button').addEventListener('click', function() {
+	  
+	  // Create the alert box
+	  const alertBox = document.createElement('div');
+	  
+	  // Create the close button
+	  const closeButton = document.createElement('span');
+	  closeButton.innerHTML = '&times;';
+	  closeButton.addEventListener('click', function() {
 	    document.body.removeChild(overlay);
 	  });
+	  
+	  // Create the message paragraph
+	  const messageParagraph = document.createElement('p');
+	  messageParagraph.textContent = message;
+	  
+	  // Append everything
+	  alertBox.appendChild(closeButton);
+	  alertBox.appendChild(messageParagraph);
+	  overlay.appendChild(alertBox);
+	  document.body.appendChild(overlay);
+	
+	  // Create a style element, and set its innerHTML
+	  const styleElement = document.createElement('style');
+	  styleElement.innerHTML = `
+	    #overlay {
+	      position: fixed;
+	      left: 0;
+	      top: 0;
+	      width: 100%;
+	      height: 100%;
+	      background-color: rgba(0,0,0,0.5);
+	      z-index: 1000;
+	    }
+	    #alertBox {
+	      position: relative;
+	      margin: 15% auto;
+	      padding: 20px;
+	      background-color: #fff;
+	      text-align: center;
+	      border-radius: 10px;
+	      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	    }
+	    #closeButton {
+	      position: absolute;
+	      top: 10px;
+	      right: 15px;
+	      font-size: 20px;
+	      cursor: pointer;
+	    }
+	    #messageParagraph {
+	      font-size: 16px;
+	      display: inline-block;
+	    }
+	  `;
+	  // Append the style element to the overlay or head
+	  overlay.appendChild(styleElement);
+	
+	  // Set IDs for easier CSS targeting
+	  overlay.id = 'overlay';
+	  alertBox.id = 'alertBox';
+	  closeButton.id = 'closeButton';
+	  messageParagraph.id = 'messageParagraph';
+	
+	  // Adjust the alert box width dynamically
+	  const messageWidth = messageParagraph.offsetWidth;
+	  alertBox.style.width = `${messageWidth + 40}px`;  // added 40px to account for extra padding and safety
 	}
 
 	
