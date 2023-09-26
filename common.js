@@ -44,6 +44,7 @@ function showLoadingDialog(message) {
   // Create overlay
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
+  overlay.id = 'loadingOverlay';
 
   // Create loading dialog box
   const loadingBox = document.createElement('div');
