@@ -6,20 +6,7 @@ function securityUpdate() {
 	let selectedBusinessUnitId = null; 
 	let selectedTeamIds = []; 
 	let selectedRoleIds = [];	
-
-	/*
-	function fetchUsers(callback) {
-		Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
-	}
-	function fetchRolesForUser(userId, callback) {
-		Xrm.WebApi.retrieveMultipleRecords('systemuserroles', `?$filter=systemuserid eq ${userId}`).then(callback);
-	}
-	function fetchTeamsForUser(userId, callback) {
-		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=teammembership_association($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
-	}
-	function fetchBusinessUnitName(userId, callback) {
-		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
-	} */
+	
 	
 	function generateSecurityPopupHtml() {
 	return 
@@ -109,11 +96,7 @@ function securityUpdate() {
 	}
 
 	function selectUser(user, sectionPrefix) {		
-		try {
-		/*	const messageDiv = document.getElementById('updateMessage');
-			if (messageDiv) {
-				messageDiv.style.display = 'none';
-			} */
+		try {		
 
 			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
 			const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
@@ -196,27 +179,25 @@ function securityUpdate() {
 				const roleDetailsArr = [];
 
 				const rolePromises = roles.entities.map(role => {
-					const roleId = role['roleid'];
-
-					if (sectionPrefix === '1') {
-						selectedRoleIds.push(roleId);
-					}
-
-					return Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
-						roleDetailsArr.push(roleDetail);
-					});
+				  const roleId = role['roleid'];	
+				  if (sectionPrefix === '1') {
+				     selectedRoleIds.push(roleId);
+				  }
+	                          return Xrm.WebApi.retrieveRecord("role", roleId, "?$select=name,roleid").then(function(roleDetail) {
+				     roleDetailsArr.push(roleDetail);
+				  });
 				});
 				Promise.all(rolePromises).then(() => {
-					roleDetailsArr.sort((a, b) => {
-						if (a.name < b.name) return -1;
-						if (a.name > b.name) return 1;
-						return 0;
-					});
-					roleDetailsArr.forEach(roleDetail => {
-						const listItem = document.createElement('li');
-						listItem.textContent = roleDetail.name;
-						rolesList.appendChild(listItem);
-					});
+				  roleDetailsArr.sort((a, b) => {
+				     if (a.name < b.name) return -1;
+					if (a.name > b.name) return 1;
+					return 0;
+				      });
+				      roleDetailsArr.forEach(roleDetail => {
+					const listItem = document.createElement('li');
+					listItem.textContent = roleDetail.name;
+					rolesList.appendChild(listItem);
+				      });
 				});
 			});
 		} catch (e) {
@@ -239,57 +220,28 @@ function securityUpdate() {
 		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
 		renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
 		setupSearchFilter('searchInput1');
-		setupSearchFilter('searchInput2');
-		
-		console.log("The script has been loaded and callback function executed.");
-		if (typeof updateUserDetails === "function") {
-			console.log("updateUserDetails is accessible");
-		} else {
-			console.log("updateUserDetails is NOT accessible");
-		}
+		setupSearchFilter('searchInput2');	
 
 		const submitButton = document.getElementById("submitButton");
 		if (submitButton) {
 			console.log("Found submitButton element, adding event listener.");
 			submitButton.addEventListener("click", async function() {
 				console.log("submitButton clicked.");
-
-			/*	const existingMessageDiv = document.getElementById('updateMessage');
-				if (existingMessageDiv) {
-					existingMessageDiv.remove();
-				}
-				this.style.display = 'none';
-
-				const messageDiv = document.createElement('div');
-				messageDiv.id = 'updateMessage';
-				messageDiv.innerHTML = `Your update is in progress, please be patient...`;
-				messageDiv.style.fontSize = "20px";
-				messageDiv.style.fontWeight = "bold";
-				this.parentNode.appendChild(messageDiv); */
+			
 				showLoadingDialog("Your update is in progress, please be patient...");
 				const actionType = "Change BUTR"; //BUTR = Business Unit, Teams, Roles
 				if (typeof updateUserDetails === "function") {
 					await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 
 					console.log("updateUserDetails function called.");
 					closeLoadingDialog();
-		    			showCustomAlert(`Security updated for ${selectedUserName2}`);
-				/*	if (messageDiv) {
-						messageDiv.remove();
-					}
-					const newMessageDiv = document.createElement('div');
-					newMessageDiv.id = 'updateMessage';
-					newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;
-					newMessageDiv.style.fontSize = "20px";
-					newMessageDiv.style.fontWeight = "bold";
-					this.parentNode.appendChild(newMessageDiv); */
+		    			showCustomAlert(`Security updated for ${selectedUserName2}`);				
 				} else {
 					console.log("updateUserDetails is NOT accessible");
 				}
 			});
 		} else {
 			console.log("submitButton element not found");
-		}
-		
+		}		
 		updateSubmitButtonVisibility();
 	}
 	fetchUsers(function(users) {
