@@ -656,21 +656,21 @@ function securityUpdate2() {
 	function showCustomAlert(message) {
 	  // Create the overlay div
 	  const overlay = document.createElement('div');
-	  
+	
 	  // Create the alert box
 	  const alertBox = document.createElement('div');
-	  
+	
 	  // Create the close button
 	  const closeButton = document.createElement('span');
 	  closeButton.innerHTML = '&times;';
 	  closeButton.addEventListener('click', function() {
 	    document.body.removeChild(overlay);
 	  });
-	  
+	
 	  // Create the message paragraph
 	  const messageParagraph = document.createElement('p');
 	  messageParagraph.textContent = message;
-	  
+	
 	  // Append everything
 	  alertBox.appendChild(closeButton);
 	  alertBox.appendChild(messageParagraph);
@@ -713,7 +713,8 @@ function securityUpdate2() {
 	
 	  // Adjust the alert box width dynamically
 	  const messageWidth = messageParagraph.offsetWidth;
-	  alertBox.style.width = `${messageWidth + 40}px`;  // added 40px to account for extra padding and safety
+	  const finalWidth = Math.max(messageWidth + 40, 400); // Ensure a minimum width of 400px
+	  alertBox.style.width = `${finalWidth}px`;
 	}
 
 	
