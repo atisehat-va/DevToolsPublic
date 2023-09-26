@@ -606,7 +606,7 @@ function securityUpdate2() {
 	
 	//loadingTest	
 	// Function to show loading dialog
-	function showLoadingDialog() {
+	function showLoadingDialog(message) {
 	  // Create overlay
 	  const overlay = document.createElement('div');
 	  overlay.className = 'overlay';
@@ -625,8 +625,9 @@ function securityUpdate2() {
 	
 	  // Create the loading message
 	  const loadingMessage = document.createElement('span');
-	  loadingMessage.textContent = 'Loading...';
+	  loadingMessage.textContent = message || 'Loading...';
 	  loadingMessage.style.fontSize = '24px';
+	  loadingMessage.className = 'loading-text';
 	
 	  // Append spinner and loading message to container
 	  container.appendChild(spinner);
@@ -641,7 +642,7 @@ function securityUpdate2() {
 	  // Append overlay to body
 	  document.body.appendChild(overlay);
 	
-	  // CSS for overlay, loading box and spinner
+	  // CSS for overlay, loading box, and spinner
 	  const style = document.createElement('style');
 	  style.innerHTML = `
 	    .overlay {
@@ -658,10 +659,12 @@ function securityUpdate2() {
 	    }
 	    .loading-box {
 	      width: 30%;
+	      max-width: 500px;
 	      background-color: white;
 	      padding: 20px;
 	      border-radius: 10px;
 	      text-align: center;
+	      overflow: hidden;
 	    }
 	    .spinner-text-container {
 	      display: flex;
@@ -676,6 +679,12 @@ function securityUpdate2() {
 	      border-left-color: #000;
 	      animation: spin 1s infinite linear;
 	      margin-right: 10px;
+	    }
+	    .loading-text {
+	      white-space: nowrap;
+	      overflow: hidden;
+	      text-overflow: ellipsis;
+	      max-width: calc(100% - 50px);
 	    }
 	    @keyframes spin {
 	      0% { transform: rotate(0deg); }
