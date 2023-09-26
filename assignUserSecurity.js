@@ -551,7 +551,9 @@ function securityUpdate2() {
 	        businessUnitRadioSelected = null;					    			    				            
 	        // Remove message and show update
 	        removeElementById('updateMessage');
-	        createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserFullName}`, 'updateMessage');								    
+		closeLoadingDialog();
+		showCustomAlert(`Security updated for ${selectedUserFullName}`);		
+	        //createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserFullName}`, 'updateMessage');								    
 	    } else {
 	        console.log("updateUserDetails is NOT accessible");
 	    }
