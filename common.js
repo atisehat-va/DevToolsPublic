@@ -32,7 +32,7 @@ function makePopupMovable(newContainer) {
 	}
 }
 
-//LoadingDialog	
+//LoadingDialog
 	function showLoadingDialog(message) {
 	  // Create overlay
 	  const overlay = document.createElement('div');
