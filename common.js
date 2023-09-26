@@ -53,7 +53,6 @@ function makePopupMovable(newContainer) {
 	  // Create the loading message
 	  const loadingMessage = document.createElement('span');
 	  loadingMessage.textContent = message || 'Loading...';
-	  loadingMessage.style.fontSize = '16px';
 	  loadingMessage.className = 'loading-text';
 	
 	  // Append spinner and loading message to container
@@ -68,6 +67,12 @@ function makePopupMovable(newContainer) {
 	
 	  // Append overlay to body
 	  document.body.appendChild(overlay);
+	
+	  // Dynamic width calculation
+	  const padding = 20;
+	  const spinnerWidth = spinner.offsetWidth;
+	  const textWidth = loadingMessage.offsetWidth;
+	  loadingBox.style.width = `${spinnerWidth + textWidth + padding}px`;
 	
 	  // CSS for overlay, loading box, and spinner
 	  const style = document.createElement('style');
