@@ -65,7 +65,7 @@ async function changeBusinessUnit(selectedUserId, selectedBusinessUnitId) {
 }
 
 async function disassociateUserFromRoles(selectedUserId, clientUrl) {
-  const rolesUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association`;
+  const rolesUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/systemuserroles_association`;
   const response = await fetch(rolesUrl, {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
   });
@@ -77,7 +77,7 @@ async function disassociateUserFromRoles(selectedUserId, clientUrl) {
   const results = await response.json();
     
   await Promise.all(results.value.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${result.roleid})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.2/roles(${result.roleid})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
@@ -85,7 +85,7 @@ async function disassociateUserFromRoles(selectedUserId, clientUrl) {
 // Disassociate user from specific roles
 async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds, clientUrl) {
   await Promise.all(selectedRoleIds.map(async (roleId) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.0/roles(${roleId})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.2/roles(${roleId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
@@ -93,14 +93,14 @@ async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds
 // Disassociate user from specific teams
 async function disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds, clientUrl) {
   await Promise.all(selectedTeamIds.map(async (teamId) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${teamId})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.2/teams(${teamId})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 //EndNewCode
 
 async function disassociateUserFromTeams(selectedUserId, clientUrl) {
-  const teamsUrl = `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})/teammembership_association`;
+  const teamsUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/teammembership_association`;
   const response = await fetch(teamsUrl, {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
   });
@@ -112,15 +112,15 @@ async function disassociateUserFromTeams(selectedUserId, clientUrl) {
   const results = await response.json();
   
   await Promise.all(results.value.map(async (result) => {
-    const disassociateUrl = `${clientUrl}/api/data/v9.0/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`;
+    const disassociateUrl = `${clientUrl}/api/data/v9.2/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
 
 async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
-  const associateTeamUrl = `${clientUrl}/api/data/v9.0/teams(${selectedTeamIds})/teammembership_association/$ref`;
+  const associateTeamUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})/teammembership_association/$ref`;
   const associateTeamData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`
+    "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
   };
   await fetch(associateTeamUrl, {
     method: "POST",
@@ -130,9 +130,9 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
 }
 
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
-  const associateRoleUrl = `${clientUrl}/api/data/v9.0/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
+  const associateRoleUrl = `${clientUrl}/api/data/v9.2/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
   const associateRoleData = {
-    "@odata.id": `${clientUrl}/api/data/v9.0/systemusers(${selectedUserId})`
+    "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
   };
   await fetch(associateRoleUrl, {
     method: "POST",
