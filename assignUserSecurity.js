@@ -599,7 +599,7 @@ function securityUpdate2() {
 		    }
 	     } else {
 		initSubmitButton();
-		showLoadingDialog();
+		showLoadingDialog("Your custom long message goes here...");
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	}
