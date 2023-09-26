@@ -673,7 +673,6 @@ function securityUpdate2() {
 	        position: relative;
 	        margin: 15% auto;
 	        padding: 20px;
-	        width: 30%;
 	        background-color: #fff;
 	        text-align: center;
 	        border-radius: 10px;
@@ -698,6 +697,12 @@ function securityUpdate2() {
 	
 	  // Append the overlay to the body
 	  document.body.appendChild(overlay);
+	
+	  // Get the width of the message paragraph and set the width of the alert box
+	  const messageParagraph = document.querySelector('.message-paragraph');
+	  const alertBox = document.querySelector('.alert-box');
+	  const messageWidth = messageParagraph.offsetWidth;
+	  alertBox.style.width = `${messageWidth + 20}px`;
 	
 	  // Add click event for the close button
 	  document.querySelector('.close-button').addEventListener('click', function() {
