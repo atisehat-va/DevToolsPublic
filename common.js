@@ -32,8 +32,7 @@ function makePopupMovable(newContainer) {
 	}
 }
 
-//LoadingDialog
-	// Function to show loading dialog
+//LoadingDialog	
 	function showLoadingDialog(message) {
 	  // Create overlay
 	  const overlay = document.createElement('div');
@@ -73,51 +72,12 @@ function makePopupMovable(newContainer) {
 	  // CSS for overlay, loading box, and spinner
 	  const style = document.createElement('style');
 	  style.innerHTML = `
-	    .overlay {
-	      position: fixed;
-	      top: 0;
-	      left: 0;
-	      width: 100%;
-	      height: 100%;
-	      background-color: rgba(0,0,0,0.7);
-	      z-index: 9999;
-	      display: flex;
-	      align-items: center;
-	      justify-content: center;
-	    }
-	    .loading-box {
-	      width: 30%;
-	      max-width: 500px;
-	      background-color: white;
-	      padding: 20px;
-	      border-radius: 10px;
-	      text-align: center;
-	      overflow: hidden;
-	    }
-	    .spinner-text-container {
-	      display: flex;
-	      align-items: center;
-	      justify-content: center;
-	    }
-	    .spinner {
-	      border: 4px solid rgba(0, 0, 0, 0.1);
-	      width: 36px;
-	      height: 36px;
-	      border-radius: 50%;
-	      border-left-color: #000;
-	      animation: spin 1s infinite linear;
-	      margin-right: 10px;
-	    }
-	    .loading-text {
-	      white-space: nowrap;
-	      overflow: hidden;
-	      text-overflow: ellipsis;
-	      max-width: calc(100% - 50px);
-	    }
-	    @keyframes spin {
-	      0% { transform: rotate(0deg); }
-	      100% { transform: rotate(360deg); }
-	    }
+	    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+	    .loading-box { width: 30%; max-width: 500px; background-color: white; padding: 20px; border-radius: 10px; text-align: center; overflow: hidden; }
+	    .spinner-text-container { display: flex; align-items: center; justify-content: center; }
+	    .spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #000; animation: spin 1s infinite linear; margin-right: 10px; }
+	    .loading-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100% - 50px); }
+	    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 	  `;
 	  document.head.appendChild(style);
 	
