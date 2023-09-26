@@ -599,9 +599,82 @@ function securityUpdate2() {
 		    }
 	     } else {
 		initSubmitButton();
+		showLoadingDialog();
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	}
+	//loadingTest
+	// Function to show loading dialog
+	function showLoadingDialog() {
+	  // Create overlay
+	  const overlay = document.createElement('div');
+	  overlay.className = 'overlay';
+	
+	  // Create loading dialog box
+	  const loadingBox = document.createElement('div');
+	  loadingBox.className = 'loading-box';
+	
+	  // Create spinner
+	  const spinner = document.createElement('div');
+	  spinner.className = 'spinner';
+	
+	  // Create the loading message
+	  const loadingMessage = document.createElement('p');
+	  loadingMessage.textContent = 'Loading...';
+	  loadingMessage.style.fontSize = '24px';
+	
+	  // Append spinner and loading message to loading box
+	  loadingBox.appendChild(spinner);
+	  loadingBox.appendChild(loadingMessage);
+	
+	  // Append loading box to overlay
+	  overlay.appendChild(loadingBox);
+	
+	  // Append overlay to body
+	  document.body.appendChild(overlay);
+	
+	  // CSS for overlay, loading box and spinner
+	  const style = document.createElement('style');
+	  style.innerHTML = `
+	    .overlay {
+	      position: fixed;
+	      top: 0;
+	      left: 0;
+	      width: 100%;
+	      height: 100%;
+	      background-color: rgba(0,0,0,0.7);
+	      z-index: 9999;
+	      display: flex;
+	      align-items: center;
+	      justify-content: center;
+	    }
+	    .loading-box {
+	      background-color: white;
+	      padding: 20px;
+	      border-radius: 10px;
+	      text-align: center;
+	    }
+	    .spinner {
+	      border: 4px solid rgba(0, 0, 0, 0.1);
+	      width: 36px;
+	      height: 36px;
+	      border-radius: 50%;
+	      border-left-color: #000;
+	      animation: spin 1s infinite linear;
+	    }
+	    @keyframes spin {
+	      0% { transform: rotate(0deg); }
+	      100% { transform: rotate(360deg); }
+	    }
+	  `;
+	  document.head.appendChild(style);
+	}
+	
+	// Call the function to show the loading dialog
+	//showLoadingDialog();
+
+	//EndLoadingTest
+	
 	//custom alert
 	function showCustomAlert(message) {
 	  // Create the overlay div
