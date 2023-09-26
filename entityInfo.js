@@ -24,7 +24,7 @@ function generateFieldListHtml(fields) {
         .filter(field => field.AttributeType !== 'Virtual' && field.DisplayName && field.DisplayName.UserLocalizedLabel && field.DisplayName.UserLocalizedLabel.Label)
         .map((field, index) => `
             <div>${index + 1}. <strong>${field.DisplayName.UserLocalizedLabel.Label}</strong>
-                <div style="margin-left: 20px; margin-bottom: 10px;">
+                <div style="margin-left: 25px; margin-bottom: 10px;">
                     <div>Name: ${field.LogicalName}</div>
                     <div>Type: ${field.AttributeType}</div>
                 </div>
