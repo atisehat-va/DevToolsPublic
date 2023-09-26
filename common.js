@@ -31,13 +31,6 @@ function makePopupMovable(newContainer) {
 		document.onmousemove = null;
 	}
 }
-//closeLoadingDialog
-function closeLoadingDialog() {
-  const overlay = document.getElementById('loadingOverlay');
-  if (overlay) {
-    document.body.removeChild(overlay);
-  }
-}
 
 //LoadingDialog
 function showLoadingDialog(message) {
@@ -45,6 +38,7 @@ function showLoadingDialog(message) {
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   overlay.id = 'loadingOverlay';
+  document.body.appendChild(overlay);
 
   // Create loading dialog box
   const loadingBox = document.createElement('div');
@@ -96,5 +90,13 @@ function showLoadingDialog(message) {
 
   // Close the loading dialog after 20 seconds
   setTimeout(() => { closeLoadingDialog(); }, 20000);
+}
+
+//closeLoadingDialog
+function closeLoadingDialog() {
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) {
+    document.body.removeChild(overlay);
+  }
 }
 	
