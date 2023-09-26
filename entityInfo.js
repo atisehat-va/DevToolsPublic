@@ -2,7 +2,7 @@ async function fetchEntityFields() {
     const entityName = Xrm.Page.data.entity.getEntityName();
     const recordId = Xrm.Page.data.entity.getId();
     const cleanRecordId = recordId.replace(/[{}]/g, "").toLowerCase();
-    const url = `${Xrm.Page.context.getClientUrl()}/api/data/v9.1/EntityDefinitions(LogicalName='${entityName}')/Attributes?$select=LogicalName,AttributeType,DisplayName`;
+    const url = `${Xrm.Page.context.getClientUrl()}/api/data/v9.2/EntityDefinitions(LogicalName='${entityName}')/Attributes?$select=LogicalName,AttributeType,DisplayName`;
     try {
         const response = await fetch(url);
         if (response.ok) {
@@ -38,7 +38,7 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
         <br>
-        <div class="scroll-section" style="padding: 5px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
+        <div class="scroll-section" style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">
             ${fieldListHtml}
         </div>
     `;
