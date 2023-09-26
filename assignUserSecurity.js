@@ -607,7 +607,7 @@ function securityUpdate2() {
 	}
 	
 	//custom alerts
-	function showCustomAlert(message) {
+/*	function showCustomAlert(message) {
 	  // Create the overlay div
 	  const overlay = document.createElement('div');
 	  overlay.style.position = 'fixed';
@@ -651,7 +651,60 @@ function securityUpdate2() {
 	  alertBox.appendChild(messageParagraph);
 	  overlay.appendChild(alertBox);
 	  document.body.appendChild(overlay);
+	} */
+	
+	function showCustomAlert(message) {
+	  // Create the overlay div
+	  const overlay = document.createElement('div');
+	  overlay.id = 'custom-alert-overlay';
+	
+	  overlay.innerHTML = `
+	    <style>
+	      #custom-alert-overlay {
+	        position: fixed;
+	        left: 0;
+	        top: 0;
+	        width: 100%;
+	        height: 100%;
+	        background-color: rgba(0,0,0,0.5);
+	        z-index: 1000;
+	      }
+	      .alert-box {
+	        position: relative;
+	        margin: 15% auto;
+	        padding: 20px;
+	        width: 30%;
+	        background-color: #fff;
+	        text-align: center;
+	        border-radius: 10px;
+	        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	      }
+	      .close-button {
+	        position: absolute;
+	        top: 10px;
+	        right: 15px;
+	        font-size: 20px;
+	        cursor: pointer;
+	      }
+	      .message-paragraph {
+	        font-size: 16px;
+	      }
+	    </style>
+	    <div class="alert-box">
+	      <span class="close-button">&times;</span>
+	      <p class="message-paragraph">${message}</p>
+	    </div>
+	  `;
+	
+	  // Append the overlay to the body
+	  document.body.appendChild(overlay);
+	
+	  // Add click event for the close button
+	  document.querySelector('.close-button').addEventListener('click', function() {
+	    document.body.removeChild(overlay);
+	  });
 	}
+
 	
 	// Function to add radio buttons to a given section
 	function addRadioButtonsToSection(options) {	    
