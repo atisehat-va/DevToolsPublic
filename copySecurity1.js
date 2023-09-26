@@ -110,10 +110,10 @@ function securityUpdate() {
 
 	function selectUser(user, sectionPrefix) {		
 		try {
-			const messageDiv = document.getElementById('updateMessage');
+		/*	const messageDiv = document.getElementById('updateMessage');
 			if (messageDiv) {
 				messageDiv.style.display = 'none';
-			}
+			} */
 
 			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
 			const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
@@ -254,7 +254,7 @@ function securityUpdate() {
 			submitButton.addEventListener("click", async function() {
 				console.log("submitButton clicked.");
 
-				const existingMessageDiv = document.getElementById('updateMessage');
+			/*	const existingMessageDiv = document.getElementById('updateMessage');
 				if (existingMessageDiv) {
 					existingMessageDiv.remove();
 				}
@@ -265,12 +265,15 @@ function securityUpdate() {
 				messageDiv.innerHTML = `Your update is in progress, please be patient...`;
 				messageDiv.style.fontSize = "20px";
 				messageDiv.style.fontWeight = "bold";
-				this.parentNode.appendChild(messageDiv);
+				this.parentNode.appendChild(messageDiv); */
+				showLoadingDialog("Your update is in progress, please be patient...");
 				const actionType = "Change BUTR"; //BUTR = Business Unit, Teams, Roles
 				if (typeof updateUserDetails === "function") {
 					await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 
 					console.log("updateUserDetails function called.");
-					if (messageDiv) {
+					closeLoadingDialog();
+		    			showCustomAlert(`Security updated for ${selectedUserName2}`);
+				/*	if (messageDiv) {
 						messageDiv.remove();
 					}
 					const newMessageDiv = document.createElement('div');
@@ -278,7 +281,7 @@ function securityUpdate() {
 					newMessageDiv.innerHTML = `<span>Security updated for ${selectedUserName2}</span>`;
 					newMessageDiv.style.fontSize = "20px";
 					newMessageDiv.style.fontWeight = "bold";
-					this.parentNode.appendChild(newMessageDiv);
+					this.parentNode.appendChild(newMessageDiv); */
 				} else {
 					console.log("updateUserDetails is NOT accessible");
 				}
