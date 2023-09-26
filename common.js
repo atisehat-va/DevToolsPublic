@@ -99,4 +99,54 @@ function closeLoadingDialog() {
     document.body.removeChild(overlay);
   }
 }
+
+//AlertDialogBox
+function showCustomAlert(message) {
+  // Create the overlay div
+  const overlay = document.createElement('div');
+
+  // Create the alert box
+  const alertBox = document.createElement('div');
+
+  // Create the close button
+  const closeButton = document.createElement('span');
+  closeButton.innerHTML = '&times;';
+  closeButton.addEventListener('click', function() {
+    document.body.removeChild(overlay);
+  });
+
+  // Create the message paragraph
+  const messageParagraph = document.createElement('p');
+  messageParagraph.textContent = message;
+
+  // Append everything
+  alertBox.appendChild(closeButton);
+  alertBox.appendChild(messageParagraph);
+  overlay.appendChild(alertBox);
+  document.body.appendChild(overlay);
+
+  // Create a style element, and set its innerHTML
+  const styleElement = document.createElement('style');
+  styleElement.innerHTML = `
+    #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+    #alertBox {	position: relative; margin: 15% auto; padding: 20px; background-color: #fff; text-align: center; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    #closeButton { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; }
+    #messageParagraph { font-size: 16px; display: inline-block; }
+  `;
+	
+  // Append the style element to the overlay or head
+  overlay.appendChild(styleElement);
+
+  // Set IDs for easier CSS targeting
+  overlay.id = 'overlay';
+  alertBox.id = 'alertBox';
+  closeButton.id = 'closeButton';
+  messageParagraph.id = 'messageParagraph';
+
+  // Adjust the alert box width dynamically
+  const messageWidth = messageParagraph.offsetWidth;
+  const finalWidth = Math.max(messageWidth + 40, 400); // Ensure a minimum width of 400px
+  alertBox.style.width = `${finalWidth}px`;
+}
+
 	
