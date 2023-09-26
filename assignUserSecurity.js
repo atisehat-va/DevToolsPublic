@@ -554,6 +554,7 @@ function securityUpdate2() {
 			    console.log('No update needed on Teams');
 			}
 		    }
+		    rolesListUser.innerHTML = '';
 		    closeLoadingDialog();
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
 	     } else {
