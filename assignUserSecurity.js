@@ -508,10 +508,7 @@ function securityUpdate2() {
 	        rolesCheckedValues = [];
 	        teamsRadioSelected = null;
 	        rolesRadioSelected = null;
-	        businessUnitRadioSelected = null;
-		    
-		closeLoadingDialog();
-		showCustomAlert(`Security updated for ${selectedUserFullName}`);			        
+	        businessUnitRadioSelected = null;				        
 	    } else {
 	        console.log("updateUserDetails is NOT accessible");
 	    }
@@ -557,8 +554,10 @@ function securityUpdate2() {
 			    console.log('No update needed on Teams');
 			}
 		    }
+		    closeLoadingDialog();
+		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
 	     } else {
-		initSubmitButton();		
+		//initSubmitButton();		
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	}
