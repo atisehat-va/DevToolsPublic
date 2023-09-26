@@ -554,8 +554,8 @@ function securityUpdate2() {
 			    console.log('No update needed on Teams');
 			}
 		    }
-		    document.getElementById('section3').querySelector('ul').innerHTML = '';
-		    document.getElementById('section4').querySelector('ul').innerHTML = '';
+		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
+		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
 		    closeLoadingDialog();
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
 	     } else {
