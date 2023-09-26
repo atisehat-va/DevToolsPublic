@@ -95,6 +95,6 @@ function showLoadingDialog(message) {
   document.head.appendChild(style);
 
   // Close the loading dialog after 20 seconds
-  setTimeout(() => { document.body.removeChild(overlay); }, 20000);
+  setTimeout(() => { closeLoadingDialog(); }, 20000);
 }
 	
