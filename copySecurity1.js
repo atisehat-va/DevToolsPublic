@@ -7,11 +7,6 @@ function securityUpdate() {
 	let selectedTeamIds = []; 
 	let selectedRoleIds = [];	
 	
-	
-	function generateSecurityPopupHtml() {
-	return 
-	}
-
 	function createAppendSecurityPopup() {		
 		var newContainer = document.createElement('div');		
 		newContainer.className = 'commonPopup';		
