@@ -38,7 +38,7 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
         <br>
-        <div class="scroll-section" style="columns: 2; -webkit-columns: 2; -moz-columns: 2;">
+        <div class="scroll-section" style="padding-left: 20px; columns: 2; -webkit-columns: 2; -moz-columns: 2;">
             ${fieldListHtml}
         </div>
     `;
