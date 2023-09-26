@@ -384,7 +384,7 @@ function securityUpdate2() {
 			
 			if (sectionPrefix === '1') {
 			    // Fetch roles specific to the user and display them under section4
-			    const rolesListUser = document.getElementById('section4').querySelector('ul');
+			    let rolesListUser = document.getElementById('section4').querySelector('ul');
 			    rolesListUser.innerHTML = '';
 			
 			    fetchRolesForUser(user.systemuserid, function(roles) {
