@@ -31,7 +31,7 @@
 .user { cursor: pointer; padding: 3px; font-size: 14px; transition: background-color 0.3s; }        
 .user:hover { background-color: #f0f0f0; }    
 #sectionsRow { white-space: nowrap; } 		
-#submitButton { display: none; margin: auto; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }
+#submitButton { display: none; margin-top: 3%; margin-left: 37%; padding: 10px 20px; font-size: 16px; width: 250px; background-color: #002050; color: white; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }
 #submitButton:hover { background-color: #103e89; }
 
 /* AssignSecurity */
