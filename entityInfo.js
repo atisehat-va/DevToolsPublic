@@ -40,7 +40,8 @@ function generateFieldListHtml(fields) {
 
 function generatePopupHtml(entityName, cleanRecordId, fieldListHtml, pluralName) {
      return `
-        <h2 style="text-align: left;">Entity: ${entityName} (Plural Name: ${pluralName})</h2>
+        <h2 style="text-align: left;">Entity Name: ${entityName}</h2>
+	<h2 style="text-align: left;">Plural Name: ${pluralName}</h2>
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
         <br>
