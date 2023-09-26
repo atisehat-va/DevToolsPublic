@@ -59,7 +59,7 @@ function appendPopupToBody(html, clearPrevious = false) {
 	var newContainer = document.createElement('div');	  	
 	newContainer.className = 'commonPopup';		
 	newContainer.innerHTML = `
-	    <div class="commonPopup-header">
+	    <div class="commonPopup-header" style="user-select: none;">
                 <button class="commonback-button" id="commonback-button">Back</button>
      		Entity & Fields Info
             </div>   
@@ -74,5 +74,6 @@ function appendPopupToBody(html, clearPrevious = false) {
 	    newContainer.remove();
 	    openPopup();  
 	});
-	makePopupMovable(newContainer);
+	//makePopupMovable(newContainer);
+	makePopupMovable(newContainer.querySelector('.commonPopup-header'));
 } 
