@@ -384,7 +384,7 @@ function securityUpdate2() {
 			
 			if (sectionPrefix === '1') {
 			    // Fetch roles specific to the user and display them under section4
-			    let rolesListUser = document.getElementById('section4').querySelector('ul');
+			    const rolesListUser = document.getElementById('section4').querySelector('ul');
 			    rolesListUser.innerHTML = '';
 			
 			    fetchRolesForUser(user.systemuserid, function(roles) {
@@ -554,7 +554,7 @@ function securityUpdate2() {
 			    console.log('No update needed on Teams');
 			}
 		    }
-		    rolesListUser.innerHTML = '';
+		    document.getElementById('section4').querySelector('ul').innerHTML = '';
 		    closeLoadingDialog();
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
 	     } else {
