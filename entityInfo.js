@@ -3,15 +3,20 @@ async function fetchEntityFields() {
     const recordId = Xrm.Page.data.entity.getId();
     const cleanRecordId = recordId.replace(/[{}]/g, "").toLowerCase();
     const url = `${Xrm.Page.context.getClientUrl()}/api/data/v9.2/EntityDefinitions(LogicalName='${entityName}')/Attributes?$select=LogicalName,AttributeType,DisplayName`;
+    const urlPlural = `${Xrm.Page.context.getClientUrl()}/api/data/v9.2/EntityDefinitions(LogicalName='${entityName}')?$select=LogicalCollectionName`; 
     try {
         const response = await fetch(url);
-        if (response.ok) {
+	const responsePlural = await fetch(urlPlural);
+        if (response.ok && responsePlural.ok) {
             const results = await response.json();
+            const pluralResults = await responsePlural.json();
+            const pluralName = pluralResults.LogicalCollectionName;
             const fieldListHtml = generateFieldListHtml(results.value);
-            const popupHtml = generatePopupHtml(entityName, cleanRecordId, fieldListHtml);
+            const popupHtml = generatePopupHtml(entityName, cleanRecordId, fieldListHtml, pluralName);
             appendPopupToBody(popupHtml);
-        } else {            
-            alert(`Error: ${response.statusText}`);
+        } else {
+            const errorText = response.statusText || responsePlural.statusText;
+            alert(`Error: ${errorText}`);
         }
     } catch (error) {
         console.log(`Error: ${error}`);
@@ -32,9 +37,10 @@ function generateFieldListHtml(fields) {
         `)
         .join('');
 }
-function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
-     return `        
-        <h2 style="text-align: left;">Entity: ${entityName}</h2>
+
+function generatePopupHtml(entityName, cleanRecordId, fieldListHtml, pluralName) {
+     return `
+        <h2 style="text-align: left;">Entity: ${entityName} (Plural Name: ${pluralName})</h2>
         <h2 style="text-align: left;">Record ID: ${cleanRecordId}</h2>
         <h2 style="text-align: left;">Fields:</h2>
         <br>
@@ -43,6 +49,7 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml) {
         </div>
     `;
 }
+
 function appendPopupToBody(html, clearPrevious = false) {
 	if (clearPrevious) {
         	const existingPopups = document.querySelectorAll('.commonPopup');
