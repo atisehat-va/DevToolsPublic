@@ -554,6 +554,7 @@ function securityUpdate2() {
 			    console.log('No update needed on Teams');
 			}
 		    }
+		    document.getElementById('section' + (3 + (sectionPrefix - 1) * 2)).querySelector('ul').innerHTML = '';
 		    document.getElementById('section4').querySelector('ul').innerHTML = '';
 		    closeLoadingDialog();
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
