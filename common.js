@@ -53,7 +53,7 @@ function makePopupMovable(newContainer) {
 	  // Create the loading message
 	  const loadingMessage = document.createElement('span');
 	  loadingMessage.textContent = message || 'Loading...';
-	  loadingMessage.style.fontSize = '24px';
+	  loadingMessage.style.fontSize = '16px';
 	  loadingMessage.className = 'loading-text';
 	
 	  // Append spinner and loading message to container
@@ -75,7 +75,7 @@ function makePopupMovable(newContainer) {
 	    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 9999; display: flex; align-items: center; justify-content: center; }
 	    .loading-box { width: 30%; max-width: 500px; background-color: white; padding: 20px; border-radius: 10px; text-align: center; overflow: hidden; }
 	    .spinner-text-container { display: flex; align-items: center; justify-content: center; }
-	    .spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #000; animation: spin 1s infinite linear; margin-right: 10px; }
+	    .spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 25px; height: 25px; border-radius: 50%; border-left-color: #000; animation: spin 1s infinite linear; margin-right: 10px; }
 	    .loading-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100% - 50px); }
 	    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 	  `;
