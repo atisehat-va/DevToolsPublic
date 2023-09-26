@@ -6,7 +6,8 @@ function securityUpdate() {
 	let selectedBusinessUnitId = null; 
 	let selectedTeamIds = []; 
 	let selectedRoleIds = [];	
-	
+
+	/*
 	function fetchUsers(callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', '?$select=systemuserid,fullname,_businessunitid_value&$filter=(isdisabled eq false)').then(callback);
 	}
@@ -18,7 +19,8 @@ function securityUpdate() {
 	}
 	function fetchBusinessUnitName(userId, callback) {
 		Xrm.WebApi.retrieveMultipleRecords('systemuser', `?$select=fullname&$expand=businessunitid($select=name)&$filter=systemuserid eq ${userId}`).then(callback);
-	}
+	} */
+	
 	function generateSecurityPopupHtml() {
 	return 
 	}
