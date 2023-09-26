@@ -492,7 +492,7 @@ function securityUpdate2() {
 	    return element;
 	}
 	
-	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
+/*	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
 	  // Create the container div
 	  const containerDiv = document.createElement('div');
 	  containerDiv.className = 'message-container';
@@ -516,29 +516,28 @@ function securityUpdate2() {
 	  parentNode.appendChild(containerDiv);
 	  
 	  return containerDiv; 
-	}
+	} */
 	
 	// Helper function to toggle element visibility
 	function toggleElementDisplay(element, state = 'none') {
 	    if (element) element.style.display = state;
 	}
-	
+	/*
 	// Helper function to remove element by ID
 	function removeElementById(id) {
 	    const existingElement = document.getElementById(id);
 	    if (existingElement) existingElement.remove();
-	}
+	} */
 
 	// This function handles the logic on submit button click
 	async function handleSubmitButtonClick(event) {
 	    console.log("submitButton clicked.");
 	
 	    // Remove existing message if it exists
-	    removeElementById('updateMessage');
+	    //removeElementById('updateMessage');
 	
 	    // Hide submit button and show message
-	    toggleElementDisplay(event.target, 'none');
-	    //const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
+	    //toggleElementDisplay(event.target, 'none');	    
 	
 	    if (typeof updateUserDetails === "function") {					    
 	        toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
@@ -550,10 +549,9 @@ function securityUpdate2() {
 	        rolesRadioSelected = null;
 	        businessUnitRadioSelected = null;					    			    				            
 	        // Remove message and show update
-	        removeElementById('updateMessage');
+	       //removeElementById('updateMessage');
 		closeLoadingDialog();
-		showCustomAlert(`Security updated for ${selectedUserFullName}`);		
-	        //createAndAppendMessageDiv(event.target.parentNode, `Security updated for ${selectedUserFullName}`, 'updateMessage');								    
+		showCustomAlert(`Security updated for ${selectedUserFullName}`);			        
 	    } else {
 	        console.log("updateUserDetails is NOT accessible");
 	    }
@@ -570,8 +568,7 @@ function securityUpdate2() {
 	
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if ((businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0) {
-		    showLoadingDialog("Your update is in progress, please be patient...");
-		    //const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
+		    showLoadingDialog("Your update is in progress, please be patient...");		    
 		    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
 		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
 		        console.log('Business unit selected.');
