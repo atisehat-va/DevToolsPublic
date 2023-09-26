@@ -568,7 +568,8 @@ function securityUpdate2() {
 	
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if ((businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0) {
-		    const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
+		    showLoadingDialog("Your update is in progress, please be patient...");
+		    //const messageDiv = createAndAppendMessageDiv(event.target.parentNode, 'Your update is in progress, please be patient...', 'updateMessage');
 		    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
 		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
 		        console.log('Business unit selected.');
@@ -598,8 +599,7 @@ function securityUpdate2() {
 			}
 		    }
 	     } else {
-		initSubmitButton();
-		showLoadingDialog("Your custom long message goes here...");
+		initSubmitButton();		
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	}
