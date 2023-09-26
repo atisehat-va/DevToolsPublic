@@ -603,7 +603,8 @@ function securityUpdate2() {
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	}
-	//loadingTest
+	
+	//loadingTest	
 	// Function to show loading dialog
 	function showLoadingDialog() {
 	  // Create overlay
@@ -668,6 +669,11 @@ function securityUpdate2() {
 	    }
 	  `;
 	  document.head.appendChild(style);
+	
+	  // Close the loading dialog after 20 seconds
+	  setTimeout(() => {
+	    document.body.removeChild(overlay);
+	  }, 20000);
 	}
 	
 	// Call the function to show the loading dialog
