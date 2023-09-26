@@ -492,53 +492,14 @@ function securityUpdate2() {
 	    return element;
 	}
 	
-/*	function createAndAppendMessageDiv(parentNode, message, id, fontSize = "20px", fontWeight = "bold") {
-	  // Create the container div
-	  const containerDiv = document.createElement('div');
-	  containerDiv.className = 'message-container';
-	  containerDiv.style.width = '100%';
-	  containerDiv.style.display = 'flex';
-	  containerDiv.style.justifyContent = 'center';
-	  containerDiv.style.alignItems = 'center';
-	
-	  // Create the message div
-	  const messageDiv = document.createElement('div');
-	  messageDiv.id = id;
-	  messageDiv.innerHTML = message;
-	  messageDiv.style.fontSize = fontSize;
-	  messageDiv.style.fontWeight = fontWeight;
-	  messageDiv.style.padding = "30px";
-	
-	  // Append the messageDiv to the container
-	  containerDiv.appendChild(messageDiv);
-	  
-	  // Append the container to the parentNode
-	  parentNode.appendChild(containerDiv);
-	  
-	  return containerDiv; 
-	} */
-	
 	// Helper function to toggle element visibility
 	function toggleElementDisplay(element, state = 'none') {
 	    if (element) element.style.display = state;
-	}
-	/*
-	// Helper function to remove element by ID
-	function removeElementById(id) {
-	    const existingElement = document.getElementById(id);
-	    if (existingElement) existingElement.remove();
-	} */
+	}	
 
 	// This function handles the logic on submit button click
 	async function handleSubmitButtonClick(event) {
-	    console.log("submitButton clicked.");
-	
-	    // Remove existing message if it exists
-	    //removeElementById('updateMessage');
-	
-	    // Hide submit button and show message
-	    //toggleElementDisplay(event.target, 'none');	    
-	
+	    console.log("submitButton clicked.");	
 	    if (typeof updateUserDetails === "function") {					    
 	        toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 	        await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);					    
@@ -547,9 +508,8 @@ function securityUpdate2() {
 	        rolesCheckedValues = [];
 	        teamsRadioSelected = null;
 	        rolesRadioSelected = null;
-	        businessUnitRadioSelected = null;					    			    				            
-	        // Remove message and show update
-	       //removeElementById('updateMessage');
+	        businessUnitRadioSelected = null;
+		    
 		closeLoadingDialog();
 		showCustomAlert(`Security updated for ${selectedUserFullName}`);			        
 	    } else {
