@@ -604,7 +604,7 @@ function securityUpdate2() {
 	    }
 	}
 	
-	//custom alert
+	//custom alerts
 	function showCustomAlert(message) {
 	  // Create the overlay div
 	  const overlay = document.createElement('div');
