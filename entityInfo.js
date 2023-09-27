@@ -56,7 +56,7 @@ function appendPopupToBody(html, clearPrevious = false) {
         const existingPopups = document.querySelectorAll('.commonPopup');
         existingPopups.forEach(popup => popup.remove());
     }
-    
+
     var newContainer = document.createElement('div');      
     newContainer.className = 'commonPopup';     
     newContainer.innerHTML = `
@@ -76,8 +76,12 @@ function appendPopupToBody(html, clearPrevious = false) {
         openPopup();
     });
 
-    // Attach drag behavior to header but pass the whole newContainer for movement
-    newContainer.querySelector('.commonPopup-header').addEventListener('mousedown', function(event) {
-        makePopupMovable(newContainer, event);
+    const headerElement = newContainer.querySelector('.commonPopup-header');
+    headerElement.addEventListener('mousedown', function(event) {
+        // Check if the mousedown is within the header bounds
+        const rect = headerElement.getBoundingClientRect();
+        if (event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom) {
+            makePopupMovable(newContainer, event);
+        }
     });
 }
