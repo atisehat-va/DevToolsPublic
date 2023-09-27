@@ -5,7 +5,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     if (iframeUrl) {
         html += `
             <div class="iframe-container">
-                <iframe style="position:relative; top:-85px;" src="${iframeUrl}" width="740" height="640"></iframe>
+                <iframe style="position:relative; top:-85px;" src="${iframeUrl}" width="960" height="860"></iframe>
             </div>
         `;
     }
@@ -14,7 +14,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
             <button class="commonback-button" id="commonback-button">Back</button>
             User Provision Info
         </div>        
-        <div class="dirtyFieldsPopup-content">
+        <div class="userProvision-content">
             ${html}
         </div>
     `;    
