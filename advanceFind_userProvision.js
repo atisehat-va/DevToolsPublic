@@ -32,7 +32,7 @@ function openUrl(pageType) {
         const windowName = "Advanced Find Classic " + timestamp;
         const advancedFindPath = '/main.aspx?pagetype=advancedfind';
         const advancedFindUrl = clientUrl + advancedFindPath;
-        const windowOptions = "height=860,width=960,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
+        const windowOptions = "height=760,width=960,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
         window.open(advancedFindUrl, windowName, windowOptions);        
     } else if (pageType === "userProvision") {
         const entityName = "vhacrm_userprovision";
