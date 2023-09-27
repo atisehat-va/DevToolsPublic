@@ -111,7 +111,7 @@ function closeLoadingDialog() {
   }
 }
 
-//AlertDialogBox
+//AlertDialogBox 
 function showCustomAlert(message) {  
   const overlay = document.createElement('div');  
   const alertBox = document.createElement('div');  
