@@ -59,9 +59,9 @@ function openPopup() {
 	 
 	  var popupHtml = `  
 	    <style>       
-	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; border-radius: 10px; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2); padding: 20px; transform: translate(-50%, -50%); max-height: 80vh; overflow-y: auto; width: 420px; }	
-	 	.commonPopup-header1 { background-color: #002050; color: white; padding: 10px; border-radius: 8px 8px 0 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
-		.button-container { width: 400px; }	
+	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; border-radius: 10px; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2); transform: translate(-50%, -50%); max-height: 80vh; overflow-y: auto; width: 420px; }
+	 	.commonPopup-header1 { background-color: #002050; color: white; padding: 10px 20px 0 0; border-radius: 10px 10px 0 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
+		.button-container { padding: 20px; width: 380px; }	
 		.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
 		.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
 		.button-row button { width: calc(50% - 5px); } 
