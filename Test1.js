@@ -71,9 +71,9 @@ function openPopup() {
 		.dropdown button { width: 100%; }
 		.button-row .full-width { width: 100%; }
 		.dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
-		.dropdown { position: relative; display: inline-flex; vertical-align: top; width: auto; }
-		.dropdown-content { display: none; position: absolute; top: 0; left: 100%; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
-		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }	
+		.dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
+		.dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 100%; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
+		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }		
 	    </style>
 	    <div class="popup">
      		<div class="commonPopup-header1">	            
