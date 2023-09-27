@@ -27,8 +27,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
 }
 
 // Function to open User Provision
-function openUrl(pageType) {
-    debugger;        
+function openUrl(pageType) {            
     var clientUrl = Xrm.Page.context.getClientUrl(); 
 
     if (pageType === "advanceFind") {       
