@@ -59,15 +59,15 @@ function appendPopupToBody(html, clearPrevious = false) {
     var newContainer = document.createElement('div');      
     newContainer.className = 'commonPopup';     
     newContainer.innerHTML = `
-        <div class="commonPopup-header" style="user-select: none;">
-            <button class="commonback-button" id="commonback-button">Back</button>
-            Entity & Fields Info
-        </div>   
-        <div class="entityInfoPopup-row">
-            <div class="commonSection content-section" id="section1">
-              ${html}
-            </div>
-        </div>
+       <div class="commonPopup-header" style="user-select: none;">
+           <button class="commonback-button" id="commonback-button">Back</button>
+           Entity & Fields Info
+       </div>   
+       <div class="entityInfoPopup-row">
+           <div class="commonSection content-section" id="section1">
+             ${html}
+           </div>
+       </div>
     `;
     document.body.appendChild(newContainer);
     document.getElementById('commonback-button').addEventListener('click', function() {
