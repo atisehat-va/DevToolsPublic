@@ -59,7 +59,7 @@ function openPopup() {
 	 
 	  var popupHtml = `  
 	    <style>       
-	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; padding: 40px; transform: translate(-50%, -50%); max-height: 80vh; overflow-y: auto; }	
+	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; border-radius: 10px; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2); padding: 20px; transform: translate(-50%, -50%); max-height: 80vh; overflow-y: auto; width: 420px; }	
 		.button-container { width: 400px; }	
 		.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
 		.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
