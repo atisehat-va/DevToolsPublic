@@ -14,7 +14,7 @@
 
 /* entityInfo */
 .content-section { text-align: left; height: 100%; width: 100%; }
-.entityInfoPopup-row { display: flex; height: 100%; }
+.entityInfoPopup-row { display: flex; height: 96%; }
 .scroll-section { height: 82%; overflow-y: auto; }
 
 /* copySecurity */
