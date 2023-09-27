@@ -72,6 +72,10 @@ function openPopup() {
 		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }	
 	    </style>
 	    <div class="popup">
+     		<div class="commonPopup-header">
+	   		<button class="commonback-button" id="commonback-button">Back</button>
+	   		Entity & Fields Info
+		</div>   
 	    	<div class="button-container">
 		  <div class="dropdown-row">
 		    <div class="dropdown">
