@@ -71,7 +71,7 @@ function openPopup() {
 		.dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
 		.dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
 		.dropdown-content { display: none; position: absolute; min-width: 100%; z-index: 1; }
-		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
+		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: center; border: none; width: 100%; }
   		.popup button.close-btn { margin-top: 10px; font-size: 15px; }
 	    </style>
 	    <div class="popup">
