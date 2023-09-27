@@ -56,7 +56,6 @@ function appendPopupToBody(html, clearPrevious = false) {
         const existingPopups = document.querySelectorAll('.commonPopup');
         existingPopups.forEach(popup => popup.remove());
     }
-
     var newContainer = document.createElement('div');      
     newContainer.className = 'commonPopup';     
     newContainer.innerHTML = `
@@ -86,7 +85,6 @@ function appendPopupToBody(html, clearPrevious = false) {
             makePopupMovable(newContainer, event);
         }
     });
-
     headerElement.addEventListener('mousemove', function(event) {
         if (!isDragging) {
             event.stopPropagation();
