@@ -50,46 +50,29 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml, pluralName)
         </div>
     `;
 }
-//new
+
 function appendPopupToBody(html, clearPrevious = false) {
     if (clearPrevious) {
-        const existingPopups = document.querySelectorAll('.commonPopup');
-        existingPopups.forEach(popup => popup.remove());
-    }
-    var newContainer = document.createElement('div');      
-    newContainer.className = 'commonPopup';     
-    newContainer.innerHTML = `
-       <div class="commonPopup-header" style="user-select: none;">
-           <button class="commonback-button" id="commonback-button">Back</button>
-           Entity & Fields Info
-       </div>   
-       <div class="entityInfoPopup-row">
-           <div class="commonSection content-section" id="section1">
-             ${html}
-           </div>
-       </div>
-    `;
+       const existingPopups = document.querySelectorAll('.commonPopup');
+       existingPopups.forEach(popup => popup.remove());
+    }    
+    var newContainer = document.createElement('div');	  	
+       newContainer.className = 'commonPopup';		
+       newContainer.innerHTML = `
+	<div class="commonPopup-header">
+	   <button class="commonback-button" id="commonback-button">Back</button>
+	   Entity & Fields Info
+	</div>   
+	<div class="entityInfoPopup-row">
+	   <div class="commonSection content-section" id="section1">
+	    ${html}
+	   </div>
+	</div>
+	`;
     document.body.appendChild(newContainer);
     document.getElementById('commonback-button').addEventListener('click', function() {
         newContainer.remove();
-        openPopup();
+	openPopup();  
     });
-    let isDragging = false;
-    const headerElement = newContainer.querySelector('.commonPopup-header');
-
-    headerElement.addEventListener('mousedown', function(event) {
-        const rect = headerElement.getBoundingClientRect();
-        if (event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom) {
-            isDragging = true;
-            makePopupMovable(newContainer, event);
-        }
-    });
-    headerElement.addEventListener('mousemove', function(event) {
-        if (!isDragging) {
-            event.stopPropagation();
-        }
-    }, true); 
-    document.addEventListener('mouseup', function() {
-        isDragging = false;
-    });
-}
+    makePopupMovable(newContainer);
+} 
