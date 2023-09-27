@@ -1,5 +1,5 @@
 function appendUserProvisionPopupToBody(html, iframeUrl = null) {
-    var newContainer = document.createElement('div');
+    const newContainer = document.createElement('div');
     newContainer.className = 'commonPopup';    
     if (iframeUrl) {
       html += `
@@ -26,18 +26,18 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
 }
 
 function openUrl(pageType) {    
-    var clientUrl = Xrm.Page.context.getClientUrl();
+    const clientUrl = Xrm.Page.context.getClientUrl();
     if (pageType === "advanceFind") {       
-        var timestamp = new Date().getTime();
-        var windowName = "Advanced Find Classic " + timestamp;
-        var advancedFindPath = '/main.aspx?pagetype=advancedfind';
-        var advancedFindUrl = clientUrl + advancedFindPath;
-        var windowOptions = "height=860,width=960,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
+        const timestamp = new Date().getTime();
+        const windowName = "Advanced Find Classic " + timestamp;
+        const advancedFindPath = '/main.aspx?pagetype=advancedfind';
+        const advancedFindUrl = clientUrl + advancedFindPath;
+        const windowOptions = "height=860,width=960,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
         window.open(advancedFindUrl, windowName, windowOptions);        
     } else if (pageType === "userProvision") {
-        var entityName = "vhacrm_userprovision";
-        var formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";    
-        var popupHtml = ` `;
+        const entityName = "vhacrm_userprovision";
+        const formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";    
+        const popupHtml = ` `;
         appendUserProvisionPopupToBody(popupHtml, formUrl); 
     }      
 }
