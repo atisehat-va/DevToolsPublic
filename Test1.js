@@ -60,6 +60,7 @@ function openPopup() {
 	  var popupHtml = `  
 	    <style>       
 	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; border-radius: 10px; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2); padding: 20px; transform: translate(-50%, -50%); max-height: 80vh; overflow-y: auto; width: 420px; }	
+	 	.commonPopup-header1 { background-color: #002050; color: white; padding: 10px; border-radius: 8px 8px 0 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
 		.button-container { width: 400px; }	
 		.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
 		.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
@@ -72,7 +73,7 @@ function openPopup() {
 		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }	
 	    </style>
 	    <div class="popup">
-     		<div class="commonPopup-header">	            
+     		<div class="commonPopup-header1">	            
 	            Entity & Fields Info
 	        </div> 
 	    	<div class="button-container">
