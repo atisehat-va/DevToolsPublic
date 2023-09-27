@@ -9,6 +9,7 @@
 
 /* ShowDirtyCSS */
 .dirtyFieldsPopup-content { padding: 15px; height: 158%; }
+.userProvision-content { height: 95%; }
 .scrollable-section { height: 52%; overflow-y: auto; }
 
 /* entityInfo */
