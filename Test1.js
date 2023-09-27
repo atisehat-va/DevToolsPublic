@@ -76,7 +76,7 @@ function openPopup() {
 	    </style>
 	    <div class="popup">
      		<div class="commonPopup-header">	            
-	            Entity & Fields Info
+	            Admin Plus
 	        </div> 
 	    	<div class="button-container">
 		  <div class="dropdown-row">
