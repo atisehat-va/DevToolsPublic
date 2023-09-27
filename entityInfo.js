@@ -65,7 +65,7 @@ function appendPopupToBody(html, clearPrevious = false) {
         </div>   
         <div class="entityInfoPopup-row">
             <div class="commonSection content-section" id="section1">
-                ${html}
+              ${html}
             </div>
         </div>
     `;
