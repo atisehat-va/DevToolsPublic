@@ -50,7 +50,7 @@ function generatePopupHtml(entityName, cleanRecordId, fieldListHtml, pluralName)
         </div>
     `;
 }
-
+//new
 function appendPopupToBody(html, clearPrevious = false) {
     if (clearPrevious) {
         const existingPopups = document.querySelectorAll('.commonPopup');
