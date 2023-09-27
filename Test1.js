@@ -59,7 +59,7 @@ function openPopup() {
 	 
 	  var popupHtml = `  
 	    <style>       
-	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; padding: 20px; transform: translate(-50%, -50%); }	
+	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; padding: 40px; transform: translate(-50%, -50%); max-height: 80vh; overflow-y: auto; }	
 		.button-container { width: 400px; }	
 		.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
 		.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
@@ -73,9 +73,9 @@ function openPopup() {
 	    </style>
 	    <div class="popup">
      		<div class="commonPopup-header">
-	   		<button class="commonback-button" id="commonback-button">Back</button>
-	   		Entity & Fields Info
-		</div>   
+	            <button class="commonback-button" id="commonback-button">Back</button>
+	            Entity & Fields Info
+	        </div> 
 	    	<div class="button-container">
 		  <div class="dropdown-row">
 		    <div class="dropdown">
