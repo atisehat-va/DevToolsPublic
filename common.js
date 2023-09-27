@@ -21,7 +21,7 @@ function fetchSecurityRoles(businessUnitId, callback) {
 	Xrm.WebApi.retrieveMultipleRecords('role', `?$select=roleid,name&$filter=_businessunitid_value eq ${businessUnitId}`).then(callback);
 }
 
-
+/*
 //Make window movable
 function makePopupMovable(newContainer) {
    console.log("MakePopupMovable");
@@ -54,7 +54,54 @@ function makePopupMovable(newContainer) {
    document.onmouseup = null;
    document.onmousemove = null;
   }
+} */
+//newMouseMovable
+//Make window movable
+function makePopupMovable(newContainer) {
+   console.log("MakePopupMovable");
+   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+   
+   // Get the .commonPopup-header element inside the container
+   var header = newContainer.querySelector('.commonPopup-header');
+   
+   if (!header) {
+       console.warn("Header element not found in the container");
+       return;
+   }
+   
+   header.onmousedown = function(e) {
+     if (e.target.tagName.toLowerCase() === "input") {			
+	return;
+     }
+     dragMouseDown(e);
+   };
+   
+   function dragMouseDown(e) {
+     e = e || window.event;
+     e.preventDefault();
+     pos3 = e.clientX;
+     pos4 = e.clientY;
+     document.onmouseup = closeDragElement;
+     document.onmousemove = elementDrag;
+   }
+   
+   function elementDrag(e) {
+     e = e || window.event;
+     e.preventDefault();
+     pos1 = pos3 - e.clientX;
+     pos2 = pos4 - e.clientY;
+     pos3 = e.clientX;
+     pos4 = e.clientY;
+     newContainer.style.top = (newContainer.offsetTop - pos2) + "px";
+     newContainer.style.left = (newContainer.offsetLeft - pos1) + "px";
+   }
+   
+   function closeDragElement() {
+     document.onmouseup = null;
+     document.onmousemove = null;
+   }
 }
+//EndMouseMovable
 
 //LoadingDialog
 function showLoadingDialog(message) {  
