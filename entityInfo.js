@@ -74,7 +74,6 @@ function appendPopupToBody(html, clearPrevious = false) {
         newContainer.remove();
         openPopup();
     });
-
     let isDragging = false;
     const headerElement = newContainer.querySelector('.commonPopup-header');
 
