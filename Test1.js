@@ -72,7 +72,7 @@ function openPopup() {
 		.dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
 		.dropdown-content { display: none; position: absolute; min-width: 100%; z-index: 1; }
 		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: left; border: none; width: 100%; }
-  		.popup button.close-btn { margin-top: 20px;  font-size: 18px; }
+  		.popup button.close-btn { margin-top: 10px; font-size: 15px; }
 	    </style>
 	    <div class="popup">
      		<div class="commonPopup-header">	            
