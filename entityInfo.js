@@ -91,8 +91,7 @@ function appendPopupToBody(html, clearPrevious = false) {
         if (!isDragging) {
             event.stopPropagation();
         }
-    }, true);  // Using capture phase to ensure this runs before makePopupMovable's handlers
-
+    }, true); 
     document.addEventListener('mouseup', function() {
         isDragging = false;
     });
