@@ -76,12 +76,24 @@ function appendPopupToBody(html, clearPrevious = false) {
         openPopup();
     });
 
+    let isDragging = false;
     const headerElement = newContainer.querySelector('.commonPopup-header');
+
     headerElement.addEventListener('mousedown', function(event) {
-        // Check if the mousedown is within the header bounds
         const rect = headerElement.getBoundingClientRect();
         if (event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom) {
+            isDragging = true;
             makePopupMovable(newContainer, event);
         }
+    });
+
+    headerElement.addEventListener('mousemove', function(event) {
+        if (!isDragging) {
+            event.stopPropagation();
+        }
+    }, true);  // Using capture phase to ensure this runs before makePopupMovable's handlers
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
     });
 }
