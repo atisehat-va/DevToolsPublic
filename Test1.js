@@ -61,10 +61,13 @@ function openPopup() {
 	    <style>       
 	        .popup { position: fixed; left: 50%; top: 50%; background-color: #f9f9f9; border: 1px solid #888; border-radius: 10px; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2); transform: translate(-50%, -50%); max-height: 80vh; overflow-y: auto; width: 420px; }
 	 	.commonPopup-header1 { background-color: #002050; color: white; padding: 10px 0px 10 0; border-radius: 10px 10px 0 0; font-size: 18px; display: flex; justify-content: center; align-items: center; }
-		.button-container { padding: 20px; width: 380px; }	
-		.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; }
+		.button-container { padding: 20px; width: 380px; }
+  		.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #224877; background-image: linear-gradient(315deg, #224877 0%, #9B8271 74%); color: white; border: none; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+    		.popup button:hover { background-color: #3c6690; transform: translateY(-2px); box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25); }
+      		.popup button:active { transform: translateY(0); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+		/*.popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; background-color: #002050; color: white; border: none; } */
 		.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
-		.button-row button { width: calc(50% - 5px); } 
+		.button-row button { width: calc(50% - 5px); }
 		.dropdown button { width: 100%; }
 		.button-row .full-width { width: 100%; }
 		.dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
