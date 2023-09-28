@@ -45,3 +45,49 @@ function openUrl(pageType) {
     appendUserProvisionPopupToBody(popupHtml, formUrl); 
     }      
 }
+
+//test
+function calculateNewDateBasedOnHolidays(recordId) {
+    var initialDateField = "your_date_field_name";
+    var initialDate = new Date(Xrm.Page.getAttribute(initialDateField).getValue());
+
+    function getHolidays() {
+        return Xrm.WebApi.online.retrieveMultipleRecords("your_holiday_entity_name", "?$select=your_date_field_in_holiday_entity");
+    }
+
+    function isWeekend(date) {
+        var day = date.getUTCDay();
+        return day === 0 || day === 6;
+    }
+
+    function getDaysToAdd(recordId) {
+        return Xrm.WebApi.online.retrieveRecord("your_entity_name", recordId, "?$select=days_to_add_field_name");
+    }
+
+    return getDaysToAdd(recordId).then(
+        function(result) {
+            var daysToAdd = result.days_to_add_field_name;
+            return getHolidays().then(
+                function(results) {
+                    var holidays = results.entities.map(function(entity) {
+                        return new Date(entity.your_date_field_in_holiday_entity);
+                    });
+
+                    var currentDate = initialDate;
+                    var addedDays = 0;
+                    while (addedDays < daysToAdd) {
+                        currentDate.setDate(currentDate.getDate() + 1);
+                        if (isWeekend(currentDate) || holidays.some(h => h.toISOString().split("T")[0] === currentDate.toISOString().split("T")[0])) {
+                            continue;
+                        }
+                        addedDays++;
+                    }
+                    // Set the new date to the field
+                    Xrm.Page.getAttribute(initialDateField).setValue(currentDate);
+                }
+            );
+        }
+    ).catch(function(error) {
+        console.error(error.message);
+    });
+}
