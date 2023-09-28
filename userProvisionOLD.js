@@ -47,9 +47,12 @@ function openUrl(pageType) {
 }
 
 //test
-function calculateNewDateBasedOnHolidays(recordId) {
-    var initialDateField = "your_date_field_name";
-    var initialDate = new Date(Xrm.Page.getAttribute(initialDateField).getValue());
+function calculateNewDateBasedOnHolidays(executionContext) {
+    var formContext = executionContext.getFormContext();
+
+    function getInitialDate(recordId) {
+        return Xrm.WebApi.online.retrieveRecord("initial_date_entity_name", recordId, "?$select=initial_date_field_name");
+    }
 
     function getHolidays() {
         return Xrm.WebApi.online.retrieveMultipleRecords("your_holiday_entity_name", "?$select=your_date_field_in_holiday_entity");
@@ -64,26 +67,41 @@ function calculateNewDateBasedOnHolidays(recordId) {
         return Xrm.WebApi.online.retrieveRecord("your_entity_name", recordId, "?$select=days_to_add_field_name");
     }
 
-    return getDaysToAdd(recordId).then(
-        function(result) {
-            var daysToAdd = result.days_to_add_field_name;
-            return getHolidays().then(
-                function(results) {
-                    var holidays = results.entities.map(function(entity) {
-                        return new Date(entity.your_date_field_in_holiday_entity);
-                    });
+    var initialDateRecordId = formContext.data.entity.getId(); // Assuming the form is for the entity containing the initial date
 
-                    var currentDate = initialDate;
-                    var addedDays = 0;
-                    while (addedDays < daysToAdd) {
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        if (isWeekend(currentDate) || holidays.some(h => h.toISOString().split("T")[0] === currentDate.toISOString().split("T")[0])) {
-                            continue;
+    return getInitialDate(initialDateRecordId).then(
+        function(dateResult) {
+            var initialDate = new Date(dateResult.initial_date_field_name);
+            
+            var daysToAddRecordId = formContext.getAttribute("reference_to_days_to_add_record").getValue()[0].id; // Assuming there's a lookup on the form pointing to the record with days to add
+
+            return getDaysToAdd(daysToAddRecordId).then(
+                function(daysResult) {
+                    var daysToAdd = daysResult.days_to_add_field_name;
+
+                    return getHolidays().then(
+                        function(holidaysResult) {
+                            var holidays = holidaysResult.entities.map(function(entity) {
+                                return new Date(entity.your_date_field_in_holiday_entity);
+                            });
+
+                            var currentDate = initialDate;
+                            var addedDays = 0;
+
+                            while (addedDays < daysToAdd) {
+                                currentDate.setDate(currentDate.getDate() + 1);
+
+                                if (isWeekend(currentDate) || holidays.some(h => h.toISOString().split("T")[0] === currentDate.toISOString().split("T")[0])) {
+                                    continue;
+                                }
+
+                                addedDays++;
+                            }
+
+                            // Here, you can set the new date to a field in the current form, or perform other operations as needed
+                            formContext.getAttribute("destination_date_field_name").setValue(currentDate);
                         }
-                        addedDays++;
-                    }
-                    // Set the new date to the field
-                    Xrm.Page.getAttribute(initialDateField).setValue(currentDate);
+                    );
                 }
             );
         }
