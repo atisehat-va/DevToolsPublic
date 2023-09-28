@@ -84,7 +84,7 @@ function processAndRenameFieldsInFormComponents(formContext) {
                 // Iterate over the attributes of the Form Component to rename them
                 formComponentData.forEach(function(attribute) {
                     var logicalName = attribute._attributeName;
-                    var formComponentFieldControl = formComponentData.getControl(logicalName);
+                    var formComponentFieldControl = formComponentData.get(logicalName);
                     if (formComponentFieldControl) {
                         formComponentFieldControl.setLabel(logicalName);
                     }
