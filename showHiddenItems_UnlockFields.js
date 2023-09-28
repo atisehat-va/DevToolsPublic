@@ -1,8 +1,13 @@
+var lastUpdatedFormId = null;
+var logicalNameBtnClickStatus = false;
+var unlockAllFieldsBtnClickStatus = false;
+var showAllTabsAndSectionsBtnClickStatus = false;
+
 function unlockAllFields() {
     closeIframe();
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && unlockAllFieldsBtnClickStatus) {
-	showContent('alert', 'Unlock All Fields button has already been clicked!!');
+	showCustomAlert('Unlock All Fields button has already been clicked!!');	
         return;
     }
 	var allControls = Xrm.Page.ui.controls.get();
@@ -21,7 +26,7 @@ function showAllTabsAndSections() {
 	debugger;
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && showAllTabsAndSectionsBtnClickStatus) {
-	showContent('alert', 'Show Hidden Items button has already been clicked!!');
+	showCustomAlert('Show Hidden Items button has already been clicked!!');		
         //return;
     }
 	Xrm.Page.ui.tabs.forEach(function(tab) {
