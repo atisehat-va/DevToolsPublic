@@ -8,7 +8,7 @@ function unlockAllFields() {
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && unlockAllFieldsBtnClickStatus) {
 	showCustomAlert('Unlock All Fields button has already been clicked!!');	
-        return;
+        //return;
     }
 	var allControls = Xrm.Page.ui.controls.get();
 	for (var i in allControls) {
