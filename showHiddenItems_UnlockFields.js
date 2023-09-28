@@ -33,14 +33,14 @@ function showAllTabsAndSections() {
 		tab.setVisible(true);			
 	}
 	tab.sections.forEach(function(section) {
-		if (!section.getVisible()) {
-			section.setVisible(true);
+	    if (!section.getVisible()) {
+	       	section.setVisible(true);
+	    }
+	    section.controls.forEach(function(control) {
+	        if (!control.getVisible()) {
+		   control.setVisible(true);
 		}
-		section.controls.forEach(function(control) {
-			if (!control.getVisible()) {
-				control.setVisible(true);
-			}
-		});
+	    });
 	});		
     });    
    showAllTabsAndSectionsBtnClickStatus = true;
