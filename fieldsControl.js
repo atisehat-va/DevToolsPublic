@@ -5,14 +5,10 @@ var showAllTabsAndSectionsBtnClickStatus = false;
 
 function getFormContext() {
     try {
-        // Check if access to parent window is allowed and Xrm.Page exists
         if (window.parent && window.parent.Xrm && window.parent.Xrm.Page) {
             return window.parent.Xrm.Page;
         }
-    } catch (e) {
-        // Access denied or other error
-    }
-    // Fallback to direct access if above fails
+    } catch (e) {}
     return Xrm.Page;
 }
 
@@ -20,7 +16,7 @@ function renameTabsSectionsFields() {
     var formContext = getFormContext();
     var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-        showCustomAlert('Show Logical Names button has already been clicked!!');	   
+        showCustomAlert('Show Logical Names button has already been clicked!!');
         return;
     }
     formContext.ui.tabs.forEach(function(tab) {
@@ -34,13 +30,14 @@ function renameTabsSectionsFields() {
     });
     logicalNameBtnClickStatus = true; 
     lastUpdatedFormId = currentFormId;
-    renameHeaderFields();   
+    renameHeaderFields();
+    renameFieldsInAllQuickViewForms(formContext);
 }
 
 function renameHeaderFields() {
     var formContext = getFormContext();
-    closeIframe();
-    var headerControls = formContext.ui.controls.get(function (control, index) {
+    // closeIframe(); (assuming you have a function named closeIframe elsewhere)
+    var headerControls = formContext.ui.controls.get(function(control) {
         var controlType = control.getControlType();
         return controlType === "standard" || controlType === "optionset" || controlType === "lookup";
     });
@@ -53,7 +50,7 @@ function renameControlAndUpdateOptionSet(control) {
         var logicalName = attribute.getName();
         control.setLabel(logicalName);
         if (control.getControlType() === "optionset") {
-            updateOptionSetValues(control);            
+            updateOptionSetValues(control);
         }
     }
 }
@@ -62,8 +59,8 @@ function updateOptionSetValues(control) {
     var optionSetOptions = control.getOptions();
     optionSetOptions.forEach(function(option) {
         if (option.text !== "") {			
-            var originalText = option.text.split("(").pop().split(")")[0];			
-            var newText = option.value.toString() + " (" + originalText + ")";						
+            var originalText = option.text.split("(").pop().split(")")[0];
+            var newText = option.value.toString() + " (" + originalText + ")";
             control.removeOption(option.value);
             control.addOption({
                 value: option.value,
@@ -71,4 +68,34 @@ function updateOptionSetValues(control) {
             }, option.value);
         }
     });    
+}
+
+function renameFieldsInAllQuickViewForms(formContext) {
+    formContext.ui.controls.forEach(function(control) {
+        if (control.getControlType() === "lookup") {
+            var quickFormControl = null;
+            formContext.ui.controls.forEach(function(ctrl) {
+                if (ctrl.getControlType() === "quickform" && ctrl.getAttribute().getName() === control.getName()) {
+                    quickFormControl = ctrl;
+                }
+            });
+            if (quickFormControl) {
+                renameFieldsInQuickViewFormForControl(formContext, quickFormControl);
+            }
+        }
+    });
+}
+
+function renameFieldsInQuickViewFormForControl(formContext, quickFormControl) {
+    var quickFormControls = quickFormControl.getControl();
+    quickFormControls.forEach(function(qfControl) {
+        var attribute = qfControl.getAttribute();
+        if (attribute) {
+            var logicalName = attribute.getName();
+            qfControl.setLabel(logicalName);
+            if (qfControl.getControlType() === "optionset") {
+                updateOptionSetValues(qfControl);
+            }
+        }
+    });
 }
