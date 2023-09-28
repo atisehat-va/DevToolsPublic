@@ -13,27 +13,32 @@ function getFormContext() {
 }
 
 function renameTabsSectionsFields() { 
-    var formContext = getFormContext();
-    var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
-    if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-        showCustomAlert('Show Logical Names button has already been clicked!!');
-        //return;
-    }
-    formContext.ui.tabs.forEach(function(tab) {
-        var logicalName = tab.getName();
-        tab.setLabel(logicalName);
-        tab.sections.forEach(function(section) {
-            var logicalName = section.getName();
-            section.setLabel(logicalName);
-            section.controls.forEach(renameControlAndUpdateOptionSet);
+    try {
+        var formContext = getFormContext();
+        var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
+        if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+            showCustomAlert('Show Logical Names button has already been clicked!!');
+            return;
+        }
+        formContext.ui.tabs.forEach(function(tab) {
+            var logicalName = tab.getName();
+            tab.setLabel(logicalName);
+            tab.sections.forEach(function(section) {
+                var logicalName = section.getName();
+                section.setLabel(logicalName);
+                section.controls.forEach(renameControlAndUpdateOptionSet);
+            });
         });
-    });
-    logicalNameBtnClickStatus = true; 
-    lastUpdatedFormId = currentFormId;
-    renameHeaderFields();
-    renameFieldsInAllQuickViewForms(formContext);
-}
+        logicalNameBtnClickStatus = true; 
+        lastUpdatedFormId = currentFormId;
+        renameHeaderFields();
 
+        console.log("About to run renameFieldsInAllQuickViewForms"); // Debugging line
+        renameFieldsInAllQuickViewForms(formContext);
+    } catch (error) {
+        console.error("Error in renameTabsSectionsFields: ", error); // Logging the error
+    }
+}
 function renameHeaderFields() {
     var formContext = getFormContext();
     // closeIframe(); (assuming you have a function named closeIframe elsewhere)
