@@ -17,7 +17,7 @@ function renameTabsSectionsFields() {
     var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
         showCustomAlert('Show Logical Names button has already been clicked!!');
-        //return;
+        return;
     }
     formContext.ui.tabs.forEach(function(tab) {
         var logicalName = tab.getName();
@@ -31,7 +31,7 @@ function renameTabsSectionsFields() {
     logicalNameBtnClickStatus = true; 
     lastUpdatedFormId = currentFormId;
     renameHeaderFields();
-    processFormComponentControls(formContext);  // New code to process Form Component Controls
+    processAndRenameFieldsInFormComponents(formContext);
 }
 
 function renameHeaderFields() {
@@ -69,13 +69,22 @@ function updateOptionSetValues(control) {
     });    
 }
 
-function processFormComponentControls(formContext) {
+function processAndRenameFieldsInFormComponents(formContext) {
     formContext.ui.controls.forEach(function(control) {
-        if (control.getName().endsWith("_container")) {
-            console.log("Found Form Component Control:", control.getName());
-                       
-            // For now, I'll try to rename the fields of this control.
-            renameControlAndUpdateOptionSet(control);
+        if (control.getControlType() === "lookup") {
+            var formComponentControlName = control.getName() + "1"; // appending '1' to the lookup control name
+            var formComponentControl = formContext.getControl(formComponentControlName);
+
+            if (formComponentControl && formComponentControl.isLoaded()) {
+                var formComponentData = formComponentControl.data.entity.attributes;
+                formComponentData.forEach(function(attribute) {
+                    var logicalName = attribute.getName();
+                    var control = formComponentData.getControl(logicalName);
+                    if (control) {
+                        control.setLabel(logicalName);
+                    }
+                });
+            }
         }
     });
 }
