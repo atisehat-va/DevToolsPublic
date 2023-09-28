@@ -118,6 +118,7 @@ function calculateAdjustedDate(executionContext) {
 function calculateAdjustedDate(executionContext) {
     debugger;
     var formContext = executionContext.getFormContext();
+    var eventArgs = executionContext.getEventArgs();
 
     function stripTimeFromDate(date) {
         return new Date(date.setHours(0,0,0,0));
@@ -208,6 +209,13 @@ function calculateAdjustedDate(executionContext) {
 
         var adjustedDate = closureDate;
         console.log("Adjusted Date:", adjustedDate); // Print the adjusted date
+        var today = stripTimeFromDate(new Date());
+        
+        if (adjustedDate < today) {
+            console.error("Adjusted date is less than today's date.");
+            alert("Error: Adjusted date cannot be in the past.");
+            eventArgs.preventDefault();
+        }
     })
     .catch(function(error) {
         console.error(error.message);
