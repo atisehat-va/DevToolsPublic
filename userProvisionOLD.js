@@ -180,7 +180,7 @@ function calculateAdjustedDate(executionContext) {
         var reopenReason = formContext.getAttribute("mcs_reopenreasonid").getValue();
         var reopenReasonId = reopenReason[0].id;
         
-        return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$top=1&$select=mcs_vethomesla");
+        return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$select=mcs_vethomesla");
     })
     .then(function(slaResults) {        
         var slaNumber = slaResults.mcs_vethomesla;
@@ -190,17 +190,21 @@ function calculateAdjustedDate(executionContext) {
     })
     .then(function(holidays) {
         var addedDays = 0;
-        var closureDate = new Date(formContext.getAttribute("mcs_closuredate").getValue()); // Assuming the initial date is fetched here
+        var closureDate = new Date(formContext.getAttribute("mcs_closuredate").getValue());
+    
+        // Convert holidays into an array of date strings for easier comparison
+        var holidayStrings = holidays.map(h => h.toISOString().split("T")[0]);
+    
         while (addedDays < slaNumber) {
             closureDate.setDate(closureDate.getDate() + 1);
-
-            if (isWeekend(closureDate) || holidays.includes(closureDate.toISOString().split("T")[0])) {
+    
+            if (isWeekend(closureDate) || holidayStrings.includes(closureDate.toISOString().split("T")[0])) {
                 continue;
-            }            
-
+            }
+    
             addedDays++;
         }
-
+    
         var adjustedDate = closureDate;
         console.log("Adjusted Date:", adjustedDate); // Print the adjusted date
     })
