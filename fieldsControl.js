@@ -50,12 +50,14 @@ function renameHeaderFields() {
 }
 
 function renameControlAndUpdateOptionSet(control) {
-    var attribute = control.getAttribute();
-    if (attribute !== null) {
-        var logicalName = attribute.getName();
-        control.setLabel(logicalName);
-        if (control.getControlType() === "optionset") {
-            updateOptionSetValues(control);
+    if (control && typeof control.getAttribute === 'function') {
+        var attribute = control.getAttribute();
+        if (attribute !== null) {
+            var logicalName = attribute.getName();
+            control.setLabel(logicalName);
+            if (control.getControlType() === "optionset") {
+                updateOptionSetValues(control);            
+            }
         }
     }
 }
