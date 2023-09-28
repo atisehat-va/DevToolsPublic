@@ -1,4 +1,7 @@
 var lastUpdatedFormId = null;
+var logicalNameBtnClickStatus = false;
+var unlockAllFieldsBtnClickStatus = false;
+var showAllTabsAndSectionsBtnClickStatus = false;
 
 function renameTabsSectionsFields() { 
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
