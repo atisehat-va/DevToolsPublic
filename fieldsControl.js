@@ -1,3 +1,5 @@
+var lastUpdatedFormId = null;
+
 function renameTabsSectionsFields() { 
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
 	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
@@ -26,7 +28,6 @@ function renameHeaderFields() {
     });
     headerControls.forEach(renameControlAndUpdateOptionSet);   
 }
-
 
 function renameControlAndUpdateOptionSet(control) {
 	var attribute = control.getAttribute();
