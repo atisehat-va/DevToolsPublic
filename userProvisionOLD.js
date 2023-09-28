@@ -117,23 +117,22 @@ function calculateAdjustedDate(executionContext) {
 
 function getHolidaysForSchedule() {
     // Querying specifically for a calendar with name "Holiday Schedule"
-    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$expand=calendar_calendar_rules($select=name,starttime)").then(
+    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$select=name,pattern,duration,starttime,endtime").then(
         function success(results) {
             if (results.entities.length > 0) {
                 let calendar = results.entities[0];
                 console.log("Calendar Name:", calendar["name"]);  // Should always be "Holiday Schedule"
+                
+                // Accessing the potential attributes for the rules
+                var pattern = calendar["pattern"];
+                var duration = calendar["duration"];
+                var starttime = calendar["starttime"];
+                var endtime = calendar["endtime"];
 
-                // One To Many Relationships
-                if (calendar.calendar_calendar_rules) {
-                    calendar.calendar_calendar_rules.forEach(calendar_rule => {
-                        var calendar_calendar_rules_name = calendar_rule["name"];
-                        var calendar_calendar_rules_starttime = calendar_rule["starttime"];
-                        console.log("Holiday Name:", calendar_calendar_rules_name);
-                        console.log("Holiday Date:", calendar_calendar_rules_starttime);
-                    });
-                } else {
-                    console.log("No holidays found for 'Holiday Schedule'.");
-                }
+                console.log("Pattern:", pattern);
+                console.log("Duration:", duration);
+                console.log("Start Time:", starttime);
+                console.log("End Time:", endtime);
             } else {
                 console.log("No calendar named 'Holiday Schedule' found.");
             }
@@ -144,5 +143,5 @@ function getHolidaysForSchedule() {
     );
 }
 
-// Execute the function to get the holidays for "Holiday Schedule"
+// Execute the function to get the details for "Holiday Schedule"
 getHolidaysForSchedule();
