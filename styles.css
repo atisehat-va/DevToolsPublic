@@ -45,7 +45,7 @@
 .leftUser-section #userList { margin-bottom: 15px; max-height: 130px; overflow-y: scroll; scrollbar-width: thin; -ms-overflow-style: auto; }         
 .leftUser-section #userList::-webkit-scrollbar { display: none; }        
 .leftUser-section #userList::-webkit-scrollbar-thumb { background: #ccc; }    
-.leftUser-list-container { max-height: 110px; overflow-y: auto; }
+.leftUser-list-container { max-height: 64%; overflow-y: auto; }
 .leftDetails-section-row { display: inline-block; width: 40%; height: 260px; margin-left: 15px; box-sizing: border-box; }
 
 .rightBuss-section h3 { text-align: left; margin-bottom: 10px; color: #444; }    
