@@ -3,7 +3,12 @@ var logicalNameBtnClickStatus = false;
 var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
+function getFormContext() {
+    return window.parent.Xrm.Page;
+}
+
 function renameTabsSectionsFields() { 
+	debugger;
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
 	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
 	   showCustomAlert('Show Logical Names button has already been clicked!!');	   
