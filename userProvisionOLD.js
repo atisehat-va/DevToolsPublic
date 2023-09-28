@@ -115,14 +115,12 @@ function calculateAdjustedDate(executionContext) {
     });
 }
 
-function getAllHolidays() {
-    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$select=name&$expand=calendar_calendar_rules($select=name,starttime)").then(
+function getHolidaysForSchedule() {
+    // Querying specifically for a calendar with name "Holiday Schedule"
+    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$expand=calendar_calendar_rules($select=name,starttime)").then(
         function success(results) {
             results.entities.forEach(result => {
-                var calendarid = result["calendarid"]; // Guid
-                var name = result["name"]; // Text
-                console.log("Calendar ID:", calendarid);
-                console.log("Calendar Name:", name);
+                console.log("Calendar Name:", result["name"]);  // Should always be "Holiday Schedule"
 
                 // One To Many Relationships
                 result.calendar_calendar_rules.forEach(calendar_rule => {
@@ -142,5 +140,5 @@ function getAllHolidays() {
     );
 }
 
-// Execute the function to get the holidays
-getAllHolidays();
+// Execute the function to get the holidays for "Holiday Schedule"
+getHolidaysForSchedule();
