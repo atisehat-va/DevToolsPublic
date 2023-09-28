@@ -118,10 +118,14 @@ function calculateAdjustedDate(executionContext) {
 function calculateAdjustedDate(executionContext) {
     debugger;
     var formContext = executionContext.getFormContext();
-    
+
+    function stripTimeFromDate(date) {
+        return new Date(date.setHours(0,0,0,0));
+    }
+
     function getCaseDate(caseId) {
         return Xrm.WebApi.online.retrieveRecord("mcs_vethomecase", caseId, "?$select=mcs_closuredate");
-    }    
+    }
 
     function getHolidaysForSchedule() {
         return new Promise((resolve, reject) => {
@@ -143,7 +147,7 @@ function calculateAdjustedDate(executionContext) {
             `;
             Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`).then(
                 results => {
-                    let holidays = results.entities.map(entity => new Date(entity["rule.starttime"]));
+                    let holidays = results.entities.map(entity => stripTimeFromDate(new Date(entity["rule.starttime"])));
                     resolve(holidays);
                 },
                 error => {
@@ -154,11 +158,10 @@ function calculateAdjustedDate(executionContext) {
     }
 
     function isWeekend(date) {
-        var day = date.getUTCDay();
-        return day === 0 || day === 6;
+        return date.getUTCDay() === 0 || date.getUTCDay() === 6;
     }
 
-    // Retrieve reference to Case from the current form (assuming a lookup/reference field)
+    // Retrieve reference to Case from the current form
     var parentCase = formContext.getAttribute("mcs_parentvethomecaseid").getValue();
     if (!parentCase || parentCase.length === 0) {
         console.error("Case reference not found.");
@@ -166,25 +169,21 @@ function calculateAdjustedDate(executionContext) {
     }
     var parentCaseId = parentCase[0].id;
 
-    // 1. Get the date from the Case entity
     getCaseDate(parentCaseId)
     .then(function(caseResult) {
-        var caseDate = new Date(caseResult.mcs_closuredate);
+        var caseDate = stripTimeFromDate(new Date(caseResult.mcs_closuredate));
 
-        // 2. Get the SLA number
         var reopenReason = formContext.getAttribute("mcs_reopenreasonid").getValue();
         var reopenReasonId = reopenReason[0].id;
-        
+
         return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$top=1&$select=mcs_vethomesla")
         .then(function(slaResults) {        
             var slaNumber = slaResults.mcs_vethomesla;
 
-            // Return both slaNumber and caseDate to next then()
             return { slaNumber: slaNumber, caseDate: caseDate };
         });
     })
     .then(function(data) {
-        // 3. Get the list of holidays
         return getHolidaysForSchedule()
         .then(function(holidays) {
             return { holidays: holidays, slaNumber: data.slaNumber, caseDate: data.caseDate };
@@ -198,6 +197,7 @@ function calculateAdjustedDate(executionContext) {
 
         while (addedDays < slaNumber) {
             closureDate.setDate(closureDate.getDate() + 1);
+            closureDate = stripTimeFromDate(closureDate); // Ensure we're always working with date only
 
             if (isWeekend(closureDate) || holidayStrings.includes(closureDate.toISOString().split("T")[0])) {
                 continue;
