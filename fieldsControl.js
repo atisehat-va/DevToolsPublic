@@ -12,36 +12,30 @@ function getFormContext() {
     return Xrm.Page;
 }
 
-async function renameTabsSectionsFields() { 
-    try {
-        var formContext = getFormContext();
-        var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
-        if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-            showCustomAlert('Show Logical Names button has already been clicked!!');
-            //return;
-        }
-        formContext.ui.tabs.forEach(function(tab) {
-            var logicalName = tab.getName();
-            tab.setLabel(logicalName);
-            tab.sections.forEach(function(section) {
-                var logicalName = section.getName();
-                section.setLabel(logicalName);
-                section.controls.forEach(renameControlAndUpdateOptionSet);
-            });
-        });
-        logicalNameBtnClickStatus = true; 
-        lastUpdatedFormId = currentFormId;
-        renameHeaderFields();
-
-        console.log("About to run renameFieldsInAllQuickViewForms");
-        await renameFieldsInAllQuickViewForms(formContext);
-    } catch (error) {
-        console.error("Error encountered: ", error);
+function renameTabsSectionsFields() { 
+    var formContext = getFormContext();
+    var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
+    if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+        showCustomAlert('Show Logical Names button has already been clicked!!');
+        //return;
     }
+    formContext.ui.tabs.forEach(function(tab) {
+        var logicalName = tab.getName();
+        tab.setLabel(logicalName);
+        tab.sections.forEach(function(section) {
+            var logicalName = section.getName();
+            section.setLabel(logicalName);
+            section.controls.forEach(renameControlAndUpdateOptionSet);
+        });
+    });
+    logicalNameBtnClickStatus = true; 
+    lastUpdatedFormId = currentFormId;
+    renameHeaderFields();
+    processFormComponentControls(formContext);  // New code to process Form Component Controls
 }
+
 function renameHeaderFields() {
     var formContext = getFormContext();
-    // closeIframe(); (assuming you have a function named closeIframe elsewhere)
     var headerControls = formContext.ui.controls.get(function(control) {
         var controlType = control.getControlType();
         return controlType === "standard" || controlType === "optionset" || controlType === "lookup";
@@ -50,14 +44,12 @@ function renameHeaderFields() {
 }
 
 function renameControlAndUpdateOptionSet(control) {
-    if (control && typeof control.getAttribute === 'function') {
-        var attribute = control.getAttribute();
-        if (attribute !== null) {
-            var logicalName = attribute.getName();
-            control.setLabel(logicalName);
-            if (control.getControlType() === "optionset") {
-                updateOptionSetValues(control);            
-            }
+    var attribute = control.getAttribute();
+    if (attribute !== null) {
+        var logicalName = attribute.getName();
+        control.setLabel(logicalName);
+        if (control.getControlType() === "optionset") {
+            updateOptionSetValues(control);
         }
     }
 }
@@ -77,24 +69,15 @@ function updateOptionSetValues(control) {
     });    
 }
 
-function renameFieldsInAllQuickViewForms(formContext) {
+function processFormComponentControls(formContext) {
     formContext.ui.controls.forEach(function(control) {
-        if (control.getControlType() === "lookup") {
-            var lookupControlName = control.getName();
-            var relatedQuickFormControls = getRelatedQuickFormControls(formContext, lookupControlName);
-            relatedQuickFormControls.forEach(function(quickFormControl) {
-                renameFieldsInQuickViewFormForControl(formContext, quickFormControl);
-            });
+        if (control.getName().endsWith("_container")) {
+            console.log("Found Form Component Control:", control.getName());
+            
+            // If you have specific logic to process this Form Component Control,
+            // you can add that logic here.
+            // For now, I'll try to rename the fields of this control.
+            renameControlAndUpdateOptionSet(control);
         }
     });
-}
-
-function getRelatedQuickFormControls(formContext, lookupControlName) {
-    var quickFormControls = [];
-    formContext.ui.quickForms.forEach(function(quickForm) {
-        if (quickForm.getControlType() === "quickform" && quickForm.getAttribute().getName() === lookupControlName) {
-            quickFormControls.push(quickForm);
-        }
-    });
-    return quickFormControls;
 }
