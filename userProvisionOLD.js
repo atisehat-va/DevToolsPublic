@@ -116,22 +116,34 @@ function calculateAdjustedDate(executionContext) {
 }
 
 function getAllHolidays() {
-    Xrm.WebApi.retrieveMultipleRecords("Calendar", "?$select=name&$expand=CalendarRules($select=name,starttime,endtime)").then(
-    	function success(results) {
-    		console.log(results);
-    		for (var i = 0; i < results.entities.length; i++) {
-    			var calendar = results.entities[i];
-    			console.log("Calendar Name: " + calendar.name);
-    			var rules = calendar.CalendarRules;
-    			for (var j = 0; j < rules.length; j++) {
-    				var rule = rules[j];
-    				console.log("Rule Name: " + rule.name + ", Start Time: " + rule.starttime + ", End Time: " + rule.endtime);
-    			}
-    		}
-    	},
-    	function(error) {
-    		console.log(error.message);
-    	}
+    Xrm.WebApi.retrieveMultipleRecords("Calendar", "?$select=name").then(
+        function success(results) {
+            for (var i = 0; i < results.entities.length; i++) {
+                var calendar = results.entities[i];
+                console.log("Calendar Name: " + calendar.name);
+                
+                // For each Calendar, retrieve its CalendarRules
+                retrieveCalendarRules(calendar.calendarid);
+            }
+        },
+        function(error) {
+            console.log(error.message);
+        }
+    );
+}
+
+function retrieveCalendarRules(calendarId) {
+    var query = "/calendars(" + calendarId + ")/CalendarRules?$select=name,starttime,endtime";
+    Xrm.WebApi.online.retrieveMultipleRecords("CalendarRule", query).then(
+        function success(results) {
+            for (var i = 0; i < results.entities.length; i++) {
+                var rule = results.entities[i];
+                console.log("Rule Name: " + rule.name + ", Start Time: " + rule.starttime + ", End Time: " + rule.endtime);
+            }
+        },
+        function(error) {
+            console.log(error.message);
+        }
     );
 }
 
