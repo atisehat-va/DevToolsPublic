@@ -119,10 +119,6 @@ function calculateAdjustedDate(executionContext) {
     debugger;
     var formContext = executionContext.getFormContext();
     
-    var parentCase = formContext.getAttribute("mcs_parentvethomecaseid").getValue();
-    //var parentCaseId = parentCase[0].id.replace(/[{}]/g, "");
-           
-    
     function getCaseDate(caseId) {
         return Xrm.WebApi.online.retrieveRecord("mcs_vethomecase", caseId, "?$select=mcs_closuredate");
     }    
@@ -168,7 +164,6 @@ function calculateAdjustedDate(executionContext) {
         console.error("Case reference not found.");
         return;
     }
-
     var parentCaseId = parentCase[0].id;
 
     // 1. Get the date from the Case entity
@@ -180,31 +175,37 @@ function calculateAdjustedDate(executionContext) {
         var reopenReason = formContext.getAttribute("mcs_reopenreasonid").getValue();
         var reopenReasonId = reopenReason[0].id;
         
-        return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$select=mcs_vethomesla");
-    })
-    .then(function(slaResults) {        
-        var slaNumber = slaResults.mcs_vethomesla;
+        return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$top=1&$select=mcs_vethomesla")
+        .then(function(slaResults) {        
+            var slaNumber = slaResults.mcs_vethomesla;
 
-        // 3. Get the list of holidays
-        return getHolidaysForSchedule();        
+            // Return both slaNumber and caseDate to next then()
+            return { slaNumber: slaNumber, caseDate: caseDate };
+        });
     })
-    .then(function(holidays) {
+    .then(function(data) {
+        // 3. Get the list of holidays
+        return getHolidaysForSchedule()
+        .then(function(holidays) {
+            return { holidays: holidays, slaNumber: data.slaNumber, caseDate: data.caseDate };
+        });
+    })
+    .then(function(data) {
         var addedDays = 0;
-        var closureDate = new Date(formContext.getAttribute("mcs_closuredate").getValue());
-    
-        // Convert holidays into an array of date strings for easier comparison
-        var holidayStrings = holidays.map(h => h.toISOString().split("T")[0]);
-    
+        var closureDate = data.caseDate;
+        var slaNumber = data.slaNumber;
+        var holidayStrings = data.holidays.map(h => h.toISOString().split("T")[0]);
+
         while (addedDays < slaNumber) {
             closureDate.setDate(closureDate.getDate() + 1);
-    
+
             if (isWeekend(closureDate) || holidayStrings.includes(closureDate.toISOString().split("T")[0])) {
                 continue;
             }
-    
+
             addedDays++;
         }
-    
+
         var adjustedDate = closureDate;
         console.log("Adjusted Date:", adjustedDate); // Print the adjusted date
     })
