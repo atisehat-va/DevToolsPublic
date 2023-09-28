@@ -47,11 +47,11 @@ function openUrl(pageType) {
 }
 
 //test
-function calculateNewDateBasedOnHolidays(executionContext) {
+function calculateAdjustedDate(executionContext) {
     var formContext = executionContext.getFormContext();
 
-    function getInitialDate(recordId) {
-        return Xrm.WebApi.online.retrieveRecord("initial_date_entity_name", recordId, "?$select=initial_date_field_name");
+    function getCaseDate(caseId) {
+        return Xrm.WebApi.online.retrieveRecord("Case", caseId, "?$select=new_caseDate");
     }
 
     function getHolidays() {
@@ -63,49 +63,54 @@ function calculateNewDateBasedOnHolidays(executionContext) {
         return day === 0 || day === 6;
     }
 
-    function getDaysToAdd(recordId) {
-        return Xrm.WebApi.online.retrieveRecord("your_entity_name", recordId, "?$select=days_to_add_field_name");
+    // Retrieve reference to Case from the current form (assuming a lookup/reference field)
+    var caseReference = formContext.getAttribute("your_case_lookup_field_name").getValue();
+    if (!caseReference || caseReference.length === 0) {
+        console.error("Case reference not found.");
+        return;
     }
 
-    var initialDateRecordId = formContext.data.entity.getId(); // Assuming the form is for the entity containing the initial date
+    var caseId = caseReference[0].id;
 
-    return getInitialDate(initialDateRecordId).then(
-        function(dateResult) {
-            var initialDate = new Date(dateResult.initial_date_field_name);
-            
-            var daysToAddRecordId = formContext.getAttribute("reference_to_days_to_add_record").getValue()[0].id; // Assuming there's a lookup on the form pointing to the record with days to add
+    // 1. Get the date from the Case entity
+    getCaseDate(caseId)
+    .then(function(caseResult) {
+        var caseDate = new Date(caseResult.new_caseDate);
 
-            return getDaysToAdd(daysToAddRecordId).then(
-                function(daysResult) {
-                    var daysToAdd = daysResult.days_to_add_field_name;
+        // 2. Get the SLA number
+        return Xrm.WebApi.online.retrieveMultipleRecords("SLA", "?$top=1&$select=new_slaNumber");
+    })
+    .then(function(slaResults) {
+        if (slaResults.entities.length) {
+            var slaNumber = slaResults.entities[0].new_slaNumber;
 
-                    return getHolidays().then(
-                        function(holidaysResult) {
-                            var holidays = holidaysResult.entities.map(function(entity) {
-                                return new Date(entity.your_date_field_in_holiday_entity);
-                            });
-
-                            var currentDate = initialDate;
-                            var addedDays = 0;
-
-                            while (addedDays < daysToAdd) {
-                                currentDate.setDate(currentDate.getDate() + 1);
-
-                                if (isWeekend(currentDate) || holidays.some(h => h.toISOString().split("T")[0] === currentDate.toISOString().split("T")[0])) {
-                                    continue;
-                                }
-
-                                addedDays++;
-                            }
-
-                            // Here, you can set the new date to a field in the current form, or perform other operations as needed
-                            formContext.getAttribute("destination_date_field_name").setValue(currentDate);
-                        }
-                    );
-                }
-            );
+            // 3. Get the list of holidays
+            return getHolidays();
+        } else {
+            throw new Error("No SLA record found.");
         }
-    ).catch(function(error) {
+    })
+    .then(function(holidaysResult) {
+        var holidays = holidaysResult.entities.map(function(entity) {
+            return new Date(entity.your_date_field_in_holiday_entity);
+        });
+
+        var addedDays = 0;
+        var caseDate = new Date(formContext.getAttribute("new_caseDate").getValue()); // Assuming the initial date is fetched here
+        while (addedDays < slaNumber) {
+            caseDate.setDate(caseDate.getDate() + 1);
+
+            if (isWeekend(caseDate) || holidays.some(h => h.toISOString().split("T")[0] === caseDate.toISOString().split("T")[0])) {
+                continue;
+            }
+
+            addedDays++;
+        }
+
+        var adjustedDate = caseDate;
+        console.log("Adjusted Date:", adjustedDate); // Print the adjusted date
+    })
+    .catch(function(error) {
         console.error(error.message);
     });
 }
