@@ -12,7 +12,7 @@ function getFormContext() {
     return Xrm.Page;
 }
 
-function renameTabsSectionsFields() { 
+async function renameTabsSectionsFields() { 
     try {
         var formContext = getFormContext();
         var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
@@ -33,10 +33,10 @@ function renameTabsSectionsFields() {
         lastUpdatedFormId = currentFormId;
         renameHeaderFields();
 
-        console.log("About to run renameFieldsInAllQuickViewForms"); // Debugging line
-        renameFieldsInAllQuickViewForms(formContext);
+        console.log("About to run renameFieldsInAllQuickViewForms");
+        await renameFieldsInAllQuickViewForms(formContext);
     } catch (error) {
-        console.error("Error in renameTabsSectionsFields: ", error); // Logging the error
+        console.error("Error encountered: ", error);
     }
 }
 function renameHeaderFields() {
