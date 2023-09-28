@@ -115,8 +115,7 @@ function calculateAdjustedDate(executionContext) {
     });
 }
 
-function getHolidaysForSchedule() {
-    // FetchXML query to retrieve days for the "Holiday Schedule" calendar
+function getHolidaysForSchedule() {    
     var fetchXml = `
         <fetch>
             <entity name="calendar">
@@ -125,7 +124,10 @@ function getHolidaysForSchedule() {
                 </filter>
                 <link-entity name="calendarrule" from="calendarid" to="calendarid" alias="rule">
                     <attribute name="name" />
-                    <attribute name="starttime" />
+                      <attribute name="starttime" />
+                      <filter>
+                        <condition attribute="starttime" operator="this-year" />
+                      </filter>
                 </link-entity>
             </entity>
         </fetch>
@@ -133,13 +135,9 @@ function getHolidaysForSchedule() {
 
     Xrm.WebApi.retrieveMultipleRecords("calendar", "?fetchXml=" + encodeURIComponent(fetchXml)).then(
         function success(results) {
-            results.entities.forEach(result => {
-                console.log("Calendar Name:", result["name"]);  // Should always be "Holiday Schedule"
-
-                // Link-entity results
-                var calendar_calendar_rules_name = result["rule.name"]; // Text
-                var calendar_calendar_rules_starttime = result["rule.starttime"]; // Date Time
-                
+            results.entities.forEach(result => {                      
+                var calendar_calendar_rules_name = result["rule.name"]; 
+                var calendar_calendar_rules_starttime = result["rule.starttime"];                
                 console.log("Holiday Name:", calendar_calendar_rules_name);
                 console.log("Holiday Date:", calendar_calendar_rules_starttime);
             });
@@ -149,6 +147,4 @@ function getHolidaysForSchedule() {
         }
     );
 }
-
-// Execute the function to get the holidays for "Holiday Schedule"
 getHolidaysForSchedule();
