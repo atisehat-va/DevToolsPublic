@@ -83,12 +83,15 @@ function processAndRenameFieldsInFormComponents(formContext) {
                 
                 // Iterate over the attributes of the Form Component to rename them
                 formComponentData.forEach(function(attribute) {
-                    var logicalName = attribute._attributeName;
-                    var formComponentFieldControl = formComponentData.get(logicalName);
-                    if (formComponentFieldControl) {
-                        formComponentFieldControl.setLabel(logicalName);
-                    }
-                });
+                var logicalName = attribute._attributeName;
+                
+                // Get the control for the attribute from the formComponentControl
+                var formComponentFieldControl = formComponentControl.getControl(logicalName);
+                
+                if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
+                    formComponentFieldControl.setLabel(logicalName);
+                }
+            });
             }
         }
     });
