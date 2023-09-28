@@ -116,35 +116,27 @@ function calculateAdjustedDate(executionContext) {
 }
 
 function getAllHolidays() {
-    Xrm.WebApi.retrieveMultipleRecords("Calendar", "?$select=name").then(
-        function success(results) {
-            for (var i = 0; i < results.entities.length; i++) {
-                var calendar = results.entities[i];
-                console.log("Calendar Name: " + calendar.name);
-                
-                // For each Calendar, retrieve its CalendarRules
-                retrieveCalendarRules(calendar.calendarid);
-            }
-        },
-        function(error) {
-            console.log(error.message);
-        }
-    );
-}
-
-function retrieveCalendarRules(calendarId) {
-    var query = "/calendars(" + calendarId + ")/CalendarRules?$select=name,starttime,endtime";
-    Xrm.WebApi.online.retrieveMultipleRecords("CalendarRule", query).then(
-        function success(results) {
-            for (var i = 0; i < results.entities.length; i++) {
-                var rule = results.entities[i];
-                console.log("Rule Name: " + rule.name + ", Start Time: " + rule.starttime + ", End Time: " + rule.endtime);
-            }
-        },
-        function(error) {
-            console.log(error.message);
-        }
-    );
+    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$select=name&$expand=calendar_calendar_rules($select=name,starttime)").then(
+	function success(results) {
+		console.log(results);
+		for (var i = 0; i < results.entities.length; i++) {
+			var result = results.entities[i];
+			// Columns
+			var calendarid = result["calendarid"]; // Guid
+			var name = result["name"]; // Text
+			
+			// One To Many Relationships
+			for (var j = 0; j < result.calendar_calendar_rules.length; j++) {
+				var calendar_calendar_rules_name = result.calendar_calendar_rules[j]["name"]; // Text
+				var calendar_calendar_rules_starttime = result.calendar_calendar_rules[j]["starttime"]; // Date Time
+				var calendar_calendar_rules_starttime_formatted = result.calendar_calendar_rules[j]["starttime@OData.Community.Display.V1.FormattedValue"];
+			}
+		}
+	},
+	function(error) {
+		console.log(error.message);
+	}
+);
 }
 
 // Execute the function to get the holidays
