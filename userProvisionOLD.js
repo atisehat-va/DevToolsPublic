@@ -116,11 +116,16 @@ function calculateAdjustedDate(executionContext) {
 }
 //newTest
 function calculateAdjustedDate(executionContext) {
+    debugger;
     var formContext = executionContext.getFormContext();
-
+    
+    var parentCase = formContext.getAttribute("mcs_parentvethomecaseid").getValue();
+    //var parentCaseId = parentCase[0].id.replace(/[{}]/g, "");
+           
+    
     function getCaseDate(caseId) {
-        return Xrm.WebApi.online.retrieveRecord("Case", caseId, "?$select=new_caseDate");
-    }
+        return Xrm.WebApi.online.retrieveRecord("mcs_vethomecase", caseId, "?$select=mcs_closuredate");
+    }    
 
     function getHolidaysForSchedule() {
         return new Promise((resolve, reject) => {
@@ -158,44 +163,45 @@ function calculateAdjustedDate(executionContext) {
     }
 
     // Retrieve reference to Case from the current form (assuming a lookup/reference field)
-    var caseReference = formContext.getAttribute("your_case_lookup_field_name").getValue();
-    if (!caseReference || caseReference.length === 0) {
+    var parentCase = formContext.getAttribute("mcs_parentvethomecaseid").getValue();
+    if (!parentCase || parentCase.length === 0) {
         console.error("Case reference not found.");
         return;
     }
-    var caseId = caseReference[0].id;
 
-    getCaseDate(caseId)
+    var parentCaseId = parentCase[0].id;
+
+    // 1. Get the date from the Case entity
+    getCaseDate(parentCaseId)
     .then(function(caseResult) {
-        var caseDate = new Date(caseResult.new_caseDate);
+        var caseDate = new Date(caseResult.mcs_closuredate);
 
-        // Get the SLA number
-        return Xrm.WebApi.online.retrieveMultipleRecords("SLA", "?$top=1&$select=new_slaNumber");
+        // 2. Get the SLA number
+        var reopenReason = formContext.getAttribute("mcs_reopenreasonid").getValue();
+        var reopenReasonId = reopenReason[0].id;
+        
+        return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$top=1&$select=mcs_vethomesla");
     })
-    .then(function(slaResults) {
-        if (slaResults.entities.length) {
-            var slaNumber = slaResults.entities[0].new_slaNumber;
+    .then(function(slaResults) {        
+        var slaNumber = slaResults.mcs_vethomesla;
 
-            // Get the list of holidays
-            return getHolidaysForSchedule();
-        } else {
-            throw new Error("No SLA record found.");
-        }
+        // 3. Get the list of holidays
+        return getHolidaysForSchedule();        
     })
     .then(function(holidays) {
         var addedDays = 0;
-        var caseDate = new Date(formContext.getAttribute("new_caseDate").getValue());
+        var closureDate = new Date(formContext.getAttribute("mcs_closuredate").getValue()); // Assuming the initial date is fetched here
         while (addedDays < slaNumber) {
-            caseDate.setDate(caseDate.getDate() + 1);
+            closureDate.setDate(closureDate.getDate() + 1);
 
-            if (isWeekend(caseDate) || holidays.includes(caseDate.toISOString().split("T")[0])) {
+            if (isWeekend(closureDate) || holidays.includes(closureDate.toISOString().split("T")[0])) {
                 continue;
-            }
+            }            
 
             addedDays++;
         }
 
-        var adjustedDate = caseDate;
+        var adjustedDate = closureDate;
         console.log("Adjusted Date:", adjustedDate); // Print the adjusted date
     })
     .catch(function(error) {
