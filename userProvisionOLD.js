@@ -121,9 +121,9 @@ function getHolidaysForSchedule() {
         <fetch>
             <entity name="calendar">
                 <filter>
-                    <condition attribute="name" operator="eq" value="Holiday Schedule" />
+                    <condition attribute="name" operator="eq" value="Federal Holiday Schedule" />
                 </filter>
-                <link-entity name="calendar_rule" from="calendarid" to="calendarid" alias="rule">
+                <link-entity name="calendarrule" from="calendarid" to="calendarid" alias="rule">
                     <attribute name="name" />
                     <attribute name="starttime" />
                 </link-entity>
