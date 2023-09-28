@@ -4,7 +4,16 @@ var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
 function getFormContext() {
-    return window.parent.Xrm.Page;
+    try {
+        // Check if access to parent window is allowed and Xrm.Page exists
+        if (window.parent && window.parent.Xrm && window.parent.Xrm.Page) {
+            return window.parent.Xrm.Page;
+        }
+    } catch (e) {
+        // Access denied or other error
+    }
+    // Fallback to direct access if above fails
+    return Xrm.Page;
 }
 
 function renameTabsSectionsFields() { 
@@ -20,12 +29,9 @@ function renameTabsSectionsFields() {
         tab.sections.forEach(function(section) {
             var logicalName = section.getName();
             section.setLabel(logicalName);
-            section.controls.forEach(function(control) {
-                renameControlAndUpdateOptionSet(control);
-            });
+            section.controls.forEach(renameControlAndUpdateOptionSet);
         });
     });
-    
     logicalNameBtnClickStatus = true; 
     lastUpdatedFormId = currentFormId;
     renameHeaderFields();   
