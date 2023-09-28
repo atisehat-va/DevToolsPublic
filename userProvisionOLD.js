@@ -116,31 +116,32 @@ function calculateAdjustedDate(executionContext) {
 }
 
 function getHolidaysForSchedule() {
+    // FetchXML query to retrieve days for the "Holiday Schedule" calendar
     var fetchXml = `
-    <fetch>
-      <entity name="calendar">
-        <attribute name="name" />
-        <filter>
-          <condition attribute="name" operator="eq" value="Holiday Schedule" />
-        </filter>
-        <link-entity name="calendar" from="calendarid" to="calendarid" link-type="outer" alias="rule">
-          <attribute name="pattern" />
-          <attribute name="starttime" />
-          <attribute name="duration" />
-        </link-entity>
-      </entity>
-    </fetch>
+        <fetch>
+            <entity name="calendar">
+                <filter>
+                    <condition attribute="name" operator="eq" value="Holiday Schedule" />
+                </filter>
+                <link-entity name="calendar_rule" from="calendarid" to="calendarid" alias="rule">
+                    <attribute name="name" />
+                    <attribute name="starttime" />
+                </link-entity>
+            </entity>
+        </fetch>
     `;
 
-    var encodedFetchXml = encodeURIComponent(fetchXml);
-
-    Xrm.WebApi.retrieveMultipleRecords("calendar", "?fetchXml=" + encodedFetchXml).then(
+    Xrm.WebApi.retrieveMultipleRecords("calendar", "?fetchXml=" + encodeURIComponent(fetchXml)).then(
         function success(results) {
             results.entities.forEach(result => {
-                console.log("Calendar Name:", result["name"]);
-                console.log("Pattern:", result["rule.pattern"]);
-                console.log("Start Time:", result["rule.starttime"]);
-                console.log("Duration:", result["rule.duration"]);
+                console.log("Calendar Name:", result["name"]);  // Should always be "Holiday Schedule"
+
+                // Link-entity results
+                var calendar_calendar_rules_name = result["rule.name"]; // Text
+                var calendar_calendar_rules_starttime = result["rule.starttime"]; // Date Time
+                
+                console.log("Holiday Name:", calendar_calendar_rules_name);
+                console.log("Holiday Date:", calendar_calendar_rules_starttime);
             });
         },
         function error(err) {
