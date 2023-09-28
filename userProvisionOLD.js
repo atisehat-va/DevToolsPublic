@@ -116,26 +116,32 @@ function calculateAdjustedDate(executionContext) {
 }
 
 function getHolidaysForSchedule() {
-    // Querying specifically for a calendar with name "Holiday Schedule"
-    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$select=name,pattern,duration,starttime,endtime").then(
-        function success(results) {
-            if (results.entities.length > 0) {
-                let calendar = results.entities[0];
-                console.log("Calendar Name:", calendar["name"]);  // Should always be "Holiday Schedule"
-                
-                // Accessing the potential attributes for the rules
-                var pattern = calendar["pattern"];
-                var duration = calendar["duration"];
-                var starttime = calendar["starttime"];
-                var endtime = calendar["endtime"];
+    var fetchXml = `
+    <fetch>
+      <entity name="calendar">
+        <attribute name="name" />
+        <filter>
+          <condition attribute="name" operator="eq" value="Holiday Schedule" />
+        </filter>
+        <link-entity name="calendar" from="calendarid" to="calendarid" link-type="outer" alias="rule">
+          <attribute name="pattern" />
+          <attribute name="starttime" />
+          <attribute name="duration" />
+        </link-entity>
+      </entity>
+    </fetch>
+    `;
 
-                console.log("Pattern:", pattern);
-                console.log("Duration:", duration);
-                console.log("Start Time:", starttime);
-                console.log("End Time:", endtime);
-            } else {
-                console.log("No calendar named 'Holiday Schedule' found.");
-            }
+    var encodedFetchXml = encodeURIComponent(fetchXml);
+
+    Xrm.WebApi.retrieveMultipleRecords("calendar", "?fetchXml=" + encodedFetchXml).then(
+        function success(results) {
+            results.entities.forEach(result => {
+                console.log("Calendar Name:", result["name"]);
+                console.log("Pattern:", result["rule.pattern"]);
+                console.log("Start Time:", result["rule.starttime"]);
+                console.log("Duration:", result["rule.duration"]);
+            });
         },
         function error(err) {
             console.log(err.message);
@@ -143,5 +149,5 @@ function getHolidaysForSchedule() {
     );
 }
 
-// Execute the function to get the details for "Holiday Schedule"
+// Execute the function to get the holidays for "Holiday Schedule"
 getHolidaysForSchedule();
