@@ -116,32 +116,27 @@ function calculateAdjustedDate(executionContext) {
 }
 
 function getHolidaysForSchedule() {
-    // First, retrieve the calendarid of "Holiday Schedule"
-    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$select=calendarid").then(
+    // Querying specifically for a calendar with name "Holiday Schedule"
+    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$expand=calendar_calendar_rules($select=name,starttime)").then(
         function success(results) {
             if (results.entities.length > 0) {
-                let calendarid = results.entities[0].calendarid;
-                // Use the calendarid to fetch the associated calendar_calendar_rules
-                fetchCalendarRules(calendarid);
+                let calendar = results.entities[0];
+                console.log("Calendar Name:", calendar["name"]);  // Should always be "Holiday Schedule"
+
+                // One To Many Relationships
+                if (calendar.calendar_calendar_rules) {
+                    calendar.calendar_calendar_rules.forEach(calendar_rule => {
+                        var calendar_calendar_rules_name = calendar_rule["name"];
+                        var calendar_calendar_rules_starttime = calendar_rule["starttime"];
+                        console.log("Holiday Name:", calendar_calendar_rules_name);
+                        console.log("Holiday Date:", calendar_calendar_rules_starttime);
+                    });
+                } else {
+                    console.log("No holidays found for 'Holiday Schedule'.");
+                }
             } else {
                 console.log("No calendar named 'Holiday Schedule' found.");
             }
-        },
-        function error(err) {
-            console.log(err.message);
-        }
-    );
-}
-
-function fetchCalendarRules(calendarid) {
-    Xrm.WebApi.retrieveMultipleRecords("calendar_rule", "?$filter=_calendarid_value eq " + calendarid + "&$select=name,starttime").then(
-        function success(results) {
-            results.entities.forEach(calendar_rule => {
-                var calendar_calendar_rules_name = calendar_rule["name"];
-                var calendar_calendar_rules_starttime = calendar_rule["starttime"];
-                console.log("Holiday Name:", calendar_calendar_rules_name);
-                console.log("Holiday Date:", calendar_calendar_rules_starttime);
-            });
         },
         function error(err) {
             console.log(err.message);
