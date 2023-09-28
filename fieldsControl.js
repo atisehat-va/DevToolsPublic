@@ -17,7 +17,7 @@ function renameTabsSectionsFields() {
     var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
         showCustomAlert('Show Logical Names button has already been clicked!!');
-        return;
+        //return;
     }
     formContext.ui.tabs.forEach(function(tab) {
         var logicalName = tab.getName();
