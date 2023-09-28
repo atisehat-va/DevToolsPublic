@@ -73,9 +73,7 @@ function processFormComponentControls(formContext) {
     formContext.ui.controls.forEach(function(control) {
         if (control.getName().endsWith("_container")) {
             console.log("Found Form Component Control:", control.getName());
-            
-            // If you have specific logic to process this Form Component Control,
-            // you can add that logic here.
+                       
             // For now, I'll try to rename the fields of this control.
             renameControlAndUpdateOptionSet(control);
         }
