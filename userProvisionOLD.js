@@ -115,8 +115,8 @@ function calculateAdjustedDate(executionContext) {
     });
 }
 
-function getHolidaysForSchedule() {    
-    var fetchXml = `
+function getHolidaysForSchedule() {
+    const fetchXml = `
         <fetch>
             <entity name="calendar">
                 <filter>
@@ -124,26 +124,25 @@ function getHolidaysForSchedule() {
                 </filter>
                 <link-entity name="calendarrule" from="calendarid" to="calendarid" alias="rule">
                     <attribute name="name" />
-                      <attribute name="starttime" />
-                      <filter>
+                    <attribute name="starttime" />
+                    <filter>
                         <condition attribute="starttime" operator="this-year" />
-                      </filter>
+                    </filter>
                 </link-entity>
             </entity>
         </fetch>
     `;
-
-    Xrm.WebApi.retrieveMultipleRecords("calendar", "?fetchXml=" + encodeURIComponent(fetchXml)).then(
-        function success(results) {
-            results.entities.forEach(result => {                      
-                var calendar_calendar_rules_name = result["rule.name"]; 
-                var calendar_calendar_rules_starttime = result["rule.starttime"];                
-                console.log("Holiday Name:", calendar_calendar_rules_name);
-                console.log("Holiday Date:", calendar_calendar_rules_starttime);
-            });
+    Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`).then(
+        results => {
+            for (const result of results.entities) {
+                const holidayName = result["rule.name"];
+                const holidayDate = result["rule.starttime"];
+                console.log("Holiday Name:", holidayName);
+                console.log("Holiday Date:", holidayDate);
+            }
         },
-        function error(err) {
-            console.log(err.message);
+        error => {
+            console.log(error.message);
         }
     );
 }
