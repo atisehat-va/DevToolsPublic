@@ -116,16 +116,17 @@ function calculateAdjustedDate(executionContext) {
 }
 
 function getAllHolidays() {
-    Xrm.WebApi.retrieveMultipleRecords("calendarrule", "?$select=name,starttime").then(
+    Xrm.WebApi.retrieveMultipleRecords("Calendar", "?$select=name&$expand=CalendarRules($select=name,starttime,endtime)").then(
     	function success(results) {
     		console.log(results);
     		for (var i = 0; i < results.entities.length; i++) {
-    			var result = results.entities[i];
-    			// Columns
-    			var calendarruleid = result["calendarruleid"]; // Guid
-    			var name = result["name"]; // Text
-    			var starttime = result["starttime"]; // Date Time
-    			var starttime_formatted = result["starttime@OData.Community.Display.V1.FormattedValue"];
+    			var calendar = results.entities[i];
+    			console.log("Calendar Name: " + calendar.name);
+    			var rules = calendar.CalendarRules;
+    			for (var j = 0; j < rules.length; j++) {
+    				var rule = rules[j];
+    				console.log("Rule Name: " + rule.name + ", Start Time: " + rule.starttime + ", End Time: " + rule.endtime);
+    			}
     		}
     	},
     	function(error) {
