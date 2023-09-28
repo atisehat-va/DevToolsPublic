@@ -114,3 +114,22 @@ function calculateAdjustedDate(executionContext) {
         console.error(error.message);
     });
 }
+
+function getAllHolidays() {
+    var query = "/calendarrules";
+
+    Xrm.WebApi.retrieveMultipleRecords("calendarrule", query).then(
+        function success(result) {
+            for (var i = 0; i < result.entities.length; i++) {
+                var holiday = result.entities[i];
+                console.log("Holiday: " + holiday.name + ", Start Date: " + holiday.starttime + ", End Date: " + holiday.endtime);
+            }
+        },
+        function (error) {
+            console.error(error.message);
+        }
+    );
+}
+
+// Execute the function to get the holidays
+getAllHolidays();
