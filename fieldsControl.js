@@ -74,16 +74,19 @@ function updateOptionSetValues(control) {
 function processAndRenameFieldsInFormComponents(formContext) {
     formContext.ui.controls.forEach(function(control) {
         if (control.getControlType() === "lookup") {
-            var formComponentControlName = control.getName() + "1"; // appending '1' to the lookup control name
-            var formComponentControl = formContext.getControl(formComponentControlName);
-
-            if (formComponentControl && formComponentControl.isLoaded()) {
+            // Use the naming pattern to fetch the Form Component
+            var formComponentControlName = control.getName() + "1"; 
+            var formComponentControl = formContext.ui.controls.get(formComponentControlName);
+            
+            if (formComponentControl && formComponentControl.getControlType() === "quickform") {
                 var formComponentData = formComponentControl.data.entity.attributes;
+                
+                // Iterate over the attributes of the Form Component to rename them
                 formComponentData.forEach(function(attribute) {
                     var logicalName = attribute.getName();
-                    var control = formComponentData.getControl(logicalName);
-                    if (control) {
-                        control.setLabel(logicalName);
+                    var formComponentFieldControl = formComponentData.getControl(logicalName);
+                    if (formComponentFieldControl) {
+                        formComponentFieldControl.setLabel(logicalName);
                     }
                 });
             }
