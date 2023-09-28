@@ -80,29 +80,21 @@ function updateOptionSetValues(control) {
 function renameFieldsInAllQuickViewForms(formContext) {
     formContext.ui.controls.forEach(function(control) {
         if (control.getControlType() === "lookup") {
-            var quickFormControl = null;
-            formContext.ui.controls.forEach(function(ctrl) {
-                if (ctrl.getControlType() === "quickform" && ctrl.getAttribute().getName() === control.getName()) {
-                    quickFormControl = ctrl;
-                }
-            });
-            if (quickFormControl) {
+            var lookupControlName = control.getName();
+            var relatedQuickFormControls = getRelatedQuickFormControls(formContext, lookupControlName);
+            relatedQuickFormControls.forEach(function(quickFormControl) {
                 renameFieldsInQuickViewFormForControl(formContext, quickFormControl);
-            }
+            });
         }
     });
 }
 
-function renameFieldsInQuickViewFormForControl(formContext, quickFormControl) {
-    var quickFormControls = quickFormControl.getControl();
-    quickFormControls.forEach(function(qfControl) {
-        var attribute = qfControl.getAttribute();
-        if (attribute) {
-            var logicalName = attribute.getName();
-            qfControl.setLabel(logicalName);
-            if (qfControl.getControlType() === "optionset") {
-                updateOptionSetValues(qfControl);
-            }
+function getRelatedQuickFormControls(formContext, lookupControlName) {
+    var quickFormControls = [];
+    formContext.ui.quickForms.forEach(function(quickForm) {
+        if (quickForm.getControlType() === "quickform" && quickForm.getAttribute().getName() === lookupControlName) {
+            quickFormControls.push(quickForm);
         }
     });
+    return quickFormControls;
 }
