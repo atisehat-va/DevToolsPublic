@@ -25,6 +25,7 @@ function renameTabsSectionsFields() {
             });
         });
     });
+    
     logicalNameBtnClickStatus = true; 
     lastUpdatedFormId = currentFormId;
     renameHeaderFields();   
