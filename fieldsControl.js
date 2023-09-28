@@ -6,7 +6,7 @@ var showAllTabsAndSectionsBtnClickStatus = false;
 function renameTabsSectionsFields() { 
 	var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
 	if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-	   showContent('alert', 'Show Logical Names button has already been clicked!!');
+	   showCustomAlert('Show Logical Names button has already been clicked!!');	   
 	   return;
 	}
 	Xrm.Page.ui.tabs.forEach(function(tab) {
