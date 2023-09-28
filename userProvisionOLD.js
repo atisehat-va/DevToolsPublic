@@ -116,22 +116,31 @@ function calculateAdjustedDate(executionContext) {
 }
 
 function getHolidaysForSchedule() {
-    // Querying specifically for a calendar with name "Holiday Schedule"
-    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$expand=calendar_calendar_rules($select=name,starttime)").then(
+    // First, retrieve the calendarid of "Holiday Schedule"
+    Xrm.WebApi.retrieveMultipleRecords("calendar", "?$filter=name eq 'Holiday Schedule'&$select=calendarid").then(
         function success(results) {
-            results.entities.forEach(result => {
-                console.log("Calendar Name:", result["name"]);  // Should always be "Holiday Schedule"
+            if (results.entities.length > 0) {
+                let calendarid = results.entities[0].calendarid;
+                // Use the calendarid to fetch the associated calendar_calendar_rules
+                fetchCalendarRules(calendarid);
+            } else {
+                console.log("No calendar named 'Holiday Schedule' found.");
+            }
+        },
+        function error(err) {
+            console.log(err.message);
+        }
+    );
+}
 
-                // One To Many Relationships
-                result.calendar_calendar_rules.forEach(calendar_rule => {
-                    var calendar_calendar_rules_name = calendar_rule["name"]; // Text
-                    var calendar_calendar_rules_starttime = calendar_rule["starttime"]; // Date Time
-                    var calendar_calendar_rules_starttime_formatted = calendar_rule["starttime@OData.Community.Display.V1.FormattedValue"];
-                    
-                    console.log("Holiday Name:", calendar_calendar_rules_name);
-                    console.log("Holiday Date:", calendar_calendar_rules_starttime);
-                    console.log("Formatted Holiday Date:", calendar_calendar_rules_starttime_formatted);
-                });
+function fetchCalendarRules(calendarid) {
+    Xrm.WebApi.retrieveMultipleRecords("calendar_rule", "?$filter=_calendarid_value eq " + calendarid + "&$select=name,starttime").then(
+        function success(results) {
+            results.entities.forEach(calendar_rule => {
+                var calendar_calendar_rules_name = calendar_rule["name"];
+                var calendar_calendar_rules_starttime = calendar_rule["starttime"];
+                console.log("Holiday Name:", calendar_calendar_rules_name);
+                console.log("Holiday Date:", calendar_calendar_rules_starttime);
             });
         },
         function error(err) {
