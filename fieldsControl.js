@@ -3,23 +3,13 @@ var logicalNameBtnClickStatus = false;
 var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
-function getFormContext() {
-    try {
-        if (window.parent && window.parent.Xrm && window.parent.Xrm.Page) {
-            return window.parent.Xrm.Page;
-        }
-    } catch (e) {}
-    return Xrm.Page;
-}
-
-function renameTabsSectionsFields() { 
-    var formContext = getFormContext();
-    var currentFormId = formContext.ui.formSelector.getCurrentItem().getId();
+function renameTabsSectionsFields() {     
+    var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
         showCustomAlert('Show Logical Names button has already been clicked!!');
         //return;
     }
-    formContext.ui.tabs.forEach(function(tab) {
+    Xrm.Page.ui.tabs.forEach(function(tab) {
         var logicalName = tab.getName();
         tab.setLabel(logicalName);
         tab.sections.forEach(function(section) {
@@ -31,12 +21,11 @@ function renameTabsSectionsFields() {
     logicalNameBtnClickStatus = true; 
     lastUpdatedFormId = currentFormId;
     renameHeaderFields();
-    processAndRenameFieldsInFormComponents(formContext);
+    processAndRenameFieldsInFormComponents();
 }
 
-function renameHeaderFields() {
-    var formContext = getFormContext();
-    var headerControls = formContext.ui.controls.get(function(control) {
+function renameHeaderFields() {    
+    var headerControls = Xrm.Page.ui.controls.get(function(control) {
         var controlType = control.getControlType();
         return controlType === "standard" || controlType === "optionset" || controlType === "lookup";
     });
@@ -71,12 +60,12 @@ function updateOptionSetValues(control) {
     });    
 }
 
-function processAndRenameFieldsInFormComponents(formContext) {
-    formContext.ui.controls.forEach(function(control) {
+function processAndRenameFieldsInFormComponents() {
+    Xrm.Page.ui.controls.forEach(function(control) {
         if (control.getControlType() === "lookup") {
             // Use the naming pattern to fetch the Form Component
             var formComponentControlName = control.getName() + "1"; 
-            var formComponentControl = formContext.ui.controls.get(formComponentControlName);
+            var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
             
             if (formComponentControl) {
                 var formComponentData = formComponentControl.data.entity.attributes;
