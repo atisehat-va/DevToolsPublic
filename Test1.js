@@ -34,6 +34,7 @@ loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity1.js', () => console.log('Security loaded!'));
 loadScript('assignUserSecurity.js', () => console.log('Security loaded!')); //Assign Security
 loadScript('security1.js', () => console.log('Security loaded!'));
+loadScript('dateCalc.js', () => console.log('Date Calc loaded!'));
 
 function openPopup() {
   closeSubPopups();
@@ -102,6 +103,10 @@ function openPopup() {
 		  <div class="button-row">
 		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
 		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
+		  </div>
+    		  <div class="button-row">
+		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
+		    <button onclick="">None</button>
 		  </div>
 		    <button onclick="closePopup();" class="close-btn">Close</button>
 		</div>
