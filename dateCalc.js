@@ -1,6 +1,8 @@
-function dateCalc() { 
+function dateCalc() {
     var newContainer = document.createElement('div');
     newContainer.className = 'commonPopup';
+    newContainer.style.display = 'flex'; // Setting the container to flex layout
+    newContainer.style.flexDirection = 'column'; // Stacking children vertically
     newContainer.innerHTML = `
         <div class="commonPopup-header">
             <button class="commonback-button" id="commonback-button">Back</button>
@@ -21,7 +23,9 @@ function dateCalc() {
                 grid-template-rows: repeat(3, 1fr);
                 gap: 15px;
                 padding: 20px;
+                flex-grow: 1; // This makes the grid container take up the remaining space
             }
+
             .grid-item {
                 padding: 20px;
                 background-color: #f1f1f1;
