@@ -36,7 +36,7 @@ function appendDirtyFieldsPopupToBody(html) {
     makePopupMovable(newContainer);
 }
 
-function showDirtyFields() {
+function dateCalc() {
     const entity = Xrm.Page.data.entity;
     const attributes = entity.attributes.get();
     const dirtyFields = attributes.filter(attribute => attribute.getIsDirty());
