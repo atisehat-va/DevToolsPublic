@@ -25,22 +25,26 @@ function dateCalc() {
             .sections-container {
                 display: flex;
                 flex-grow: 1;
-                align-items: stretch;
+                align-items: center; /* Align children to center */
             }
+
             .section-side {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
             }
+
             .section {
                 flex: 1;
                 padding: 20px;
                 margin: 5px;
             }
+
             .vertical-divider {
-                width: 2px;
+                width: 4px;           /* Thicker divider */
                 background-color: #000;
-                margin: 0 5px;
+                margin: 15% 5px;     /* Margin to shorten the divider's length */
+                border-radius: 2px;  /* Slightly rounded corners for aesthetics */
             }
         </style>
     `;
