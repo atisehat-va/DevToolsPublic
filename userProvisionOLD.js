@@ -58,23 +58,16 @@ function LaunchAddendum(primaryControl) {
         }
     };
 
-    // List of attributes to copy from parent to child form
+    // List of multi-select option set attributes to copy from parent to child form
     var attributesToCopy = [
-        "mcs_veteranid", "mcs_mandatedregistries", "mcs_nonmandatedregistry",
-        "mcs_providerclosedconsult", "mcs_assignedfacility", "mcs_vethomeprovider",
-        "mcs_appointmentscheduledintmp", "mcs_appointmentlength", "mcs_preferredmethodofcontact",
-        "mcs_followupletterpreferredmethodofcontact", "mcs_vethomevirpregistrant"
+        "mcs_mandatedregistries", "mcs_nonmandatedregistry"
     ];
 
     attributesToCopy.forEach(function(attrName) {
         var attrValue = formContext.getAttribute(attrName).getValue();
 
-        // If attribute value is an array (like for lookups), take the first value
-        if (Array.isArray(attrValue)) {
-            entityFormOptions.createFromEntity[attrName] = attrValue[0];
-        } else {
-            entityFormOptions.createFromEntity[attrName] = attrValue;
-        }
+        // Directly assign the array value for multi-select option sets
+        entityFormOptions.createFromEntity[attrName] = attrValue;
     });
 
     Xrm.Navigation.openForm(entityFormOptions).then(
