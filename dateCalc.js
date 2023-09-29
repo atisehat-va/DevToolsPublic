@@ -27,13 +27,11 @@ function dateCalc() {
                 flex-grow: 1;
                 align-items: stretch;
             }
-
             .section-side {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
             }
-
             .section {
                 flex: 1;
                 padding: 20px;
@@ -42,7 +40,6 @@ function dateCalc() {
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 margin: 5px;
             }
-
             .vertical-divider {
                 width: 2px;
                 background-color: #000;
