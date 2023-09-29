@@ -53,10 +53,39 @@ function LaunchAddendum(primaryControl) {
     var parentRecord = {};
     var entityFormOptions = {};
     entityFormOptions["entityName"] = "mcs_vethomecase"; 
+    
+    //Default parent attributes 
+    
+    var veteran = formContext.getAttribute("mcs_veteranid").getValue();
+    var exposureRegistries = formContext.getAttribute("mcs_mandatedregistries").getValue();
+    var nonExposureRegistries = formContext.getAttribute("mcs_nonmandatedregistry").getValue();
+    //var Consult
+    var providerClosedConsult = formContext.getAttribute("mcs_providerclosedconsult").getValue();
+    var assignedFacility = formContext.getAttribute("mcs_assignedfacility").getValue();
+    var vetHomeProvider = formContext.getAttribute("mcs_vethomeprovider").getValue();
+    var appointmentSchTMP = formContext.getAttribute("mcs_appointmentscheduledintmp").getValue();
+    var appointmentLength = formContext.getAttribute("mcs_appointmentlength").getValue();
+    var preferredMethodOfContact = formContext.getAttribute("mcs_preferredmethodofcontact").getValue();
+    var followUpLetterPrefMethodOfContact = formContext.getAttribute("mcs_followupletterpreferredmethodofcontact").getValue();
+    var virpRegistrant = formContext.getAttribute("mcs_vethomevirpregistrant").getValue(); 
+    
+    
+    
 
 	var parentRecord = {
 		entityType: "mcs_vethomecase",
-		id: vetHomeCaseId
+		id: vetHomeCaseId,
+        "mcs_veteranid": veteran ? veteran[0] : null,
+        "mcs_mandatedregistries": exposureRegistries,
+        "mcs_nonmandatedregistry": nonExposureRegistries,
+        "mcs_providerclosedconsult": providerClosedConsult,
+        "mcs_assignedfacility": assignedFacility ? assignedFacility[0] : null,
+        "mcs_vethomeprovider": vetHomeProvider ? vetHomeProvider[0] : null,
+        "mcs_appointmentscheduledintmp": appointmentSchTMP,
+        "mcs_appointmentlength": appointmentLength,
+        "mcs_preferredmethodofcontact": preferredMethodOfContact,
+        "mcs_followupletterpreferredmethodofcontact": followUpLetterPrefMethodOfContact,
+        "mcs_vethomevirpregistrant": virpRegistrant ? virpRegistrant[0] : null 
 	}; 
     
     entityFormOptions["createFromEntity"] = parentRecord;
