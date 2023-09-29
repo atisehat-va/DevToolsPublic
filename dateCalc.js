@@ -4,7 +4,10 @@ function dateCalc() {
     newContainer.style.display = 'flex';
     newContainer.style.flexDirection = 'column';
     newContainer.innerHTML = `
-        <div class="commonPopup-header">Date Calculator</div>
+        <div class="commonPopup-header">
+            <button class="commonback-button" id="commonback-button">Back</button>
+            Date Calculator
+        </div>
         <div class="securityPopup-row">
             <div class="commonSection" id="section1">Section 1</div>
             <div class="vertical-divider"></div>
