@@ -38,7 +38,7 @@ function dateCalc() {
                 margin: 5px;
             }
             .vertical-divider {
-                width: 4px;           /* Thicker divider */
+                width: 4px;           
                 background-color: #000;
                 margin: 15% 5px;     /* Margin to shorten the divider's length */
                 border-radius: 2px;  /* Slightly rounded corners for aesthetics */
