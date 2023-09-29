@@ -78,7 +78,7 @@ function processAndRenameFieldsInFormComponents(formContext) {
             var formComponentControlName = control.getName() + "1"; 
             var formComponentControl = formContext.ui.controls.get(formComponentControlName);
             
-            if (formComponentControl && formComponentControl.getControlType() === "quickform") {
+            if (formComponentControl) {
                 var formComponentData = formComponentControl.data.entity.attributes;
                 
                 // Rename the fields of the Form Component
