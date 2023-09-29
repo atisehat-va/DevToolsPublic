@@ -44,7 +44,7 @@ function renameControlAndUpdateOptionSet(control) {
     try {
         if (control && typeof control.getAttribute === 'function') {
             var attribute = control.getAttribute();
-            if (attribute !== null) {
+            if (attribute && typeof attribute.getName === 'function') {
                 var logicalName = attribute.getName();
                 control.setLabel(logicalName);
                 if (control.getControlType() === "optionset") {
