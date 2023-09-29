@@ -3,29 +3,31 @@ var logicalNameBtnClickStatus = false;
 var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
-function renameTabsSectionsFields() {     
-    try {
-        var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-        if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-            showCustomAlert('Show Logical Names button has already been clicked!!');
-            return;
-        }
-        Xrm.Page.ui.tabs.forEach(function(tab) {
-            var logicalName = tab.getName();
-            tab.setLabel(logicalName);
-            tab.sections.forEach(function(section) {
-                var logicalName = section.getName();
-                section.setLabel(logicalName);
-                section.controls.forEach(renameControlAndUpdateOptionSet);
+function renameTabsSectionsFields() {  
+    setTimeout(function() {
+        try {
+            var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
+            if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+                showCustomAlert('Show Logical Names button has already been clicked!!');
+                return;
+            }
+            Xrm.Page.ui.tabs.forEach(function(tab) {
+                var logicalName = tab.getName();
+                tab.setLabel(logicalName);
+                tab.sections.forEach(function(section) {
+                    var logicalName = section.getName();
+                    section.setLabel(logicalName);
+                    section.controls.forEach(renameControlAndUpdateOptionSet);
+                });
             });
-        });
-        logicalNameBtnClickStatus = true; 
-        lastUpdatedFormId = currentFormId;
-        renameHeaderFields();
-        processAndRenameFieldsInFormComponents();
-    } catch (e) {
-        console.error("Error in renameTabsSectionsFields:", e);
-    }
+            logicalNameBtnClickStatus = true; 
+            lastUpdatedFormId = currentFormId;
+            renameHeaderFields();
+            processAndRenameFieldsInFormComponents();
+        } catch (e) {
+            console.error("Error in renameTabsSectionsFields:", e);
+        }
+    }, 2000);
 }
 
 function renameHeaderFields() {    
@@ -83,7 +85,8 @@ function processAndRenameFieldsInFormComponents() {
                 var formComponentControlName = control.getName() + "1"; 
                 var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
 
-                if (formComponentControl) {
+                // Check if formComponentControl and formComponentControl.data are defined
+                if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
                     var formComponentData = formComponentControl.data.entity.attributes;
 
                     formComponentData.forEach(function(attribute) {
