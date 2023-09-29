@@ -4,7 +4,7 @@ function dateCalc() {
     newContainer.innerHTML = `
         <div class="commonPopup-header">
             <button class="commonback-button" id="commonback-button">Back</button>
-            Dirty Fields Info
+            Date Calculator
         </div>        
         <div class="dirtyFieldsPopup-content">
             <!-- Placeholder for content to be added later -->
