@@ -27,19 +27,16 @@ function dateCalc() {
                 flex-grow: 1;
                 align-items: stretch;
             }
-
             .section-side {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
             }
-
             .section {
                 flex: 1;
                 padding: 20px;
                 margin: 5px;
             }
-
             .vertical-divider {
                 width: 2px;
                 background-color: #000;
