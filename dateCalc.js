@@ -22,7 +22,6 @@ function dateCalc() {
                 gap: 15px;
                 padding: 20px;
             }
-
             .grid-item {
                 padding: 20px;
                 background-color: #f1f1f1;
