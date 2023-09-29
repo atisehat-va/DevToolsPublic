@@ -62,15 +62,13 @@ function updateOptionSetValues(control) {
 
 function processAndRenameFieldsInFormComponents() {
     Xrm.Page.ui.controls.forEach(function(control) {
-        if (control.getControlType() === "lookup") {
-            // Use the naming pattern to fetch the Form Component
+        if (control.getControlType() === "lookup") {            
             var formComponentControlName = control.getName() + "1"; 
             var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
             
             if (formComponentControl) {
-                var formComponentData = formComponentControl.data.entity.attributes;
-                
-                // Rename the fields of the Form Component
+                var formComponentData = formComponentControl.data.entity.attributes;                
+                // Rename the fields of the FormComponent
                 formComponentData.forEach(function(attribute) {
                     var logicalName = attribute._attributeName;
                     var formComponentFieldControl = formComponentControl.getControl(logicalName);
@@ -78,8 +76,7 @@ function processAndRenameFieldsInFormComponents() {
                         formComponentFieldControl.setLabel(logicalName);
                     }
                 });
-
-                // Rename the sections of the Form Component
+                // Rename the sections of the FormComponent
                 formComponentControl.ui.tabs.forEach(function(tab) {
                     tab.sections.forEach(function(section) {
                         var logicalName = section.getName();
