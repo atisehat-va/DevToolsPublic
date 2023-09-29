@@ -3,31 +3,29 @@ var logicalNameBtnClickStatus = false;
 var unlockAllFieldsBtnClickStatus = false;
 var showAllTabsAndSectionsBtnClickStatus = false;
 
-function renameTabsSectionsFields() {  
-    setTimeout(function() {
-        try {
-            var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-            if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-                showCustomAlert('Show Logical Names button has already been clicked!!');
-                return;
-            }
-            Xrm.Page.ui.tabs.forEach(function(tab) {
-                var logicalName = tab.getName();
-                tab.setLabel(logicalName);
-                tab.sections.forEach(function(section) {
-                    var logicalName = section.getName();
-                    section.setLabel(logicalName);
-                    section.controls.forEach(renameControlAndUpdateOptionSet);
-                });
-            });
-            logicalNameBtnClickStatus = true; 
-            lastUpdatedFormId = currentFormId;
-            renameHeaderFields();
-            processAndRenameFieldsInFormComponents();
-        } catch (e) {
-            console.error("Error in renameTabsSectionsFields:", e);
+function renameTabsSectionsFields() {      
+    try {
+        var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
+        if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+            showCustomAlert('Show Logical Names button has already been clicked!!');
+            return;
         }
-    }, 2000);
+        Xrm.Page.ui.tabs.forEach(function(tab) {
+            var logicalName = tab.getName();
+            tab.setLabel(logicalName);
+            tab.sections.forEach(function(section) {
+                var logicalName = section.getName();
+                section.setLabel(logicalName);
+                section.controls.forEach(renameControlAndUpdateOptionSet);
+            });
+        });
+        logicalNameBtnClickStatus = true; 
+        lastUpdatedFormId = currentFormId;
+        renameHeaderFields();
+        processAndRenameFieldsInFormComponents();
+    } catch (e) {
+        console.error("Error in renameTabsSectionsFields:", e);
+    }   
 }
 
 function renameHeaderFields() {    
