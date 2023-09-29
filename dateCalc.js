@@ -1,4 +1,4 @@
-function dateCalc() {
+function dateCalc() { 
     var newContainer = document.createElement('div');
     newContainer.className = 'commonPopup';
     newContainer.innerHTML = `
