@@ -48,9 +48,10 @@ function openUrl(pageType) {
 
 //test
 function calculateAdjustedDate() {
-debugger;    
+    debugger;
+
     function stripTimeFromDate(date) {
-        return new Date(date.setHours(0,0,0,0));
+        return new Date(date.setHours(0, 0, 0, 0));
     }
 
     function getCaseDate(caseId) {
@@ -86,70 +87,72 @@ debugger;
             );
         });
     }
-    
+
     function isWeekend(date) {
         return date.getUTCDay() === 0 || date.getUTCDay() === 6;
     }
-    
+
     var parentCase = CommCare.Shared.GetFieldValue("mcs_parentvethomecaseid");
-    var parentCaseId = CommCare.Shared.GetCleanId(parentCase);    
-    
+    var parentCaseId = CommCare.Shared.GetCleanId(parentCase);
+
     getCaseDate(parentCaseId)
-    .then(function(caseResult) {
-        var caseDate = stripTimeFromDate(new Date(caseResult.mcs_closuredate));          
-        var reopenReason = CommCare.Shared.GetFieldValue("mcs_reopenreasonid");
-        var reopenReasonId = CommCare.Shared.GetCleanId(reopenReason);        
+        .then(function (caseResult) {
+            var caseDate = stripTimeFromDate(new Date(caseResult.mcs_closuredate));
+            var reopenReason = CommCare.Shared.GetFieldValue("mcs_reopenreasonid");
+            var reopenReasonId = CommCare.Shared.GetCleanId(reopenReason);
 
-        return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$select=mcs_vethomesla")       
-        .then(function (slaResults) {
-            var slaNumber = slaResults.mcs_vethomesla;
-            return { slaNumber: slaNumber, caseDate: caseDate };
-        });
-    })
-    .then(function(data) {
-        return getHolidaysForSchedule()
-        .then(function(holidays) {
-            return { holidays: holidays, slaNumber: data.slaNumber, caseDate: data.caseDate };
-        });
-    })
-    .then(function(data) {
-        var addedDays = 0;
-        var closureDate = data.caseDate;
-        var slaNumber = data.slaNumber;
-        var holidayStrings = data.holidays.map(h => h.toISOString().split("T")[0]);
+            return Xrm.WebApi.online.retrieveRecord("vhacrm_actionintersection", reopenReasonId, "?$select=mcs_vethomesla")
+                .then(function (slaResults) {
+                    var slaNumber = slaResults.mcs_vethomesla;
+                    return { slaNumber: slaNumber, caseDate: caseDate };
+                });
+        })
+        .then(function (data) {
+            return getHolidaysForSchedule()
+                .then(function (holidays) {
+                    return { holidays: holidays, slaNumber: data.slaNumber, caseDate: data.caseDate };
+                });
+        })
+        .then(function (data) {
+            var slaNumber = data.slaNumber;
 
-        while (addedDays < slaNumber) {
-            closureDate.setDate(closureDate.getDate() + 1);
-            closureDate = stripTimeFromDate(closureDate); 
+            // Check if slaNumber is not null
+            if (slaNumber !== null) {
+                var addedDays = 0;
+                var closureDate = data.caseDate;
+                var holidayStrings = data.holidays.map(h => h.toISOString().split("T")[0]);
 
-            if (isWeekend(closureDate) || holidayStrings.includes(closureDate.toISOString().split("T")[0])) {
-                continue;
+                while (addedDays < slaNumber) {
+                    closureDate.setDate(closureDate.getDate() + 1);
+                    closureDate = stripTimeFromDate(closureDate);
+
+                    if (isWeekend(closureDate) || holidayStrings.includes(closureDate.toISOString().split("T")[0])) {
+                        continue;
+                    }
+                    addedDays++;
+                }
+                var adjustedDate = closureDate;
+                console.log("Adjusted Date:", adjustedDate);
+                var today = stripTimeFromDate(new Date());
+
+                if (adjustedDate < today) {
+                    const alertStrings = {
+                        text: "Unable to create a Case Addendum: The associated Case exceeds the permitted timeframe for the selected Reopen Reason.",
+                        title: "Validation Error"
+                    };
+
+                    const alertOptions = { height: 200, width: 300 };
+                    Xrm.Navigation.openAlertDialog(alertStrings, alertOptions)
+                        .then(success => {
+                            CommCare.Shared.SetFieldValue("mcs_reopenreasonid", null);
+                        })
+                        .catch(error => {
+                            console.log("Error in closing dialog", error);
+                        });
+                }
             }
-            addedDays++;
-        }
-        var adjustedDate = closureDate;
-        console.log("Adjusted Date:", adjustedDate);
-        var today = stripTimeFromDate(new Date());
-        
-        if (adjustedDate < today) {
-           const alertStrings = {
-                text: "Unable to create a Case Addendum: The associated Case exceeds the permitted timeframe for the selected Reopen Reason.",
-                title: "Validation Error"
-            };
-
-            const alertOptions = { height: 200, width: 300 };
-            Xrm.Navigation.openAlertDialog(alertStrings, alertOptions)
-            .then(success => {
-                CommCare.Shared.SetFieldValue("mcs_reopenreasonid", null); 
-            })
-            .catch(error => {
-                console.log("Error in closing dialog", error);
-            });                       
-        }
-    })
-    .catch(function(error) {
-        console.error(error.message);
-    });
+        })
+        .catch(function (error) {
+            console.error(error.message);
+        });
 }
-
-
