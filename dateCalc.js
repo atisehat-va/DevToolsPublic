@@ -7,49 +7,32 @@ function dateCalc() {
          <div class="commonPopup-header">Copy User Security</div>
 	    		  <button class="commonback-button" id="commonback-button">Back</button>		  
 			  <div class="securityPopup-row">
-			    <div class="commonSection user-section" id="section1">
-			      <h3>FROM</h3>
-			      <input type="text" id="searchInput1" placeholder="Search Users">
-			      <div class="user-list-container">
-			        <div id="userList1"></div>
-			      </div>
-			    </div>
-			    <div class="commonSection user-section" id="section2">
-			      <h3>TO</h3>
-			      <input type="text" id="searchInput2" placeholder="Search Users">
-			      <div class="user-list-container">
-			        <div id="userList2"></div>
-			      </div>
+			    <div class="commonSection details-section-row" id="section1">
+			      <h3>FROM</h3>			      			      
+			    </div>       
+			    <div class="commonSection details-section-row" id="section2">
+			      <h3>TO</h3>			      			      
 			    </div>
 			  </div>
+     
 			  <div id="sectionsRow1" class="securityPopup-row">
 			    <div class="commonSection details-section-row" id="section3">
-			      <h3>Business Unit & Teams</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
-			    </div>
+			      <h3>Business Unit & Teams</h3>			      
+			    </div>       
 			    <div class="commonSection details-section-row" id="section5">
-			      <h3>Business Unit & Teams</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
+			      <h3>Business Unit & Teams2</h3>			      
 			    </div>
 			  </div>
+     
 			  <div id="sectionsRow2" class="securityPopup-row">
 			    <div class="commonSection details-section-row" id="section4">
-			      <h3>Security Roles</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
+			      <h3>Security Roles</h3>			      
 			    </div>
 			    <div class="commonSection details-section-row" id="section6">
-			      <h3>Security Roles</h3>
-			      <div class="roles-and-teams-list-row">
-			        <ul></ul>
-			      </div>
+			      <h3>Security Roles2</h3>			      
 			    </div>
 			  </div>
+     
 			  <div class="submit-button-container">
 			    <button id="submitButton">Submit</button>
 			  </div>
