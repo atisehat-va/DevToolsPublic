@@ -48,47 +48,34 @@ function openUrl(pageType) {
 
 //test
 function LaunchAddendum(primaryControl) {
-	var formContext = primaryControl;
+    var formContext = primaryControl;
     var vetHomeCaseId = formContext.data.entity.getId();
-    var parentRecord = {};
-    var entityFormOptions = {};
-    entityFormOptions["entityName"] = "mcs_vethomecase"; 
-    
-    //Default parent attributes 
-    
-    var veteran = formContext.getAttribute("mcs_veteranid").getValue();
-    var exposureRegistries = formContext.getAttribute("mcs_mandatedregistries").getValue();
-    var nonExposureRegistries = formContext.getAttribute("mcs_nonmandatedregistry").getValue();
-    //var Consult
-    var providerClosedConsult = formContext.getAttribute("mcs_providerclosedconsult").getValue();
-    var assignedFacility = formContext.getAttribute("mcs_assignedfacility").getValue();
-    var vetHomeProvider = formContext.getAttribute("mcs_vethomeprovider").getValue();
-    var appointmentSchTMP = formContext.getAttribute("mcs_appointmentscheduledintmp").getValue();
-    var appointmentLength = formContext.getAttribute("mcs_appointmentlength").getValue();
-    var preferredMethodOfContact = formContext.getAttribute("mcs_preferredmethodofcontact").getValue();
-    var followUpLetterPrefMethodOfContact = formContext.getAttribute("mcs_followupletterpreferredmethodofcontact").getValue();
-    var virpRegistrant = formContext.getAttribute("mcs_vethomevirpregistrant").getValue(); 
-    
-    
-    
+    var entityFormOptions = {
+        entityName: "mcs_vethomecase",
+        createFromEntity: {
+            entityType: "mcs_vethomecase",
+            id: vetHomeCaseId
+        }
+    };
 
-	var parentRecord = {
-		entityType: "mcs_vethomecase",
-		id: vetHomeCaseId,
-        "mcs_veteranid": veteran ? veteran[0] : null,
-        "mcs_mandatedregistries": exposureRegistries,
-        "mcs_nonmandatedregistry": nonExposureRegistries,
-        "mcs_providerclosedconsult": providerClosedConsult,
-        "mcs_assignedfacility": assignedFacility ? assignedFacility[0] : null,
-        "mcs_vethomeprovider": vetHomeProvider ? vetHomeProvider[0] : null,
-        "mcs_appointmentscheduledintmp": appointmentSchTMP,
-        "mcs_appointmentlength": appointmentLength,
-        "mcs_preferredmethodofcontact": preferredMethodOfContact,
-        "mcs_followupletterpreferredmethodofcontact": followUpLetterPrefMethodOfContact,
-        "mcs_vethomevirpregistrant": virpRegistrant ? virpRegistrant[0] : null 
-	}; 
-    
-    entityFormOptions["createFromEntity"] = parentRecord;
+    // List of attributes to copy from parent to child form
+    var attributesToCopy = [
+        "mcs_veteranid", "mcs_mandatedregistries", "mcs_nonmandatedregistry",
+        "mcs_providerclosedconsult", "mcs_assignedfacility", "mcs_vethomeprovider",
+        "mcs_appointmentscheduledintmp", "mcs_appointmentlength", "mcs_preferredmethodofcontact",
+        "mcs_followupletterpreferredmethodofcontact", "mcs_vethomevirpregistrant"
+    ];
+
+    attributesToCopy.forEach(function(attrName) {
+        var attrValue = formContext.getAttribute(attrName).getValue();
+
+        // If attribute value is an array (like for lookups), take the first value
+        if (Array.isArray(attrValue)) {
+            entityFormOptions.createFromEntity[attrName] = attrValue[0];
+        } else {
+            entityFormOptions.createFromEntity[attrName] = attrValue;
+        }
+    });
 
     Xrm.Navigation.openForm(entityFormOptions).then(
         function (lookup) { console.log("Successfully launched addendum (case)"); },
