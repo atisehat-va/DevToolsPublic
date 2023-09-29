@@ -78,20 +78,25 @@ function processAndRenameFieldsInFormComponents(formContext) {
             var formComponentControlName = control.getName() + "1"; 
             var formComponentControl = formContext.ui.controls.get(formComponentControlName);
             
-            if (formComponentControl) {
+            if (formComponentControl && formComponentControl.getControlType() === "quickform") {
                 var formComponentData = formComponentControl.data.entity.attributes;
                 
-                // Iterate over the attributes of the Form Component to rename them
+                // Rename the fields of the Form Component
                 formComponentData.forEach(function(attribute) {
-                var logicalName = attribute._attributeName;
-                
-                // Get the control for the attribute from the formComponentControl
-                var formComponentFieldControl = formComponentControl.getControl(logicalName);
-                
-                if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
-                    formComponentFieldControl.setLabel(logicalName);
-                }
-            });
+                    var logicalName = attribute._attributeName;
+                    var formComponentFieldControl = formComponentControl.getControl(logicalName);
+                    if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
+                        formComponentFieldControl.setLabel(logicalName);
+                    }
+                });
+
+                // Rename the sections of the Form Component
+                formComponentControl.ui.tabs.forEach(function(tab) {
+                    tab.sections.forEach(function(section) {
+                        var logicalName = section.getName();
+                        section.setLabel(logicalName);
+                    });
+                });
             }
         }
     });
