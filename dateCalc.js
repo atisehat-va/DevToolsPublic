@@ -8,10 +8,10 @@ function dateCalc() {
 	    		  <button class="commonback-button" id="commonback-button">Back</button>		  
 			  <div class="securityPopup-row">
 			    <div class="commonSection details-section-row" id="section1">
-			      <h3>FROM</h3>			      			      
+			      <h3>calendar</h3>			      			      
 			    </div>       
 			    <div class="commonSection details-section-row" id="section2">
-			      <h3>TO</h3>			      			      
+			      <h3>Calculation Settings</h3>			      			      
 			    </div>
 			  </div>
      
