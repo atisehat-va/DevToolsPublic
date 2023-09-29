@@ -25,7 +25,6 @@ function dateCalc() {
                 padding: 20px;
                 flex-grow: 1; // This makes the grid container take up the remaining space
             }
-
             .grid-item {
                 padding: 20px;
                 background-color: #f1f1f1;
