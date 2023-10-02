@@ -5,7 +5,11 @@ function dateCalc() {
     newContainer.style.flexDirection = 'column';
     newContainer.innerHTML = `
          <div class="commonPopup-header">Copy User Security</div>
-	  <button class="commonback-button" id="commonback-button">Back</button>		  
+	  <button class="commonback-button" id="commonback-button">Back</button>
+	  <div class="submit-button-container">
+	    <button id="submitButton">Submit</button>
+	  </div>
+      	
 	  <div class="securityPopup-row">
 	    <div class="commonSection details-section-row" id="section1">
 	      <h3>calendar</h3>			      			      
