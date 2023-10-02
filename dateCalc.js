@@ -79,7 +79,9 @@ async function displayHolidays() {
             #holidaysList {
                 max-height: 85%
                 overflow-y: auto;
-                display: grid;                
+                display: grid;
+		margin-top: 15px;
+  		margin-left: 10px;
             }
            .holidayRow {
 	    display: grid;
