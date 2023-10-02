@@ -69,7 +69,7 @@ async function displayHolidays() {
         const holidaysList = document.getElementById('holidaysList');
 
         // Building the list with holiday names and dates
-        holidaysList.innerHTML = holidays.map(holiday => `<li style="text-align: left;">${holiday.name} - ${holiday.date}</li>`).join('');
+        holidaysList.innerHTML = holidays.map(holiday => `<li style="text-align: left; margin-left: 16px; font-size: 16px;">${holiday.name} - ${holiday.date}</li>`).join('');
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
