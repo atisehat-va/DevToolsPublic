@@ -32,8 +32,11 @@ async function setupHolidayScheduleDropdown() {
         dropdown.appendChild(option);
     });
 
-    const container = document.querySelector('.headerWrapper');
-    container.appendChild(dropdown);
+    // Get the container of the "Calendar Info" header
+    const container = document.querySelector('.calcDate-section-row1 h3');
+    
+    // Insert the dropdown right after the header
+    container.parentNode.insertBefore(dropdown, container.nextSibling);
 
     dropdown.addEventListener('change', (e) => {
         displayHolidays(e.target.value);
@@ -95,16 +98,13 @@ function dateCalc() {
     newContainer.innerHTML = `
          <div class="commonPopup-header">Copy User Security</div>
          <button class="commonback-button" id="commonback-button">Back</button>
-
+   
          <div class="securityPopup-row">
-            <div class="calcDate-section-row1" id="section1">
-                <div class="headerWrapper">
-                    <h3>Calendar Info</h3>
-                    <!-- The dropdown will be inserted here by the setupHolidayScheduleDropdown function -->
-                </div>
-                <div id="holidaysList"></div>     			      
-            </div>     
-         </div>    
+             <div class="calcDate-section-row1" id="section1">
+                 <h3>Calendar Info</h3>
+                 <div id="holidaysList"></div>     			      
+             </div>     
+         </div> 
       	
          <div class="securityPopup-row">
              <div class="commonSection details-section-row" id="section2">
@@ -134,7 +134,6 @@ function dateCalc() {
 const styles = `
     #holidaysList {
         max-height: 85%;
-        width: 100%;
         overflow-y: auto;
         display: grid;
         margin-top: 15px;
@@ -162,13 +161,6 @@ const styles = `
     #holidayScheduleDropdown {
         margin-left: 10px; /* adjust spacing as necessary */
     }
-
-    .headerWrapper {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;  // Adjusts the content to start from the left
-        width: 100%; // Takes the full width
-    }    
 `;
 
 // Append styles to the document
