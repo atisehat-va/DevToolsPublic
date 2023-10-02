@@ -157,11 +157,16 @@ const styles = `
         grid-template-columns: 1fr 1fr;
         align-items: center;
     }
-    .holidayName, .holidayDate {
+    .holidayName {
         padding: 4px 8px;
-        border: 1px solid #ddd;
-        /*display: flex; */
+        border: 1px solid #ddd;        
         text-align: left;
+    }    
+    .holidayDate {
+        padding: 4px 8px;
+        border: 1px solid #ddd;        
+        text-align: left;
+        width:20%;
     }    
     .headerWrapper {
        margin-left: 10px;
