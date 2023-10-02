@@ -10,14 +10,13 @@ async function fetchAllHolidaySchedules() {
         </fetch>
     `;
 
-    Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`)
-    .then(results => {
-        // Handle the results
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
-    return results.entities.map(entity => entity.name);
+    try {
+        const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
+        return results.entities.map(entity => entity.name);
+    } catch (error) {
+        console.error("Error fetching holiday schedules:", error);
+        return []; // Return an empty array in case of an error or adjust as needed
+    }
 }
 
 async function setupHolidayScheduleDropdown() {
