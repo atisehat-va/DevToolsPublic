@@ -106,7 +106,7 @@ function openPopup() {
 		  </div>
     		  <div class="button-row">
 		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
-		    <button onclick="">None</button>
+		    <button onclick="clearCacheFunction();">None</button>
 		  </div>
 		    <button onclick="closePopup();" class="close-btn">Close</button>
 		</div>
@@ -124,6 +124,9 @@ function openPopup() {
 	  
 	  makePopupMovable(newContainer);
 	});
+}
+function clearCacheFunction() {
+    location.reload(true); // The 'true' argument forces a hard reload, bypassing the cache.
 }
 
 function checkIfEntityExists(entityLogicalName, callback) {
