@@ -14,8 +14,8 @@ async function fetchAllHolidaySchedules() {
     try {
         const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
         return results.entities.map(entity => ({
-            name: `${entity.name} (Type: ${entity.calendartype})`,
-            type: entity.calendartype
+            name: `${entity.name} (Type: ${entity.type})`,
+            type: entity.type
         }));
     } catch (error) {
         console.error("Error fetching holiday schedules:", error);
