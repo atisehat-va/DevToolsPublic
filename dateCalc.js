@@ -163,19 +163,21 @@ const styles = `
     .holidayName, .holidayDate {
         padding: 4px 8px;
         border: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        /*display: flex; */
         text-align: left;
-    }
-    
+    }    
     .headerWrapper {
        margin-left: 10px;
-    }
-    
-    .calcDate-section-row1 { display: inline-block; width: 70%; height: 300px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; justify-content: space-between; }
-    
-   
+    }    
+    .calcDate-section-row1 { 
+        display: inline-block; 
+        width: 70%; 
+        height: 300px; 
+        padding: 10px; 
+        border-bottom: 3px solid #ccc; 
+        box-sizing: border-box; 
+        text-align: left;
+    }   
 `;
 
 // Append styles to the document
