@@ -26,9 +26,7 @@ async function fetchAllHolidaySchedules() {
 async function setupHolidayScheduleDropdown() {
     const schedules = await fetchAllHolidaySchedules();
 
-    const dropdown = document.createElement('select');
-    dropdown.id = 'holidayScheduleDropdown';
-
+    const dropdown = document.getElementById('holidayScheduleDropdown');
     let defaultScheduleName = '';
     
     schedules.forEach(schedule => {
@@ -42,9 +40,6 @@ async function setupHolidayScheduleDropdown() {
             defaultScheduleName = schedule.name;
         }
     });
-
-    const container = document.querySelector('.headerWrapper');
-    container.appendChild(dropdown);
 
     dropdown.value = defaultScheduleName;  // Set the default calendar type 2
     displayHolidays(defaultScheduleName);  // Display holidays of the default schedule
@@ -111,11 +106,14 @@ function dateCalc() {
          <button class="commonback-button" id="commonback-button">Back</button>
    
          <div class="securityPopup-row">
-             <div class="calcDate-section-row1" id="section1">
-                 <h3>Calendar Info</h3>
-                 <div id="holidaysList"></div>     			      
-             </div>     
-         </div> 
+            <div class="calcDate-section-row1" id="section1">
+                <div class="headerWrapper">
+                    <h3>Calendar Info</h3>
+                    <select id="holidayScheduleDropdown"></select> <!-- Directly embedded dropdown -->
+                </div>
+                <div id="holidaysList"></div>
+            </div>
+        </div> 
       	
          <div class="securityPopup-row">
              <div class="commonSection details-section-row" id="section2">
