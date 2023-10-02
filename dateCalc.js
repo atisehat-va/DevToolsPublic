@@ -170,14 +170,12 @@ const styles = `
     }
     
     .headerWrapper {
-       
+       margin-left: 10px;
     }
     
-    .calcDate-section-row1 { display: inline-block; width: 70%; height: 300px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: center; justify-content: space-between; }
+    .calcDate-section-row1 { display: inline-block; width: 70%; height: 300px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; justify-content: space-between; }
     
-    #holidayScheduleDropdown {
-        margin-left: 10px; /* adjust spacing as necessary */
-    }
+   
 `;
 
 // Append styles to the document
