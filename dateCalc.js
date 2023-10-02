@@ -76,8 +76,12 @@ async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule')
 }
 
 async function displayHolidays(scheduleName) {
+    console.log("Displaying holidays for:", scheduleName); // Log for debugging
+
     try {
         const holidays = await getHolidaysForSchedule(scheduleName);
+
+        console.log("Fetched holidays:", holidays); // Log for debugging
 
         // Sort holidays by date
         holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
