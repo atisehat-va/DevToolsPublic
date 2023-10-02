@@ -68,11 +68,37 @@ async function displayHolidays() {
         const holidays = await getHolidaysForSchedule();
         const holidaysList = document.getElementById('holidaysList');
 
-        // Formatting the list with holiday names in bold and formatted date
+        // Formatting the list with a two-column grid layout
         holidaysList.innerHTML = holidays.map(holiday => {
             const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
-            return `<li style="text-align: left; margin-left: 16px; font-size: 16px;"><b>${holiday.name}</b>: ${formattedDate}</li>`;
+            return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
         }).join('');
+
+        // CSS for the grid layout and scrollable list
+        const styles = `
+            #holidaysList {
+                max-height: 300px; /* Adjust as needed */
+                overflow-y: auto;
+                display: grid;
+                gap: 8px;
+            }
+            .holidayRow {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+            .holidayName, .holidayDate {
+                padding: 4px 8px;
+                border: 1px solid #ddd;
+            }
+        `;
+
+        // Append styles to the document
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = styles;
+        document.head.appendChild(styleSheet);
+
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
