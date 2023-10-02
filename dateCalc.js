@@ -1,6 +1,6 @@
 async function fetchAllHolidaySchedules() {
     const fetchXml = `
-        <fetch distinct="true">
+        <fetch>
             <entity name="calendar">
                 <attribute name="name" />
                 <filter>
