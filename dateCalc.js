@@ -57,14 +57,19 @@ async function getHolidaysForSchedule() {
     `;
 
     const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
-    return results.entities.map(entity => new Date(entity["rule.starttime"]).setHours(0, 0, 0, 0));
+    return results.entities.map(entity => ({
+        name: entity["rule.name"],
+        date: new Date(entity["rule.starttime"]).toDateString()
+    }));
 }
 
 async function displayHolidays() {
     try {
         const holidays = await getHolidaysForSchedule();
         const holidaysList = document.getElementById('holidaysList');
-        holidaysList.innerHTML = holidays.map(holiday => `<li>${new Date(holiday).toDateString()}</li>`).join('');
+
+        // Building the list with holiday names and dates
+        holidaysList.innerHTML = holidays.map(holiday => `<li style="text-align: left;">${holiday.name} - ${holiday.date}</li>`).join('');
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
