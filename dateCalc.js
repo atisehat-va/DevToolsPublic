@@ -91,13 +91,10 @@ async function displayHolidays(scheduleName) {
 
         const holidaysList = document.getElementById('holidaysList');
 
-        // Formatting the list with a two-column grid layout
-        holidaysList.innerHTML = holidays.map(holiday => {
-            const dateObject = new Date(holiday.date);
-            const fullDayName = dateObject.toLocaleString('en-US', { weekday: 'long' });
-            const formattedDate = `${fullDayName} - ${("0" + (dateObject.getMonth() + 1)).slice(-2)}/${("0" + dateObject.getDate()).slice(-2)}/${dateObject.getFullYear()}`;
-            return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
-        }).join('');
+           holidaysList.innerHTML = holidays.map(holiday => {
+        const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
+        return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
+    }).join('');
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
