@@ -3,7 +3,7 @@ async function fetchAllHolidaySchedules() {
         <fetch>
             <entity name="calendar">
                 <attribute name="name" />
-                <attribute name="calendartype" />
+                <attribute name="type" />
                 <filter>
                     <condition attribute="name" operator="not-null" />
                 </filter>
