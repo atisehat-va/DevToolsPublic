@@ -15,10 +15,10 @@ function dateCalc() {
       	
 	  <div class="securityPopup-row">
 	    <div class="commonSection details-section-row" id="section2">
-	      <h3>calendar</h3>			      			      
+	      <h3>Calendar 1</h3>			      			      
 	    </div>       
 	    <div class="commonSection details-section-row" id="section3">
-	      <h3>Calculation Settings</h3>			      			      
+	      <h3>Calendar 2</h3>			      			      
 	    </div>
 	  </div>  	  
 
