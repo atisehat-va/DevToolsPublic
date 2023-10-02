@@ -14,7 +14,7 @@ function loadCSS(href) {
 }
 
 // Load CSS
-loadCSS('styles.css');
+loadCSS('styles1.css');
 
 function loadScript(src, callback) {
   const script = document.createElement('script');
