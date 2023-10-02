@@ -7,8 +7,7 @@ function dateCalc() {
          <div class="commonPopup-header">Copy User Security</div>
 	  <button class="commonback-button" id="commonback-button">Back</button>
    
-	  <div class="submit-button-container">
-	    <button id="submitButton">Submit</button>
+	  <div class="submit-button-container">	   
 	  </div>
       	
 	  <div class="securityPopup-row">
