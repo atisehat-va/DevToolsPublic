@@ -96,7 +96,7 @@ async function displayHolidays(scheduleName) {
     }
 }
 
-function dateCalc() {
+async function dateCalc() {
     var newContainer = document.createElement('div');
     newContainer.className = 'commonPopup';
     newContainer.style.display = 'flex';
@@ -111,7 +111,7 @@ function dateCalc() {
                     <h3>Calendar Info</h3>
                     <select id="holidayScheduleDropdown"></select> <!-- Directly embedded dropdown -->
                 </div>
-                <div id="holidaysList"></div>
+                <div id="holidaysList"></div>     			      
             </div>
         </div> 
       	
@@ -135,9 +135,9 @@ function dateCalc() {
     });
     makePopupMovable(newContainer); 
 
-    // Fetch and display holidays
-    setupHolidayScheduleDropdown();
-    displayHolidays('Federal Holiday Schedule'); 
+    // Setup dropdown and then display holidays of the default schedule
+    const defaultSchedule = await setupHolidayScheduleDropdown();
+    displayHolidays(defaultSchedule); 
 }
 
 const styles = `
