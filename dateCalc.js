@@ -8,7 +8,7 @@ function dateCalc() {
 	  <button class="commonback-button" id="commonback-button">Back</button>
    
 	  <div class="securityPopup-row">
-	    <div class="calc-section-row1" id="section1">
+	    <div class="calcDate-section-row1" id="section1">
 	      <h3>Calendar Info</h3>			      			      
 	    </div>     
 	  </div> 
