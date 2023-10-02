@@ -11,7 +11,7 @@ function dateCalc() {
 	    <div class="calc-section-row1" id="section1">
 	      <h3>Calendar Info</h3>			      			      
 	    </div>     
-	  </div>
+	  </div> 
       	
 	  <div class="securityPopup-row">
 	    <div class="commonSection details-section-row" id="section2">
