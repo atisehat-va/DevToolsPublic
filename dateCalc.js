@@ -38,49 +38,34 @@ function dateCalc() {
     displayHolidays();
 }
 
-function getHolidaysForSchedule() {
-    return new Promise((resolve, reject) => {
-        const fetchXml = `
-            <fetch>
-                <entity name="calendar">
+async function getHolidaysForSchedule() {
+    const fetchXml = `
+        <fetch>
+            <entity name="calendar">
+                <filter>
+                    <condition attribute="name" operator="eq" value="Federal Holiday Schedule" />
+                </filter>
+                <link-entity name="calendarrule" from="calendarid" to="calendarid" alias="rule">
+                    <attribute name="name" />
+                    <attribute name="starttime" />
                     <filter>
-                        <condition attribute="name" operator="eq" value="Federal Holiday Schedule" />
+                        <condition attribute="starttime" operator="this-year" />
                     </filter>
-                    <link-entity name="calendarrule" from="calendarid" to="calendarid" alias="rule">
-                        <attribute name="name" />
-                        <attribute name="starttime" />
-                        <filter>
-                            <condition attribute="starttime" operator="this-year" />
-                        </filter>
-                    </link-entity>
-                </entity>
-            </fetch>
-        `;
-        Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`).then(
-            results => {
-                let holidays = results.entities.map(entity => stripTimeFromDate(new Date(entity["rule.starttime"])));
-                resolve(holidays);
-            },
-            error => {
-                reject(error.message);
-            }
-        );
-    });
+                </link-entity>
+            </entity>
+        </fetch>
+    `;
+
+    const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
+    return results.entities.map(entity => new Date(entity["rule.starttime"]).setHours(0, 0, 0, 0));
 }
 
-function stripTimeFromDate(date) {
-    return new Date(date.setHours(0, 0, 0, 0));
-}
-
-function displayHolidays() {
-    getHolidaysForSchedule().then(holidays => {
+async function displayHolidays() {
+    try {
+        const holidays = await getHolidaysForSchedule();
         const holidaysList = document.getElementById('holidaysList');
-        holidays.forEach(holiday => {
-            const listItem = document.createElement('li');
-            listItem.textContent = holiday.toDateString();
-            holidaysList.appendChild(listItem);
-        });
-    }).catch(error => {
+        holidaysList.innerHTML = holidays.map(holiday => `<li>${new Date(holiday).toDateString()}</li>`).join('');
+    } catch (error) {
         console.error("Error fetching holidays: ", error);
-    });
+    }
 }
