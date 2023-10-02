@@ -149,7 +149,7 @@ async function dateCalc() {
 
 const styles = `
     #holidaysList {
-        max-height: 85%;
+        max-height: 75%;
         overflow-y: auto;
         display: grid;
         margin-top: 15px;
@@ -169,7 +169,11 @@ const styles = `
         text-align: left;
     }
     
-    .calcDate-section-row1 { display: inline-block; width: 100%; height: 300px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: center; justify-content: space-between; }
+    .headerWrapper {
+       
+    }
+    
+    .calcDate-section-row1 { display: inline-block; width: 70%; height: 300px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: center; justify-content: space-between; }
     
     #holidayScheduleDropdown {
         margin-left: 10px; /* adjust spacing as necessary */
