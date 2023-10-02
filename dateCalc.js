@@ -119,7 +119,6 @@ function dateCalc() {
     displayHolidays('Federal Holiday Schedule'); 
 }
 
-// Add CSS styles for the grid layout (you can append this to your existing styles)
 const styles = `
     #holidaysList {
         max-height: 85%;
