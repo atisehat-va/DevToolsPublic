@@ -51,7 +51,8 @@ async function setupHolidayScheduleDropdown() {
 
 
 async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule') {
-    const actualScheduleName = scheduleName.match(/^(.*?) \(Type:/)[1];
+    const matchedScheduleName = scheduleName.match(/^(.*?) \(Type:/);
+    const actualScheduleName = matchedScheduleName ? matchedScheduleName[1] : scheduleName;
     
     const fetchXml = `
         <fetch>
