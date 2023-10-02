@@ -8,25 +8,22 @@ function dateCalc() {
 	  <button class="commonback-button" id="commonback-button">Back</button>
    
 	  <div class="securityPopup-row">
-	    <div class="commonSection details-section-row" id="section1">
-	      <h3>calendar</h3>			      			      
-	    </div>       
-	    <div class="commonSection details-section-row" id="section2">
-	      <h3>Calculation Settings</h3>			      			      
-	    </div>
+	    <div class="calc-section-row1" id="section1">
+	      <h3>Calendar Info</h3>			      			      
+	    </div>     
 	  </div>
       	
 	  <div class="securityPopup-row">
-	    <div class="commonSection details-section-row" id="section1">
+	    <div class="commonSection details-section-row" id="section2">
 	      <h3>calendar</h3>			      			      
 	    </div>       
-	    <div class="commonSection details-section-row" id="section2">
+	    <div class="commonSection details-section-row" id="section3">
 	      <h3>Calculation Settings</h3>			      			      
 	    </div>
 	  </div>
 
 	  <div id="sectionsRow1" class="securityPopup-row">
-	    <div class="commonSection details-section-row" id="section3">
+	    <div class="commonSection details-section-row" id="section4">
 	      <h3>Business Unit & Teams</h3>			      
 	    </div>       
 	    <div class="commonSection details-section-row" id="section5">
@@ -35,10 +32,10 @@ function dateCalc() {
 	  </div>
 
 	  <div id="sectionsRow2" class="securityPopup-row">
-	    <div class="commonSection details-section-row" id="section4">
+	    <div class="commonSection details-section-row" id="section6">
 	      <h3>Security Roles</h3>			      
 	    </div>
-	    <div class="commonSection details-section-row" id="section6">
+	    <div class="commonSection details-section-row" id="section7">
 	      <h3>Security Roles2</h3>			      
 	    </div>
 	  </div>
