@@ -68,8 +68,11 @@ async function displayHolidays() {
         const holidays = await getHolidaysForSchedule();
         const holidaysList = document.getElementById('holidaysList');
 
-        // Building the list with holiday names and dates
-        holidaysList.innerHTML = holidays.map(holiday => `<li style="text-align: left; margin-left: 16px; font-size: 16px;">${holiday.name} - ${holiday.date}</li>`).join('');
+        // Formatting the list with holiday names in bold and formatted date
+        holidaysList.innerHTML = holidays.map(holiday => {
+            const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
+            return `<li style="text-align: left; margin-left: 16px; font-size: 16px;"><b>${holiday.name}</b>: ${formattedDate}</li>`;
+        }).join('');
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
