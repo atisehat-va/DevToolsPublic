@@ -32,13 +32,17 @@ async function setupHolidayScheduleDropdown() {
         dropdown.appendChild(option);
     });
 
-    const container = document.querySelector('.commonPopup-header');
-    container.appendChild(dropdown);
+    // Get the container of the "Calendar Info" header
+    const container = document.querySelector('.calcDate-section-row1 h3');
+    
+    // Insert the dropdown right after the header
+    container.parentNode.insertBefore(dropdown, container.nextSibling);
 
     dropdown.addEventListener('change', (e) => {
         displayHolidays(e.target.value);
     });
 }
+
 
 async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule') {
     const fetchXml = `
@@ -147,6 +151,15 @@ const styles = `
         align-items: center;
         justify-content: center;
         text-align: left;
+    }
+    .calcDate-section-row1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    #holidayScheduleDropdown {
+        margin-left: 10px; /* adjust spacing as necessary */
     }
 `;
 
