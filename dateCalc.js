@@ -66,37 +66,42 @@ async function getHolidaysForSchedule() {
 async function displayHolidays() {
     try {
         const holidays = await getHolidaysForSchedule();
+
+        // Sort holidays by date
+        holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
+
         const holidaysList = document.getElementById('holidaysList');
 
         // Formatting the list with a two-column grid layout
         holidaysList.innerHTML = holidays.map(holiday => {
-            const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
+            const dateObject = new Date(holiday.date);
+            const fullDayName = dateObject.toLocaleString('en-US', { weekday: 'long' });
+            const formattedDate = `${fullDayName} - ${("0" + (dateObject.getMonth() + 1)).slice(-2)}/${("0" + dateObject.getDate()).slice(-2)}/${dateObject.getFullYear()}`;
             return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
         }).join('');
 
-        // CSS for the grid layout and scrollable list
+        // CSS (remains unchanged)
         const styles = `
             #holidaysList {
-                max-height: 85%
+                max-height: 85%;
                 overflow-y: auto;
                 display: grid;
-		margin-top: 15px;
-  		margin-left: 10px;
+                margin-top: 15px;
+                margin-left: 10px;
             }
-           .holidayRow {
-	    display: grid;
-	    grid-template-columns: 1fr 1fr;
-	    align-items: center;
-	}
-	
-	.holidayName, .holidayDate {
-	    padding: 4px 8px;
-	    border: 1px solid #ddd;
-	    display: flex;      /* Added this line to use flexbox */
-	    align-items: center; /* Vertically center the text */
-	    justify-content: center; /* Horizontally center the text */
-	    text-align: left;       /* Ensure text remains aligned to the left */
-	}
+            .holidayRow {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+            .holidayName, .holidayDate {
+                padding: 4px 8px;
+                border: 1px solid #ddd;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: left;
+            }
         `;
 
         // Append styles to the document
