@@ -29,16 +29,7 @@ function dateCalc() {
 	    <div class="commonSection details-section-row" id="section5">
 	      <h3>Business Unit & Teams2</h3>			      
 	    </div>
-	  </div>
-
-	  <div id="sectionsRow2" class="securityPopup-row">
-	    <div class="commonSection details-section-row" id="section6">
-	      <h3>Security Roles</h3>			      
-	    </div>
-	    <div class="commonSection details-section-row" id="section7">
-	      <h3>Security Roles2</h3>			      
-	    </div>
-	  </div>
+	  </div>	  
 
 	  <div class="submit-button-container">
 	    <button id="submitButton">Submit</button>
