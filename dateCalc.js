@@ -3,6 +3,7 @@ async function fetchAllHolidaySchedules() {
         <fetch>
             <entity name="calendar">
                 <attribute name="name" />
+                <attribute name="calendartype" />
                 <filter>
                     <condition attribute="name" operator="not-null" />
                 </filter>
@@ -12,7 +13,10 @@ async function fetchAllHolidaySchedules() {
 
     try {
         const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
-        return results.entities.map(entity => entity.name);
+        return results.entities.map(entity => ({
+            name: `${entity.name} (Type: ${entity.calendartype})`,
+            type: entity.calendartype
+        }));
     } catch (error) {
         console.error("Error fetching holiday schedules:", error);
         return []; // Return an empty array in case of an error or adjust as needed
@@ -25,18 +29,25 @@ async function setupHolidayScheduleDropdown() {
     const dropdown = document.createElement('select');
     dropdown.id = 'holidayScheduleDropdown';
 
+    let defaultScheduleName = '';
+    
     schedules.forEach(schedule => {
         const option = document.createElement('option');
-        option.value = schedule;
-        option.innerText = schedule;
+        option.value = schedule.name;
+        option.innerText = schedule.name;
         dropdown.appendChild(option);
+
+        // Check if the schedule type is 2 and set it as the default
+        if (schedule.type === 2) {
+            defaultScheduleName = schedule.name;
+        }
     });
 
-    // Get the container of the "Calendar Info" header
-    const container = document.querySelector('.calcDate-section-row1 h3');
-    
-    // Insert the dropdown right after the header
-    container.parentNode.insertBefore(dropdown, container.nextSibling);
+    const container = document.querySelector('.headerWrapper');
+    container.appendChild(dropdown);
+
+    dropdown.value = defaultScheduleName;  // Set the default calendar type 2
+    displayHolidays(defaultScheduleName);  // Display holidays of the default schedule
 
     dropdown.addEventListener('change', (e) => {
         displayHolidays(e.target.value);
