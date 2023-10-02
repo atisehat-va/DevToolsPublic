@@ -77,20 +77,24 @@ async function displayHolidays() {
         // CSS for the grid layout and scrollable list
         const styles = `
             #holidaysList {
-                max-height: 300px; /* Adjust as needed */
+                max-height: 85%
                 overflow-y: auto;
-                display: grid;
-                gap: 8px;
+                display: grid;                
             }
-            .holidayRow {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                align-items: center;
-            }
-            .holidayName, .holidayDate {
-                padding: 4px 8px;
-                border: 1px solid #ddd;
-            }
+           .holidayRow {
+	    display: grid;
+	    grid-template-columns: 1fr 1fr;
+	    align-items: center;
+	}
+	
+	.holidayName, .holidayDate {
+	    padding: 4px 8px;
+	    border: 1px solid #ddd;
+	    display: flex;      /* Added this line to use flexbox */
+	    align-items: center; /* Vertically center the text */
+	    justify-content: center; /* Horizontally center the text */
+	    text-align: left;       /* Ensure text remains aligned to the left */
+	}
         `;
 
         // Append styles to the document
