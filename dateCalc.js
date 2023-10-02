@@ -51,11 +51,13 @@ async function setupHolidayScheduleDropdown() {
 
 
 async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule') {
+    const actualScheduleName = scheduleName.match(/^(.*?) \(Type:/)[1];
+    
     const fetchXml = `
         <fetch>
             <entity name="calendar">
                 <filter>
-                    <condition attribute="name" operator="eq" value="${scheduleName}" />
+                    <condition attribute="name" operator="eq" value="${actualScheduleName}" />
                 </filter>
                 <link-entity name="calendarrule" from="calendarid" to="calendarid" alias="rule">
                     <attribute name="name" />
