@@ -273,6 +273,11 @@ const calendarStyles = `
         background-color: #056d05;
         color: white;
     }
+    .todayDate {
+        border: 2px solid #2196F3;  /* Blue color for today's date circle */
+        background-color: #E3F2FD; /* Light blue background for today's date */
+        color: #2196F3;            /* Blue color for the date text */
+    }
 `;
 
 function initCalendar(holidays) {
@@ -284,6 +289,12 @@ function initCalendar(holidays) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const firstDayOfMonth = new Date(year, month, 1).getDay();
     
+        // Get today's date
+        const today = new Date();
+        const todayDate = today.getDate();
+        const todayMonth = today.getMonth();
+        const todayYear = today.getFullYear();
+    
         let calendarHTML = '';
     
         // Empty days before the start of the month
@@ -293,18 +304,25 @@ function initCalendar(holidays) {
     
         // Populate the days of the month
         for (let i = 1; i <= daysInMonth; i++) {
-            // Format the date in the same way as it appears in listOfHolidays
+            // Format the date in the same way as it appears in holidays
             let currentDate = new Date(year, month, i).toDateString();
     
             // Check if the date is a holiday
-            let isHoliday = listOfHolidays.indexOf(currentDate);
+            let holidayIndex = holidays.findIndex(holiday => holiday.date === currentDate);
     
-            if (isHoliday !== -1) {                
-                let holidayName = holidays[isHoliday].name;
-                calendarHTML += `<div class="holidayDate" title="${holidayName}">${i}</div>`;
-            } else {
-                calendarHTML += `<div>${i}</div>`;
+            let dateClass = '';
+            let titleAttr = '';
+            if (holidayIndex !== -1) {
+                dateClass = 'holidayDate';
+                titleAttr = `title="${holidays[holidayIndex].name}"`;
             }
+    
+            // Check if the current day matches today's date
+            if (i === todayDate && month === todayMonth && year === todayYear) {
+                dateClass += ' todayDate'; // Adding a class for today's date
+            }
+    
+            calendarHTML += `<div class="${dateClass}" ${titleAttr}>${i}</div>`;
         }
     
         document.getElementById('calendarDates').innerHTML = calendarHTML;
@@ -312,7 +330,6 @@ function initCalendar(holidays) {
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         document.getElementById('monthYearLabel').innerText = `${monthNames[month]} ${year}`;
     }
-
 
     document.getElementById('prevMonth').addEventListener('click', () => {
         if(currentMonth === 0) {
