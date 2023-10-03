@@ -153,9 +153,14 @@ function createModalContent() {
             </div>
         </div>       	
          <div class="securityPopup-row">
-             <div class="commonSection details-section-row" id="section3">
-                 <h3>Calendar 1</h3>			      			      
-             </div>       
+            <div class="commonSection details-section-row" id="section3">
+                <h3>Calendar 1</h3>
+                <label for="startDate1">Start Date:</label>
+                <input type="date" id="startDate1" name="startDate1">
+                
+                <label for="endDate1">End Date:</label>
+                <input type="date" id="endDate1" name="endDate1">
+            </div>      
              <div class="commonSection details-section-row" id="section4">
                  <h3>Calendar 2</h3>			      			      
              </div>
