@@ -174,12 +174,20 @@ function createModalContent() {
                     </div>
                 </div>
                 
-                <div class="dateInputsWrapper">
-                    <label for="startDate1">Start Date:</label>
-                    <input type="date" id="startDate1" name="startDate1">
-                    
-                    <label for="endDate1">End Date:</label>
-                    <input type="date" id="endDate1" name="endDate1">
+                <div class="dateSection">
+                    <div class="dateRow">
+                        <label for="startDate1">Start Date:</label>
+                        <input type="date" id="startDate1" name="startDate1">
+                        <label for="startTime1">Start Time:</label>
+                        <input type="time" id="startTime1" name="startTime1">
+                    </div>
+                
+                    <div class="dateRow">
+                        <label for="endDate1">End Date:</label>
+                        <input type="date" id="endDate1" name="endDate1">
+                        <label for="endTime1">End Time:</label>
+                        <input type="time" id="endTime1" name="endTime1">
+                    </div>
                 </div>
             </div>
             
@@ -258,6 +266,23 @@ const startDateStyles = `
     .dateInputsWrapper label,
     .dateInputsWrapper input {
         margin: 5px 0;
+    }
+    .dateSection {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .dateRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .dateRow label {
+        margin-right: 10px;
     }
 `;
 
