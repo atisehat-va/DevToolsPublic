@@ -215,11 +215,12 @@ function initCalendar(holidays) {
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
     
+    const holidayDates = new Set(holidays.map(h => h.date));
+
     function displayCalendar(holidays, month, year) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
-    
-        // Get today's date
+        const firstDayOfMonth = new Date(year, month, 1).getDay();    
+        
         const today = new Date();
         const todayDate = today.getDate();
         const todayMonth = today.getMonth();
@@ -234,19 +235,16 @@ function initCalendar(holidays) {
     
         // Populate the days of the month
         for (let i = 1; i <= daysInMonth; i++) {
-            // Format the date in the same way as it appears in holidays
             let currentDate = new Date(year, month, i).toDateString();
-    
-            // Check if the date is a holiday
-            let holidayIndex = holidays.findIndex(holiday => holiday.date === currentDate);
-    
             let dateClass = '';
             let titleAttr = '';
-            if (holidayIndex !== -1) {
-                dateClass = 'holidayDate';
-                titleAttr = `title="${holidays[holidayIndex].name}"`;
-            }   
             
+            if (holidayDates.has(currentDate)) {
+                const holidayName = holidays.find(h => h.date === currentDate).name;
+                dateClass = 'holidayDate';
+                titleAttr = `title="${holidayName}"`;
+            } 
+
             if (i === todayDate && month === todayMonth && year === todayYear) {
                 dateClass += ' todayDate'; // Adding a class for today's date
             }    
@@ -258,7 +256,7 @@ function initCalendar(holidays) {
         document.getElementById('monthYearLabel').innerText = `${monthNames[month]} ${year}`;
     }
 
-    document.getElementById('prevMonth').addEventListener('click', () => {
+    function goToPrevMonth() {
         if(currentMonth === 0) {
             currentMonth = 11;
             currentYear -= 1;
@@ -266,9 +264,9 @@ function initCalendar(holidays) {
             currentMonth -= 1;
         }
         displayCalendar(holidays, currentMonth, currentYear);
-    });
-    
-    document.getElementById('nextMonth').addEventListener('click', () => {
+    }
+
+    function goToNextMonth() {
         if(currentMonth === 11) {
             currentMonth = 0;
             currentYear += 1;
@@ -276,19 +274,19 @@ function initCalendar(holidays) {
             currentMonth += 1;
         }
         displayCalendar(holidays, currentMonth, currentYear);
-    });    
+    }
+    document.getElementById('prevMonth').addEventListener('click', goToPrevMonth);
+    document.getElementById('nextMonth').addEventListener('click', goToNextMonth);    
+
     // Initial display
     displayCalendar(holidays, currentMonth, currentYear);
 }
 
-// Append styles to the document
-const calendarStyleSheet = document.createElement("style");
-calendarStyleSheet.type = "text/css";
-calendarStyleSheet.innerText = calendarStyles;
-document.head.appendChild(calendarStyleSheet);
-
-// Append styles to the document
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
+function appendStylesToDocument(styles) {
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = styles;
+    document.head.appendChild(styleSheet);
+}
+appendStylesToDocument(calendarStyles);
+appendStylesToDocument(styles);
