@@ -299,8 +299,8 @@ function initCalendar() {
             // Check if the date is a holiday
             let isHoliday = listOfHolidays.includes(currentDate);
     
-            if (isHoliday !== -1) {                
-                let holidayName =listOfHolidays[holidayIndex].name;
+            if (isHoliday) {                
+                let holidayName =listOfHolidays[isHoliday].name;
                 calendarHTML += `<div class="holidayDate" title="${holidayName}">${i}</div>`;
             } else {
                 calendarHTML += `<div>${i}</div>`;
