@@ -182,7 +182,7 @@ async function dateCalc() {
 
 const styles = `
     #holidaysList {
-        max-height: 73%;
+        max-height: 74%;
         overflow-y: auto;
         display: grid;
         margin-top: 15px;        
