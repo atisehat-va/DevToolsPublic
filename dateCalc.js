@@ -270,11 +270,11 @@ const calendarStyles = `
         color: white;
     }
     #calendarDates .holidayDate {
+        color: #2196F3;
+    }
+    .todayDate {         
         background-color: #056d05;
         color: white;
-    }
-    .todayDate {       
-        color: #2196F3;            
     }
 `;
 
