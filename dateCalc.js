@@ -268,10 +268,11 @@ const calendarStyles = `
     #calendarDates div:hover {
         background-color: #333;
         color: white;
-    }
+    }    
     #calendarDates .holidayDate {
-        background-color: #056d05;
-        color: white;
+        border: 2px solid #056d05; /* Adjust the thickness and color as needed */
+        background-color: #e9ecef; /* Restoring the default background-color */
+        color: inherit; /* Resetting to default text color */
     }
 `;
 
