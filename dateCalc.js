@@ -281,7 +281,6 @@ document.getElementById('nextMonth').addEventListener('click', () => {
 // Initial display
 displayCalendar(currentMonth, currentYear);
 
-
 //endCalendar
 
 // Append styles to the document
