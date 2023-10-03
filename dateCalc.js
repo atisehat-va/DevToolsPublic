@@ -278,8 +278,7 @@ function initCalendar() {
             currentMonth += 1;
         }
         displayCalendar(currentMonth, currentYear);
-    });
-    
+    });    
     // Initial display
     displayCalendar(currentMonth, currentYear);
 }
