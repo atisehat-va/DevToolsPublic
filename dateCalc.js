@@ -244,7 +244,7 @@ const calendarStyles = `
     }
     #calendarDates div {
         background-color: #e9ecef;
-        height: 13px;
+        height: 23px;
         display: flex;
         align-items: center;
         justify-content: center;
