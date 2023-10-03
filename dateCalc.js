@@ -194,8 +194,7 @@ const calendarStyles = ` #calendar { width: 92%; height: 80%; border: 1px solid 
     .todayDate { background-color: #056d05 !important; color: white; }
 `;
 
-function initCalendar(holidays) {
-    //calendar
+function initCalendar(holidays) {    
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
     
@@ -229,18 +228,15 @@ function initCalendar(holidays) {
             if (holidayIndex !== -1) {
                 dateClass = 'holidayDate';
                 titleAttr = `title="${holidays[holidayIndex].name}"`;
-            }
-    
-            // Check if the current day matches today's date
+            }   
+            
             if (i === todayDate && month === todayMonth && year === todayYear) {
                 dateClass += ' todayDate'; // Adding a class for today's date
-            }
-    
+            }    
             calendarHTML += `<div class="${dateClass}" ${titleAttr}>${i}</div>`;
         }
     
-        document.getElementById('calendarDates').innerHTML = calendarHTML;
-    
+        document.getElementById('calendarDates').innerHTML = calendarHTML;    
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         document.getElementById('monthYearLabel').innerText = `${monthNames[month]} ${year}`;
     }
@@ -267,7 +263,6 @@ function initCalendar(holidays) {
     // Initial display
     displayCalendar(holidays, currentMonth, currentYear);
 }
-//endCalendar 
 
 // Append styles to the document
 const calendarStyleSheet = document.createElement("style");
