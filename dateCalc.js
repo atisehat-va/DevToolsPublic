@@ -19,7 +19,7 @@ async function fetchAllHolidaySchedules() {
         }));
     } catch (error) {
         console.error("Error fetching holiday schedules:", error);
-        return []; // Return an empty array in case of an error or adjust as needed
+        return []; 
     }
 }
 
@@ -117,13 +117,16 @@ async function dateCalc() {
                 </div>
                 <div id="holidaysList"></div>     			      
             </div>
+            <div class="calendar-section-row1" id="section2">
+                 <h3 style="margin-bottom: 20px;">Calendar</h3>			      			      
+            </div>
         </div> 
       	
          <div class="securityPopup-row">
-             <div class="commonSection details-section-row" id="section2">
+             <div class="commonSection details-section-row" id="section3">
                  <h3>Calendar 1</h3>			      			      
              </div>       
-             <div class="commonSection details-section-row" id="section3">
+             <div class="commonSection details-section-row" id="section4">
                  <h3>Calendar 2</h3>			      			      
              </div>
          </div>  	  
@@ -178,7 +181,16 @@ const styles = `
         border-bottom: 3px solid #ccc; 
         box-sizing: border-box; 
         text-align: left;
-    }   
+    }
+    .calendar-section-row1 {
+        display: inline-block; 
+        width: 50%; 
+        height: 310px; 
+        padding: 10px; 
+        border-bottom: 3px solid #ccc; 
+        box-sizing: border-box; 
+        text-align: left;
+    }
 `;
 
 // Append styles to the document
