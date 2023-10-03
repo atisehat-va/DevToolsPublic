@@ -244,15 +244,15 @@ const calendarStyles = `
     }
     #calendarDates div {
         background-color: #e9ecef;
-        height: 23px;
+        height: 13px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 3px;
         cursor: pointer;
         transition: background-color 0.2s;
-        padding: 5px;          // Ensure consistent padding
-        box-sizing: border-box; // Ensure border is inside the div
+        padding: 5px;         
+        box-sizing: border-box; 
     }
     #calendarDates div:hover {
         background-color: #333;
