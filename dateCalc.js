@@ -146,7 +146,7 @@ async function dateCalc() {
 
 const styles = `
     #holidaysList {
-        max-height: 75%;
+        max-height: 73%;
         overflow-y: auto;
         display: grid;
         margin-top: 15px;        
@@ -173,7 +173,7 @@ const styles = `
     .calcDate-section-row1 { 
         display: inline-block; 
         width: 50%; 
-        height: 300px; 
+        height: 310px; 
         padding: 10px; 
         border-bottom: 3px solid #ccc; 
         box-sizing: border-box; 
