@@ -270,7 +270,7 @@ const calendarStyles = `
         color: white;
     }
     #calendarDates .holidayDate {
-        color: #2196F3;
+        color: #056d05;
     }
     .todayDate {         
         background-color: #056d05 !important;
