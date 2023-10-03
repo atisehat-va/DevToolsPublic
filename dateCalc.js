@@ -336,7 +336,7 @@ function initCalendar() {
     // Initial display
     displayCalendar(currentMonth, currentYear);
 }
-//endCalendar
+//endCalendar 
 
 // Append styles to the document
 const calendarStyleSheet = document.createElement("style");
