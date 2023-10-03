@@ -96,9 +96,11 @@ async function displayHolidays(scheduleName) {
         const holidaysList = document.getElementById('holidaysList');
 
            holidaysList.innerHTML = holidays.map(holiday => {
-        const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
-        return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
-    }).join('');
+               const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
+               return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
+           }).join('');
+           
+           displayCalendar(currentMonth, currentYear);
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
