@@ -166,13 +166,9 @@ function createModalContent() {
                     Exclude Weekends
                 </label>
             
-                <div class="excludeSpecificDaysWrapper">
-                    <label for="excludeSpecificDays">
-                        <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
-                        Exclude Days
-                    </label>
-            
-                    <label for="daysCount">Number of days to exclude:</label>
+                <div class="excludeSpecificDaysWrapper">                                       
+                    <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
+                    <label for="excludeSpecificDays">Exclude Days:</label>
                     <input type="number" id="daysCount" name="daysCount" min="1" step="1" placeholder="Enter number">
                 </div>
             
@@ -181,7 +177,7 @@ function createModalContent() {
                 
                 <label for="endDate1">End Date:</label>
                 <input type="date" id="endDate1" name="endDate1">
-            </div>   
+            </div>
             
              <div class="commonSection details-section-row" id="section4">
                  <h3>Calendar 2</h3>			      			      
