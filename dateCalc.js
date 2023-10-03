@@ -11,11 +11,17 @@ async function fetchAllHolidaySchedules() {
             </entity>
         </fetch>
     `;
+    const typeNames = {
+        0: "Default",
+        1: "Customer Service",
+        2: "Holiday Schedule",
+        "-1": "Inner Calendar"
+    };
 
     try {
         const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
         return results.entities.map(entity => ({
-            name: `${entity.name} (Type: ${entity.type})`,
+            name: `${entity.name} (Type: ${typeName})`,
             type: entity.type
         }));
     } catch (error) {
