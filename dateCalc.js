@@ -154,29 +154,33 @@ function createModalContent() {
         </div>       	
          <div class="securityPopup-row">
             <div class="commonSection details-section-row" id="section3">
-                <h3>Calendar 1</h3>
-            
-                <label for="excludeSchedule">
-                    <input type="checkbox" id="excludeSchedule" name="excludeOptions" value="excludeSchedule">
-                    Exclude Selected Schedule Days
-                </label>
-            
-                <label for="excludeWeekends">
-                    <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
-                    Exclude Weekends
-                </label>
-            
-                <div class="excludeSpecificDaysWrapper">                                       
-                    <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
-                    <label for="excludeSpecificDays">Exclude Days:</label>
-                    <input type="number" id="daysCount" name="daysCount" min="1" step="1" placeholder="Enter number">
+                <div class="excludeSettingsWrapper">
+                    <h4>Exclude Settings</h4>
+                    
+                    <div class="checkboxWrapper">
+                        <input type="checkbox" id="excludeSchedule" name="excludeOptions" value="excludeSchedule">
+                        <label for="excludeSchedule">Exclude Selected Schedule Days</label>
+                    </div>
+                    
+                    <div class="checkboxWrapper">
+                        <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
+                        <label for="excludeWeekends">Exclude Weekends</label>
+                    </div>
+                    
+                    <div class="checkboxWrapper excludeSpecificDaysWrapper">
+                        <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
+                        <label for="excludeSpecificDays">Exclude Days:</label>
+                        <input type="number" id="daysCount" name="daysCount" min="1" step="1" placeholder="Enter number">
+                    </div>
                 </div>
-            
-                <label for="startDate1">Start Date:</label>
-                <input type="date" id="startDate1" name="startDate1">
                 
-                <label for="endDate1">End Date:</label>
-                <input type="date" id="endDate1" name="endDate1">
+                <div class="dateInputsWrapper">
+                    <label for="startDate1">Start Date:</label>
+                    <input type="date" id="startDate1" name="startDate1">
+                    
+                    <label for="endDate1">End Date:</label>
+                    <input type="date" id="endDate1" name="endDate1">
+                </div>
             </div>
             
              <div class="commonSection details-section-row" id="section4">
@@ -224,6 +228,37 @@ const calendarStyles = `
     #calendarDates div:hover { background-color: #333; color: white; }
     #calendarDates .holidayDate { color: #2196F3; }
     .todayDate { background-color: #056d05 !important; color: white; }
+`;
+const startDateStyles = `
+    .excludeSettingsWrapper {
+        border: 1px solid #d4d4d4;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #f5f5f5;
+    }
+
+    .excludeSettingsWrapper h4 {
+        margin-top: 0;
+        border-bottom: 1px solid #d4d4d4;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    .checkboxWrapper {
+        margin-bottom: 5px;
+    }
+
+    .dateInputsWrapper {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .dateInputsWrapper label,
+    .dateInputsWrapper input {
+        margin: 5px 0;
+    }
 `;
 
 function initCalendar(holidays) {    
@@ -297,6 +332,8 @@ function initCalendar(holidays) {
     displayCalendar(holidays, currentMonth, currentYear);
 }
 
+
+
 function appendStylesToDocument(styles) {
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
@@ -305,3 +342,4 @@ function appendStylesToDocument(styles) {
 }
 appendStylesToDocument(calendarStyles);
 appendStylesToDocument(styles);
+appendStylesToDocument(startDateStyles);
