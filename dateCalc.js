@@ -79,12 +79,12 @@ async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule')
 }
 
 async function displayHolidays(scheduleName) {
-    console.log("Displaying holidays for:", scheduleName); // Log for debugging
+    console.log("Displaying holidays for:", scheduleName); 
 
     try {
         const holidays = await getHolidaysForSchedule(scheduleName);
 
-        console.log("Fetched holidays:", holidays); // Log for debugging
+        console.log("Fetched holidays:", holidays); 
 
         // Sort holidays by date
         holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -232,7 +232,7 @@ const calendarStyles = `
         gap: 5px;
     }
     #calendarDays div {
-        background-color: #007bff;
+        background-color: #102e55;
         color: white;
         padding: 5px 0;
         text-align: center;
@@ -249,7 +249,7 @@ const calendarStyles = `
         transition: background-color 0.2s;
     }
     #calendarDates div:hover {
-        background-color: #007bff;
+        background-color: #333;
         color: white;
     }
 `;
