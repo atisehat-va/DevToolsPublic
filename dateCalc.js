@@ -268,7 +268,7 @@ const calendarStyles = `
     #calendarDates div:hover {
         background-color: #333;
         color: white;
-    }    
+    }
     #calendarDates .holidayDate {
         background-color: #056d05;
         color: white;
