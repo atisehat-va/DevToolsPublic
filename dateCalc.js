@@ -155,33 +155,28 @@ function createModalContent() {
          <div class="securityPopup-row">
             <div class="commonSection section1-row2" id="section3">
                 <div class="excludeSettingsWrapper">
-                    <h4>Exclude Settings</h4>
-                    
+                    <h4>Exclude Settings</h4>                    
                     <div class="checkboxWrapper">
                         <input type="checkbox" id="excludeSchedule" name="excludeOptions" value="excludeSchedule">
                         <label for="excludeSchedule">Selected Schedule Days</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="checkboxWrapper">
                         <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
                         <label for="excludeWeekends">Weekends</label>
-                    </div>
-                    
+                    </div>                    
                     <div class="checkboxWrapper excludeSpecificDaysWrapper">
                         <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
                         <label for="excludeSpecificDays">Days:</label>
                         <input type="number" id="daysCount" name="daysCount" min="1" step="1" placeholder="Enter number">
                     </div>
-                </div>
-                
+                </div>                
                 <div class="dateSection">
                     <div class="dateRow">
                         <label for="startDate1">Start Date:</label>
                         <input type="date" id="startDate1" name="startDate1">
                         <label for="startTime1">Start Time:</label>
                         <input type="time" id="startTime1" name="startTime1">
-                    </div>
-                
+                    </div>                
                     <div class="dateRow">
                         <label for="endDate1">End Date:</label>
                         <input type="date" id="endDate1" name="endDate1">
@@ -189,8 +184,7 @@ function createModalContent() {
                         <input type="time" id="endTime1" name="endTime1">
                     </div>
                 </div>
-            </div>
-            
+            </div>            
              <div class="commonSection section1-row2" id="section4">
                  <h3>Calendar 2</h3>			      			      
              </div>
