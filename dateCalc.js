@@ -274,9 +274,9 @@ const calendarStyles = `
         color: white;
     }
     .todayDate {
-        border: 2px solid #2196F3;  /* Blue color for today's date circle */
-        background-color: #E3F2FD; /* Light blue background for today's date */
-        color: #2196F3;            /* Blue color for the date text */
+        border: 2px solid #333;  
+        background-color: #E3F2FD; 
+        color: #2196F3;            
     }
 `;
 
