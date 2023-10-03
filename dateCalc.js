@@ -18,12 +18,15 @@ async function fetchAllHolidaySchedules() {
         "-1": "Inner Calendar"
     };
 
-    try {
+     try {
         const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
-        return results.entities.map(entity => ({
-            name: `${entity.name} (Type: ${typeName})`,
-            type: entity.type
-        }));
+        return results.entities.map(entity => {
+            const typeName = typeNames[entity.type] || "Unknown";
+            return {
+                name: `${entity.name} (Type: ${typeName})`,
+                type: entity.type
+            };
+        });
     } catch (error) {
         console.error("Error fetching holiday schedules:", error);
         return []; 
