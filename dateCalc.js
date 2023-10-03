@@ -149,8 +149,7 @@ const styles = `
         max-height: 75%;
         overflow-y: auto;
         display: grid;
-        margin-top: 15px;
-        margin-left: 10px;
+        margin-top: 15px;        
     }
     .holidayRow {
         display: grid;
@@ -161,19 +160,19 @@ const styles = `
         padding: 4px 8px;
         border: 1px solid #ddd;        
         text-align: left;
+        width: 290px;
     }    
     .holidayDate {
-        padding: 4px 8px;
+        padding: 4px;
         border: 1px solid #ddd;        
-        text-align: left;
-        width:20%;
+        text-align: left;        
     }    
     .headerWrapper {
        margin-left: 10px;
     }    
     .calcDate-section-row1 { 
         display: inline-block; 
-        width: 70%; 
+        width: 50%; 
         height: 300px; 
         padding: 10px; 
         border-bottom: 3px solid #ccc; 
