@@ -212,26 +212,44 @@ const styles = `
 `;
 
 const calendarStyles = `
+    #calendar {
+        width: 100%;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
     #calendarHeader {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
     }
-    #calendarDays {
-        display: flex;
+    #calendarDays, #calendarDates {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
     }
-    #calendarDates {
-        display: flex;
-        flex-wrap: wrap;
+    #calendarDays div {
+        background-color: #007bff;
+        color: white;
+        padding: 5px 0;
+        text-align: center;
+        border-radius: 3px;
     }
-    #calendarDays div, #calendarDates div {
-        flex: 1;
+    #calendarDates div {
+        background-color: #e9ecef;
         height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid #ddd;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    #calendarDates div:hover {
+        background-color: #007bff;
+        color: white;
     }
 `;
 
