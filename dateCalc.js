@@ -261,7 +261,7 @@ const calendarStyles = `
         color: white;
     }
     #calendarDates .holidayDate {
-        background-color: #077d07;
+        background-color: #056d05;
         color: white;
     }
 `;
