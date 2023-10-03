@@ -252,6 +252,7 @@ const calendarStyles = `
         padding: 5px 0;
         text-align: center;
         border-radius: 3px;
+        margin-bottom: 5px;
     }
     #calendarDates div {
         background-color: #e9ecef;
