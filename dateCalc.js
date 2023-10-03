@@ -18,7 +18,6 @@ async function fetchAllHolidaySchedules() {
             </entity>
         </fetch>
     `;
-
     try {
         const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
         return results.entities.map(entity => ({
@@ -33,7 +32,6 @@ async function fetchAllHolidaySchedules() {
 
 async function setupHolidayScheduleDropdown() {
     const schedules = await fetchAllHolidaySchedules();
-
     const dropdown = document.getElementById('holidayScheduleDropdown');
     let defaultScheduleName = '';
 
@@ -46,7 +44,6 @@ async function setupHolidayScheduleDropdown() {
         if (schedule.type === 2) {
             defaultScheduleName = schedule.name;
         }
-
         return option;
     });
 
@@ -89,7 +86,6 @@ function buildFetchXmlForHolidays(scheduleName) {
         </fetch>
     `;
 }
-
 function formatHolidays(entities) {
     return entities.map(entity => ({
         name: entity["rule.name"],
@@ -122,21 +118,20 @@ async function displayHolidays(scheduleName) {
 // Construct the modal content
 function createModalContent() {
     const container = document.createElement('div');
-    container.className = 'commonPopup';
-    
+    container.className = 'commonPopup';    
     container.innerHTML = `
         <div class="commonPopup-header">Date Calculator</div>
          <button class="commonback-button" id="commonback-button">Back</button>
    
          <div class="securityPopup-row">
-            <div class="calcDate-section-row1" id="section1">
+            <div class="section1-row1" id="section1">
                 <div class="headerWrapper">
                     <h3 style="margin-bottom: 20px;">Calendar Info</h3>                    
                     <select id="holidayScheduleDropdown"></select> <!-- Directly embedded dropdown -->
                 </div>
                 <div id="holidaysList"></div>     			      
             </div>
-            <div class="calendar-section-row1" id="section2">
+            <div class="section1-row1" id="section2">
                 <h3 style="margin-bottom: 20px;">Calendar</h3>
                 <div id="calendar">
                     <div id="calendarHeader">
@@ -156,8 +151,7 @@ function createModalContent() {
                     <div id="calendarDates"></div>
                 </div>     
             </div>
-        </div> 
-      	
+        </div>       	
          <div class="securityPopup-row">
              <div class="commonSection details-section-row" id="section3">
                  <h3>Calendar 1</h3>			      			      
@@ -165,8 +159,7 @@ function createModalContent() {
              <div class="commonSection details-section-row" id="section4">
                  <h3>Calendar 2</h3>			      			      
              </div>
-         </div>  	  
-
+         </div>  
          <div class="submit-button-container">
              <button id="submitButton">Submit</button>
          </div>
@@ -174,7 +167,6 @@ function createModalContent() {
     return container;
 }
 
-// Attach event handlers to the modal
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
     backButton.addEventListener('click', function() {
@@ -183,7 +175,7 @@ function attachModalEventHandlers(container) {
     });
     makePopupMovable(container); 
 }
-// The main function
+
 async function dateCalc() {
     const modalContent = createModalContent();
     document.body.appendChild(modalContent);
@@ -193,15 +185,15 @@ async function dateCalc() {
 }
 
 const styles = `
-    #holidaysList { max-height: 74%; overflow-y: auto; display: grid; margin-top: 15px; }
+    #holidaysList { max-height: 74%; overflow-y: auto; display: grid; margin-top: 15px; }    
     .holidayRow { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
     .holidayName { padding: 4px 8px; border: 1px solid #ddd; text-align: left; width: 290px; }    
     .holidayDate { padding: 4px; border: 1px solid #ddd; text-align: left; }    
     .headerWrapper { margin-left: 10px; }     
-    .calcDate-section-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
-    .calendar-section-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
+    .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }    
 `;
-const calendarStyles = ` #calendar { width: 92%; height: 80%; border: 1px solid #ddd; background-color: #f9f9f9; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+const calendarStyles = ` 
+    #calendar { width: 92%; height: 80%; border: 1px solid #ddd; background-color: #f9f9f9; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
     #calendarHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     #calendarDays, #calendarDates { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
     #calendarDays div { background-color: #102e55; color: white; padding: 5px 0; text-align: center; border-radius: 3px; margin-bottom: 5px; }
