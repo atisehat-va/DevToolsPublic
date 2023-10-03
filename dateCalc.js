@@ -116,7 +116,7 @@ async function dateCalc() {
     newContainer.style.display = 'flex';
     newContainer.style.flexDirection = 'column';
     newContainer.innerHTML = `
-         <div class="commonPopup-header">Copy User Security</div>
+         <div class="commonPopup-header">Date Calculator</div>
          <button class="commonback-button" id="commonback-button">Back</button>
    
          <div class="securityPopup-row">
