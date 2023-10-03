@@ -159,17 +159,17 @@ function createModalContent() {
                     
                     <div class="checkboxWrapper">
                         <input type="checkbox" id="excludeSchedule" name="excludeOptions" value="excludeSchedule">
-                        <label for="excludeSchedule">Exclude Selected Schedule Days</label>
+                        <label for="excludeSchedule">Selected Schedule Days</label>
                     </div>
                     
                     <div class="checkboxWrapper">
                         <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
-                        <label for="excludeWeekends">Exclude Weekends</label>
+                        <label for="excludeWeekends">Weekends</label>
                     </div>
                     
                     <div class="checkboxWrapper excludeSpecificDaysWrapper">
                         <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
-                        <label for="excludeSpecificDays">Exclude Days:</label>
+                        <label for="excludeSpecificDays">Days:</label>
                         <input type="number" id="daysCount" name="daysCount" min="1" step="1" placeholder="Enter number">
                     </div>
                 </div>
