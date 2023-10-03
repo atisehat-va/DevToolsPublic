@@ -153,7 +153,7 @@ function createModalContent() {
             </div>
         </div>       	
          <div class="securityPopup-row">
-            <div class="commonSection details-section-row" id="section3">
+            <div class="commonSection section1-row2" id="section3">
                 <div class="excludeSettingsWrapper">
                     <h4>Exclude Settings</h4>
                     
@@ -191,7 +191,7 @@ function createModalContent() {
                 </div>
             </div>
             
-             <div class="commonSection details-section-row" id="section4">
+             <div class="commonSection section1-row2" id="section4">
                  <h3>Calendar 2</h3>			      			      
              </div>
          </div>  
@@ -225,7 +225,8 @@ const styles = `
     .holidayName { padding: 4px 8px; border: 1px solid #ddd; text-align: left; width: 290px; }    
     .holidayDate { padding: 4px; border: 1px solid #ddd; text-align: left; }    
     .headerWrapper { margin-left: 10px; }     
-    .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }    
+    .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
+    .section1-row2 { display: inline-block; width: 50%; height: 400px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; } 
 `;
 const calendarStyles = ` 
     #calendar { width: 92%; height: 80%; border: 1px solid #ddd; background-color: #f9f9f9; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
@@ -262,11 +263,7 @@ const startDateStyles = `
         gap: 10px;
         margin-top: 10px;
     }
-
-    .dateInputsWrapper label,
-    .dateInputsWrapper input {
-        margin: 5px 0;
-    }
+    
     .dateSection {
         border: 1px solid #ccc;
         padding: 10px;
