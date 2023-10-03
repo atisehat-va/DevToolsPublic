@@ -155,12 +155,29 @@ function createModalContent() {
          <div class="securityPopup-row">
             <div class="commonSection details-section-row" id="section3">
                 <h3>Calendar 1</h3>
+            
+                <label for="excludeSchedule">
+                    <input type="checkbox" id="excludeSchedule" name="excludeOptions" value="excludeSchedule">
+                    Exclude Days on Selected Schedule
+                </label>
+            
+                <label for="excludeWeekends">
+                    <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
+                    Exclude Week Ends
+                </label>
+            
+                <label for="excludeSpecificDays">
+                    <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
+                    Exclude the Following Days
+                </label>
+            
                 <label for="startDate1">Start Date:</label>
                 <input type="date" id="startDate1" name="startDate1">
                 
                 <label for="endDate1">End Date:</label>
                 <input type="date" id="endDate1" name="endDate1">
-            </div>      
+            </div>    
+            
              <div class="commonSection details-section-row" id="section4">
                  <h3>Calendar 2</h3>			      			      
              </div>
