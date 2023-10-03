@@ -59,15 +59,24 @@ async function setupHolidayScheduleDropdown() {
     });
 }
 
-async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule') {
+async function getHolidaysForSchedule(scheduleName) {
+    const actualScheduleName = extractActualScheduleName(scheduleName);
+    const fetchXml = buildFetchXmlForHolidays(actualScheduleName);
+    const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);    
+    return formatHolidays(results.entities);
+}
+
+function extractActualScheduleName(scheduleName) {
     const matchedScheduleName = scheduleName.match(/^(.*?) \(Type:/);
-    const actualScheduleName = matchedScheduleName ? matchedScheduleName[1] : scheduleName;
-    
-    const fetchXml = `
+    return matchedScheduleName ? matchedScheduleName[1] : scheduleName;
+}
+
+function buildFetchXmlForHolidays(scheduleName) {
+    return `
         <fetch>
             <entity name="calendar">
                 <filter>
-                    <condition attribute="name" operator="eq" value="${actualScheduleName}" />
+                    <condition attribute="name" operator="eq" value="${scheduleName}" />
                 </filter>
                 <link-entity name="calendarrule" from="calendarid" to="calendarid" alias="rule">
                     <attribute name="name" />
@@ -79,9 +88,10 @@ async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule')
             </entity>
         </fetch>
     `;
+}
 
-    const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
-    return results.entities.map(entity => ({
+function formatHolidays(entities) {
+    return entities.map(entity => ({
         name: entity["rule.name"],
         date: new Date(entity["rule.starttime"]).toDateString()
     }));
