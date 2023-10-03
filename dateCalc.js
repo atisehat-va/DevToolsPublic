@@ -109,7 +109,7 @@ async function displayHolidays(scheduleName) {
                return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
            }).join('');
            
-           initCalendar();
+           initCalendar(holidays);
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
@@ -275,12 +275,12 @@ const calendarStyles = `
     }
 `;
 
-function initCalendar() {
+function initCalendar(holidays) {
     //calendar
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
     
-    function displayCalendar(month, year) {
+    function displayCalendar(holidays, month, year) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const firstDayOfMonth = new Date(year, month, 1).getDay();
     
@@ -321,7 +321,7 @@ function initCalendar() {
         } else {
             currentMonth -= 1;
         }
-        displayCalendar(currentMonth, currentYear);
+        displayCalendar(holidays, currentMonth, currentYear);
     });
     
     document.getElementById('nextMonth').addEventListener('click', () => {
@@ -331,10 +331,10 @@ function initCalendar() {
         } else {
             currentMonth += 1;
         }
-        displayCalendar(currentMonth, currentYear);
+        displayCalendar(holidays, currentMonth, currentYear);
     });    
     // Initial display
-    displayCalendar(currentMonth, currentYear);
+    displayCalendar(holidays, currentMonth, currentYear);
 }
 //endCalendar 
 
