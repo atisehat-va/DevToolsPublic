@@ -287,20 +287,24 @@ function initCalendar() {
         let calendarHTML = '';
     
         // Empty days before the start of the month
-        for(let i = 0; i < firstDayOfMonth; i++) {
+        for (let i = 0; i < firstDayOfMonth; i++) {
             calendarHTML += '<div></div>';
         }
     
         // Populate the days of the month
-        for(let i = 1; i <= daysInMonth; i++) {
+        for (let i = 1; i <= daysInMonth; i++) {
             // Format the date in the same way as it appears in listOfHolidays
             let currentDate = new Date(year, month, i).toDateString();
-            
+    
             // Check if the date is a holiday
             let isHoliday = listOfHolidays.includes(currentDate);
-            
-            // Append the date to the calendarHTML with the holidayDate class if it's a holiday
-            calendarHTML += `<div class="${isHoliday ? 'holidayDate' : ''}">${i}</div>`;
+    
+            if (isHoliday) {                
+                let holidayName =listOfHolidays[holidayIndex].name;
+                calendarHTML += `<div class="holidayDate" title="${holidayName}">${i}</div>`;
+            } else {
+                calendarHTML += `<div>${i}</div>`;
+            }
         }
     
         document.getElementById('calendarDates').innerHTML = calendarHTML;
@@ -308,6 +312,7 @@ function initCalendar() {
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         document.getElementById('monthYearLabel').innerText = `${monthNames[month]} ${year}`;
     }
+
 
     document.getElementById('prevMonth').addEventListener('click', () => {
         if(currentMonth === 0) {
