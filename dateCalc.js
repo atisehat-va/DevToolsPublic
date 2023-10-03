@@ -1,3 +1,4 @@
+let listOfHolidays = [];
 async function fetchAllHolidaySchedules() {
     const fetchXml = `
         <fetch>
@@ -84,6 +85,9 @@ async function displayHolidays(scheduleName) {
     try {
         const holidays = await getHolidaysForSchedule(scheduleName);
 
+        // Update listOfHolidays with the fetched holidays
+        listOfHolidays = holidays.map(holiday => holiday.date);
+        
         console.log("Fetched holidays:", holidays); 
 
         // Sort holidays by date
