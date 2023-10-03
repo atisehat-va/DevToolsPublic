@@ -168,7 +168,7 @@ async function dateCalc() {
          </div>
     `;	
     document.body.appendChild(newContainer);
-    initCalendar();
+    //initCalendar();
     document.getElementById('commonback-button').addEventListener('click', function() {
         newContainer.remove();
         openPopup();  
