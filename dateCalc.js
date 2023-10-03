@@ -119,13 +119,13 @@ async function displayHolidays(scheduleName) {
     }
 }
 
-async function dateCalc() {
-    var newContainer = document.createElement('div');
-    newContainer.className = 'commonPopup';
-    newContainer.style.display = 'flex';
-    newContainer.style.flexDirection = 'column';
-    newContainer.innerHTML = `
-         <div class="commonPopup-header">Date Calculator</div>
+// Construct the modal content
+function createModalContent() {
+    const container = document.createElement('div');
+    container.className = 'commonPopup';
+    
+    container.innerHTML = `
+        <div class="commonPopup-header">Date Calculator</div>
          <button class="commonback-button" id="commonback-button">Back</button>
    
          <div class="securityPopup-row">
@@ -170,16 +170,24 @@ async function dateCalc() {
          <div class="submit-button-container">
              <button id="submitButton">Submit</button>
          </div>
-    `;	
-    document.body.appendChild(newContainer);
-    //initCalendar();
-    document.getElementById('commonback-button').addEventListener('click', function() {
-        newContainer.remove();
+    `;    
+    return container;
+}
+
+// Attach event handlers to the modal
+function attachModalEventHandlers(container) {
+    const backButton = container.querySelector('#commonback-button');
+    backButton.addEventListener('click', function() {
+        container.remove();
         openPopup();  
     });
-    makePopupMovable(newContainer); 
-
-    // Setup dropdown and then display holidays of the default schedule
+    makePopupMovable(container); 
+}
+// The main function
+async function dateCalc() {
+    const modalContent = createModalContent();
+    document.body.appendChild(modalContent);
+    attachModalEventHandlers(modalContent);    
     const defaultSchedule = await setupHolidayScheduleDropdown();
     displayHolidays(defaultSchedule); 
 }
