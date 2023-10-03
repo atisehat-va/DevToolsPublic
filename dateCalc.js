@@ -251,6 +251,8 @@ const calendarStyles = `
         border-radius: 3px;
         cursor: pointer;
         transition: background-color 0.2s;
+        padding: 5px;          // Ensure consistent padding
+        box-sizing: border-box; // Ensure border is inside the div
     }
     #calendarDates div:hover {
         background-color: #333;
