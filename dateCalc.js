@@ -273,9 +273,7 @@ const calendarStyles = `
         background-color: #056d05;
         color: white;
     }
-    .todayDate {
-        border: 2px solid #333;  
-        background-color: #E3F2FD; 
+    .todayDate {       
         color: #2196F3;            
     }
 `;
