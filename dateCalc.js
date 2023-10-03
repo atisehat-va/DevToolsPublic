@@ -118,7 +118,24 @@ async function dateCalc() {
                 <div id="holidaysList"></div>     			      
             </div>
             <div class="calendar-section-row1" id="section2">
-                 <h3 style="margin-bottom: 20px;">Calendar</h3>			      			      
+                <h3 style="margin-bottom: 20px;">Calendar</h3>
+                <div id="calendar">
+                    <div id="calendarHeader">
+                        <button id="prevMonth">&lt;</button>
+                        <span id="monthYearLabel"></span>
+                        <button id="nextMonth">&gt;</button>
+                    </div>
+                    <div id="calendarDays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div id="calendarDates"></div>
+                </div>     
             </div>
         </div> 
       	
@@ -192,6 +209,86 @@ const styles = `
         text-align: left;
     }
 `;
+
+const calendarStyles = `
+    #calendarHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    #calendarDays {
+        display: flex;
+    }
+    #calendarDates {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #calendarDays div, #calendarDates div {
+        flex: 1;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd;
+    }
+`;
+
+//calendar
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+
+function displayCalendar(month, year) {
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+    let calendarHTML = '';
+
+    for(let i = 0; i < firstDayOfMonth; i++) {
+        calendarHTML += '<div></div>';
+    }
+
+    for(let i = 1; i <= daysInMonth; i++) {
+        calendarHTML += `<div>${i}</div>`;
+    }
+
+    document.getElementById('calendarDates').innerHTML = calendarHTML;
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    document.getElementById('monthYearLabel').innerText = `${monthNames[month]} ${year}`;
+}
+
+document.getElementById('prevMonth').addEventListener('click', () => {
+    if(currentMonth === 0) {
+        currentMonth = 11;
+        currentYear -= 1;
+    } else {
+        currentMonth -= 1;
+    }
+    displayCalendar(currentMonth, currentYear);
+});
+
+document.getElementById('nextMonth').addEventListener('click', () => {
+    if(currentMonth === 11) {
+        currentMonth = 0;
+        currentYear += 1;
+    } else {
+        currentMonth += 1;
+    }
+    displayCalendar(currentMonth, currentYear);
+});
+
+// Initial display
+displayCalendar(currentMonth, currentYear);
+
+
+//endCalendar
+
+// Append styles to the document
+const calendarStyleSheet = document.createElement("style");
+calendarStyleSheet.type = "text/css";
+calendarStyleSheet.innerText = calendarStyles;
+document.head.appendChild(calendarStyleSheet);
 
 // Append styles to the document
 const styleSheet = document.createElement("style");
