@@ -1,4 +1,11 @@
 let listOfHolidays = [];
+const typeNames = {
+    0: "Default",
+    1: "Customer Service",
+    2: "Holiday Schedule",
+    "-1": "Inner Calendar"
+};
+
 async function fetchAllHolidaySchedules() {
     const fetchXml = `
         <fetch>
@@ -11,22 +18,13 @@ async function fetchAllHolidaySchedules() {
             </entity>
         </fetch>
     `;
-    const typeNames = {
-        0: "Default",
-        1: "Customer Service",
-        2: "Holiday Schedule",
-        "-1": "Inner Calendar"
-    };
 
-     try {
+    try {
         const results = await Xrm.WebApi.retrieveMultipleRecords("calendar", `?fetchXml=${encodeURIComponent(fetchXml)}`);
-        return results.entities.map(entity => {
-            const typeName = typeNames[entity.type] || "Unknown";
-            return {
-                name: `${entity.name} (Type: ${typeName})`,
-                type: entity.type
-            };
-        });
+        return results.entities.map(entity => ({
+            name: `${entity.name} (Type: ${typeNames[entity.type] || "Unknown"})`,
+            type: entity.type
+        }));
     } catch (error) {
         console.error("Error fetching holiday schedules:", error);
         return []; 
@@ -38,27 +36,28 @@ async function setupHolidayScheduleDropdown() {
 
     const dropdown = document.getElementById('holidayScheduleDropdown');
     let defaultScheduleName = '';
-    
-    schedules.forEach(schedule => {
+
+    // Map schedules to options and find the default schedule
+    const options = schedules.map(schedule => {
         const option = document.createElement('option');
         option.value = schedule.name;
         option.innerText = schedule.name;
-        dropdown.appendChild(option);
 
-        // Check if the schedule type is 2 and set it as the default
         if (schedule.type === 2) {
             defaultScheduleName = schedule.name;
         }
+
+        return option;
     });
 
-    dropdown.value = defaultScheduleName;  
+    dropdown.append(...options);  // Append all options at once
+    dropdown.value = defaultScheduleName;
     displayHolidays(defaultScheduleName);  
 
     dropdown.addEventListener('change', (e) => {
         displayHolidays(e.target.value);
     });
 }
-
 
 async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule') {
     const matchedScheduleName = scheduleName.match(/^(.*?) \(Type:/);
