@@ -51,8 +51,8 @@ async function setupHolidayScheduleDropdown() {
         }
     });
 
-    dropdown.value = defaultScheduleName;  // Set the default calendar type 2
-    displayHolidays(defaultScheduleName);  // Display holidays of the default schedule
+    dropdown.value = defaultScheduleName;  
+    displayHolidays(defaultScheduleName);  
 
     dropdown.addEventListener('change', (e) => {
         displayHolidays(e.target.value);
