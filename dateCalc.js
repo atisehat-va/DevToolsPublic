@@ -213,7 +213,7 @@ const styles = `
 
 const calendarStyles = `
     #calendar {
-        width: 100%;
+        width: 92%;
         border: 1px solid #ddd;
         background-color: #f9f9f9;
         padding: 10px;
@@ -239,7 +239,7 @@ const calendarStyles = `
     }
     #calendarDates div {
         background-color: #e9ecef;
-        height: 30px;
+        height: 23px;
         display: flex;
         align-items: center;
         justify-content: center;
