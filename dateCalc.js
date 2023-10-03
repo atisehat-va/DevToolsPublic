@@ -229,7 +229,7 @@ const styles = `
 const calendarStyles = `
     #calendar {
         width: 92%;
-        height: 78%;
+        height: 80%;
         border: 1px solid #ddd;
         background-color: #f9f9f9;
         padding: 10px;
