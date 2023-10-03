@@ -89,26 +89,21 @@ async function getHolidaysForSchedule(scheduleName = 'Federal Holiday Schedule')
 }
 
 async function displayHolidays(scheduleName) {
-    console.log("Displaying holidays for:", scheduleName); 
-
     try {
         const holidays = await getHolidaysForSchedule(scheduleName);
 
-        // Update listOfHolidays with the fetched holidays
-        listOfHolidays = holidays.map(holiday => holiday.date);
-        
-        console.log("Fetched holidays:", holidays); 
+        // listOfHolidays with the fetched holidays
+        listOfHolidays = holidays.map(holiday => holiday.date);      
 
         // Sort holidays by date
         holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         const holidaysList = document.getElementById('holidaysList');
 
-           holidaysList.innerHTML = holidays.map(holiday => {
-               const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
-               return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
-           }).join('');
-           
+       holidaysList.innerHTML = holidays.map(holiday => {
+           const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
+           return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
+       }).join('');           
            initCalendar(holidays);
     } catch (error) {
         console.error("Error fetching holidays: ", error);
@@ -181,102 +176,22 @@ async function dateCalc() {
 }
 
 const styles = `
-    #holidaysList {
-        max-height: 74%;
-        overflow-y: auto;
-        display: grid;
-        margin-top: 15px;        
-    }
-    .holidayRow {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-    }
-    .holidayName {
-        padding: 4px 8px;
-        border: 1px solid #ddd;        
-        text-align: left;
-        width: 290px;
-    }    
-    .holidayDate {
-        padding: 4px;
-        border: 1px solid #ddd;        
-        text-align: left;        
-    }    
-    .headerWrapper {
-       margin-left: 10px;
-    }    
-    .calcDate-section-row1 { 
-        display: inline-block; 
-        width: 50%; 
-        height: 310px; 
-        padding: 10px; 
-        border-bottom: 3px solid #ccc; 
-        box-sizing: border-box; 
-        text-align: left;
-    }
-    .calendar-section-row1 {
-        display: inline-block; 
-        width: 50%; 
-        height: 310px; 
-        padding: 10px; 
-        border-bottom: 3px solid #ccc; 
-        box-sizing: border-box; 
-        text-align: left;
-    }
+    #holidaysList { max-height: 74%; overflow-y: auto; display: grid; margin-top: 15px; }
+    .holidayRow { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+    .holidayName { padding: 4px 8px; border: 1px solid #ddd; text-align: left; width: 290px; }    
+    .holidayDate { padding: 4px; border: 1px solid #ddd; text-align: left; }    
+    .headerWrapper { margin-left: 10px; }     
+    .calcDate-section-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
+    .calendar-section-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
 `;
-
-const calendarStyles = `
-    #calendar {
-        width: 92%;
-        height: 80%;
-        border: 1px solid #ddd;
-        background-color: #f9f9f9;
-        padding: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    #calendarHeader {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    #calendarDays, #calendarDates {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 5px;
-    }
-    #calendarDays div {
-        background-color: #102e55;
-        color: white;
-        padding: 5px 0;
-        text-align: center;
-        border-radius: 3px;
-        margin-bottom: 5px;
-    }
-    #calendarDates div {
-        background-color: #e9ecef;
-        height: 23px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-        padding: 5px;         
-        box-sizing: border-box; 
-    }
-    #calendarDates div:hover {
-        background-color: #333;
-        color: white;
-    }
-    #calendarDates .holidayDate {
-        color: #2196F3;
-    }
-    .todayDate {         
-        background-color: #056d05 !important;
-        color: white;
-    }
+const calendarStyles = ` #calendar { width: 92%; height: 80%; border: 1px solid #ddd; background-color: #f9f9f9; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    #calendarHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    #calendarDays, #calendarDates { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+    #calendarDays div { background-color: #102e55; color: white; padding: 5px 0; text-align: center; border-radius: 3px; margin-bottom: 5px; }
+    #calendarDates div { background-color: #e9ecef; height: 23px; display: flex; align-items: center; justify-content: center; border-radius: 3px; cursor: pointer; transition: background-color 0.2s; padding: 5px; box-sizing: border-box; }
+    #calendarDates div:hover { background-color: #333; color: white; }
+    #calendarDates .holidayDate { color: #2196F3; }
+    .todayDate { background-color: #056d05 !important; color: white; }
 `;
 
 function initCalendar(holidays) {
