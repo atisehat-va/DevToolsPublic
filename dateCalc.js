@@ -100,7 +100,7 @@ async function displayHolidays(scheduleName) {
                return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
            }).join('');
            
-           displayCalendar(currentMonth, currentYear);
+           initCalendar();
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
