@@ -260,7 +260,7 @@ async function dateCalc() {
     document.body.appendChild(modalContent);
     attachModalEventHandlers(modalContent);    
     const defaultSchedule = await setupHolidayScheduleDropdown();
-    displayHolidays(defaultSchedule); 
+    //displayHolidays(defaultSchedule); 
 }
 
 const styles = `
