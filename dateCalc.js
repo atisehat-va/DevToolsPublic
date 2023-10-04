@@ -413,7 +413,7 @@ function initCalendar(holidays) {
 
     // Initial display
     //displayCalendar(holidays, currentMonth, currentYear);
-    setupDateFormListeners();
+    setupDateFormListeners(); 
 }
 
 
