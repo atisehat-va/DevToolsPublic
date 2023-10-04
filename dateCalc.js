@@ -1,4 +1,12 @@
 let listOfHolidays = [];
+
+let dateDetails = {
+    startDate: null,
+    startTime: null,
+    endDate: null,
+    endTime: null
+};
+
 const typeNames = {
     0: "Default",
     1: "Customer Service",
@@ -214,18 +222,19 @@ function createModalContent() {
                         <span><strong>2 Days</strong></span>
                     </div>
                 </div>
+                <div class="submit-button-container">
+                    <button id="submitButton">Submit</button>
+                </div>
             </div>
             </div>            
              <div class="commonSection section1-row2" id="section4">
                  <h3>Calendar 2</h3>			      			      
              </div>
-         </div>  
-         <div class="submit-button-container">
-             <button id="submitButton">Submit</button>
-         </div>
+         </div>           
     `;    
     return container;
 }
+
 
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
