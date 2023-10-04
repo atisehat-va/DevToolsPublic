@@ -423,29 +423,27 @@ function getHolidaysBetweenDates(startDate, endDate) {
     let count = 0;
 
     const start = new Date(startDate);
-    start.setHours(0,0,0,0);
-
     const end = new Date(endDate);
-    end.setHours(23,59,59,999);
 
-    console.log("Start Date:", start);
-    console.log("End Date:", end);
-    console.log("Holidays List:", listOfHolidays);
+    listOfHolidays.forEach(holidayDateStr => {
+        const holiday = new Date(holidayDateStr);
 
-    listOfHolidays.forEach(holidayDate => {
-        const holiday = new Date(holidayDate);
-        holiday.setHours(0,0,0,0);
-
-        console.log("Comparing:", holiday, "with Start:", start, "and End:", end);
-
-        if (holiday >= start && holiday <= end) {
-            console.log("Match Found:", holiday);
+        if (isSameDayOrBetween(holiday, start, end)) {
             count++;
         }
     });
 
-    console.log("Total Holidays Found:", count);
     return count;
+}
+
+function isSameDayOrBetween(date, start, end) {
+    return (date >= start && date <= end) || 
+           (date.getUTCDate() === start.getUTCDate() && 
+            date.getUTCMonth() === start.getUTCMonth() && 
+            date.getUTCFullYear() === start.getUTCFullYear()) || 
+           (date.getUTCDate() === end.getUTCDate() && 
+            date.getUTCMonth() === end.getUTCMonth() && 
+            date.getUTCFullYear() === end.getUTCFullYear());
 }
 
 
