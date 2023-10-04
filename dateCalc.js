@@ -224,7 +224,7 @@ function createModalContent() {
                 </div>                
             </div>
             <div class="section3-submitBtn">
-                <button id="section3SubmitBtb">Submit</button>
+                <button id="section3SubmitBtn">Submit</button>
             </div>
             </div>            
              <div class="commonSection section1-row2" id="section4">
@@ -260,7 +260,7 @@ const styles = `
     .holidayDate { padding: 4px; border: 1px solid #ddd; text-align: left; }    
     .headerWrapper { margin-left: 10px; }     
     .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
-    .section1-row2 { display: inline-block; width: 50%; height: 400px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; } 
+    .section1-row2 { display: inline-block; width: 50%; height: 450px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; } 
 `;
 const calendarStyles = ` 
     #calendar { width: 92%; height: 80%; border: 1px solid #ddd; background-color: #f9f9f9; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
@@ -314,7 +314,29 @@ const startDateStyles = `
         display: flex;
         justify-content: space-between;
         margin-bottom: 5px;
-    }  
+    } 
+    .section3-submitBtn {
+        margin-top: 15px;
+        text-align: center;   // Centering the button horizontally within the div
+    }
+
+    #section3SubmitBtn {
+        background-color: #102e55;  // Dark blue background
+        color: #ffffff;             // White text color
+        padding: 10px 15px;         // Padding for a slightly larger button
+        border: none;               // Removing default border
+        border-radius: 4px;         // Rounded corners
+        cursor: pointer;            // Hand cursor on hover for a clickable look
+        transition: background-color 0.3s; // Smooth transition for hover effect
+    }
+
+    #section3SubmitBtn:hover {
+        background-color: #0a1b33;  // Slightly darker blue on hover
+    }
+
+    #section3SubmitBtn:active {
+        background-color: #091021;  // Even darker blue when active (clicked)
+    }
 `;
 
 function initCalendar(holidays) {    
