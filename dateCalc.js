@@ -221,11 +221,11 @@ function createModalContent() {
                         <span><strong>Total Number of Days:</strong></span>
                         <span><strong>2 Days</strong></span>
                     </div>
-                </div>
-                <div class="section3-submitBtn">
+                </div>                
+            </div>
+            <div class="section3-submitBtn">
                     <button id="submitButton">Submit</button>
                 </div>
-            </div>
             </div>            
              <div class="commonSection section1-row2" id="section4">
                  <h3>Calendar 2</h3>			      			      
