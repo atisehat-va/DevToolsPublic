@@ -171,30 +171,26 @@ function createModalContent() {
                     </div>
                 </div>                
                 <div class="dateSection">
-                <div class="dateInputsWrapper">
-                    <div class="dateInputRow">
-                        <div class="dateColumn">
-                            <label for="startDate1">Start Date:</label>
-                            <input type="date" id="startDate1" name="startDate1">
-                        </div>
-                        <div class="timeColumn">
-                            <label for="startTime1">Start Time:</label>
-                            <input type="time" id="startTime1" name="startTime1">
-                        </div>
+                <div class="dateRow">
+                    <div>
+                        <label for="startDate1">Start Date:</label>
+                        <input type="date" id="startDate1" name="startDate1">
                     </div>
-                    
-                    <div class="dateInputRow">
-                        <div class="dateColumn">
-                            <label for="endDate1">End Date:</label>
-                            <input type="date" id="endDate1" name="endDate1">
-                        </div>
-                        <div class="timeColumn">
-                            <label for="endTime1">End Time:</label>
-                            <input type="time" id="endTime1" name="endTime1">
-                        </div>
+                    <div>
+                        <label for="startTime1">Start Time:</label>
+                        <input type="time" id="startTime1" name="startTime1">
                     </div>
-                </div>
-            
+                </div>                            
+                <div class="dateRow">
+                    <div>
+                        <label for="endDate1">End Date:</label>
+                        <input type="date" id="endDate1" name="endDate1">
+                    </div>
+                    <div>
+                        <label for="endTime1">End Time:</label>
+                        <input type="time" id="endTime1" name="endTime1">
+                    </div>
+                </div>            
                 <div class="calculationsWrapper">
                     <div class="calculationRow">
                         <span>Total Days between Start and End Date:</span>
@@ -284,24 +280,42 @@ const startDateStyles = `
     .checkboxWrapper {
         margin-bottom: 5px;
     }
-    .dateInputsWrapper {
+
+    /* Updated Styles */
+    .dateRow {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .dateRow > div {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .dateRow input[type="date"],
+    .dateRow input[type="time"] {
+        width: 100%;
+    }
+
+    /* Existing Styles */
+ /*   .dateInputsWrapper {
         display: flex;
         gap: 10px;
         margin-top: 10px;
-    }
-    .dateInputRow {
+    } */
+   /* .dateInputRow {
         display: flex;
         gap: 20px; 
         align-items: center;
         margin-bottom: 10px;
-    }
-    .dateInputsWrapper label {
+    } */
+ /*   .dateInputsWrapper label {
         display: block;
         margin-bottom: 5px;
-    }
-    .dateColumn, .timeColumn {
+    } */
+  /*  .dateColumn, .timeColumn {
         flex: 1;
-    }
+    } */
     .dateSection {
         border: 1px solid #ccc;
         padding: 10px;
@@ -309,15 +323,13 @@ const startDateStyles = `
         margin-top: 10px;
     }     
     .calculationsWrapper {
-    margin-top: 20px;
+        margin-top: 20px;
     }    
     .calculationRow {
         display: flex;
         justify-content: space-between;
         margin-bottom: 5px;
-    }   
-    
-   
+    }  
 `;
 
 function initCalendar(holidays) {    
