@@ -185,20 +185,10 @@ function createModalContent() {
                         <input type="date" id="startDate1" name="startDate1">
                     </div>
                     <div>
-                        <label for="startTime1">Start Time:</label>
-                        <input type="time" id="startTime1" name="startTime1">
-                    </div>
-                </div>                            
-                <div class="dateRow">
-                    <div>
                         <label for="endDate1">End Date:</label>
                         <input type="date" id="endDate1" name="endDate1">
                     </div>
-                    <div>
-                        <label for="endTime1">End Time:</label>
-                        <input type="time" id="endTime1" name="endTime1">
-                    </div>
-                </div>            
+                </div>                          
                 <div class="calculationsWrapper">
                     <div class="calculationRow">
                         <span>Total Days between Start and End Date:</span>
@@ -323,10 +313,11 @@ const startDateStyles = `
         flex: 1;
         margin-right: 10px;
     }
-    .dateRow input[type="date"],
+  /*  .dateRow input[type="date"],
     .dateRow input[type="time"] {
         width: 100%;
-    }   
+    }   */
+    
     .dateSection {
         border: 1px solid #ccc;
         padding: 10px;
