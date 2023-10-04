@@ -232,8 +232,7 @@ function createModalContent() {
              </div>
          </div>           
     `;    
-    return container;
-    setupDateFormListeners(); 
+    return container;    
 }
 
 function setupDateFormListeners() {
@@ -254,6 +253,7 @@ function attachModalEventHandlers(container) {
         openPopup();  
     });
     makePopupMovable(container); 
+    setupDateFormListeners(); 
 }
 
 async function dateCalc() {
