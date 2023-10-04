@@ -173,17 +173,25 @@ function createModalContent() {
                 <div class="dateSection">
                 <div class="dateInputsWrapper">
                     <div class="dateInputRow">
-                        <label for="startDate1">Start Date:</label>
-                        <input type="date" id="startDate1" name="startDate1">
-                        <label for="startTime1">Start Time:</label>
-                        <input type="time" id="startTime1" name="startTime1">
+                        <div class="dateColumn">
+                            <label for="startDate1">Start Date:</label>
+                            <input type="date" id="startDate1" name="startDate1">
+                        </div>
+                        <div class="timeColumn">
+                            <label for="startTime1">Start Time:</label>
+                            <input type="time" id="startTime1" name="startTime1">
+                        </div>
                     </div>
                     
                     <div class="dateInputRow">
-                        <label for="endDate1">End Date:</label>
-                        <input type="date" id="endDate1" name="endDate1">
-                        <label for="endTime1">End Time:</label>
-                        <input type="time" id="endTime1" name="endTime1">
+                        <div class="dateColumn">
+                            <label for="endDate1">End Date:</label>
+                            <input type="date" id="endDate1" name="endDate1">
+                        </div>
+                        <div class="timeColumn">
+                            <label for="endTime1">End Time:</label>
+                            <input type="time" id="endTime1" name="endTime1">
+                        </div>
                     </div>
                 </div>
             
@@ -283,12 +291,16 @@ const startDateStyles = `
     }
     .dateInputRow {
         display: flex;
+        gap: 20px; 
         align-items: center;
-        gap: 10px;
         margin-bottom: 10px;
     }
-     .dateInputsWrapper label {
-        margin-right: 5px;
+    .dateInputsWrapper label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .dateColumn, .timeColumn {
+        flex: 1;
     }
     .dateSection {
         border: 1px solid #ccc;
