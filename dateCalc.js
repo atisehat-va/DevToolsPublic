@@ -228,18 +228,21 @@ function setupDateFormListeners() {
         dateDetails.startDate = document.getElementById('startDate1').value;
         dateDetails.endDate = document.getElementById('endDate1').value;
 
-        // Calculate days difference between the selected dates
         const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
 
-        // Calculate holidays between the selected dates
+        // Calculate holidays and weekends between the selected dates
         const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
-        
+        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
+
         // Update the displayed days difference
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
 
         // Update the displayed holidays count
         document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `- ${holidaysCount} Days`;
-        
+
+        // Update the displayed weekends count
+        document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `- ${weekendsCount} Days`;
+
         console.log(dateDetails);
     });
 }
@@ -436,6 +439,23 @@ function getHolidaysBetweenDates(startDate, endDate) {
             count++;
         }
     });
+
+    return count;
+}
+
+function countWeekendsBetweenDates(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    let count = 0;
+
+    // Iterate through each day in the date range
+    while (start <= end) {
+        if (start.getDay() === 0 || start.getDay() === 6) { // 0 is Sunday, 6 is Saturday
+            count++;
+        }
+        start.setDate(start.getDate() + 1); // Move to the next day
+    }
 
     return count;
 }
