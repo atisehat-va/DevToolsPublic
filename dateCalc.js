@@ -423,13 +423,15 @@ function calculateDateDifference(startDate, endDate) {
 
 function getHolidaysBetweenDates(startDate, endDate) {
     let count = 0;
-    const start = new Date(startDate); 
+    const start = new Date(startDate);
+    start.setHours(0,0,0,0);  // Set to beginning of the day
+
     const end = new Date(endDate);
-    
-    end.setHours(23, 59, 59, 999); 
+    end.setHours(23,59,59,999);  // Set to the end of the day
 
     listOfHolidays.forEach(holidayDate => {
         const holiday = new Date(holidayDate);
+        holiday.setHours(0,0,0,0);  // Ensure the holiday date is also set to beginning of the day for a fair comparison
         if (holiday >= start && holiday <= end) {
             count++;
         }
