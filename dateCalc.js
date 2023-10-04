@@ -242,6 +242,17 @@ function setupDateFormListeners() {
         dateDetails.endDate = document.getElementById('endDate1').value;
         dateDetails.endTime = document.getElementById('endTime1').value;
 
+        const daysDifference = calculateDateDifference(
+            dateDetails.startDate, 
+            dateDetails.startTime, 
+            dateDetails.endDate, 
+            dateDetails.endTime
+        );
+        
+        // Update the displayed days difference
+        const displayElement = document.querySelector(".calculationRow span:nth-child(2)");
+        displayElement.textContent = `${daysDifference} Days`;
+
         console.log(dateDetails);
     });
 }
@@ -416,6 +427,21 @@ function initCalendar(holidays) {
     displayCalendar(holidays, currentMonth, currentYear);
     //setupDateFormListeners(); 
 }
+//Section3DateCalculations
+function calculateDateDifference(startDate, startTime, endDate, endTime) {
+    const oneDayMilliseconds = 1000 * 60 * 60 * 24;
+    
+    // Combine date and time to form complete Date objects.
+    const startDateTime = new Date(startTime ? `${startDate}T${startTime}` : startDate);
+    const endDateTime = new Date(endTime ? `${endDate}T${endTime}` : endDate);
+
+    const differenceMilliseconds = endDateTime - startDateTime;
+
+    return Math.round(differenceMilliseconds / oneDayMilliseconds);
+}
+
+
+/EndSection3DateCalculation
 
 
 
