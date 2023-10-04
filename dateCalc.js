@@ -55,7 +55,7 @@ async function setupHolidayScheduleDropdown() {
         return option;
     });
 
-    dropdown.append(...options);  // Append all options at once
+    dropdown.append(...options); 
     dropdown.value = defaultScheduleName;
     displayHolidays(defaultScheduleName);  
 
