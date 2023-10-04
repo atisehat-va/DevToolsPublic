@@ -222,7 +222,7 @@ function createModalContent() {
                         <span><strong>2 Days</strong></span>
                     </div>
                 </div>
-                <div class="submit-button-container">
+                <div class="section3-submitBtn">
                     <button id="submitButton">Submit</button>
                 </div>
             </div>
