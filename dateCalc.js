@@ -432,17 +432,18 @@ function initCalendar(holidays) {
     displayCalendar(holidays, currentMonth, currentYear);
     //setupDateFormListeners(); 
 }
+
 function calculateDateDifference(startDate, startTime, endDate, endTime) {
-    const startDateTime = new Date(`${startDate}T${startTime}:00`);
-    const endDateTime = new Date(`${endDate}T${endTime}:00`);
+    const startDateTime = new Date(`${startDate}T${startTime}`);
+    const endDateTime = new Date(`${endDate}T${endTime}`);
     
     // Calculate the difference in milliseconds
     const diffInMilliseconds = endDateTime - startDateTime;
     
-    // Convert the difference from milliseconds to days
-    const diffInDays = Math.ceil(diffInMilliseconds / (1000 * 60 * 60 * 24));
+    // Convert the difference from milliseconds to days, without rounding up.
+    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
     
-    return diffInDays;
+    return Math.floor(diffInDays) + (diffInDays % 1 > 0 ? 1 : 0);
 }
 
 function getHolidaysBetweenDates(startDate, startTime, endDate, endTime) {
