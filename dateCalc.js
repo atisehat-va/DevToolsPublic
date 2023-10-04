@@ -306,18 +306,11 @@ const startDateStyles = `
         margin-bottom: 5px;
     }  
     .dateRow {
-        display: flex;
-        margin-bottom: 10px;
+        display: flex;        
     }
-    .dateRow > div {
-        flex: 1;
+    .dateRow > div {       
         margin-right: 10px;
-    }
-  /*  .dateRow input[type="date"],
-    .dateRow input[type="time"] {
-        width: 100%;
-    }   */
-    
+    } 
     .dateSection {
         border: 1px solid #ccc;
         padding: 10px;
@@ -424,23 +417,22 @@ function initCalendar(holidays) {
     //setupDateFormListeners(); 
 }
 
-function calculateDateDifference(startDate, startTime, endDate, endTime) {
-    const startDateTime = new Date(`${startDate}T${startTime}`);
-    const endDateTime = new Date(`${endDate}T${endTime}`);
+function calculateDateDifference(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
     
-    // Calculate the difference in milliseconds
-    const diffInMilliseconds = endDateTime - startDateTime;
+    // Calculate the difference in days
+    const diffInDays = (end - start) / (1000 * 60 * 60 * 24) + 1; 
     
-    // Convert the difference from milliseconds to days, without rounding up.
-    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
-    
-    return Math.floor(diffInDays) + (diffInDays % 1 > 0 ? 1 : 0);
+    return Math.round(diffInDays); 
 }
 
-function getHolidaysBetweenDates(startDate, startTime, endDate, endTime) {
+function getHolidaysBetweenDates(startDate, endDate) {
     let count = 0;
-    const start = new Date(`${startDate}T${startTime}:00`); 
-    const end = new Date(`${endDate}T${endTime}:00`); 
+    const start = new Date(startDate); 
+    const end = new Date(endDate);
+    
+    end.setHours(23, 59, 59, 999); 
 
     listOfHolidays.forEach(holidayDate => {
         const holiday = new Date(holidayDate);
