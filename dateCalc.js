@@ -441,7 +441,7 @@ function calculateDateDifference(startDate, startTime, endDate, endTime) {
 }
 
 
-/EndSection3DateCalculation
+//EndSection3DateCalculation
 
 
 
