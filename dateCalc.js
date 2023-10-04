@@ -449,7 +449,7 @@ function getHolidaysBetweenDates(startDate, endDate) {
 
     return count;
 }
-
+/*
 function calculateWeekendsBetweenDates(startDate, endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -465,7 +465,7 @@ function calculateWeekendsBetweenDates(startDate, endDate) {
     }
 
     return weekendsCount;
-}
+} */
 
 function isSameDayOrBetween(date, start, end) {
     return (date >= start && date <= end) || 
