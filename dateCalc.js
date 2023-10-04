@@ -235,9 +235,16 @@ function createModalContent() {
     return container;
 }
 
+function setupDateFormListeners() {
+    document.getElementById('section3SubmitBtn').addEventListener('click', function() {
+        dateDetails.startDate = document.getElementById('startDate1').value;
+        dateDetails.startTime = document.getElementById('startTime1').value;
+        dateDetails.endDate = document.getElementById('endDate1').value;
+        dateDetails.endTime = document.getElementById('endTime1').value;
 
-
-
+        console.log(dateDetails);
+    });
+}
 
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
@@ -407,6 +414,7 @@ function initCalendar(holidays) {
 
     // Initial display
     displayCalendar(holidays, currentMonth, currentYear);
+    setupDateFormListeners();
 }
 
 
