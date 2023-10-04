@@ -267,39 +267,19 @@ const startDateStyles = `
         margin-bottom: 10px;
         background-color: #f5f5f5;
     }
-
     .excludeSettingsWrapper h4 {
         margin-top: 0;
         border-bottom: 1px solid #d4d4d4;
         padding-bottom: 5px;
         margin-bottom: 10px;
     }
-
     .checkboxWrapper {
         margin-bottom: 5px;
     }
-
     .dateInputsWrapper {
         display: flex;
         gap: 10px;
         margin-top: 10px;
-    }
-    
-    .dateSection {
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 4px;
-        margin-top: 10px;
-    }   
-    
-    .calculationsWrapper {
-    margin-top: 20px;
-    }
-    
-    .calculationRow {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
     }
     .dateInputRow {
         display: flex;
@@ -307,10 +287,25 @@ const startDateStyles = `
         gap: 10px;
         margin-bottom: 10px;
     }
-    
-    .dateInputsWrapper label {
+     .dateInputsWrapper label {
         margin-right: 5px;
     }
+    .dateSection {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }     
+    .calculationsWrapper {
+    margin-top: 20px;
+    }    
+    .calculationRow {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }   
+    
+   
 `;
 
 function initCalendar(holidays) {    
