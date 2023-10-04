@@ -228,19 +228,13 @@ function createModalContent() {
 function setupDateFormListeners() {
     document.getElementById('section3SubmitBtn').addEventListener('click', function() {
         dateDetails.startDate = document.getElementById('startDate1').value;
-        dateDetails.startTime = document.getElementById('startTime1').value;
         dateDetails.endDate = document.getElementById('endDate1').value;
-        dateDetails.endTime = document.getElementById('endTime1').value;
 
-        const daysDifference = calculateDateDifference(
-            dateDetails.startDate, 
-            dateDetails.startTime, 
-            dateDetails.endDate, 
-            dateDetails.endTime
-        );
+        // Calculate days difference between the selected dates
+        const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
 
         // Calculate holidays between the selected dates
-        const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.startTime, dateDetails.endDate, dateDetails.endTime);
+        const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
         
         // Update the displayed days difference
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
