@@ -171,19 +171,43 @@ function createModalContent() {
                     </div>
                 </div>                
                 <div class="dateSection">
-                    <div class="dateRow">
+                <div class="dateInputsWrapper">
+                    <div>
                         <label for="startDate1">Start Date:</label>
                         <input type="date" id="startDate1" name="startDate1">
-                        <label for="startTime1">Start Time:</label>
                         <input type="time" id="startTime1" name="startTime1">
-                    </div>                
-                    <div class="dateRow">
+                    </div>
+                    <div>
                         <label for="endDate1">End Date:</label>
                         <input type="date" id="endDate1" name="endDate1">
-                        <label for="endTime1">End Time:</label>
                         <input type="time" id="endTime1" name="endTime1">
                     </div>
                 </div>
+            
+                <div class="calculationsWrapper">
+                    <div class="calculationRow">
+                        <span>Total Days between Start and End Date:</span>
+                        <span>20 Days</span>
+                    </div>
+                    <div class="calculationRow">
+                        <span>Excluded Schedule Days:</span>
+                        <span>- 12 Days</span>
+                    </div>
+                    <div class="calculationRow">
+                        <span>Excluded Weekends:</span>
+                        <span>- 4 Days</span>
+                    </div>
+                    <div class="calculationRow">
+                        <span>Additional Days Excluded:</span>
+                        <span>- 2 Days</span>
+                    </div>
+                    <hr>
+                    <div class="calculationRow">
+                        <span><strong>Total Number of Days:</strong></span>
+                        <span><strong>2 Days</strong></span>
+                    </div>
+                </div>
+            </div>
             </div>            
              <div class="commonSection section1-row2" id="section4">
                  <h3>Calendar 2</h3>			      			      
@@ -274,6 +298,15 @@ const startDateStyles = `
 
     .dateRow label {
         margin-right: 10px;
+    }
+    .calculationsWrapper {
+    margin-top: 20px;
+    }
+    
+    .calculationRow {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
     }
 `;
 
