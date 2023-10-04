@@ -235,6 +235,25 @@ function createModalContent() {
     return container;
 }
 
+function storeDateValues() {
+    const startDate = document.getElementById('startDate1').value;
+    const startTime = document.getElementById('startTime1').value;
+    const endDate = document.getElementById('endDate1').value;
+    const endTime = document.getElementById('endTime1').value;
+
+    // Store the values in the dateDetails object
+    dateDetails.startDate = startDate;
+    dateDetails.startTime = startTime;
+    dateDetails.endDate = endDate;
+    dateDetails.endTime = endTime;
+
+    // If you wish to see the stored values
+    console.log('Stored Date Details:', dateDetails);
+}
+// Add the event listener to the submit button
+document.getElementById('section3SubmitBtn').addEventListener('click', storeDateValues);
+
+
 
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
