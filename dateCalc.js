@@ -260,7 +260,7 @@ const styles = `
     .holidayDate { padding: 4px; border: 1px solid #ddd; text-align: left; }    
     .headerWrapper { margin-left: 10px; }     
     .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
-    .section1-row2 { display: inline-block; width: 50%; height: 450px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; } 
+    .section1-row2 { display: inline-block; width: 50%; height: 460px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; } 
 `;
 const calendarStyles = ` 
     #calendar { width: 92%; height: 80%; border: 1px solid #ddd; background-color: #f9f9f9; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
@@ -319,21 +319,16 @@ const startDateStyles = `
         margin-top: 15px;
         text-align: center;   
     }
-
-    #section3SubmitBtn {
-        margin-top: 1%; 
-        margin-left: 59%; 
-        padding: 10px 20px; 
-        font-size: 16px; 
-        width: 250px; 
+    #section3SubmitBtn {        
+        padding: 8px; 
+        font-size: 15px; 
+        width: 150px; 
         background-color: #102e55; 
-        color: white; 
-        border: none; 
+        color: white;         
         cursor: pointer; 
-        border-radius: 10px; 
+        border-radius: 20px; 
         transition: background-color 0.3s; 
     }
-
     #section3SubmitBtn:hover {
         background-color: #103e89;
     }
