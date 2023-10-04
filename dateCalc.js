@@ -288,7 +288,11 @@ const startDateStyles = `
     }
     .checkboxWrapper {
         margin-bottom: 5px;
-    }    
+    }  
+    .dateRow {
+        display: flex;
+        margin-bottom: 10px;
+    }
     .dateRow > div {
         flex: 1;
         margin-right: 10px;
