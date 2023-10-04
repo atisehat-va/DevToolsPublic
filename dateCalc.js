@@ -449,6 +449,11 @@ function countWeekendsBetweenDates(startDate, endDate) {
     
     let count = 0;
 
+    // Check if both dates are same
+    if(start.toDateString() === end.toDateString()) {
+        return (start.getDay() === 0 || start.getDay() === 6) ? 1 : 0;
+    }
+
     // Iterate through each day in the date range
     while (start <= end) {
         if (start.getDay() === 0 || start.getDay() === 6) { // 0 is Sunday, 6 is Saturday
