@@ -1,10 +1,8 @@
 let listOfHolidays = [];
 
 let dateDetails = {
-    startDate: null,
-    startTime: null,
-    endDate: null,
-    endTime: null
+    startDate: null,    
+    endDate: null    
 };
 
 const typeNames = {
@@ -423,21 +421,33 @@ function calculateDateDifference(startDate, endDate) {
 
 function getHolidaysBetweenDates(startDate, endDate) {
     let count = 0;
+
     const start = new Date(startDate);
-    start.setHours(0,0,0,0);  // Set to beginning of the day
+    start.setHours(0,0,0,0);
 
     const end = new Date(endDate);
-    end.setHours(23,59,59,999);  // Set to the end of the day
+    end.setHours(23,59,59,999);
+
+    console.log("Start Date:", start);
+    console.log("End Date:", end);
+    console.log("Holidays List:", listOfHolidays);
 
     listOfHolidays.forEach(holidayDate => {
         const holiday = new Date(holidayDate);
-        holiday.setHours(0,0,0,0);  // Ensure the holiday date is also set to beginning of the day for a fair comparison
+        holiday.setHours(0,0,0,0);
+
+        console.log("Comparing:", holiday, "with Start:", start, "and End:", end);
+
         if (holiday >= start && holiday <= end) {
+            console.log("Match Found:", holiday);
             count++;
         }
     });
+
+    console.log("Total Holidays Found:", count);
     return count;
 }
+
 
 
 //EndSection3DateCalculation
