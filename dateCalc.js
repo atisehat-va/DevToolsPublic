@@ -317,26 +317,27 @@ const startDateStyles = `
     } 
     .section3-submitBtn {
         margin-top: 15px;
-        text-align: center;   // Centering the button horizontally within the div
+        text-align: center;   
     }
 
     #section3SubmitBtn {
-        background-color: #102e55;  // Dark blue background
-        color: #ffffff;             // White text color
-        padding: 10px 15px;         // Padding for a slightly larger button
-        border: none;               // Removing default border
-        border-radius: 4px;         // Rounded corners
-        cursor: pointer;            // Hand cursor on hover for a clickable look
-        transition: background-color 0.3s; // Smooth transition for hover effect
+        margin-top: 1%; 
+        margin-left: 59%; 
+        padding: 10px 20px; 
+        font-size: 16px; 
+        width: 250px; 
+        background-color: #102e55; 
+        color: white; 
+        border: none; 
+        cursor: pointer; 
+        border-radius: 10px; 
+        transition: background-color 0.3s; 
     }
 
     #section3SubmitBtn:hover {
-        background-color: #0a1b33;  // Slightly darker blue on hover
+        background-color: #103e89;
     }
-
-    #section3SubmitBtn:active {
-        background-color: #091021;  // Even darker blue when active (clicked)
-    }
+    
 `;
 
 function initCalendar(holidays) {    
