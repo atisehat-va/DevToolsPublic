@@ -413,8 +413,12 @@ function calculateDateDifference(startDate, endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
     
-    // Calculate the difference in days
-    const diffInDays = (end - start) / (1000 * 60 * 60 * 24) + 1; 
+    // Reset hours of the date to ensure we're strictly dealing with the day component.
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+
+    // Calculate the difference in days, inclusive.
+    const diffInDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) + 1; 
     
     return Math.round(diffInDays); 
 }
