@@ -140,7 +140,7 @@ function createModalContent() {
                 <div id="holidaysList"></div>     			      
             </div>
             <div class="section1-row1" id="section2">
-                <h3 style="margin-bottom: 20px;">Calendar</h3>
+                <h3 style="margin-bottom: 20px;">Calendar:</h3>
                 <div id="calendar">
                     <div id="calendarHeader">
                         <button id="prevMonth">&lt;</button>
