@@ -279,43 +279,15 @@ const startDateStyles = `
     }
     .checkboxWrapper {
         margin-bottom: 5px;
-    }
-
-    /* Updated Styles */
-    .dateRow {
-        display: flex;
-        margin-bottom: 10px;
-    }
-
+    }    
     .dateRow > div {
         flex: 1;
         margin-right: 10px;
     }
-
     .dateRow input[type="date"],
     .dateRow input[type="time"] {
         width: 100%;
-    }
-
-    /* Existing Styles */
- /*   .dateInputsWrapper {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-    } */
-   /* .dateInputRow {
-        display: flex;
-        gap: 20px; 
-        align-items: center;
-        margin-bottom: 10px;
-    } */
- /*   .dateInputsWrapper label {
-        display: block;
-        margin-bottom: 5px;
-    } */
-  /*  .dateColumn, .timeColumn {
-        flex: 1;
-    } */
+    }   
     .dateSection {
         border: 1px solid #ccc;
         padding: 10px;
