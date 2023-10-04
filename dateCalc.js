@@ -228,17 +228,25 @@ function setupDateFormListeners() {
         dateDetails.startDate = document.getElementById('startDate1').value;
         dateDetails.endDate = document.getElementById('endDate1').value;
 
-        // Calculate days difference between the selected dates
-        const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
+        const daysDifference = calculateDateDifference(
+            dateDetails.startDate, 
+            dateDetails.endDate
+        );
 
         // Calculate holidays between the selected dates
         const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
-        
+
+        // Calculate weekends between the selected dates
+        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
+
         // Update the displayed days difference
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
 
         // Update the displayed holidays count
         document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `- ${holidaysCount} Days`;
+
+        // Update the displayed weekends count
+        document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `- ${weekendsCount} Days`;
         
         console.log(dateDetails);
     });
@@ -438,6 +446,26 @@ function getHolidaysBetweenDates(startDate, endDate) {
     });
 
     return count;
+}
+
+function countWeekendsBetweenDates(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Ensure we start counting from the very beginning of the start date and end with the very end of the end date.
+    start.setHours(0, 0, 0, 0);
+    end.setHours(23, 59, 59, 999);
+
+    let current = start;
+    let weekendCount = 0;
+
+    while (current <= end) {
+        if (current.getDay() === 0 || current.getDay() === 6) { // 0 for Sunday and 6 for Saturday
+            weekendCount++;
+        }
+        current.setDate(current.getDate() + 1); // Move to the next day
+    }
+    return weekendCount;
 }
 
 function isSameDayOrBetween(date, start, end) {
