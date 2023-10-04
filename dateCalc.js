@@ -248,14 +248,16 @@ function setupDateFormListeners() {
             dateDetails.endDate, 
             dateDetails.endTime
         );
-        
+
+        // Calculate holidays between the selected dates
+        const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
+
         // Update the displayed days difference
-        const displayElement = document.querySelector(".calculationRow span:nth-child(2)");
-        displayElement.textContent = `${daysDifference} Days`;
+        document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
 
-       // Update the displayed holidays count
+        // Update the displayed holidays count
         document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `- ${holidaysCount} Days`;
-
+        
         console.log(dateDetails);
     });
 }
@@ -442,14 +444,15 @@ function calculateDateDifference(startDate, startTime, endDate, endTime) {
 
     return Math.round(differenceMilliseconds / oneDayMilliseconds);
 }
-function getHolidaysBetweenDates(startDate, endDate, holidays) {
+
+function getHolidaysBetweenDates(startDate, endDate) {
     let count = 0;
     const start = new Date(startDate);
     const end = new Date(endDate);
     
-    holidays.forEach(holiday => {
-        const holidayDate = new Date(holiday.date);
-        if(holidayDate >= start && holidayDate <= end) {
+    listOfHolidays.forEach(holidayDate => {
+        const holiday = new Date(holidayDate);
+        if(holiday >= start && holiday <= end) {
             count++;
         }
     });
