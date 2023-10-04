@@ -1,10 +1,8 @@
 let listOfHolidays = [];
 
 let dateDetails = {
-   startDate: null,
-   startTime: null,
-   endDate: null,
-   endTime: null  
+    startDate: null,    
+    endDate: null    
 };
 
 const typeNames = {
@@ -230,25 +228,17 @@ function setupDateFormListeners() {
         dateDetails.startDate = document.getElementById('startDate1').value;
         dateDetails.endDate = document.getElementById('endDate1').value;
 
-        const daysDifference = calculateDateDifference(
-            dateDetails.startDate, 
-            dateDetails.endDate
-        );
+        // Calculate days difference between the selected dates
+        const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
 
         // Calculate holidays between the selected dates
         const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
-
-        // Calculate weekends between the selected dates
-        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
-
+        
         // Update the displayed days difference
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
 
         // Update the displayed holidays count
         document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `- ${holidaysCount} Days`;
-
-        // Update the displayed weekends count
-        document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `- ${weekendsCount} Days`;
         
         console.log(dateDetails);
     });
@@ -449,23 +439,6 @@ function getHolidaysBetweenDates(startDate, endDate) {
 
     return count;
 }
-/*
-function calculateWeekendsBetweenDates(startDate, endDate) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    let weekendsCount = 0;
-
-    while(start <= end) {
-        // 0 (Sunday) and 6 (Saturday) are considered as weekends
-        if(start.getDay() === 0 || start.getDay() === 6) {
-            weekendsCount++;
-        }
-        start.setDate(start.getDate() + 1);
-    }
-
-    return weekendsCount;
-} */
 
 function isSameDayOrBetween(date, start, end) {
     return (date >= start && date <= end) || 
