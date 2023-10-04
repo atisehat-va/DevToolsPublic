@@ -233,6 +233,7 @@ function createModalContent() {
          </div>           
     `;    
     return container;
+    setupDateFormListeners(); 
 }
 
 function setupDateFormListeners() {
@@ -412,8 +413,8 @@ function initCalendar(holidays) {
     document.getElementById('nextMonth').addEventListener('click', goToNextMonth);    
 
     // Initial display
-    //displayCalendar(holidays, currentMonth, currentYear);
-    setupDateFormListeners(); 
+    displayCalendar(holidays, currentMonth, currentYear);
+    //setupDateFormListeners(); 
 }
 
 
