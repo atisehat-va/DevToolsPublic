@@ -259,8 +259,7 @@ async function dateCalc() {
     const modalContent = createModalContent();
     document.body.appendChild(modalContent);
     attachModalEventHandlers(modalContent);    
-    const defaultSchedule = await setupHolidayScheduleDropdown();
-    //displayHolidays(defaultSchedule); 
+    const defaultSchedule = await setupHolidayScheduleDropdown();   
 }
 
 const styles = `
@@ -413,7 +412,7 @@ function initCalendar(holidays) {
     document.getElementById('nextMonth').addEventListener('click', goToNextMonth);    
 
     // Initial display
-    displayCalendar(holidays, currentMonth, currentYear);
+    //displayCalendar(holidays, currentMonth, currentYear);
     setupDateFormListeners();
 }
 
