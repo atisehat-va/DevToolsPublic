@@ -319,9 +319,9 @@ function setupDateFormListeners() {
 //PickDate
 function setupAddDateFormListeners() {
     document.getElementById('section4SubmitBtn').addEventListener('click', function() {
-        AddDateDetails.startDate = document.getElementById('pickDate').value;
+        addDateDetails.pickDate = document.getElementById('pickDate').value;
 
-        if (!AddDateDetails.startDate) {
+        if (!addDateDetails.pickDate) {
             showCustomAlert(`Please provide a Start Date.`);
             document.querySelectorAll('.addCalculationsWrapper .calculationRow span:nth-child(2)').forEach(span => span.textContent = "--");
             return; // Exit the function
@@ -330,21 +330,21 @@ function setupAddDateFormListeners() {
         const additionalDays = document.getElementById('addDaysCount').value || 0;
 
         // Convert string date to a Date object
-        const dateObject = new Date(AddDateDetails.startDate);
+        const dateObject = new Date(addDateDetails.pickDate);
 
         // Add the additional days to the start date
         dateObject.setDate(dateObject.getDate() + parseInt(additionalDays));
 
-        // Set the endDate in the AddDateDetails
-        AddDateDetails.endDate = dateObject.toISOString().split('T')[0];
+        // Set the endDate in the addDateDetails
+        addDateDetails.endDate = dateObject.toISOString().split('T')[0];
 
         // Update the "Add Additional Days" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays}`;
 
         // Update the "Final Date" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = AddDateDetails.endDate;
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.endDate;
 
-        console.log(AddDateDetails);
+        console.log(addDateDetails);
     });
 }
 
