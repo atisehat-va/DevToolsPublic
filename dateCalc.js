@@ -445,8 +445,12 @@ function getHolidaysBetweenDates(startDate, endDate) {
 }
 
 function countWeekendsBetweenDates(startDate, endDate) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    // Convert date strings to array [YYYY, MM, DD] and create date objects
+    const [startY, startM, startD] = startDate.split('-').map(Number);
+    const [endY, endM, endD] = endDate.split('-').map(Number);
+    
+    const start = new Date(startY, startM - 1, startD); // months are 0-indexed
+    const end = new Date(endY, endM - 1, endD);
     
     let count = 0;
     
