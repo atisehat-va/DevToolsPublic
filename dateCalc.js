@@ -444,10 +444,11 @@ function getHolidaysBetweenDates(startDate, endDate) {
 }
 
 function countWeekendsBetweenDates(startDate, endDate) {
-    const start = stringToDate(startDate);
-    const end = stringToDate(endDate);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
     
     let count = 0;
+
     do {
         if (start.getDay() === 0 || start.getDay() === 6) { // 0 is Sunday, 6 is Saturday
             count++;
@@ -457,8 +458,6 @@ function countWeekendsBetweenDates(startDate, endDate) {
 
     return count;
 }
-
-
 
 function isSameDayOrBetween(date, start, end) {
     return (date >= start && date <= end) || 
