@@ -342,6 +342,10 @@ const startDateStyles = `
         justify-content: space-between;
         margin-bottom: 5px;
     } 
+    .calculationRow:last-child span {
+        font-size: 18px; 
+        font-weight: bold;
+    }
     .section3-submitBtn {
         margin-top: 15px;
         text-align: center;   
