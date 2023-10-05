@@ -250,7 +250,7 @@ function createModalContent() {
                             <span>Add Additional Days:</span>
                             <span>--    </span>
                         </div>                   
-                        <hr class="separator">
+                        <hr class="addDateSeparator">
                         <div class="calculationRow">
                             <span><strong>Final Date:</strong></span>
                             <span><strong>--    </strong></span>
@@ -364,6 +364,7 @@ const styles = `
     .addSettingsWrapper { border: 1px solid #d4d4d4; padding: 10px; border-radius: 5px; margin-bottom: 10px; margin-top: 10px; background-color: #f5f5f5; }
     .addSettingsWrapper h4 { margin-top: 0; border-bottom: 1px solid #d4d4d4; padding-bottom: 5px; margin-bottom: 10px; }
     .addDateRow { display: flex; margin-top: 20px; }
+    .addDateSeparator { border-top: 2px solid black; margin: 20px 0; } 
 `;
 
 function initCalendar(holidays) {    
