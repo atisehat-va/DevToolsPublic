@@ -257,7 +257,7 @@ function createModalContent() {
                         <hr class="addDateSeparator">
                         <div class="calculationRow">
                             <span><strong>Final Date:</strong></span>
-                            <span><strong>--    </strong></span>
+                            <span><strong>--  </strong></span>
                         </div>
                     </div>                
                 </div>
@@ -319,7 +319,7 @@ function setupDateFormListeners() {
 //PickDate
 function setupAddDateFormListeners() {
     document.getElementById('section4SubmitBtn').addEventListener('click', function() {
-        AddDateDetails.startDate = document.getElementById('startDate1').value;
+        AddDateDetails.startDate = document.getElementById('pickDate').value;
 
         if (!AddDateDetails.startDate) {
             showCustomAlert(`Please provide a Start Date.`);
