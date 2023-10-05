@@ -247,23 +247,23 @@ function setupDateFormListeners() {
         const additionalExcludedDays = document.getElementById('daysCount').value || 0;
 
         // Update the displayed days difference
-        document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
+        document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Day(s)`;
 
         // Update the displayed holidays count
-        document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `- ${holidaysCount} Days`;
+        document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `${holidaysCount} Day(s)`;
 
         // Update the displayed weekends count
-        document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `- ${weekendsCount} Days`;
+        document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `${weekendsCount} Day(s)`;
 
         // Update the displayed additional excluded days
-        document.querySelector(".calculationRow:nth-child(4) span:nth-child(2)").textContent = `- ${additionalExcludedDays} Days`;
+        document.querySelector(".calculationRow:nth-child(4) span:nth-child(2)").textContent = `${additionalExcludedDays} Day(s)`;
 
         // Calculate total number of days
         const totalDays = daysDifference - holidaysCount - weekendsCount - additionalExcludedDays;
 
         // Update the total number of days
         document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
-            totalDays < 0 ? `${totalDays} Days (Negative)` : `${totalDays} Days`;
+            totalDays < 0 ? `${totalDays} Day(s)` : `${totalDays} Days`;
 
         console.log(dateDetails);
     });
