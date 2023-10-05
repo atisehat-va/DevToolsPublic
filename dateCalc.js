@@ -306,67 +306,19 @@ const calendarStyles = `
     .todayDate { background-color: #056d05 !important; color: white; }
 `;
 const startDateStyles = `
-    .excludeSettingsWrapper {
-        border: 1px solid #d4d4d4;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        background-color: #f5f5f5;
-    }
-    .excludeSettingsWrapper h4 {
-        margin-top: 0;
-        border-bottom: 1px solid #d4d4d4;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-    }
-    .checkboxWrapper {
-        margin-bottom: 5px;
-    }  
-    .dateRow {
-        display: flex;        
-    }
-    .dateRow > div {       
-        margin-right: 10px;
-    } 
-    .dateSection {
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 4px;
-        margin-top: 10px;
-    }     
-    .calculationsWrapper {
-        margin-top: 20px;
-    }    
-    .calculationRow {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    } 
-    .calculationRow:last-child span {
-        font-size: 16px; 
-        font-weight: bold;
-    }
-    .section3-submitBtn {
-        margin-top: 15px;
-        text-align: center;   
-    }
-    #section3SubmitBtn {        
-        padding: 8px; 
-        font-size: 15px; 
-        width: 150px; 
-        background-color: #102e55; 
-        color: white;         
-        cursor: pointer; 
-        border-radius: 20px; 
-        transition: background-color 0.3s; 
-    }
-    #section3SubmitBtn:hover {
-        background-color: #103e89;
-    }
-    .separator {
-        border-top: 2px solid black;
-        margin: 10px 0;
-    }    
+    .excludeSettingsWrapper { border: 1px solid #d4d4d4; padding: 10px; border-radius: 5px; margin-bottom: 10px; background-color: #f5f5f5; }
+    .excludeSettingsWrapper h4 { margin-top: 0; border-bottom: 1px solid #d4d4d4; padding-bottom: 5px; margin-bottom: 10px; }
+    .checkboxWrapper { margin-bottom: 5px; }  
+    .dateRow { display: flex; }
+    .dateRow > div { margin-right: 10px; } 
+    .dateSection { border: 1px solid #ccc; padding: 10px; border-radius: 4px; margin-top: 10px; }     
+    .calculationsWrapper { margin-top: 20px; }    
+    .calculationRow { display: flex; justify-content: space-between; margin-bottom: 5px; } 
+    .calculationRow:last-child span { font-size: 16px; font-weight: bold; }
+    .section3-submitBtn { margin-top: 15px; text-align: center; }
+    #section3SubmitBtn { padding: 8px; font-size: 15px; width: 150px; background-color: #102e55; color: white; cursor: pointer; border-radius: 20px; transition: background-color 0.3s; }
+    #section3SubmitBtn:hover { background-color: #103e89; }
+    .separator { border-top: 2px solid black; margin: 10px 0; }    
 `;
 
 function initCalendar(holidays) {    
