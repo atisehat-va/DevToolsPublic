@@ -170,8 +170,7 @@ function createModalContent() {
                         <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
                         <label for="excludeWeekends">Weekends</label>
                     </div>                    
-                    <div class="checkboxWrapper excludeSpecificDaysWrapper">
-                        <input type="checkbox" id="excludeSpecificDays" name="excludeOptions" value="excludeSpecificDays">
+                    <div class="checkboxWrapper excludeSpecificDaysWrapper">                        
                         <label for="excludeSpecificDays">Days:</label>
                         <input type="number" id="daysCount" name="daysCount" min="1" step="1" placeholder="Enter number">
                     </div>
@@ -190,19 +189,19 @@ function createModalContent() {
                 <div class="calculationsWrapper">
                     <div class="calculationRow">
                         <span>Total Days between Start and End Date:</span>
-                        <span>20 Days</span>
+                        <span>--Days</span>
                     </div>
                     <div class="calculationRow">
                         <span>Excluded Schedule Days:</span>
-                        <span>- 12 Days</span>
+                        <span>--Days</span>
                     </div>
                     <div class="calculationRow">
                         <span>Excluded Weekends:</span>
-                        <span>- 4 Days</span>
+                        <span>--Days</span>
                     </div>
                     <div class="calculationRow">
                         <span>Additional Days Excluded:</span>
-                        <span>- 2 Days</span>
+                        <span>--Days</span>
                     </div>
                     <hr>
                     <div class="calculationRow">
