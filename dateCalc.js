@@ -257,7 +257,7 @@ function createModalContent() {
                         </div>
                     </div>                
                 </div>
-                <div class="section3-submitBtn">
+                <div class="section4-submitBtn">
                     <button id="section4SubmitBtn">Submit</button>
                 </div>                
              </div>
@@ -366,6 +366,9 @@ const styles = `
     .addDateRow { display: flex; margin-top: 20px; }
     .addCalculationsWrapper { margin-top: 30px; }
     .addDateSeparator { border-top: 2px solid black; margin-top: 30px; margin-bottom: 10px; } 
+    .section4-submitBtn { margin-top: 15px; text-align: center; }
+    #section4SubmitBtn { padding: 8px; font-size: 15px; width: 150px; background-color: #102e55; color: white; cursor: pointer; border-radius: 20px; transition: background-color 0.3s; }
+    #section4SubmitBtn:hover { background-color: #103e89; }
 `;
 
 function initCalendar(holidays) {    
