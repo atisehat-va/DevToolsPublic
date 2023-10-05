@@ -189,24 +189,24 @@ function createModalContent() {
                 <div class="calculationsWrapper">
                     <div class="calculationRow">
                         <span>Number of Days from Start Date to End Date:</span>
-                        <span>--</span>
+                        <span>--  </span>
                     </div>
                     <div class="calculationRow">
                         <span>Exclude Schedule Days:</span>
-                        <span>--</span>
+                        <span>--  </span>
                     </div>
                     <div class="calculationRow">
                         <span>Exclude Weekends:</span>
-                        <span>--</span>
+                        <span>--  </span>
                     </div>
                     <div class="calculationRow">
                         <span>Exclude Additional Days:</span>
-                        <span>--</span>
+                        <span>--  </span>
                     </div>                   
                     <hr class="separator">
                     <div class="calculationRow">
                         <span><strong>Total Days:</strong></span>
-                        <span><strong>--</strong></span>
+                        <span><strong>--  </strong></span>
                     </div>
                 </div>                
             </div>
