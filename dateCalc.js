@@ -203,6 +203,10 @@ function createModalContent() {
                         <span>Additional Days Excluded:</span>
                         <span>-- Day(s)</span>
                     </div>
+                    <div class="calculationRow subtractionSign">
+                        <span></span>
+                        <span>-</span>
+                    </div>
                     <hr class="separator">
                     <div class="calculationRow">
                         <span><strong>Total Number of Days:</strong></span>
@@ -362,7 +366,11 @@ const startDateStyles = `
     .separator {
         border-top: 2px solid black;
         margin: 10px 0;
-    }    
+    }
+    .subtractionSign span:last-child {
+        font-size: 24px;
+        font-weight: bold;
+    }
 `;
 
 function initCalendar(holidays) {    
