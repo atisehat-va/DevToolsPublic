@@ -4,6 +4,10 @@ let dateDetails = {
     startDate: null,    
     endDate: null
 }; 
+let addDateDetails = {
+    pickDate: null,    
+    finalDate: null
+}; 
 
 const typeNames = {
     0: "Default",
@@ -229,8 +233,8 @@ function createModalContent() {
                     <div class="dateSection">
                     <div class="addDateRow">
                         <div>
-                            <label for="startDate1">Start Date:</label>
-                            <input type="date" id="startDate1" name="startDate1">
+                            <label for="pickDate">Pick a Date:</label>
+                            <input type="date" id="pickDate" name="pickDate">
                         </div>
                         <div>
                             <label for="addSpecificDays">Add Additional Days</label>
@@ -312,6 +316,39 @@ function setupDateFormListeners() {
         console.log(dateDetails);
     });
 }
+//PickDate
+function setupAddDateFormListeners() {
+    document.getElementById('section4SubmitBtn').addEventListener('click', function() {
+        AddDateDetails.startDate = document.getElementById('startDate1').value;
+
+        if (!AddDateDetails.startDate) {
+            showCustomAlert(`Please provide a Start Date.`);
+            document.querySelectorAll('.addCalculationsWrapper .calculationRow span:nth-child(2)').forEach(span => span.textContent = "--");
+            return; // Exit the function
+        }
+
+        const additionalDays = document.getElementById('addDaysCount').value || 0;
+
+        // Convert string date to a Date object
+        const dateObject = new Date(AddDateDetails.startDate);
+
+        // Add the additional days to the start date
+        dateObject.setDate(dateObject.getDate() + parseInt(additionalDays));
+
+        // Set the endDate in the AddDateDetails
+        AddDateDetails.endDate = dateObject.toISOString().split('T')[0];
+
+        // Update the "Add Additional Days" section
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays}`;
+
+        // Update the "Final Date" section
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = AddDateDetails.endDate;
+
+        console.log(AddDateDetails);
+    });
+}
+
+//EndPickDate
 
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
@@ -320,7 +357,8 @@ function attachModalEventHandlers(container) {
         openPopup();  
     });
     makePopupMovable(container); 
-    setupDateFormListeners(); 
+    setupDateFormListeners();
+    setupAddDateFormListeners()
 }
 
 async function dateCalc() {
