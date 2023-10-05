@@ -227,13 +227,22 @@ function setupDateFormListeners() {
         dateDetails.startDate = document.getElementById('startDate1').value;
         dateDetails.endDate = document.getElementById('endDate1').value;
 
+        if (!dateDetails.startDate || !dateDetails.endDate) {
+            alert("Please provide both Start Date and End Date.");
+            // Reset the displayed calculations
+            document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- Days");
+            return; // Exit the function
+        }
+
         const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
 
-        // Calculate holidays between the selected dates
-        const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
+        // Check if 'Exclude Selected Schedule Days' checkbox is checked
+        const isExcludeScheduleChecked = document.getElementById('excludeSchedule').checked;
+        const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate) : 0;
 
-        // Count weekends between the selected dates
-        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
+        // Check if 'Exclude Weekends' checkbox is checked
+        const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
+        const weekendsCount = isExcludeWeekendsChecked ? countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate) : 0;
 
         // Get user-specified excluded days
         const additionalExcludedDays = document.getElementById('daysCount').value || 0;
