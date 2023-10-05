@@ -229,7 +229,7 @@ function setupDateFormListeners() {
 
         if (!dateDetails.startDate || !dateDetails.endDate) {
             showCustomAlert(`Please provide both Start Date and End Date.`);            
-            document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- Days");
+            document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
             return; // Exit the function
         }
 
