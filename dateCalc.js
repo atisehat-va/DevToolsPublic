@@ -251,6 +251,7 @@ function setupDateFormListeners() {
         // Update the displayed additional days to exclude
         document.querySelector(".calculationRow:nth-child(4) span:nth-child(2)").textContent = `- ${additionalExcludedDays} Days`;
 
+        // Calculate total number of days
         const totalDays = daysDifference - holidaysCount - weekendsCount - additionalExcludedDays;
 
         // Update the total number of days
