@@ -294,8 +294,6 @@ const styles = `
     .headerWrapper { margin-left: 10px; }     
     .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 5px solid #ccc; box-sizing: border-box; text-align: left; }
     .section1-row2 { display: inline-block; width: 50%; height: 460px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; } 
-`;
-const calendarStyles = ` 
     #calendar { width: 92%; height: 80%; border: 1px solid #ddd; background-color: #f9f9f9; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
     #calendarHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     #calendarDays, #calendarDates { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
@@ -304,8 +302,6 @@ const calendarStyles = `
     #calendarDates div:hover { background-color: #333; color: white; }
     #calendarDates .holidayDate { color: #2196F3; }
     .todayDate { background-color: #056d05 !important; color: white; }
-`;
-const startDateStyles = `
     .excludeSettingsWrapper { border: 1px solid #d4d4d4; padding: 10px; border-radius: 5px; margin-bottom: 10px; background-color: #f5f5f5; }
     .excludeSettingsWrapper h4 { margin-top: 0; border-bottom: 1px solid #d4d4d4; padding-bottom: 5px; margin-bottom: 10px; }
     .checkboxWrapper { margin-bottom: 5px; }  
@@ -318,7 +314,7 @@ const startDateStyles = `
     .section3-submitBtn { margin-top: 15px; text-align: center; }
     #section3SubmitBtn { padding: 8px; font-size: 15px; width: 150px; background-color: #102e55; color: white; cursor: pointer; border-radius: 20px; transition: background-color 0.3s; }
     #section3SubmitBtn:hover { background-color: #103e89; }
-    .separator { border-top: 2px solid black; margin: 10px 0; }    
+    .separator { border-top: 2px solid black; margin: 10px 0; }   
 `;
 
 function initCalendar(holidays) {    
@@ -441,6 +437,4 @@ function appendStylesToDocument(styles) {
     styleSheet.innerText = styles;
     document.head.appendChild(styleSheet);
 }
-appendStylesToDocument(calendarStyles);
 appendStylesToDocument(styles);
-appendStylesToDocument(startDateStyles);
