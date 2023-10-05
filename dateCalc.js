@@ -343,7 +343,7 @@ const startDateStyles = `
         margin-bottom: 5px;
     } 
     .calculationRow:last-child span {
-        font-size: 18px; 
+        font-size: 16px; 
         font-weight: bold;
     }
     .section3-submitBtn {
