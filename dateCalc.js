@@ -233,12 +233,16 @@ function setupDateFormListeners() {
 
         // Calculate holidays between the selected dates
         const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
+        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
         
         // Update the displayed days difference
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
 
         // Update the displayed holidays count
         document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `- ${holidaysCount} Days`;
+
+        // Update the displayed weekends count
+        document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `- ${weekendsCount} Days`;
         
         console.log(dateDetails);
     });
@@ -437,6 +441,22 @@ function getHolidaysBetweenDates(startDate, endDate) {
         }
     });
 
+    return count;
+}
+
+function countWeekendsBetweenDates(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    let count = 0;
+    
+    while (start <= end) {
+        if (start.getDay() === 6 || start.getDay() === 0) { // 6 is Saturday, 0 is Sunday
+            count++;
+        }
+        start.setDate(start.getDate() + 1); // Move to the next day
+    }
+    
     return count;
 }
 
