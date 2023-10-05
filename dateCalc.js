@@ -188,7 +188,7 @@ function createModalContent() {
                 </div>                          
                 <div class="calculationsWrapper">
                     <div class="calculationRow">
-                        <span>Number of Days Between Start & End Date:</span>
+                        <span>Number of Days from Start Date to End Date:</span>
                         <span>-- Day(s)</span>
                     </div>
                     <div class="calculationRow">
