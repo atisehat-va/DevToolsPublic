@@ -229,15 +229,15 @@ function setupDateFormListeners() {
 
         const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
 
-        // Calculate weekends between the selected dates
-        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
-
         // Calculate holidays between the selected dates
         const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
-        
-        // Get additional days to exclude input by the user
-        const additionalExcludedDays = document.getElementById('daysCount').value ? parseInt(document.getElementById('daysCount').value, 10) : 0;
-        
+
+        // Count weekends between the selected dates
+        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
+
+        // Get user-specified excluded days
+        const additionalExcludedDays = document.getElementById('daysCount').value || 0;
+
         // Update the displayed days difference
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
 
@@ -247,15 +247,17 @@ function setupDateFormListeners() {
         // Update the displayed weekends count
         document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `- ${weekendsCount} Days`;
 
-        // Update the displayed additional days to exclude
+        // Update the displayed additional excluded days
         document.querySelector(".calculationRow:nth-child(4) span:nth-child(2)").textContent = `- ${additionalExcludedDays} Days`;
 
         // Calculate total number of days
         const totalDays = daysDifference - holidaysCount - weekendsCount - additionalExcludedDays;
 
         // Update the total number of days
-       document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
-            totalDays < 0 ? `${totalDays} Days` : `${totalDays} Days`;
+        document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
+            totalDays < 0 ? `${totalDays} Days (Negative)` : `${totalDays} Days`;
+
+        console.log(dateDetails);
     });
 }
 
