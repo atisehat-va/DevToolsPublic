@@ -1,7 +1,7 @@
 /* Common */
 .commonPopup { background-color: #f9f9f9; border: 3px solid #102e55; border-radius: 20px; width: 50%; height: 90%; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .commonPopup-header{ background-color: #102e55; color: white; padding: 10px; border-radius: 10px 10px 0 0; font-size: 18px; display: flex; justify-content: center; align-items: center; }
-.commonback-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; border-top-left-radius: 20px; border-bottom-right-radius: 15px; }
+.commonback-button { position: absolute; top: 0; left: 0; width: 90px; cursor: pointer; background-color: #333; color: #fff; padding: 9px; boarder-radius: initial; border-top-left-radius: 20px; border-bottom-right-radius: 15px; }
 .commonSection { padding: 10px; border-right: 3px solid #ccc; overflow-y: scroll; }
 
 .iframe-container { overflow: hidden; }
