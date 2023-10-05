@@ -32,7 +32,7 @@ async function fetchAllHolidaySchedules() {
         }));
     } catch (error) {
         console.error("Error fetching holiday schedules:", error);
-        return []; 
+        return [];
     }
 }
 
