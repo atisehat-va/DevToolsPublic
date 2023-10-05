@@ -256,7 +256,7 @@ function setupDateFormListeners() {
 
         // Update the total number of days
        document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
-            totalDays < 0 ? `${totalDays} Days (Negative)` : `${totalDays} Days`;
+            totalDays < 0 ? `${totalDays} Days` : `${totalDays} Days`;
     });
 }
 
