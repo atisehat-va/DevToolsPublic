@@ -332,17 +332,27 @@ function setupAddDateFormListeners() {
         // Convert string date to a Date object
         const dateObject = new Date(addDateDetails.pickDate);
 
-        // Add the additional days to the start date
+        // Add the additional days to the pick date
         dateObject.setDate(dateObject.getDate() + parseInt(additionalDays));
 
-        // Set the endDate in the addDateDetails
-        addDateDetails.endDate = dateObject.toISOString().split('T')[0];
+        // Check if 'Add Selected Schedule Days' checkbox is checked
+        const isAddScheduleChecked = document.getElementById('addSchedule').checked;
+        const holidaysToAdd = isAddScheduleChecked ? getHolidaysBetweenDates(addDateDetails.pickDate, dateObject.toISOString().split('T')[0]) : 0;
+
+        // If needed, you can update your UI to display the added holiday count, for example:
+        //document.querySelector(".holidayAddCountSelector").textContent = `${holidaysToAdd} holidays`;
+
+        // Add the holidaysToAdd to the dateObject
+        dateObject.setDate(dateObject.getDate() + holidaysToAdd);
+
+        // Set the finalDate in the addDateDetails
+        addDateDetails.finalDate = dateObject.toISOString().split('T')[0];
 
         // Update the "Add Additional Days" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays}`;
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays + holidaysToAdd}`;
 
         // Update the "Final Date" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.endDate;
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.finalDate;
 
         console.log(addDateDetails);
     });
