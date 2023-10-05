@@ -228,8 +228,7 @@ function setupDateFormListeners() {
         dateDetails.endDate = document.getElementById('endDate1').value;
 
         if (!dateDetails.startDate || !dateDetails.endDate) {
-            alert("Please provide both Start Date and End Date.");
-            // Reset the displayed calculations
+            showCustomAlert(`Please provide both Start Date and End Date.`);            
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- Days");
             return; // Exit the function
         }
