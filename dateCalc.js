@@ -189,24 +189,24 @@ function createModalContent() {
                 <div class="calculationsWrapper">
                     <div class="calculationRow">
                         <span>Total Days between Start and End Date:</span>
-                        <span>-- Days</span>
+                        <span>-- Day(s)</span>
                     </div>
                     <div class="calculationRow">
                         <span>Excluded Schedule Days:</span>
-                        <span>-- Days</span>
+                        <span>-- Day(s)</span>
                     </div>
                     <div class="calculationRow">
                         <span>Excluded Weekends:</span>
-                        <span>-- Days</span>
+                        <span>-- Day(s)</span>
                     </div>
                     <div class="calculationRow">
                         <span>Additional Days Excluded:</span>
-                        <span>--Days</span>
+                        <span>-- Day(s)</span>
                     </div>
-                    <hr>
+                    <hr class="separator">
                     <div class="calculationRow">
                         <span><strong>Total Number of Days:</strong></span>
-                        <span><strong>-- Days</strong></span>
+                        <span><strong>-- Day(s)</strong></span>
                     </div>
                 </div>                
             </div>
@@ -359,7 +359,10 @@ const startDateStyles = `
     #section3SubmitBtn:hover {
         background-color: #103e89;
     }
-    
+    .separator {
+        border-top: 2px solid black;
+        margin: 10px 0;
+    }    
 `;
 
 function initCalendar(holidays) {    
