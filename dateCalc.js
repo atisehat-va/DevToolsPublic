@@ -218,17 +218,13 @@ function createModalContent() {
                     <div class="excludeSettingsWrapper">
                         <h4>Settings:</h4>                    
                         <div class="checkboxWrapper">
-                            <input type="checkbox" id="excludeSchedule" name="excludeOptions" value="excludeSchedule">
-                            <label for="excludeSchedule">Exclude Selected Schedule Days</label>
+                            <input type="checkbox" id="addSchedule" name="addOptions" value="addSchedule">
+                            <label for="addSchedule">Add Selected Schedule Days</label>
                         </div>                    
                         <div class="checkboxWrapper">
-                            <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
-                            <label for="excludeWeekends">Exclude Weekends</label>
-                        </div>                    
-                        <div class="checkboxWrapper excludeSpecificDaysWrapper">                        
-                            <label for="excludeSpecificDays">Exclude Additional Days</label>
-                            <input type="number" id="daysCount" name="daysCount" min="1" step="1" placeholder="Enter number">
-                        </div>
+                            <input type="checkbox" id="addWeekends" name="addOptions" value="addWeekends">
+                            <label for="addWeekends">Add Weekends</label>
+                        </div>                                            
                     </div>                
                     <div class="dateSection">
                     <div class="dateRow">
@@ -237,36 +233,32 @@ function createModalContent() {
                             <input type="date" id="startDate1" name="startDate1">
                         </div>
                         <div>
-                            <label for="endDate1">End Date:</label>
-                            <input type="date" id="endDate1" name="endDate1">
+                            <label for="addSpecificDays">Add Additional Days</label>
+                            <input type="number" id="addDaysCount" name="addDaysCount" min="1" step="1" placeholder="Enter number">
                         </div>
                     </div>                          
-                    <div class="calculationsWrapper">
+                    <div class="calculationsWrapper">                        
                         <div class="calculationRow">
-                            <span>Number of Days from Start Date to End Date:</span>
+                            <span>Add Schedule Days:</span>
                             <span>--    </span>
                         </div>
                         <div class="calculationRow">
-                            <span>Exclude Schedule Days:</span>
+                            <span>Add Weekends:</span>
                             <span>--    </span>
                         </div>
                         <div class="calculationRow">
-                            <span>Exclude Weekends:</span>
-                            <span>--    </span>
-                        </div>
-                        <div class="calculationRow">
-                            <span>Exclude Additional Days:</span>
+                            <span>Add Additional Days:</span>
                             <span>--    </span>
                         </div>                   
                         <hr class="separator">
                         <div class="calculationRow">
-                            <span><strong>Total Days:</strong></span>
+                            <span><strong>Final Date:</strong></span>
                             <span><strong>--    </strong></span>
                         </div>
                     </div>                
                 </div>
                 <div class="section3-submitBtn">
-                    <button id="section3SubmitBtn">Submit</button>
+                    <button id="section4SubmitBtn">Submit</button>
                 </div>                
              </div>
          </div>           
