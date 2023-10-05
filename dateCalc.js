@@ -360,7 +360,7 @@ const styles = `
     #section3SubmitBtn:hover { background-color: #103e89; }
     .separator { border-top: 2px solid black; margin: 10px 0; }   
 
-    /* Right Section */
+    /* Right Section */ 
     .addSettingsWrapper { border: 1px solid #d4d4d4; padding: 10px; border-radius: 5px; margin-bottom: 10px; margin-top: 10px; background-color: #f5f5f5; }
     .addSettingsWrapper h4 { margin-top: 0; border-bottom: 1px solid #d4d4d4; padding-bottom: 5px; margin-bottom: 10px; }
     .addDateRow { display: flex; margin-top: 20px; }
