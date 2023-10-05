@@ -3,7 +3,7 @@ let listOfHolidays = [];
 let dateDetails = {
     startDate: null,    
     endDate: null    
-};
+}; 
 
 const typeNames = {
     0: "Default",
