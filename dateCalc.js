@@ -444,8 +444,8 @@ function getHolidaysBetweenDates(startDate, endDate) {
 }
 
 function countWeekendsBetweenDates(startDate, endDate) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = startDate;
+    const end = endDate;
     
     let count = 0;
 
