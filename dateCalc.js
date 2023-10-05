@@ -91,7 +91,7 @@ function buildFetchXmlForHolidays(scheduleName) {
             </entity>
         </fetch>
     `;
-}
+} 
 function formatHolidays(entities) {
     return entities.map(entity => ({
         name: entity["rule.name"],
