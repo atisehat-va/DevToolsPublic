@@ -292,7 +292,7 @@ const styles = `
     .holidayName { padding: 4px 8px; border: 1px solid #ddd; text-align: left; width: 290px; }    
     .holidayDate { padding: 4px; border: 1px solid #ddd; text-align: left; }    
     .headerWrapper { margin-left: 10px; }     
-    .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 3px solid #ccc; box-sizing: border-box; text-align: left; }
+    .section1-row1 { display: inline-block; width: 50%; height: 310px; padding: 10px; border-bottom: 5px solid #ccc; box-sizing: border-box; text-align: left; }
     .section1-row2 { display: inline-block; width: 50%; height: 460px; margin-left: 10px; vertical-align: top; box-sizing: border-box; text-align: left; } 
 `;
 const calendarStyles = ` 
