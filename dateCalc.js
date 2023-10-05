@@ -214,9 +214,7 @@ function createModalContent() {
                 <button id="section3SubmitBtn">Submit</button>
             </div>
             </div>            
-             <div class="commonSection section1-row2" id="section4">
-                 <h3>Calendar 2</h3>
-                /* new */
+             <div class="commonSection section1-row2" id="section4">                                 
                     <div class="excludeSettingsWrapper">
                         <h4>Settings:</h4>                    
                         <div class="checkboxWrapper">
@@ -269,9 +267,7 @@ function createModalContent() {
                 </div>
                 <div class="section3-submitBtn">
                     <button id="section3SubmitBtn">Submit</button>
-                </div>
-
-                /* End NEW */
+                </div>                
              </div>
          </div>           
     `;    
