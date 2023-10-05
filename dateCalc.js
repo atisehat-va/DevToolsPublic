@@ -227,7 +227,7 @@ function createModalContent() {
                         </div>                                            
                     </div>                
                     <div class="dateSection">
-                    <div class="dateRow">
+                    <div class="addDateRow">
                         <div>
                             <label for="startDate1">Start Date:</label>
                             <input type="date" id="startDate1" name="startDate1">
@@ -362,7 +362,8 @@ const styles = `
 
     /* Right Section */
     .addSettingsWrapper { border: 1px solid #d4d4d4; padding: 10px; border-radius: 5px; margin-bottom: 10px; margin-top: 10px; background-color: #f5f5f5; }
-    .addSettingsWrapper h4 { margin-top: 0; border-bottom: 1px solid #d4d4d4; padding-bottom: 5px; margin-bottom: 10px; }    
+    .addSettingsWrapper h4 { margin-top: 0; border-bottom: 1px solid #d4d4d4; padding-bottom: 5px; margin-bottom: 10px; }
+    .addDateRow { display: flex; margin-top: 20px; }
 `;
 
 function initCalendar(holidays) {    
