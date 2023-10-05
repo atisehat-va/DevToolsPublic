@@ -228,12 +228,16 @@ function setupDateFormListeners() {
         dateDetails.startDate = document.getElementById('startDate1').value;
         dateDetails.endDate = document.getElementById('endDate1').value;
 
-        // Calculate days difference between the selected dates
         const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
+
+        // Calculate weekends between the selected dates
+        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
 
         // Calculate holidays between the selected dates
         const holidaysCount = getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate);
-        const weekendsCount = countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate);
+        
+        // Get additional days to exclude input by the user
+        const additionalExcludedDays = document.getElementById('daysCount').value ? parseInt(document.getElementById('daysCount').value, 10) : 0;
         
         // Update the displayed days difference
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Days`;
@@ -243,8 +247,14 @@ function setupDateFormListeners() {
 
         // Update the displayed weekends count
         document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `- ${weekendsCount} Days`;
-        
-        console.log(dateDetails);
+
+        // Update the displayed additional days to exclude
+        document.querySelector(".calculationRow:nth-child(4) span:nth-child(2)").textContent = `- ${additionalExcludedDays} Days`;
+
+        const totalDays = daysDifference - holidaysCount - weekendsCount - additionalExcludedDays;
+
+        // Update the total number of days
+        document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = `${totalDays} Days`;
     });
 }
 
@@ -444,26 +454,6 @@ function getHolidaysBetweenDates(startDate, endDate) {
     return count;
 }
 
-function countWeekendsBetweenDates(startDate, endDate) {
-    // Convert date strings to array [YYYY, MM, DD] and create date objects
-    const [startY, startM, startD] = startDate.split('-').map(Number);
-    const [endY, endM, endD] = endDate.split('-').map(Number);
-    
-    const start = new Date(startY, startM - 1, startD); // months are 0-indexed
-    const end = new Date(endY, endM - 1, endD);
-    
-    let count = 0;
-    
-    while (start <= end) {
-        if (start.getDay() === 6 || start.getDay() === 0) { // 6 is Saturday, 0 is Sunday
-            count++;
-        }
-        start.setDate(start.getDate() + 1); // Move to the next day
-    }
-    
-    return count;
-}
-
 function isSameDayOrBetween(date, start, end) {
     return (date >= start && date <= end) || 
            (date.getUTCDate() === start.getUTCDate() && 
@@ -474,7 +464,23 @@ function isSameDayOrBetween(date, start, end) {
             date.getUTCFullYear() === end.getUTCFullYear());
 }
 
-
+function countWeekendsBetweenDates(startDate, endDate) {
+    // Convert date strings to array [YYYY, MM, DD] and create date objects
+    const [startY, startM, startD] = startDate.split('-').map(Number);
+    const [endY, endM, endD] = endDate.split('-').map(Number);
+    
+    const start = new Date(startY, startM - 1, startD); // months are 0-indexed
+    const end = new Date(endY, endM - 1, endD);
+    
+    let count = 0;    
+    while (start <= end) {
+        if (start.getDay() === 6 || start.getDay() === 0) { // is Saturday OR Sunday
+            count++;
+        }
+        start.setDate(start.getDate() + 1); 
+    }    
+    return count;
+}
 
 //EndSection3DateCalculation
 
