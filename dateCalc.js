@@ -441,68 +441,47 @@ function initCalendar(holidays) {
     //setupDateFormListeners(); 
 }
 
-function calculateDateDifference(startDate, endDate) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    // Reset hours of the date to ensure we're strictly dealing with the day component.
-    start.setHours(0, 0, 0, 0);
-    end.setHours(0, 0, 0, 0);
+function createDateObject(dateString) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+}
 
-    // Calculate the difference in days, inclusive.
-    const diffInDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) + 1; 
+function calculateDateDifference(startDate, endDate) {
+    const start = createDateObject(startDate);
+    const end = createDateObject(endDate);
     
+    const diffInDays = (end - start) / (1000 * 60 * 60 * 24) + 1; 
     return Math.round(diffInDays); 
 }
 
 function getHolidaysBetweenDates(startDate, endDate) {
-    let count = 0;
+    const start = createDateObject(startDate);
+    const end = createDateObject(endDate);
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    listOfHolidays.forEach(holidayDateStr => {
+    return listOfHolidays.reduce((count, holidayDateStr) => {
         const holiday = new Date(holidayDateStr);
-
-        if (isSameDayOrBetween(holiday, start, end)) {
+        if (holiday >= start && holiday <= end) {
             count++;
         }
-    });
-
-    return count;
-}
-
-function isSameDayOrBetween(date, start, end) {
-    return (date >= start && date <= end) || 
-           (date.getUTCDate() === start.getUTCDate() && 
-            date.getUTCMonth() === start.getUTCMonth() && 
-            date.getUTCFullYear() === start.getUTCFullYear()) || 
-           (date.getUTCDate() === end.getUTCDate() && 
-            date.getUTCMonth() === end.getUTCMonth() && 
-            date.getUTCFullYear() === end.getUTCFullYear());
+        return count;
+    }, 0);
 }
 
 function countWeekendsBetweenDates(startDate, endDate) {
-    // Convert date strings to array [YYYY, MM, DD] and create date objects
-    const [startY, startM, startD] = startDate.split('-').map(Number);
-    const [endY, endM, endD] = endDate.split('-').map(Number);
+    const start = createDateObject(startDate);
+    const end = createDateObject(endDate);
     
-    const start = new Date(startY, startM - 1, startD); // months are 0-indexed
-    const end = new Date(endY, endM - 1, endD);
-    
-    let count = 0;    
+    let count = 0;
     while (start <= end) {
-        if (start.getDay() === 6 || start.getDay() === 0) { // is Saturday OR Sunday
+        if (start.getDay() === 6 || start.getDay() === 0) {
             count++;
         }
-        start.setDate(start.getDate() + 1); 
-    }    
+        start.setDate(start.getDate() + 1);
+    }
     return count;
 }
 
 //EndSection3DateCalculation
-
-
 
 function appendStylesToDocument(styles) {
     const styleSheet = document.createElement("style");
