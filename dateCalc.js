@@ -263,7 +263,7 @@ function setupDateFormListeners() {
 
         // Update the total number of days
         document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
-            totalDays < 0 ? `${totalDays} Day(s)` : `${totalDays} Days`;
+            totalDays < 0 ? `${totalDays} Day(s)` : `${totalDays} Day(s)`;
 
         console.log(dateDetails);
     });
