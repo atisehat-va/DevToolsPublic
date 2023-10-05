@@ -443,22 +443,27 @@ function getHolidaysBetweenDates(startDate, endDate) {
     return count;
 }
 
-function countWeekendsBetweenDates(startDate, endDate) {
-    const start = startDate;
-    const end = endDate;
-    
+function getWeekendsBetweenDates(startDate, endDate) {
     let count = 0;
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    // Start iterating from the start date
+    let currentDate = start;
 
-    // Iterate through each day in the date range
-    while (start <= end) {
-        if (start.getDay() === 0 || start.getDay() === 6) { // 0 is Sunday, 6 is Saturday
+    while (currentDate <= end) {
+        // If the current date is a Saturday (6) or Sunday (0)
+        if (currentDate.getDay() === 6 || currentDate.getDay() === 0) {
             count++;
         }
-        start.setDate(start.getDate() + 1); // Move to the next day
+        // Move to the next day
+        currentDate.setDate(currentDate.getDate() + 1);
     }
 
     return count;
 }
+
 
 function isSameDayOrBetween(date, start, end) {
     return (date >= start && date <= end) || 
