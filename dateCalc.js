@@ -364,8 +364,8 @@ const styles = `
     .addSettingsWrapper { border: 1px solid #d4d4d4; padding: 10px; border-radius: 5px; margin-bottom: 10px; margin-top: 10px; background-color: #f5f5f5; }
     .addSettingsWrapper h4 { margin-top: 0; border-bottom: 1px solid #d4d4d4; padding-bottom: 5px; margin-bottom: 10px; }
     .addDateRow { display: flex; margin-top: 20px; }
-    .addCalculationsWrapper { margin-top: 20px; }
-    .addDateSeparator { border-top: 2px solid black; margin-top: 40px; margin-bottom: 10px; } 
+    .addCalculationsWrapper { margin-top: 30px; }
+    .addDateSeparator { border-top: 2px solid black; margin-top: 30px; margin-bottom: 10px; } 
 `;
 
 function initCalendar(holidays) {    
