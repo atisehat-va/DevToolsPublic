@@ -379,7 +379,7 @@ function initCalendar(holidays) {
     let currentYear = new Date().getFullYear();
     
     // Convert dates in holidays array to string representation
-    const holidayDates = new Set(holidays.map(h => h.date.toDateString()));
+    const holidayDates = new Set(holidays.map(h => new Date(h.date).toDateString()));
 
     function displayCalendar(holidays, month, year) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -404,7 +404,7 @@ function initCalendar(holidays) {
             let titleAttr = '';
             
             if (holidayDates.has(currentDate)) {
-                const holidayObject = holidays.find(h => h.date.toDateString() === currentDate);
+                const holidayObject = holidays.find(h => new Date(h.date).toDateString() === currentDate);
                 const holidayName = holidayObject ? holidayObject.name : "Unknown Holiday";
                 dateClass = 'holidayDate';
                 titleAttr = `title="${holidayName}"`;
