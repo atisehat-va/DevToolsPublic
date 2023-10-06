@@ -343,14 +343,22 @@ function setupSection4FormListeners() {
         // Convert input date string to a Date object (UTC)
         const [year, month, day] = pickDateInput.split('-').map(Number);
         let startDateObj = new Date(Date.UTC(year, month - 1, day));
+        let tentativeEndDate = new Date(startDateObj);
 
         let daysCounted = 0;
         let weekendsCount = 0;
+        let scheduleDaysCount = 0;
 
         while (daysCounted < daysToAddInput) {
-            startDateObj.setUTCDate(startDateObj.getUTCDate() + 1);
+            tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
 
-            if (isAddWeekendsChecked && (startDateObj.getUTCDay() === 6 || startDateObj.getUTCDay() === 0)) {
+            const tentativeEndDateString = `${tentativeEndDate.getUTCFullYear()}-${String(tentativeEndDate.getUTCMonth() + 1).padStart(2, '0')}-${String(tentativeEndDate.getUTCDate()).padStart(2, '0')}`;
+
+            if (listOfHolidays.includes(tentativeEndDateString)) {
+                scheduleDaysCount++;
+            }
+
+            if (isAddWeekendsChecked && (tentativeEndDate.getUTCDay() === 6 || tentativeEndDate.getUTCDay() === 0)) {
                 weekendsCount++;
             } else {
                 daysCounted++;
@@ -358,22 +366,21 @@ function setupSection4FormListeners() {
         }
 
         // Set the Added Weekends
-        if (isAddWeekendsChecked) {
-            document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
-        }
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
+
+        // Set the Added Schedule Days
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${scheduleDaysCount} Day(s)`;
 
         // Set the Added Days
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAddInput} Day(s)`;
 
         // Format the final date as YYYY-MM-DD for display
-        const formattedFinalDate = `${startDateObj.getUTCFullYear()}-${String(startDateObj.getUTCMonth() + 1).padStart(2, '0')}-${String(startDateObj.getUTCDate()).padStart(2, '0')}`;
+        const formattedFinalDate = `${tentativeEndDate.getUTCFullYear()}-${String(tentativeEndDate.getUTCMonth() + 1).padStart(2, '0')}-${String(tentativeEndDate.getUTCDate()).padStart(2, '0')}`;
         
         // Set the Final Date
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = formattedFinalDate;
-
     });
 }
-
 
 //EndDinalDate
 
