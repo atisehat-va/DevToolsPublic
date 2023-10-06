@@ -103,22 +103,27 @@ async function displayHolidays(scheduleName) {
     try {
         const holidays = await getHolidaysForSchedule(scheduleName);
 
-        // listOfHolidays with the fetched holidays
-        listOfHolidays = holidays.map(holiday => holiday.date.toISOString());      
+        // Extract only the dates to ISO strings without modifying the original holidays array
+        const holidaysISOStrings = holidays.map(holiday => holiday.date.toISOString());      
 
         // Sort holidays by date
         holidays.sort((a, b) => a.date - b.date);
 
         const holidaysList = document.getElementById('holidaysList');
 
-       holidaysList.innerHTML = holidays.map(holiday => {
-           const dateObj = new Date(holiday.date);
-           const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-           const dayOfWeek = dayNames[dateObj.getUTCDay()];
-           const formattedDate = `${dayOfWeek} - ${("0" + (dateObj.getUTCMonth() + 1)).slice(-2)}/${("0" + dateObj.getUTCDate()).slice(-2)}/${dateObj.getUTCFullYear()}`;
-           return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
-       }).join('');               
-           initCalendar(holidays);
+        holidaysList.innerHTML = holidays.map(holiday => {
+            const dateObj = new Date(holiday.date);
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            const dayOfWeek = dayNames[dateObj.getUTCDay()];
+            const formattedDate = `${dayOfWeek} - ${("0" + (dateObj.getUTCMonth() + 1)).slice(-2)}/${("0" + dateObj.getUTCDate()).slice(-2)}/${dateObj.getUTCFullYear()}`;
+            
+            // Guard against missing 'name' property
+            const holidayName = holiday.name || "Unnamed Holiday";
+
+            return `<div class="holidayRow"><div class="holidayName"><b>${holidayName}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
+        }).join('');               
+           
+        initCalendar(holidays);
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
