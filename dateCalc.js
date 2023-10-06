@@ -349,7 +349,7 @@ function setupAddDateFormListeners() {
         addDateDetails.finalDate = dateObject.toISOString().split('T')[0];
 
         // Update the "Add Additional Days" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays}`;
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays + holidaysToAdd}`;
 
         // Update the "Final Date" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.finalDate;
