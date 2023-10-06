@@ -316,72 +316,6 @@ function setupDateFormListeners() {
         console.log(dateDetails);
     });
 }
-//PickDate
-// Helper function to format single digit numbers with leading zeros
-function formatWithLeadingZero(num) {
-    return (num < 10 ? '0' : '') + num;
-}
-
-function formatAsMMDDYYYY(date) {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); 
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
-}
-
-function setupAddDateFormListeners() {
-    document.getElementById('section4SubmitBtn').addEventListener('click', function() {
-        addDateDetails.pickDate = document.getElementById('pickDate').value;
-
-        if (!addDateDetails.pickDate) {
-            showCustomAlert(`Please provide a Start Date.`);
-            document.querySelectorAll('.addCalculationsWrapper .calculationRow span:nth-child(2)').forEach(span => span.textContent = "--");
-            return; // Exit the function
-        }
-
-        let businessDaysToAdd = parseInt(document.getElementById('addDaysCount').value || 0);
-        
-        const dateObject = createDateObject(addDateDetails.pickDate);
-        let finalDateObject = new Date(dateObject);
-
-        while(businessDaysToAdd > 0) {
-            finalDateObject.setDate(finalDateObject.getDate() + 1);
-
-            if (document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6)) {
-                continue;
-            }
-
-            if (document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject))) {
-                continue;
-            }
-
-            businessDaysToAdd--;
-        }
-
-        // Update the finalDate in the addDateDetails object
-        addDateDetails.finalDate = formatAsMMDDYYYY(finalDateObject);
-
-        const holidaysCount = getHolidaysBetweenDates(addDateDetails.pickDate, addDateDetails.finalDate);
-        const weekendsCount = countWeekendsBetweenDates(addDateDetails.pickDate, addDateDetails.finalDate);
-
-        // Update the "Add Selected Schedule Days" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysCount}`;
-
-        // Update the "Add Weekends" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)").textContent = `${weekendsCount}`;
-
-        // Update the "Add Additional Days" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = document.getElementById('addDaysCount').value || "0";
-
-        // Update the "Final Date" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.finalDate;
-
-        console.log(addDateDetails);
-    });
-}
-
-
-//EndPickDate
 
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
@@ -518,10 +452,6 @@ function createDateObject(dateString) {
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
 }
-function isWeekend(date) {
-    const dayOfWeek = date.getDay();
-    return dayOfWeek === 0 || dayOfWeek === 6; // 0 for Sunday and 6 for Saturday
-}
 
 function calculateDateDifference(startDate, endDate) {
     const start = createDateObject(startDate);
@@ -537,7 +467,7 @@ function getHolidaysBetweenDates(startDate, endDate) {
 
     return listOfHolidays.reduce((count, holidayDateStr) => {
         const holiday = new Date(holidayDateStr);
-        if (holiday >= start && holiday <= end && !isWeekend(holiday)) {
+        if (holiday >= start && holiday <= end) {
             count++;
         }
         return count;
