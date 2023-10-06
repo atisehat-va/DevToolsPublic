@@ -339,7 +339,7 @@ async function dateCalc() {
 }
 
 const styles = `
-    .holidaysList { max-height: 74%; overflow-y: auto; display: grid; margin-top: 15px; }    
+    .holidaysList { max-height: 74%; overflow-y: auto; display: grid; margin-top: 15px; padding-left: 10px; }    
     .holidayRow { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
     .holidayName { padding: 4px 8px; border: 1px solid #ddd; text-align: left; width: 290px; }    
     .holidayDate { padding: 4px; border: 1px solid #ddd; text-align: left; }    
