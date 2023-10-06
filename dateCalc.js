@@ -346,8 +346,8 @@ function setupAddDateFormListeners() {
         // Add the holidays and weekends to the dateObject to get the true final date
         dateObject.setDate(dateObject.getDate() + holidaysToAdd + weekendsToAdd);
 
-        // Set the finalDate in the addDateDetails
-        addDateDetails.finalDate = dateObject.toISOString().split('T')[0];
+        // Format the date as MM/DD/YYYY
+        addDateDetails.finalDate = `${dateObject.getMonth() + 1}/${dateObject.getDate()}/${dateObject.getFullYear()}`;
 
         // Update the "Add Schedule Days" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysToAdd}`;
