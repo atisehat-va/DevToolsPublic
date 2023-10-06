@@ -498,6 +498,11 @@ function initCalendar(holidays) {
 }
 
 function createDateObject(dateString) {
+    if (typeof dateString !== 'string') {
+        console.warn("createDateObject() called with non-string value:", dateString);
+        return null; // or return new Date(); if you want a default date
+    }
+
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
 }
