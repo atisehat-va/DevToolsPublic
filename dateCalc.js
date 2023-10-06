@@ -329,37 +329,36 @@ function setupDateFormListeners() {
 //FinalDateSection 
 function setupSection4FormListeners() {
     const section4SubmitBtn = document.getElementById('section4SubmitBtn');
-
-    section4SubmitBtn.addEventListener('click', () => {
-        // Getting values from the form
-        const pickDateValue = document.getElementById('pickDate').value;
-        const daysToAddValue = document.getElementById('addDaysCount').value;
+    section4SubmitBtn.addEventListener('click', function() {
+        const startDate = new Date(document.getElementById('pickDate').value);
+        const daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10);
         
-        // If no date picked or no days to add specified, just return
-        if (!pickDateValue || !daysToAddValue) {
-            console.error("Please specify both a date and number of days to add.");
+        if (isNaN(daysToAdd) || !startDate) {
+            showCustomAlert("Please provide a valid date and days to add.");
             return;
         }
 
-        calcFutureDate.pickDate = new Date(pickDateValue);
-        let daysToAdd = parseInt(daysToAddValue, 10);
+        // Calculate tentative endDate
+        let tentativeEndDate = new Date(startDate.getTime());
+        tentativeEndDate.setDate(tentativeEndDate.getDate() + daysToAdd);
+        
+        let totalWeekends = 0;
+        while (true) {
+            const weekends = countWeekendsBetweenDates(startDate, tentativeEndDate);
+            if (weekends === totalWeekends) break;  // No new weekends encountered
+            totalWeekends = weekends;
+            
+            // Adjust the tentativeEndDate
+            tentativeEndDate.setDate(tentativeEndDate.getDate() + totalWeekends);
+        }
 
-        // Calculate expected end date without considering weekends
-        let expectedEndDate = new Date(calcFutureDate.pickDate);
-        expectedEndDate.setDate(expectedEndDate.getDate() + daysToAdd);
-
-        // Count weekends between the start date and the expected end date
-        const weekendsCount = countWeekendsBetweenDates(calcFutureDate.pickDate, expectedEndDate);
-
-        // Adjust the daysToAdd by adding the count of weekends
-        daysToAdd += weekendsCount;
-
-        // Calculate the final end date considering the weekends
-        calcFutureDate.finalDate = new Date(calcFutureDate.pickDate);
-        calcFutureDate.finalDate.setDate(calcFutureDate.finalDate.getDate() + daysToAdd);
-
-        // TODO: Display the calculated date and other details on the UI
-        console.log(`Final Date after considering weekends: ${calcFutureDate.finalDate}`);
+        // Set the results in the UI
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${totalWeekends}`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(4) span:nth-child(2)').textContent = `${tentativeEndDate.toISOString().split('T')[0]}`;
+        
+        // Also update the calcFutureDate object
+        calcFutureDate.pickDate = startDate.toISOString().split('T')[0];
+        calcFutureDate.finalDate = tentativeEndDate.toISOString().split('T')[0];
     });
 }
 
