@@ -379,7 +379,7 @@ function initCalendar(holidays) {
     let currentYear = new Date().getFullYear();
     
     // Convert dates in holidays array to string representation
-    const holidayDates = new Set(holidays.map(h => h.date.split('T')[0])); // Splits the ISO string to keep only the date part
+    const holidayDates = new Set(holidays.map(h => (h.date instanceof Date ? h.date.toISOString() : h.date).split('T')[0]));
 
     function displayCalendar(holidays, month, year) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
