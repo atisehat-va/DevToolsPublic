@@ -340,7 +340,7 @@ function setupAddDateFormListeners() {
         const holidaysToAdd = isAddScheduleChecked ? getHolidaysBetweenDates(addDateDetails.pickDate, dateObject.toISOString().split('T')[0]) : 0;
 
         // If needed, you can update your UI to display the added holiday count, for example:
-        //document.querySelector(".holidayAddCountSelector").textContent = `${holidaysToAdd} holidays`;
+        document.querySelector(".holidayAddCountSelector").textContent = `${holidaysToAdd} holidays`;
 
         // Add the holidaysToAdd to the dateObject
         dateObject.setDate(dateObject.getDate() + holidaysToAdd);
@@ -349,7 +349,7 @@ function setupAddDateFormListeners() {
         addDateDetails.finalDate = dateObject.toISOString().split('T')[0];
 
         // Update the "Add Additional Days" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays + holidaysToAdd}`;
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays}`;
 
         // Update the "Final Date" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.finalDate;
