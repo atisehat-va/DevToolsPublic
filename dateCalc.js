@@ -371,7 +371,7 @@ function setupSection4FormListeners() {
         console.log("Final Date:", formattedFinalDate);  // Debug statement
         
         // Set the Final Date
-        const finalDateElement = document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(4) span:nth-child(2)');
+        const finalDateElement = document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)');
         console.log("Final Date Element:", finalDateElement);  // Debug statement
         
         finalDateElement.textContent = formattedFinalDate;
