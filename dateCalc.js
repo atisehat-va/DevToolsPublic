@@ -348,7 +348,7 @@ function setupSection4FormListeners() {
         let weekendsCount = 0;
 
         while (daysCounted < daysToAddInput) {
-            startDateObj.setUTCDate(startDateObj.getUTCDate() + 1); 
+            startDateObj.setUTCDate(startDateObj.getUTCDate() + 1);
 
             if (isAddWeekendsChecked && (startDateObj.getUTCDay() === 6 || startDateObj.getUTCDay() === 0)) {
                 weekendsCount++;
@@ -357,12 +357,18 @@ function setupSection4FormListeners() {
             }
         }
 
+        // Set the Added Weekends
         if (isAddWeekendsChecked) {
             document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
         }
 
+        // Set the Added Days
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAddInput} Day(s)`;
+
         // Format the final date as YYYY-MM-DD for display
         const formattedFinalDate = `${startDateObj.getUTCFullYear()}-${String(startDateObj.getUTCMonth() + 1).padStart(2, '0')}-${String(startDateObj.getUTCDate()).padStart(2, '0')}`;
+        
+        // Set the Final Date
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(4) span:nth-child(2)').textContent = formattedFinalDate;
 
     });
