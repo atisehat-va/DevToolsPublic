@@ -279,6 +279,11 @@ function setupDateFormListeners() {
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
             return; // Exit the function
         }
+        if (dateDetails.endDate < dateDetails.startDate) {
+            showCustomAlert("End Date cannot be less than Start Date.");
+            document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
+            return; // Exit the function
+        }
 
         const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
 
