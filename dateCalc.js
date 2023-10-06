@@ -59,7 +59,7 @@ async function setupHolidayScheduleDropdown() {
 
     dropdown.append(...options); 
     dropdown.value = defaultScheduleName;
-    displayHolidays(defaultScheduleName);  
+    displayHolidays(defaultScheduleName); 
 
     dropdown.addEventListener('change', (e) => {
         displayHolidays(e.target.value);
