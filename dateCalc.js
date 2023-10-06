@@ -405,7 +405,10 @@ function initCalendar(holidays) {
             let titleAttr = '';
             
             if (holidayDates.has(currentDate)) {
-                const holidayObject = holidays.find(h => h.date.split('T')[0] === currentDate);
+                const holidayObject = holidays.find(h => {
+                    const formattedDate = (h.date instanceof Date ? h.date.toISOString() : h.date).split('T')[0];
+                    return formattedDate === currentDate;
+                });
                 const holidayName = holidayObject ? holidayObject.name : "Unknown Holiday";
                 dateClass = 'holidayDate';
                 titleAttr = `title="${holidayName}"`;
