@@ -343,28 +343,26 @@ function setupSection4FormListeners() {
         // Convert input date string to a Date object (UTC)
         const [year, month, day] = pickDateInput.split('-').map(Number);
         let startDateObj = new Date(Date.UTC(year, month - 1, day));
-        const startDate = startDateObj; // Keeping an original reference
 
+        let daysCounted = 0;
         let weekendsCount = 0;
 
-        // Increment the date by the number of days to add
-        for(let i = 0; i < daysToAddInput; i++) {
-            startDateObj.setDate(startDateObj.getUTCDate() + 1);
+        while (daysCounted < daysToAddInput) {
+            startDateObj.setUTCDate(startDateObj.getUTCDate() + 1); 
 
-            // If adding weekends is checked and the date is a weekend, increment the weekend count
             if (isAddWeekendsChecked && (startDateObj.getUTCDay() === 6 || startDateObj.getUTCDay() === 0)) {
                 weekendsCount++;
+            } else {
+                daysCounted++;
             }
         }
-
-        const tentativeEndDate = startDateObj;
 
         if (isAddWeekendsChecked) {
             document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
         }
 
         // Format the final date as YYYY-MM-DD for display
-        const formattedFinalDate = `${tentativeEndDate.getUTCFullYear()}-${String(tentativeEndDate.getUTCMonth() + 1).padStart(2, '0')}-${String(tentativeEndDate.getUTCDate()).padStart(2, '0')}`;
+        const formattedFinalDate = `${startDateObj.getUTCFullYear()}-${String(startDateObj.getUTCMonth() + 1).padStart(2, '0')}-${String(startDateObj.getUTCDate()).padStart(2, '0')}`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(4) span:nth-child(2)').textContent = formattedFinalDate;
 
     });
