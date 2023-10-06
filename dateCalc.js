@@ -515,6 +515,10 @@ function createDateObject(dateString) {
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
 }
+function isWeekend(date) {
+    const dayOfWeek = date.getDay();
+    return dayOfWeek === 0 || dayOfWeek === 6; // 0 for Sunday and 6 for Saturday
+}
 
 function calculateDateDifference(startDate, endDate) {
     const start = createDateObject(startDate);
@@ -530,7 +534,7 @@ function getHolidaysBetweenDates(startDate, endDate) {
 
     return listOfHolidays.reduce((count, holidayDateStr) => {
         const holiday = new Date(holidayDateStr);
-        if (holiday >= start && holiday <= end) {
+        if (holiday >= start && holiday <= end && !isWeekend(holiday)) {
             count++;
         }
         return count;
