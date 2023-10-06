@@ -341,37 +341,33 @@ function setupAddDateFormListeners() {
 
         let daysToAdd = parseInt(document.getElementById('addDaysCount').value || 0);
         
-        // Convert pick date to a Date object using the createDateObject function
         const dateObject = createDateObject(addDateDetails.pickDate);
         
-        // If "Add Selected Schedule Days" is checked, get the number of holidays between the pick date and the final date after adding the additional days
-        if (document.getElementById('addSchedule').checked) {
-            const holidaysCount = getHolidaysBetweenDates(addDateDetails.pickDate, new Date(dateObject.getTime() + daysToAdd * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
-            daysToAdd += holidaysCount;
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysCount}`;
-        } else {
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = "0";
-        }
-
-        // If "Add Weekends" is checked, get the number of weekends between the pick date and the final date after adding the additional days and holidays
-        if (document.getElementById('addWeekends').checked) {
-            const weekendsCount = countWeekendsBetweenDates(addDateDetails.pickDate, new Date(dateObject.getTime() + daysToAdd * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
-            daysToAdd += weekendsCount;
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)").textContent = `${weekendsCount}`;
-        } else {
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)").textContent = "0";
-        }
-
-        // Adjust the date object by the total number of days to add (additional days + holidays + weekends)
         dateObject.setDate(dateObject.getDate() + daysToAdd);
         
+        let finalAdjustedDate = new Date(dateObject); // Initializing with the interim adjusted date
+
+        do {
+            dateObject.setTime(finalAdjustedDate.getTime()); // Resetting to the previous iteration's date
+
+            if (document.getElementById('addSchedule').checked) {
+                // Get the number of holidays between the pick date and the interim adjusted final date
+                const holidaysCount = getHolidaysBetweenDates(addDateDetails.pickDate, formatAsYYYYMMDD(finalAdjustedDate));
+                finalAdjustedDate.setDate(finalAdjustedDate.getDate() + holidaysCount);
+            }
+
+            if (document.getElementById('addWeekends').checked) {
+                const weekendsCount = countWeekendsBetweenDates(addDateDetails.pickDate, formatAsYYYYMMDD(finalAdjustedDate));
+                finalAdjustedDate.setDate(finalAdjustedDate.getDate() + weekendsCount);
+            }
+
+        } while (finalAdjustedDate.getTime() !== dateObject.getTime()); // Repeat until there are no more days to add
+        
         // Update the finalDate in the addDateDetails object
-        addDateDetails.finalDate = formatAsMMDDYYYY(dateObject);
+        addDateDetails.finalDate = formatAsMMDDYYYY(finalAdjustedDate);
 
-        // Update the "Add Additional Days" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = document.getElementById('addDaysCount').value || "0";
-
-        // Update the "Final Date" section
+        // Update the displayed values accordingly
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = daysToAdd;
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.finalDate;
 
         console.log(addDateDetails);
