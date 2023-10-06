@@ -1,6 +1,6 @@
 let listOfHolidays = [];
 
-let dateDetails = {
+let calDateDays = {
     startDate: null,    
     endDate: null
 }; 
@@ -271,29 +271,29 @@ function createModalContent() {
 
 function setupDateFormListeners() {
     document.getElementById('section3SubmitBtn').addEventListener('click', function() {
-        dateDetails.startDate = document.getElementById('startDate1').value;
-        dateDetails.endDate = document.getElementById('endDate1').value;
+        calDateDays.startDate = document.getElementById('startDate1').value;
+        calDateDays.endDate = document.getElementById('endDate1').value;
 
-        if (!dateDetails.startDate || !dateDetails.endDate) {
+        if (!calDateDays.startDate || !calDateDays.endDate) {
             showCustomAlert(`Please provide both Start Date and End Date.`);            
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
             return; // Exit the function
         }
-        if (dateDetails.endDate < dateDetails.startDate) {
+        if (calDateDays.endDate < calDateDays.startDate) {
             showCustomAlert("End Date cannot be less than Start Date.");
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
             return; // Exit the function
         }
 
-        const daysDifference = calculateDateDifference(dateDetails.startDate, dateDetails.endDate);
+        const daysDifference = calculateDateDifference(calDateDays.startDate, calDateDays.endDate);
 
         // Check if 'Exclude Selected Schedule Days' checkbox is checked
         const isExcludeScheduleChecked = document.getElementById('excludeSchedule').checked;
-        const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(dateDetails.startDate, dateDetails.endDate) : 0;
+        const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calDateDays.startDate, calDateDays.endDate) : 0;
 
         // Check if 'Exclude Weekends' checkbox is checked
         const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
-        const weekendsCount = isExcludeWeekendsChecked ? countWeekendsBetweenDates(dateDetails.startDate, dateDetails.endDate) : 0;
+        const weekendsCount = isExcludeWeekendsChecked ? countWeekendsBetweenDates(calDateDays.startDate, calDateDays.endDate) : 0;
 
         // Get user-specified excluded days
         const additionalExcludedDays = document.getElementById('daysCount').value || 0;
@@ -317,7 +317,7 @@ function setupDateFormListeners() {
         document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
             totalDays < 0 ? `${totalDays} Day(s)` : `${totalDays} Day(s)`;
 
-        console.log(dateDetails);
+        console.log(calDateDays);
     });
 }
 
