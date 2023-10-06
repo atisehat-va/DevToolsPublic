@@ -3,7 +3,7 @@ let listOfHolidays = [];
 let calcDateDays = {
     startDate: null,    
     endDate: null
-}; 
+};
 
 let calcFutureDate = {
     pickDate: null,    
