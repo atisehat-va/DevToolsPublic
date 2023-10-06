@@ -5,6 +5,11 @@ let calcDateDays = {
     endDate: null
 }; 
 
+let calcFutureDate = {
+    pickDate: null,    
+    finalDate: null
+}; 
+
 const typeNames = {
     0: "Default",
     1: "Customer Service",
@@ -320,6 +325,47 @@ function setupDateFormListeners() {
         console.log(calcDateDays);
     });
 }
+
+//FinalDateSection 
+function setupSection4FormListeners() {
+    document.getElementById('section4SubmitBtn').addEventListener('click', async function() {
+        // Update calcFutureDate object with the picked date
+        calcFutureDate.pickDate = new Date(document.getElementById('pickDate').value);
+        
+        let daysToAdd = parseInt(document.getElementById('addDaysCount').value) || 0;
+        const addScheduleDays = document.getElementById('addSchedule').checked;
+        const addWeekends = document.getElementById('addWeekends').checked;
+
+        if (addScheduleDays) {
+            // TODO: Add the logic to calculate how many schedule days fall within the specified daysToAdd.
+            // You might need a function similar to getHolidaysBetweenDates but for adding.
+            // Let's assume it's called getScheduleDaysBetweenDates.
+            const scheduleDaysToAdd = await getScheduleDaysBetweenDates(calcFutureDate.pickDate, daysToAdd);
+            daysToAdd += scheduleDaysToAdd;
+
+            document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = scheduleDaysToAdd + " Day(s)";
+        }
+
+        if (addWeekends) {
+            // TODO: Add the logic to calculate how many weekends fall within the specified daysToAdd.
+            // Using a function similar to countWeekendsBetweenDates but for adding.
+            // Let's assume it's called countWeekendsWithinDays.
+            const weekendsToAdd = countWeekendsWithinDays(calcFutureDate.pickDate, daysToAdd);
+            daysToAdd += weekendsToAdd;
+
+            document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = weekendsToAdd + " Day(s)";
+        }
+
+        // Updating the Added Days display
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = daysToAdd + " Day(s)";
+
+        // Calculate the final date and update the UI
+        calcFutureDate.finalDate = new Date(calcFutureDate.pickDate.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+        const finalDateStr = `${calcFutureDate.finalDate.getFullYear()}-${String(calcFutureDate.finalDate.getMonth() + 1).padStart(2, '0')}-${String(calcFutureDate.finalDate.getDate()).padStart(2, '0')}`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = finalDateStr;
+    });
+}
+//EndDinalDate
 
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
