@@ -233,7 +233,7 @@ function createModalContent() {
                     <div class="dateSection">
                     <div class="addDateRow">
                         <div>
-                            <label for="pickDate">Pick a Date:</label>
+                            <label for="pickDate">Start Date:</label>
                             <input type="date" id="pickDate" name="pickDate">
                         </div>
                         <div>
