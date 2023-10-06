@@ -404,11 +404,12 @@ function initCalendar(holidays) {
             let titleAttr = '';
             
             if (holidayDates.has(currentDate)) {
-                const holidayName = holidays.find(h => h.date === currentDate).name;
+                const holidayObject = holidays.find(h => h.date.toDateString() === currentDate);
+                const holidayName = holidayObject ? holidayObject.name : "Unknown Holiday";
                 dateClass = 'holidayDate';
                 titleAttr = `title="${holidayName}"`;
-            } 
-
+            }
+ 
             if (i === todayDate && month === todayMonth && year === todayYear) {
                 dateClass += ' todayDate'; // Adding a class for today's date
             }    
