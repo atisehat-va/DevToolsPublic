@@ -342,18 +342,19 @@ function setupSection4FormListeners() {
             return;
         }
 
-        const startDateObj = new Date(startDate);
+        // Create a date object in UTC using the ISO string
+        const startDateObj = new Date(`${startDate}T00:00:00Z`);
         const tentativeEndDate = new Date(startDateObj);
-        tentativeEndDate.setDate(tentativeEndDate.getDate() + daysToAdd - 1);
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd - 1);
 
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
 
-        const formattedStartDate = startDate;
+        const formattedStartDate = startDateObj.toISOString().split('T')[0];
         const formattedTentativeEndDate = tentativeEndDate.toISOString().split('T')[0];
         const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(formattedStartDate, formattedTentativeEndDate) : 0;
 
         const finalDateObj = new Date(tentativeEndDate);
-        finalDateObj.setDate(finalDateObj.getDate() + weekendsCount);
+        finalDateObj.setUTCDate(finalDateObj.getUTCDate() + weekendsCount);
 
         // Update UI elements
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
