@@ -546,6 +546,12 @@ function countWeekendsBetweenDates(startDate, endDate) {
     const end = createDateObject(endDate);
     
     let count = 0;
+
+    // If the startDate itself is a Sunday, we adjust the start date to begin from Monday
+    if (start.getDay() === 0) {
+        start.setDate(start.getDate() + 1);
+    }
+    
     while (start <= end) {
         if (start.getDay() === 6 || start.getDay() === 0) {
             count++;
@@ -554,7 +560,6 @@ function countWeekendsBetweenDates(startDate, endDate) {
     }
     return count;
 }
-
 //EndSection3DateCalculation
 
 function appendStylesToDocument(styles) {
