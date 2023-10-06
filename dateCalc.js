@@ -317,6 +317,11 @@ function setupDateFormListeners() {
     });
 }
 //PickDate
+// Helper function to format single digit numbers with leading zeros
+function formatWithLeadingZero(num) {
+    return (num < 10 ? '0' : '') + num;
+}
+
 function setupAddDateFormListeners() {
     document.getElementById('section4SubmitBtn').addEventListener('click', function() {
         addDateDetails.pickDate = document.getElementById('pickDate').value;
@@ -347,7 +352,7 @@ function setupAddDateFormListeners() {
         dateObject.setDate(dateObject.getDate() + holidaysToAdd + weekendsToAdd);
 
         // Format the date as MM/DD/YYYY
-        addDateDetails.finalDate = `${dateObject.getMonth() + 1}/${dateObject.getDate()}/${dateObject.getFullYear()}`;
+        addDateDetails.finalDate = `${formatWithLeadingZero(dateObject.getMonth() + 1)}/${formatWithLeadingZero(dateObject.getDate())}/${dateObject.getFullYear()}`;
 
         // Update the "Add Schedule Days" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysToAdd}`;
@@ -364,6 +369,7 @@ function setupAddDateFormListeners() {
         console.log(addDateDetails);
     });
 }
+
 
 //EndPickDate
 
