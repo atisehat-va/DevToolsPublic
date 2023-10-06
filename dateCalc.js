@@ -322,6 +322,13 @@ function formatWithLeadingZero(num) {
     return (num < 10 ? '0' : '') + num;
 }
 
+function formatAsMMDDYYYY(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+}
+
 function setupAddDateFormListeners() {
     document.getElementById('section4SubmitBtn').addEventListener('click', function() {
         addDateDetails.pickDate = document.getElementById('pickDate').value;
