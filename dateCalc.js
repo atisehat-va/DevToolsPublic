@@ -328,33 +328,41 @@ function setupDateFormListeners() {
 
 //FinalDateSection 
 function setupSection4FormListeners() {
-    const section4SubmitBtn = document.getElementById('section4SubmitBtn');
-    section4SubmitBtn.addEventListener('click', function() {
-        const startDate = new Date(document.getElementById('pickDate').value);
-        const daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10);
-        
-        if (isNaN(daysToAdd) || !startDate) {
-            showCustomAlert("Please provide a valid date and days to add.");
+    document.getElementById('section4SubmitBtn').addEventListener('click', function() {
+        const startDate = document.getElementById('pickDate').value;
+        const daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10) || 0;
+
+        if (!startDate) {
+            showCustomAlert("Please provide a Start Date.");
             return;
         }
 
-        // Calculate tentative endDate
-        let tentativeEndDate = new Date(startDate.getTime());
-        tentativeEndDate.setDate(tentativeEndDate.getDate() + daysToAdd);
+        if (isNaN(daysToAdd) || daysToAdd <= 0) {
+            showCustomAlert("Please provide a valid number of days to add.");
+            return;
+        }
+
+        const startDateObj = new Date(startDate);
+        const tentativeEndDate = new Date(startDateObj);
+        tentativeEndDate.setDate(tentativeEndDate.getDate() + daysToAdd - 1);
 
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
-        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate) : 0;
 
-        // Adjust the tentativeEndDate
-        tentativeEndDate.setDate(tentativeEndDate.getDate() + weekendsCount);
-        
-        // Set the results in the UI
-        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount}`;
-        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(4) span:nth-child(2)').textContent = `${tentativeEndDate.toISOString().split('T')[0]}`;
-        
-        // Also update the calcFutureDate object
-        calcFutureDate.pickDate = startDate.toISOString().split('T')[0];
-        calcFutureDate.finalDate = tentativeEndDate.toISOString().split('T')[0];
+        const formattedStartDate = startDate;
+        const formattedTentativeEndDate = tentativeEndDate.toISOString().split('T')[0];
+        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(formattedStartDate, formattedTentativeEndDate) : 0;
+
+        const finalDateObj = new Date(tentativeEndDate);
+        finalDateObj.setDate(finalDateObj.getDate() + weekendsCount);
+
+        // Update UI elements
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAdd + weekendsCount} Day(s)`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = finalDateObj.toISOString().split('T')[0];
+
+        // Update global object
+        calcFutureDate.pickDate = startDateObj;
+        calcFutureDate.finalDate = finalDateObj;
     });
 }
 
