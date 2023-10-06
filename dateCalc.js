@@ -327,29 +327,32 @@ function setupAddDateFormListeners() {
             return; // Exit the function
         }
 
-        const additionalDays = document.getElementById('addDaysCount').value || 0;
+        const additionalDays = parseInt(document.getElementById('addDaysCount').value) || 0;
 
         // Convert string date to a Date object
-        const dateObject = new Date(addDateDetails.pickDate);
+        let dateObject = new Date(addDateDetails.pickDate);
 
-        // Add the additional days to the pick date
-        dateObject.setDate(dateObject.getDate() + parseInt(additionalDays));
+        // Add the additional days first to get the potential final date
+        dateObject.setDate(dateObject.getDate() + additionalDays);
 
-        // Check if 'Add Selected Schedule Days' checkbox is checked
-        const isAddScheduleChecked = document.getElementById('addSchedule').checked;
-        const holidaysToAdd = isAddScheduleChecked ? getHolidaysBetweenDates(addDateDetails.pickDate, dateObject.toISOString().split('T')[0]) : 0;
+        // Then, calculate the holidays between the pickDate and this potential final date
+        const holidaysToAdd = getHolidaysBetweenDates(addDateDetails.pickDate, dateObject.toISOString().split('T')[0]);
 
-        // If needed, you can update your UI to display the added holiday count, for example:
-        document.querySelector(".holidayAddCountSelector").textContent = `${holidaysToAdd} holidays`;
+        if (holidaysToAdd > 0) {
+            document.getElementById('addSchedule').checked = true;
+        }
 
-        // Add the holidaysToAdd to the dateObject
+        // Update the UI to display the added holiday count
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysToAdd}`;
+
+        // Add the holidaysToAdd to the dateObject to get the true final date
         dateObject.setDate(dateObject.getDate() + holidaysToAdd);
 
         // Set the finalDate in the addDateDetails
         addDateDetails.finalDate = dateObject.toISOString().split('T')[0];
 
         // Update the "Add Additional Days" section
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays + holidaysToAdd}`;
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays}`;
 
         // Update the "Final Date" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)").textContent = addDateDetails.finalDate;
