@@ -374,7 +374,8 @@ function attachModalEventHandlers(container) {
         openPopup();  
     });
     makePopupMovable(container); 
-    setupDateFormListeners();    
+    setupDateFormListeners();
+    setupSection4FormListeners();
 }
 
 async function dateCalc() {
