@@ -327,29 +327,33 @@ function setupAddDateFormListeners() {
             return; // Exit the function
         }
 
-        const additionalDays = parseInt(document.getElementById('addDaysCount').value) || 0;
+        const additionalDays = document.getElementById('addDaysCount').value || 0;
 
         // Convert string date to a Date object
-        let dateObject = new Date(addDateDetails.pickDate);
+        const dateObject = new Date(addDateDetails.pickDate);
 
-        // Add the additional days first to get the potential final date
-        dateObject.setDate(dateObject.getDate() + additionalDays);
+        // Add the additional days to the pickDate
+        dateObject.setDate(dateObject.getDate() + parseInt(additionalDays));
 
-        // Then, calculate the holidays between the pickDate and this potential final date
-        const holidaysToAdd = getHolidaysBetweenDates(addDateDetails.pickDate, dateObject.toISOString().split('T')[0]);
-
-        if (holidaysToAdd > 0) {
-            document.getElementById('addSchedule').checked = true;
-        }
-
-        // Update the UI to display the added holiday count
-        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysToAdd}`;
-
-        // Add the holidaysToAdd to the dateObject to get the true final date
-        dateObject.setDate(dateObject.getDate() + holidaysToAdd);
+        // Check if 'Add Selected Schedule Days' checkbox is checked
+        const isAddScheduleChecked = document.getElementById('addSchedule').checked;
+        const holidaysToAdd = isAddScheduleChecked ? getHolidaysBetweenDates(addDateDetails.pickDate, dateObject.toISOString().split('T')[0]) : 0;
+        
+        // Check if 'Add Weekends' checkbox is checked
+        const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
+        const weekendsToAdd = isAddWeekendsChecked ? countWeekendsBetweenDates(addDateDetails.pickDate, dateObject.toISOString().split('T')[0]) : 0;
+        
+        // Add the holidays and weekends to the dateObject to get the true final date
+        dateObject.setDate(dateObject.getDate() + holidaysToAdd + weekendsToAdd);
 
         // Set the finalDate in the addDateDetails
         addDateDetails.finalDate = dateObject.toISOString().split('T')[0];
+
+        // Update the "Add Schedule Days" section
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysToAdd}`;
+
+        // Update the "Add Weekends" section
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)").textContent = `${weekendsToAdd}`;
 
         // Update the "Add Additional Days" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = `${additionalDays}`;
