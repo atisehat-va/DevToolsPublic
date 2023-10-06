@@ -347,13 +347,9 @@ function setupAddDateFormListeners() {
         while(businessDaysToAdd > 0) {
             finalDateObject.setDate(finalDateObject.getDate() + 1);
 
-            // If it's a weekend and "Add Weekends" is checked, skip
-            if (document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6)) {
-                continue;
-            }
-
-            // If it's a holiday and "Add Selected Schedule Days" is checked, skip
-            if (document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject))) {
+            // If it's a weekend and "Add Weekends" is checked, or if it's a holiday and "Add Selected Schedule Days" is checked, then just skip this iteration
+            if ((document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6)) || 
+                (document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject)))) {
                 continue;
             }
 
