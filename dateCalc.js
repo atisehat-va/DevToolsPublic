@@ -131,7 +131,7 @@ async function displayHolidays(scheduleName) {
             return `<div class="holidayRow"><div class="holidayName"><b>${holidayName}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
         }).join('');               
            
-        initCalendar(holidays);
+        //initCalendar(holidays);
     } catch (error) {
         console.error("Error fetching holidays: ", error);
     }
