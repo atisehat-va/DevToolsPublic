@@ -95,7 +95,7 @@ function buildFetchXmlForHolidays(scheduleName) {
 function formatHolidays(entities) {
     return entities.map(entity => ({
         name: entity["rule.name"],
-        date: new Date(entity["rule.starttime"]).toDateString()
+        date: new Date(entity["rule.starttime"])
     }));
 }
 
@@ -104,15 +104,15 @@ async function displayHolidays(scheduleName) {
         const holidays = await getHolidaysForSchedule(scheduleName);
 
         // listOfHolidays with the fetched holidays
-        listOfHolidays = holidays.map(holiday => holiday.date);      
+        listOfHolidays = holidays.map(holiday => holiday.date.toISOString());      
 
         // Sort holidays by date
-        holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
+        holidays.sort((a, b) => a.date - b.date);
 
         const holidaysList = document.getElementById('holidaysList');
 
        holidaysList.innerHTML = holidays.map(holiday => {
-           const formattedDate = `${holiday.date.split(' ')[0]} - ${("0" + (new Date(holiday.date).getMonth() + 1)).slice(-2)}/${("0" + new Date(holiday.date).getDate()).slice(-2)}/${new Date(holiday.date).getFullYear()}`;
+           const formattedDate = `${holiday.date.getUTCDay()} - ${String(holiday.date.getUTCMonth() + 1).padStart(2, '0')}/${String(holiday.date.getUTCDate()).padStart(2, '0')}/${holiday.date.getUTCFullYear()}`;
            return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
        }).join('');           
            initCalendar(holidays);
