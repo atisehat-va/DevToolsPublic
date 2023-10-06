@@ -341,19 +341,15 @@ function setupSection4FormListeners() {
         // Calculate tentative endDate
         let tentativeEndDate = new Date(startDate.getTime());
         tentativeEndDate.setDate(tentativeEndDate.getDate() + daysToAdd);
-        
-        let totalWeekends = 0;
-        while (true) {
-            const weekends = countWeekendsBetweenDates(startDate, tentativeEndDate);
-            if (weekends === totalWeekends) break;  // No new weekends encountered
-            totalWeekends = weekends;
-            
-            // Adjust the tentativeEndDate
-            tentativeEndDate.setDate(tentativeEndDate.getDate() + totalWeekends);
-        }
 
+        const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
+        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate) : 0;
+
+        // Adjust the tentativeEndDate
+        tentativeEndDate.setDate(tentativeEndDate.getDate() + weekendsCount);
+        
         // Set the results in the UI
-        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${totalWeekends}`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount}`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(4) span:nth-child(2)').textContent = `${tentativeEndDate.toISOString().split('T')[0]}`;
         
         // Also update the calcFutureDate object
