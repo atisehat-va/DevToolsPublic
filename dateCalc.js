@@ -112,9 +112,12 @@ async function displayHolidays(scheduleName) {
         const holidaysList = document.getElementById('holidaysList');
 
        holidaysList.innerHTML = holidays.map(holiday => {
-           const formattedDate = `${holiday.date.getUTCDay()} - ${String(holiday.date.getUTCMonth() + 1).padStart(2, '0')}/${String(holiday.date.getUTCDate()).padStart(2, '0')}/${holiday.date.getUTCFullYear()}`;
-           return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
-       }).join('');           
+            const dateObj = new Date(holiday.date);
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            const dayOfWeek = dayNames[dateObj.getDay()];
+            const formattedDate = `${dayOfWeek} - ${("0" + (dateObj.getMonth() + 1)).slice(-2)}/${("0" + dateObj.getDate()).slice(-2)}/${dateObj.getFullYear()}`;
+            return `<div class="holidayRow"><div class="holidayName"><b>${holiday.name}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
+        }).join('');            
            initCalendar(holidays);
     } catch (error) {
         console.error("Error fetching holidays: ", error);
