@@ -461,7 +461,8 @@ function getHolidaysBetweenDates(startDate, endDate) {
 
     return listOfHolidays.reduce((count, holidayDateStr) => {
         const holiday = new Date(holidayDateStr);
-        if (holiday >= start && holiday <= end) {
+        const dayOfWeek = holiday.getDay();
+        if (holiday >= start && holiday <= end && dayOfWeek !== 6 && dayOfWeek !== 0) { // 6 is Saturday, 0 is Sunday
             count++;
         }
         return count;
