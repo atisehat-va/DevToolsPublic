@@ -4,10 +4,6 @@ let dateDetails = {
     startDate: null,    
     endDate: null
 }; 
-let addDateDetails = {
-    pickDate: null,    
-    finalDate: null
-}; 
 
 const typeNames = {
     0: "Default",
@@ -324,8 +320,7 @@ function attachModalEventHandlers(container) {
         openPopup();  
     });
     makePopupMovable(container); 
-    setupDateFormListeners();
-    setupAddDateFormListeners()
+    setupDateFormListeners();    
 }
 
 async function dateCalc() {
@@ -444,8 +439,7 @@ function initCalendar(holidays) {
     document.getElementById('nextMonth').addEventListener('click', goToNextMonth);    
 
     // Initial display
-    displayCalendar(holidays, currentMonth, currentYear);
-    //setupDateFormListeners(); 
+    displayCalendar(holidays, currentMonth, currentYear);    
 }
 
 function createDateObject(dateString) {
