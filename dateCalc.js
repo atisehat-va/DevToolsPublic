@@ -399,7 +399,7 @@ function initCalendar(holidays) {
     
         // Populate the days of the month
         for (let i = 1; i <= daysInMonth; i++) {
-            let currentDate = `${year}-${("0" + (month + 1)).padStart(2, '0')}-${("0" + i).padStart(2, '0')}`; // Outputs 'YYYY-MM-DD'
+            let currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`; // Outputs 'YYYY-MM-DD'
 
             let dateClass = '';
             let titleAttr = '';
