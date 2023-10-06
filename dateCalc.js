@@ -367,14 +367,9 @@ function setupSection4FormListeners() {
 
         // Format the final date as YYYY-MM-DD for display
         const formattedFinalDate = `${startDateObj.getUTCFullYear()}-${String(startDateObj.getUTCMonth() + 1).padStart(2, '0')}-${String(startDateObj.getUTCDate()).padStart(2, '0')}`;
-
-        console.log("Final Date:", formattedFinalDate);  // Debug statement
         
         // Set the Final Date
-        const finalDateElement = document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)');
-        console.log("Final Date Element:", finalDateElement);  // Debug statement
-        
-        finalDateElement.textContent = formattedFinalDate;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = formattedFinalDate;
 
     });
 }
