@@ -347,21 +347,17 @@ function setupAddDateFormListeners() {
         while(businessDaysToAdd > 0) {
             finalDateObject.setDate(finalDateObject.getDate() + 1);
 
-            // If it's a weekend and "Add Weekends" is checked, or if it's a holiday and "Add Selected Schedule Days" is checked, then just skip this iteration
-            if ((document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6)) || 
-                (document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject)))) {
+            if (document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6)) {
+                continue;
+            }
+
+            if (document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject))) {
                 continue;
             }
 
             businessDaysToAdd--;
         }
 
-        // Ensure that the final day isn't a weekend or a holiday.
-        while (document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6) || 
-               document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject))) {
-            finalDateObject.setDate(finalDateObject.getDate() + 1);
-        }
-        
         // Update the finalDate in the addDateDetails object
         addDateDetails.finalDate = formatAsMMDDYYYY(finalDateObject);
 
@@ -383,6 +379,7 @@ function setupAddDateFormListeners() {
         console.log(addDateDetails);
     });
 }
+
 
 //EndPickDate
 
