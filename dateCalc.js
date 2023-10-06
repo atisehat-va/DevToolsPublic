@@ -102,24 +102,32 @@ function formatHolidays(entities) {
 async function displayHolidays(scheduleName) {
     try {
         const holidays = await getHolidaysForSchedule(scheduleName);
+        
+        if (!holidays || holidays.length === 0) {
+            console.warn("No holidays retrieved or returned list is empty.");
+            return; 
+        }
 
-        // Extract only the dates to ISO strings without modifying the original holidays array
-        const holidaysISOStrings = holidays.map(holiday => holiday.date.toISOString());      
-
-        // Sort holidays by date
-        holidays.sort((a, b) => a.date - b.date);
+        // Check for undefined items
+        holidays.forEach((holiday, index) => {
+            if (!holiday) {
+                console.warn(`Holiday at index ${index} is undefined or null.`);
+            }
+        });
 
         const holidaysList = document.getElementById('holidaysList');
 
-        holidaysList.innerHTML = holidays.map(holiday => {
+        holidaysList.innerHTML = holidays.map((holiday, index) => {
+            if (!holiday) {
+                return `<div class="holidayRow"><div class="holidayName"><b>Error: Missing holiday data at index ${index}</b></div><div class="holidayDate">--/--/----</div></div>`;
+            }
+
             const dateObj = new Date(holiday.date);
             const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             const dayOfWeek = dayNames[dateObj.getUTCDay()];
             const formattedDate = `${dayOfWeek} - ${("0" + (dateObj.getUTCMonth() + 1)).slice(-2)}/${("0" + dateObj.getUTCDate()).slice(-2)}/${dateObj.getUTCFullYear()}`;
             
-            // Guard against missing 'name' property
             const holidayName = holiday.name || "Unnamed Holiday";
-
             return `<div class="holidayRow"><div class="holidayName"><b>${holidayName}</b></div><div class="holidayDate">${formattedDate}</div></div>`;
         }).join('');               
            
@@ -128,6 +136,7 @@ async function displayHolidays(scheduleName) {
         console.error("Error fetching holidays: ", error);
     }
 }
+
 
 // Construct the modal content
 function createModalContent() {
