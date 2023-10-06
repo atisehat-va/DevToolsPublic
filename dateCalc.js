@@ -375,7 +375,8 @@ function initCalendar(holidays) {
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
     
-    const holidayDates = new Set(holidays.map(h => h.date));
+    // Convert dates in holidays array to string representation
+    const holidayDates = new Set(holidays.map(h => h.date.toDateString()));
 
     function displayCalendar(holidays, month, year) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -435,6 +436,7 @@ function initCalendar(holidays) {
         }
         displayCalendar(holidays, currentMonth, currentYear);
     }
+
     document.getElementById('prevMonth').addEventListener('click', goToPrevMonth);
     document.getElementById('nextMonth').addEventListener('click', goToNextMonth);    
 
