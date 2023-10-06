@@ -339,34 +339,44 @@ function setupAddDateFormListeners() {
             return; // Exit the function
         }
 
-        let daysToAdd = parseInt(document.getElementById('addDaysCount').value || 0);
+        let businessDaysToAdd = parseInt(document.getElementById('addDaysCount').value || 0);
         
-        // Convert pick date to a Date object using the createDateObject function
         const dateObject = createDateObject(addDateDetails.pickDate);
-        
-        // If "Add Selected Schedule Days" is checked, exclude the number of holidays between the pick date and the projected final date
-        if (document.getElementById('addSchedule').checked) {
-            const holidaysCount = getHolidaysBetweenDates(addDateDetails.pickDate, new Date(dateObject.getTime() + daysToAdd * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
-            daysToAdd -= holidaysCount;
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysCount}`;
-        } else {
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = "0";
+        let finalDateObject = new Date(dateObject);
+
+        while(businessDaysToAdd > 0) {
+            finalDateObject.setDate(finalDateObject.getDate() + 1);
+
+            // If it's a weekend and "Add Weekends" is checked, skip
+            if (document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6)) {
+                continue;
+            }
+
+            // If it's a holiday and "Add Selected Schedule Days" is checked, skip
+            if (document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject))) {
+                continue;
+            }
+
+            businessDaysToAdd--;
         }
 
-        // If "Add Weekends" is checked, exclude the number of weekends between the pick date and the projected final date
-        if (document.getElementById('addWeekends').checked) {
-            const weekendsCount = countWeekendsBetweenDates(addDateDetails.pickDate, new Date(dateObject.getTime() + daysToAdd * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
-            daysToAdd -= weekendsCount;
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)").textContent = `${weekendsCount}`;
-        } else {
-            document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)").textContent = "0";
+        // Ensure that the final day isn't a weekend or a holiday.
+        while (document.getElementById('addWeekends').checked && (finalDateObject.getDay() === 0 || finalDateObject.getDay() === 6) || 
+               document.getElementById('addSchedule').checked && listOfHolidays.includes(formatAsYYYYMMDD(finalDateObject))) {
+            finalDateObject.setDate(finalDateObject.getDate() + 1);
         }
-
-        // Adjust the date object by the total number of days to add (additional days - holidays - weekends)
-        dateObject.setDate(dateObject.getDate() + daysToAdd);
         
         // Update the finalDate in the addDateDetails object
-        addDateDetails.finalDate = formatAsMMDDYYYY(dateObject);
+        addDateDetails.finalDate = formatAsMMDDYYYY(finalDateObject);
+
+        const holidaysCount = getHolidaysBetweenDates(addDateDetails.pickDate, addDateDetails.finalDate);
+        const weekendsCount = countWeekendsBetweenDates(addDateDetails.pickDate, addDateDetails.finalDate);
+
+        // Update the "Add Selected Schedule Days" section
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)").textContent = `${holidaysCount}`;
+
+        // Update the "Add Weekends" section
+        document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)").textContent = `${weekendsCount}`;
 
         // Update the "Add Additional Days" section
         document.querySelector(".addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)").textContent = document.getElementById('addDaysCount').value || "0";
@@ -377,7 +387,6 @@ function setupAddDateFormListeners() {
         console.log(addDateDetails);
     });
 }
-
 
 //EndPickDate
 
