@@ -350,7 +350,6 @@ function setupSection4FormListeners() {
 
         do {
             additionalDays = 0;
-
             const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
             totalAddedWeekends += weekendsCount;
 
