@@ -344,27 +344,20 @@ function setupSection4FormListeners() {
         let tentativeEndDate = new Date(Date.parse(startDate));
         tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
-        let adjustmentsMade;
-        do {
-            adjustmentsMade = false;
+        let adjustmentNeeded = true;
+        while (adjustmentNeeded) {
+            adjustmentNeeded = false; // Reset the flag
 
-            if (isAddWeekendsChecked) {
-                const weekendsCount = countWeekendsBetweenDates(tentativeEndDate.toISOString().split('T')[0], tentativeEndDate.toISOString().split('T')[0]);
-                if (weekendsCount > 0) {
-                    adjustmentsMade = true;
-                    tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount);
-                }
-            }
-            
-            if (isAddScheduleChecked) {
-                const holidaysCount = getHolidaysBetweenDates(tentativeEndDate.toISOString().split('T')[0], tentativeEndDate.toISOString().split('T')[0]);
-                if (holidaysCount > 0) {
-                    adjustmentsMade = true;
-                    tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + holidaysCount);
-                }
+            if (isAddWeekendsChecked && (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6)) {
+                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1); // Shift one day
+                adjustmentNeeded = true; // Flag for another iteration
             }
 
-        } while (adjustmentsMade);
+            if (isAddScheduleChecked && listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
+                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1); // Shift one day
+                adjustmentNeeded = true; // Flag for another iteration
+            }
+        }
 
         const totalHolidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
         const totalWeekendsCount = countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
