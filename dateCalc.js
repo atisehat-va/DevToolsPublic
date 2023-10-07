@@ -338,18 +338,16 @@ function setupSection4FormListeners() {
             return;
         }
 
+        const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
+
         let tentativeEndDate = new Date(Date.parse(startDate));
         tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
-        const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
         
         const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
-
-        // If "Add Weekends" is checked, adjust the tentative end date by the number of weekends and holidays
-        if (isAddWeekendsChecked) {
-            tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount + holidaysCount);
-        }
+        
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount + holidaysCount);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
