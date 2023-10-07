@@ -342,38 +342,38 @@ function setupSection4FormListeners() {
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
         const startDate = createDateObject(startDateStr);
-        
-        let tentativeEndDate = new Date(startDate);
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
-        
-        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], tentativeEndDate.toISOString().split('T')[0]) : 0;
-        const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], tentativeEndDate.toISOString().split('T')[0]) : 0;
-
-        const totalDays = daysToAdd + weekendsCount + holidaysCount;
-
+        let totalDays = daysToAdd;
         let finalDate = new Date(startDate);
         finalDate.setUTCDate(finalDate.getUTCDate() + totalDays);
 
-        // Iteratively check and adjust until finalDate is not a weekend or holiday
+        let weekendsCount = 0;
+        let holidaysCount = 0;
+
         let hasChanged;
         do {
             hasChanged = false;
+
+            weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
+            holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
             
-            if (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0)) {
+            if ((finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) && isAddWeekendsChecked) {
                 finalDate.setUTCDate(finalDate.getUTCDate() + 1);
-                //weekendsCount++;
                 hasChanged = true;
             }
             
             const finalDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
-            console.log('Checking for holidays:', finalDateString); // Debugging log
 
-            if (isAddScheduleChecked && listOfHolidays.includes(finalDateString)) {
-                console.log('Adjusting for holiday:', finalDateString); // Debugging log
+            if (listOfHolidays.includes(finalDateString) && isAddScheduleChecked) {
                 finalDate.setUTCDate(finalDate.getUTCDate() + 1);
-                //holidaysCount++;
                 hasChanged = true;
             }
+
+            if(hasChanged) {
+                totalDays = daysToAdd + weekendsCount + holidaysCount;
+                finalDate = new Date(startDate);
+                finalDate.setUTCDate(finalDate.getUTCDate() + totalDays);
+            }
+
         } while (hasChanged);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
@@ -382,7 +382,6 @@ function setupSection4FormListeners() {
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${finalDate.toISOString().split('T')[0]}`;
     });
 }
-
 
 //EndDinalDate
 
