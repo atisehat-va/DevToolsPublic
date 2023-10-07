@@ -344,23 +344,27 @@ function setupSection4FormListeners() {
         let tentativeEndDate = new Date(Date.parse(startDate));
         tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
-        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount);  // Adjust for weekends
+        let adjustmentsMade;
+        do {
+            adjustmentsMade = false;
 
-        const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + holidaysCount);
+            if (isAddWeekendsChecked) {
+                while (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6) {
+                    tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
+                    adjustmentsMade = true;
+                }
+            }
 
-        if (isAddScheduleChecked) {
-            while (listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
-                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
+            if (isAddScheduleChecked) {
+                while (listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
+                    tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
+                    adjustmentsMade = true;
+                }
             }
-        }
-        
-        if (isAddWeekendsChecked) {
-            while (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6) {
-                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
-            }
-        }        
+        } while (adjustmentsMade);
+
+        const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
+        const weekendsCount = countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
@@ -368,6 +372,7 @@ function setupSection4FormListeners() {
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${tentativeEndDate.toISOString().split('T')[0]}`;
     });
 }
+
 
 //EndDinalDate
 
