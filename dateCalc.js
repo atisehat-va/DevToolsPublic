@@ -356,7 +356,7 @@ function setupSection4FormListeners() {
 
         // Iteratively check and adjust until finalDate is not a weekend or holiday
         while (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) ||
-               isAddScheduleChecked && listOfHolidays.includes(finalDate.toISOString().split('T')[0])) {
+               isAddScheduleChecked && listOfHolidays.includes(finalDate.toISOString().split('T')[0] + 'T00:00:00:00Z')) {
             finalDate.setUTCDate(finalDate.getUTCDate() + 1);
         }
 
