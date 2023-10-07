@@ -342,21 +342,28 @@ function setupSection4FormListeners() {
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
         const startDate = createDateObject(startDateStr);
-
         let totalAddedDays = daysToAdd;
-        let weekendsCount = 0;
-        let holidaysCount = 0;
 
-        let finalDate = new Date(startDate);
+        let finalDate, lastFinalDate;
         do {
+            lastFinalDate = finalDate;
+            finalDate = new Date(startDate);
             finalDate.setUTCDate(startDate.getUTCDate() + totalAddedDays);
             
-            weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
-            holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
+            let weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
+            let holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
 
-            totalAddedDays = daysToAdd + weekendsCount + holidaysCount;
+            // If the new final date is a weekend or holiday, adjust totalAddedDays further
+            const finalDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
+            if ((finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) && isAddWeekendsChecked) {
+                totalAddedDays++;
+            } else if (listOfHolidays.includes(finalDateString) && isAddScheduleChecked) {
+                totalAddedDays++;
+            }
 
-        } while (totalAddedDays != daysToAdd + weekendsCount + holidaysCount);
+            totalAddedDays += weekendsCount + holidaysCount;
+
+        } while (!lastFinalDate || (finalDate.getTime() !== lastFinalDate.getTime()));
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
