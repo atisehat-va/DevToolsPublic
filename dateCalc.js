@@ -342,34 +342,23 @@ function setupSection4FormListeners() {
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
         const startDate = createDateObject(startDateStr);
-        let totalDays = daysToAdd;
+        
         let finalDate = new Date(startDate);
-        finalDate.setUTCDate(finalDate.getUTCDate() + totalDays);
+        finalDate.setUTCDate(finalDate.getUTCDate() + daysToAdd);
 
+        let previousDate;
         let weekendsCount = 0;
         let holidaysCount = 0;
 
-        let hasChanged;
         do {
-            hasChanged = false;
-            
-            const finalDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
-        
-            if ((finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) && isAddWeekendsChecked) {
-                finalDate.setUTCDate(finalDate.getUTCDate() + 1);
-                hasChanged = true;
-            } else if (listOfHolidays.includes(finalDateString) && isAddScheduleChecked) {
-                finalDate.setUTCDate(finalDate.getUTCDate() + 1);
-                hasChanged = true;
-            }
-        
-            if (hasChanged) {
-                totalDays = daysToAdd + weekendsCount + holidaysCount;
-                weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
-                holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
-            }
-        
-        } while (hasChanged);
+            previousDate = new Date(finalDate); 
+
+            weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
+            holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
+
+            finalDate.setUTCDate(finalDate.getUTCDate() + weekendsCount + holidaysCount);
+
+        } while (finalDate.getTime() !== previousDate.getTime());
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
