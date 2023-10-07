@@ -341,31 +341,31 @@ function setupSection4FormListeners() {
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
-        let tentativeEndDate = new Date(Date.parse(startDate));
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd - 1); // Adjusted to -1 for inclusive counting
-
-        let additionalDays = 0;
+        let currentEndDate = new Date(Date.parse(startDate));
+        let totalDaysAdded = 0;
         let totalAddedWeekends = 0;
         let totalAddedHolidays = 0;
 
-        do {
-            additionalDays = 0;
-            const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
-            totalAddedWeekends += weekendsCount;
+        while (totalDaysAdded < daysToAdd) {
+            currentEndDate.setUTCDate(currentEndDate.getUTCDate() + 1);  // Increment the end date by 1 day
 
-            const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
-            totalAddedHolidays += holidaysCount;
+            if (isAddScheduleChecked && listOfHolidays.includes(currentEndDate.toISOString().split('T')[0])) {
+                totalAddedHolidays++;
+                continue;
+            }
 
-            additionalDays = weekendsCount + holidaysCount;
+            if (isAddWeekendsChecked && (currentEndDate.getUTCDay() === 6 || currentEndDate.getUTCDay() === 0)) {
+                totalAddedWeekends++;
+                continue;
+            }
 
-            tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + additionalDays); // Increment the end date by the total of weekends and holidays
-
-        } while (additionalDays > 0); // Continue looping until no more additional days are found
+            totalDaysAdded++;
+        }
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${totalAddedHolidays} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${totalAddedWeekends} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAdd} Day(s)`;
-        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${tentativeEndDate.toISOString().split('T')[0]}`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${currentEndDate.toISOString().split('T')[0]}`;
     });
 }
 
