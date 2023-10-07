@@ -344,27 +344,29 @@ function setupSection4FormListeners() {
         let tentativeEndDate = new Date(Date.parse(startDate));
         tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
-        let finalAdjustmentNeeded = true;
+        let additionalDays = 0;
 
-        while (finalAdjustmentNeeded) {
-            finalAdjustmentNeeded = false;
+        while (true) {
+            let adjustmentDays = 0;
 
             if (isAddWeekendsChecked) {
-                const weekendsCount = countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
-                if (weekendsCount > 0) {
-                    tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount);
-                    finalAdjustmentNeeded = true;
-                }
+                const weekendsCount = countWeekendsBetweenDates(tentativeEndDate.toISOString().split('T')[0], new Date(tentativeEndDate.getTime() + additionalDays * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+                adjustmentDays += weekendsCount;
             }
 
             if (isAddScheduleChecked) {
-                const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
-                if (holidaysCount > 0) {
-                    tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + holidaysCount);
-                    finalAdjustmentNeeded = true;
-                }
+                const holidaysCount = getHolidaysBetweenDates(tentativeEndDate.toISOString().split('T')[0], new Date(tentativeEndDate.getTime() + additionalDays * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+                adjustmentDays += holidaysCount;
             }
+
+            if (adjustmentDays === 0) {
+                break;
+            }
+
+            additionalDays += adjustmentDays;
         }
+
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + additionalDays);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
@@ -372,6 +374,7 @@ function setupSection4FormListeners() {
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${tentativeEndDate.toISOString().split('T')[0]}`;
     });
 }
+
 
 //EndDinalDate
 
