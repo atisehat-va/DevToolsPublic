@@ -361,6 +361,7 @@ function setupSection4FormListeners() {
             
             if (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0)) {
                 finalDate.setUTCDate(finalDate.getUTCDate() + 1);
+                weekendsCount++;
                 hasChanged = true;
             }
             
@@ -370,6 +371,7 @@ function setupSection4FormListeners() {
             if (isAddScheduleChecked && listOfHolidays.includes(finalDateString)) {
                 console.log('Adjusting for holiday:', finalDateString); // Debugging log
                 finalDate.setUTCDate(finalDate.getUTCDate() + 1);
+                holidaysCount++;
                 hasChanged = true;
             }
         } while (hasChanged);
