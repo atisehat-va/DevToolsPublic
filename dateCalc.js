@@ -350,7 +350,7 @@ function setupSection4FormListeners() {
         
         const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
 
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount + holidaysCount);
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + holidaysCount);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
