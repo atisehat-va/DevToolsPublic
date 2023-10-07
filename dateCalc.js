@@ -331,7 +331,7 @@ function setupSection4FormListeners() {
     const section4SubmitBtn = document.getElementById('section4SubmitBtn');
     section4SubmitBtn.addEventListener('click', function() {
         const startDate = document.getElementById('pickDate').value;
-        let daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10);
+        const daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10);
 
         if (!startDate || isNaN(daysToAdd)) {
             showCustomAlert("Please provide both Start Date and Days to Add.");
@@ -342,19 +342,23 @@ function setupSection4FormListeners() {
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
         let tentativeEndDate = new Date(Date.parse(startDate));
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
-        while (daysToAdd > 0) {
-            tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1); // move a day forward
-
+        while (true) {
+            let adjusted = false;  // A flag to check if the date was adjusted in a given loop iteration
+            
             if (isAddWeekendsChecked && (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6)) {
-                continue; // if it's a weekend and weekends are to be added, move to the next day without decrementing daysToAdd
+                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
+                adjusted = true;
             }
 
             if (isAddScheduleChecked && listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
-                continue; // if it's a holiday and holidays are to be added, move to the next day without decrementing daysToAdd
+                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
+                adjusted = true;
             }
 
-            daysToAdd--; // decrement daysToAdd
+            // If no adjustments were made in this loop iteration, break out of the loop
+            if (!adjusted) break;
         }
 
         const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
