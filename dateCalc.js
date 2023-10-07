@@ -341,7 +341,7 @@ function setupSection4FormListeners() {
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
 
         let tentativeEndDate = new Date(Date.parse(startDate));
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);.
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
         const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
         
