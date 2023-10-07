@@ -341,31 +341,27 @@ function setupSection4FormListeners() {
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
-        let tentativeEndDate = new Date(Date.parse(startDate));
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
+        let finalEndDate = new Date(Date.parse(startDate));
+        finalEndDate.setUTCDate(finalEndDate.getUTCDate() + daysToAdd);
 
-        let adjustmentNeeded = true;
-        while (adjustmentNeeded) {
-            adjustmentNeeded = false; // Reset the flag
-
-            if (isAddWeekendsChecked && (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6)) {
-                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1); // Shift one day
-                adjustmentNeeded = true; // Flag for another iteration
+        let currentDate = new Date(Date.parse(startDate));
+        while (currentDate < finalEndDate) {
+            currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+            if (isAddWeekendsChecked && (currentDate.getUTCDay() === 0 || currentDate.getUTCDay() === 6)) {
+                finalEndDate.setUTCDate(finalEndDate.getUTCDate() + 1);
             }
-
-            if (isAddScheduleChecked && listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
-                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1); // Shift one day
-                adjustmentNeeded = true; // Flag for another iteration
+            if (isAddScheduleChecked && listOfHolidays.includes(currentDate.toISOString().split('T')[0])) {
+                finalEndDate.setUTCDate(finalEndDate.getUTCDate() + 1);
             }
         }
 
-        const totalHolidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
-        const totalWeekendsCount = countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
+        const totalHolidaysCount = getHolidaysBetweenDates(startDate, finalEndDate.toISOString().split('T')[0]);
+        const totalWeekendsCount = countWeekendsBetweenDates(startDate, finalEndDate.toISOString().split('T')[0]);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${totalHolidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${totalWeekendsCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAdd} Day(s)`;
-        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${tentativeEndDate.toISOString().split('T')[0]}`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${finalEndDate.toISOString().split('T')[0]}`;
     });
 }
 
