@@ -341,8 +341,7 @@ function setupSection4FormListeners() {
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
-        const [year, month, day] = startDateStr.split('-').map(Number);
-        const startDate = new Date(Date.UTC(year, month - 1, day));
+        const startDate = createDateObject(startDateStr);
         
         let tentativeEndDate = new Date(startDate);
         tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
