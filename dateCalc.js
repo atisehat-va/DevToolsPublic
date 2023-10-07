@@ -349,12 +349,13 @@ function setupSection4FormListeners() {
         while (true) {
             let adjusted = false;
             
-            if (isAddWeekendsChecked && (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6)) {
+            // Check for weekends and holidays in order until no more adjustments are made
+            while (isAddWeekendsChecked && (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6)) {
                 tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
                 adjusted = true;
             }
 
-            if (isAddScheduleChecked && listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
+            while (isAddScheduleChecked && listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
                 tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
                 adjusted = true;
             }
