@@ -355,9 +355,20 @@ function setupSection4FormListeners() {
         finalDate.setUTCDate(finalDate.getUTCDate() + totalDays);
 
         // Iteratively check and adjust until finalDate is not a weekend or holiday
-        while (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) ||
-               isAddScheduleChecked && listOfHolidays.includes(finalDate.toISOString().split('T')[0] + 'T00:00:00:00Z')) {
-            finalDate.setUTCDate(finalDate.getUTCDate() + 1);
+        while (true) {
+            let hasChanged = false;
+
+            if (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0)) {
+                finalDate.setUTCDate(finalDate.getUTCDate() + 1);
+                hasChanged = true;
+            }
+
+            if (isAddScheduleChecked && listOfHolidays.includes(finalDate.toISOString().split('T')[0] + 'T00:00:00:00Z')) {
+                finalDate.setUTCDate(finalDate.getUTCDate() + 1);
+                hasChanged = true;
+            }
+
+            if (!hasChanged) break;  // No further adjustments needed.
         }
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
@@ -366,7 +377,6 @@ function setupSection4FormListeners() {
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${finalDate.toISOString().split('T')[0]}`;
     });
 }
-
 
 //EndDinalDate
 
