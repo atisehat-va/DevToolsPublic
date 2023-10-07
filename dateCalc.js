@@ -341,13 +341,13 @@ function setupSection4FormListeners() {
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
-        const startDate = new Date(Date.parse(startDateStr));
+        const startDate = new Date(`${startDateStr}T00:00:00Z`); // Ensure UTC date
         
         let tentativeEndDate = new Date(startDate);
         tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
         
-        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDateStr, tentativeEndDate.toISOString().split('T')[0]) : 0;
-        const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDateStr, tentativeEndDate.toISOString().split('T')[0]) : 0;
+        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], tentativeEndDate.toISOString().split('T')[0]) : 0;
+        const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], tentativeEndDate.toISOString().split('T')[0]) : 0;
 
         const totalDays = daysToAdd + weekendsCount + holidaysCount;
 
