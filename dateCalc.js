@@ -345,9 +345,11 @@ function setupSection4FormListeners() {
 
         const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
         
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount);  // Adjust for weekends
+
         const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
         
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount + holidaysCount);
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + holidaysCount); // Adjust for holidays
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
