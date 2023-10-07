@@ -355,21 +355,24 @@ function setupSection4FormListeners() {
         finalDate.setUTCDate(finalDate.getUTCDate() + totalDays);
 
         // Iteratively check and adjust until finalDate is not a weekend or holiday
-        while (true) {
-            let hasChanged = false;
-
+        let hasChanged;
+        do {
+            hasChanged = false;
+            
             if (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0)) {
                 finalDate.setUTCDate(finalDate.getUTCDate() + 1);
                 hasChanged = true;
             }
+            
+            const finalDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00Z';
+            console.log('Checking for holidays:', finalDateString); // Debugging log
 
-            if (isAddScheduleChecked && listOfHolidays.includes(finalDate.toISOString().split('T')[0] + 'T00:00:00Z')) {
+            if (isAddScheduleChecked && listOfHolidays.includes(finalDateString)) {
+                console.log('Adjusting for holiday:', finalDateString); // Debugging log
                 finalDate.setUTCDate(finalDate.getUTCDate() + 1);
                 hasChanged = true;
             }
-
-            if (!hasChanged) break;  // No further adjustments needed.
-        }
+        } while (hasChanged);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
