@@ -339,17 +339,16 @@ function setupSection4FormListeners() {
         }
 
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
+        const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
         let tentativeEndDate = new Date(Date.parse(startDate));
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd - 1);
 
         const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
         
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount);  // Adjust for weekends
+        const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
 
-        const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
-        
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + holidaysCount); // Adjust for holidays
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount + holidaysCount);
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
