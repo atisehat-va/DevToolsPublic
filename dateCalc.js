@@ -363,7 +363,7 @@ function setupSection4FormListeners() {
                 hasChanged = true;
             }
 
-            if (isAddScheduleChecked && listOfHolidays.includes(finalDate.toISOString().split('T')[0] + 'T00:00:00:00Z')) {
+            if (isAddScheduleChecked && listOfHolidays.includes(finalDate.toISOString().split('T')[0] + 'T00:00:00Z')) {
                 finalDate.setUTCDate(finalDate.getUTCDate() + 1);
                 hasChanged = true;
             }
