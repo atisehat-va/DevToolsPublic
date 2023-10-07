@@ -342,9 +342,11 @@ function setupSection4FormListeners() {
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
 
         let tentativeEndDate = new Date(Date.parse(startDate));
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd - 1);
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
         const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
+
+        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount);  // Adjust for weekends
         
         const holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
 
