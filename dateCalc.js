@@ -64,7 +64,7 @@ async function setupHolidayScheduleDropdown() {
 
     dropdown.addEventListener('change', (e) => {
         displayHolidays(e.target.value);
-    });
+    }); 
 }
 
 async function getHolidaysForSchedule(scheduleName) {
