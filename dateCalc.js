@@ -346,7 +346,7 @@ function setupSection4FormListeners() {
         let finalDate = new Date(startDate);
         finalDate.setUTCDate(finalDate.getUTCDate() + daysToAdd);
 
-        let additionalDays = 0;
+        let additionalDays = 0; 
 
         do {
             let newFinalDate = new Date(finalDate);
