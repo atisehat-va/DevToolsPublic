@@ -348,18 +348,14 @@ function setupSection4FormListeners() {
 
         while (totalDaysAdded < daysToAdd) {
             currentEndDate.setUTCDate(currentEndDate.getUTCDate() + 1);  // Increment the end date by 1 day
-
+            
             if (isAddScheduleChecked && listOfHolidays.includes(currentEndDate.toISOString().split('T')[0])) {
                 totalAddedHolidays++;
-                continue;
-            }
-
-            if (isAddWeekendsChecked && (currentEndDate.getUTCDay() === 6 || currentEndDate.getUTCDay() === 0)) {
+            } else if (isAddWeekendsChecked && (currentEndDate.getUTCDay() === 6 || currentEndDate.getUTCDay() === 0)) {
                 totalAddedWeekends++;
-                continue;
+            } else {
+                totalDaysAdded++;
             }
-
-            totalDaysAdded++;
         }
 
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${totalAddedHolidays} Day(s)`;
