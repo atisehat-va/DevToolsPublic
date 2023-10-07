@@ -339,16 +339,20 @@ function setupSection4FormListeners() {
         }
 
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
+        let totalDaysToAdd = daysToAdd;
 
         let tentativeEndDate = new Date(Date.parse(startDate));
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + daysToAdd);
 
-        const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
+        do {
+            tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + totalDaysToAdd);
+            
+            const weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]) : 0;
+            const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
+
+            totalDaysToAdd = daysToAdd + weekendsCount + holidaysCount;
+            
+        } while (totalDaysToAdd > daysToAdd + holidaysCount);  // Continue till no new weekends or holidays are found in the added days
         
-        const holidaysCount = getHolidaysBetweenDates(startDate, tentativeEndDate.toISOString().split('T')[0]);
-
-        tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + weekendsCount + holidaysCount);
-
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAdd} Day(s)`;
