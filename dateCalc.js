@@ -353,7 +353,7 @@ function setupSection4FormListeners() {
         if (!isAddWeekendsChecked && !isAddScheduleChecked) {
             // Ensure final date does not fall on a weekend or holiday
             while (tentativeEndDate.getUTCDay() === 0 || tentativeEndDate.getUTCDay() === 6 || listOfHolidays.includes(tentativeEndDate.toISOString().split('T')[0])) {
-                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1);
+                tentativeEndDate.setUTCDate(tentativeEndDate.getUTCDate() + 1); 
             }
         }
 
