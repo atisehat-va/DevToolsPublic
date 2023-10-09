@@ -75,13 +75,3 @@ function LaunchAddendum(primaryControl) {
         function (error) { console.log("Failed to open addendum (case)"); }
     );  
 }
-
-var confirmStrings = { text:"This is a confirmation.", title:"Confirmation Dialog" };
-var confirmOptions = { height: 200, width: 450 };
-Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
-function (success) {    
-    if (success.confirmed)
-        console.log("Dialog closed using OK button.");
-    else
-        console.log("Dialog closed using Cancel button or X.");
-});
