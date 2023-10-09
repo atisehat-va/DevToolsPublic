@@ -76,13 +76,12 @@ function LaunchAddendum(primaryControl) {
     );  
 }
 
-var alertStrings = { confirmButtonLabel: "Yes", text: "This is an alert.", title: "Sample title" };
-var alertOptions = { height: 120, width: 260 };
-Xrm.Navigation.openAlertDialog(alertStrings, alertOptions).then(
-    function (success) {
-        console.log("Alert dialog closed");
-    },
-    function (error) {
-        console.log(error.message);
-    }
-);
+var confirmStrings = { text:"This is a confirmation.", title:"Confirmation Dialog" };
+var confirmOptions = { height: 200, width: 450 };
+Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+function (success) {    
+    if (success.confirmed)
+        console.log("Dialog closed using OK button.");
+    else
+        console.log("Dialog closed using Cancel button or X.");
+});
