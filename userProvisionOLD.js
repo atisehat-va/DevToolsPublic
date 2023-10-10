@@ -128,3 +128,8 @@ function runCSWAutomation() {
         }
         
     }
+//test
+x=new Map();
+x.set("parametersStr", '[["entityName", "incident"], ["entityId", "fac04293-1ab0-eb11-8236-000d3a5c49ed"]]');
+Microsoft.Apm.createSession({templateName: "case_entity_session_default_template", sessionContext: x});
+//EndTEst
