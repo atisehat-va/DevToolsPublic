@@ -176,8 +176,8 @@ function runCSWAutomation() {
             if (sessionWithIntId) {
                 const session = recordSessionIdMap.get(interactionId.toLowerCase());
                 csw.getSession(session).getAllTabs().forEach(tabId => {
-                    const tab = csw.getSession(session).getTab(tabId); // Modified the 'id' variable to 'session' for correct context
-                    tab.close();                        
+                    const tab = csw.getSession(session).getTab(tabId);
+                    tab.close();
 
                     // change tab labels
                     const thisSession = Microsoft.Apm.getFocusedSession();
@@ -196,23 +196,27 @@ function runCSWAutomation() {
                     createTabsForSession();
                 });
             } else {
-                let x = new Map().set("parametersStr", '[["entityName", "bah_interactions"], ["entityId", "' + interactionId + '"]]');                    
-                let newSession = await Microsoft.Apm.createSession({ templateName: "mcs_vh_interaction_session_template", sessionContext: x, isFocused: true });                    
+                try {
+                    let x = new Map().set("parametersStr", '[["entityName", "bah_interactions"], ["entityId", "' + interactionId + '"]]');                    
+                    let newSession = await Microsoft.Apm.createSession({ templateName: "mcs_vh_interaction_session_template", sessionContext: x, isFocused: true });
 
-                // change tab labels
-                const thisSession = Microsoft.Apm.getFocusedSession();
-                const interactionTab = thisSession.getFocusedTab();
-                thisSession.title = contactName;
-                interactionTab.title = "Interaction";
+                    // change tab labels
+                    const thisSession = Microsoft.Apm.getFocusedSession();
+                    const interactionTab = thisSession.getFocusedTab();
+                    thisSession.title = contactName;
+                    interactionTab.title = "Interaction";
 
-                newSession.updateContext({
-                    "csw_custom_interactionid": interactionId,
-                    "csw_custom_contactid": contactId,
-                    "customerRecordId": contactId,
-                    "customerEntityName": "contact"
-                }); 
+                    newSession.updateContext({
+                        "csw_custom_interactionid": interactionId,
+                        "csw_custom_contactid": contactId,
+                        "customerRecordId": contactId,
+                        "customerEntityName": "contact"
+                    }); 
 
-                createTabsForSession();                    
+                    createTabsForSession();
+                } catch (error) {
+                    console.error("Error during session creation:", error);
+                }                               
             }                
         }
     }
