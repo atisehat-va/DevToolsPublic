@@ -129,7 +129,8 @@ function runCSWAutomation() {
         
     }
 //test
-function runCSWAutomation() {
+//test
+    function runCSWAutomation() {
     debugger;
     var csw = Microsoft.Apm;
     if (csw) {
