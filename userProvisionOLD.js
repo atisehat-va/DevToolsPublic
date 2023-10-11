@@ -249,5 +249,15 @@ function runCSWAutomation() {
     }
 } 
 
+allSessions.forEach(id => {
+    csw.getSession(id).getContext().then(function (context) {
+        var sessionIntId = context.parameters["anchor.bah_interactionsid"];
+        if (sessionIntId) {
+
+            sessionId.push(sessionIntId.toLowerCase());
+            console.log(sessionId);
+        }
+    });
+});
 
 //EndTEst
