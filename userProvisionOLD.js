@@ -150,20 +150,12 @@ function runCSWAutomation() {
             const allSessions = csw.getAllSessions();
 
             allSessions.forEach(id => {
-                const sessionId = csw.getSession(id).getContext().then(function(context) {
-                    var sessionIntId = context.parameters["csw_custom_interactionid"];
-
-                    var customerTab = {
-                        templateName: "mcs_vethomecontact",
-                        appContext: new Map().set("entityName", "contact").set("entityId", contactId),
-                        isFocused: false
-                    };
-                    var clinicalTab = {
-                        templateName: "mcs_vh_clinical",
-                        appContext: new Map().set("entityName", "mcs_clinical").set("entityId", contactId),
-                        isFocused: false
-                    };
-
+                csw.getSession(id).getContext().then(function(context) {
+                var sessionIntId = context.parameters["anchor.bah_interactionsid"]; 
+                
+                var customerTab = { templateName: "mcs_vethomecontact", appContext: new Map().set("entityName", "contact").set("entityId", contactId), isFocused: false };
+                var clinicalTab = { templateName: "mcs_vh_clinical", appContext: new Map().set("entityName", "mcs_clinical").set("entityId", contactId), isFocused: false };  
+                
                     function createTabsForSession() {
                         csw.createTab(customerTab);
                         csw.createTab(clinicalTab);
@@ -178,49 +170,83 @@ function runCSWAutomation() {
                         }
                     }
 
-                    if (sessionIntId === interactionId) {
-                        csw.getSession(id).getAllTabs().forEach(tabId => {
-                            const tab = csw.getSession(id).getTab(tabId);
-                            tab.close();
+                    if (sessionIntId) {
+                         if (sessionIntId.toLowerCase() === interactionId.toLowerCase()) {                        
+
+                            var customerTab = { templateName: "mcs_vethomecontact", appContext: new Map().set("entityName", "contact").set("entityId", contactId), isFocused: false };
+                            var clinicalTab = { templateName: "mcs_vh_clinical", appContext: new Map().set("entityName", "mcs_clinical").set("entityId", contactId), isFocused: false };                        
+
+                            csw.getSession(id).getAllTabs().forEach(tabId => {
+                                const tab = csw.getSession(id).getTab(tabId);
+                                tab.close();
+
+                                var contactName = contactLookup[0].name;
+
+                                // change tab labels
+                                const thisSession = Microsoft.Apm.getFocusedSession();
+                                const interactionTab = thisSession.getFocusedTab();
+                                thisSession.title = contactName;
+                                interactionTab.title = "Interaction";
+
+                                // update context variables for reuse elsewhere
+                                thisSession.updateContext({
+                                    "csw_custom_interactionid": interactionId,
+                                    "csw_custom_contactid": contactId,
+                                    "customerRecordId": contactId,
+                                    "customerEntityName": "contact"
+                                });
+
+                                createTabsForSession();
+                            });
+                        } else {                           
+                            x=new Map();
+                            x.set("parametersStr", '[["entityName", "bah_interactions"], ["entityId", "' + interactionId + '"]]');                            
+                            var newSession = Microsoft.Apm.createSession({templateName: "mcs_vethomeinteraction", sessionContext: x, isFocused: true }); 
 
                             var contactName = contactLookup[0].name;
-
+                            
                             // change tab labels
-                            const thisSession = Microsoft.Apm.getFocusedSession();
-                            const interactionTab = thisSession.getFocusedTab();
-                            thisSession.title = contactName;
-                            interactionTab.title = "Interaction";
+                             const thisSession = Microsoft.Apm.getFocusedSession();
+                             const interactionTab = thisSession.getFocusedTab();
+                             thisSession.title = contactName;
+                             interactionTab.title = "Interaction";
 
-                            // update context variables for reuse elsewhere
-                            thisSession.updateContext({
+                            newSession.updateContext({
                                 "csw_custom_interactionid": interactionId,
                                 "csw_custom_contactid": contactId,
                                 "customerRecordId": contactId,
                                 "customerEntityName": "contact"
                             });
-
+                            
                             createTabsForSession();
-                        });
-                    } else {
-                        var newSession = csw.createSession({
-                            templateName: "mcs_vethomeinteraction",
-                            sessionContext: new Map().set("parametersStr", '[["entityName", "bah_interactionses"], ["entityId", "interactionId"]]')
-                        });
-                        
-                        createTabsForSession();
+                            return;
+                        }
+                    } else {                                                                      
 
-                        newSession.updateContext({
+                    /*    var contactName = contactLookup[0].name;
+                        
+                        // change tab labels
+                        const thisSession = Microsoft.Apm.getFocusedSession();
+                        const interactionTab = thisSession.getFocusedTab();
+                        thisSession.title = contactName;
+                        interactionTab.title = "Interaction";
+
+                        // update context variables for reuse elsewhere
+                        thisSession.updateContext({
                             "csw_custom_interactionid": interactionId,
                             "csw_custom_contactid": contactId,
                             "customerRecordId": contactId,
                             "customerEntityName": "contact"
                         });
+
+                        //createTabsForSession(); */
                     }
+                    
                 });
             });
         }
     }
-}
+} 
 
 
 //EndTEst
