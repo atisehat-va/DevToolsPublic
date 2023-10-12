@@ -237,28 +237,31 @@ function runCSWAutomation() {
 
 //EndTEst
 //Test2
-Microsoft.Apm.getFocusedSession().getContext()
-.then(result => {
-    let params = result.parameters;
-    
-    // Initialize entitySession as an object
+(async () => {
     var entitySession = {};
 
-    let sessionId = Microsoft.Apm.getFocusedSession().sessionId;
+    let allSessions = Microsoft.Apm.getAllSessions();
+    
+    for (let session of allSessions) {
+        // Assuming getSession() can retrieve the session context. Modify as per actual API
+        let context = await session.getContext(); 
+        let params = context.parameters;
 
-    entitySession[sessionId] = {}; // Initialize a nested object for this sessionId
+        let sessionId = session.sessionId;
 
-    // If 'anchor.entityName' exists, set it
-    if (params.hasOwnProperty('anchor.entityName')) {
-        entitySession[sessionId].entityName = params['anchor.entityName'];
-    }
+        entitySession[sessionId] = {}; 
 
-    // If 'anchor.interactionId' exists, set it
-    if (params.hasOwnProperty('anchor.interactionId')) {
-        entitySession[sessionId].interactionId = params['anchor.interactionId'];
+        // If 'anchor.entityName' exists, set it
+        if (params.hasOwnProperty('anchor.entityName')) {
+            entitySession[sessionId].entityName = params['anchor.entityName'];
+        }
+
+        // If 'anchor.interactionId' exists, set it
+        if (params.hasOwnProperty('anchor.interactionId')) {
+            entitySession[sessionId].interactionId = params['anchor.interactionId'];
+        }
     }
 
     // Logging for verification
     console.log(entitySession); 
-});
-
+})();
