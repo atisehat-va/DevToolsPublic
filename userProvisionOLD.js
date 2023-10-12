@@ -224,3 +224,12 @@ function runCSWAutomation() {
     }
 
 //EndTEst
+//Test2
+(async () => {
+    try {
+        const result = await Microsoft.Apm.getFocusedSession().getContext();
+        console.log(result);
+    } catch (error) {
+        console.error(error);
+    }
+})();
