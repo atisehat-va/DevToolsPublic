@@ -263,15 +263,19 @@ function redirectToView() {
 
 redirectToView();
 //test4
-async function createRecordSession(entityName, recordId) {
-    if (!Microsoft || !Microsoft.Apm || !Microsoft.Apm.createSession) {
+function createRecordSession() {
+    // Check if necessary objects/methods are available
+    if (!window.Microsoft || !Microsoft.Apm || typeof Microsoft.Apm.createSession !== 'function') {
         console.error("Required methods are not available.");
         return;
     }
 
-    let parameters = new Map().set("parametersStr", '[["entityName", "' + entityName + '"], ["entityId", "' + recordId + '"]]');
+    // Set parameters for the session
+    let parameters = new Map().set("parametersStr", '[["entityName", "bah_interactions"]]');
+
     try {
-        let newSession = await Microsoft.Apm.createSession({
+        // Create the session
+        Microsoft.Apm.createSession({
             templateName: "mcs_vh_interaction_session_template", 
             sessionContext: parameters,
             isFocused: true
