@@ -136,6 +136,18 @@ function runCSWAutomation() {
         var recordSessionIdMap = new Map();
 
         if (csw) {
+            //Test
+            Microsoft.Apm.getFocusedSession().getContext()
+            .then(result => {
+                let params = result.parameters;
+                console.log(params);
+                
+                // If there's a specific property you're interested in:
+                // let value = params.propertyName;
+                // console.log(value);
+            });
+            //EndTest
+            
             // if chat hide mpi tab
             await csw.getFocusedSession().getContext().then(function (context) {
                 var liveWorkItemId = context.parameters["LiveWorkItemId"] ? context.parameters["LiveWorkItemId"] : "";
