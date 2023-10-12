@@ -130,7 +130,7 @@ function runCSWAutomation() {
     }
 //test
 //test
-  async function runCSWAutomation() {
+ async function runCSWAutomation() {
         debugger;
         var csw = Microsoft.Apm;
         var recordSessionIdMap = new Map();
