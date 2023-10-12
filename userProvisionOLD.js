@@ -225,11 +225,12 @@ function runCSWAutomation() {
 
 //EndTEst
 //Test2
-(async () => {
-    try {
-        const result = await Microsoft.Apm.getFocusedSession().getContext();
-        console.log(result);
-    } catch (error) {
-        console.error(error);
-    }
-})();
+Microsoft.Apm.getFocusedSession().getContext()
+.then(result => {
+    console.log("Inside .then callback:", result);
+    // Simulate a delay inside the .then callback
+    return new Promise(resolve => setTimeout(() => resolve("Delayed result"), 5000));
+})
+.then(delayedResult => {
+    console.log(delayedResult);
+});
