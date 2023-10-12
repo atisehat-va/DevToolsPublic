@@ -225,12 +225,7 @@ function runCSWAutomation() {
 
 //EndTEst
 //Test2
-Microsoft.Apm.getFocusedSession().getContext()
-.then(result => {
-    alert("Promise resolved!");
-    console.log(result);
-})
-.catch(error => {
-    alert("Promise rejected!");
-    console.error(error);
+Microsoft.Apm.getFocusedSession().getContext().then(result => {
+    var context = result;
+    // Do something with the 'context' here
 });
