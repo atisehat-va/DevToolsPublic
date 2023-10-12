@@ -240,48 +240,25 @@ function runCSWAutomation() {
 Microsoft.Apm.getFocusedSession().getContext()
 .then(result => {
     let params = result.parameters;
-    console.log(params);
     
-    // If there's a specific property you're interested in:
-    // let value = params.propertyName;
-    // console.log(value);
+    // Initialize entitySession as an object
+    var entitySession = {};
+
+    let sessionId = Microsoft.Apm.getFocusedSession().sessionId;
+
+    entitySession[sessionId] = {}; // Initialize a nested object for this sessionId
+
+    // If 'anchor.entityName' exists, set it
+    if (params.hasOwnProperty('anchor.entityName')) {
+        entitySession[sessionId].entityName = params['anchor.entityName'];
+    }
+
+    // If 'anchor.interactionId' exists, set it
+    if (params.hasOwnProperty('anchor.interactionId')) {
+        entitySession[sessionId].interactionId = params['anchor.interactionId'];
+    }
+
+    // Logging for verification
+    console.log(entitySession); 
 });
-//Test3
-function redirectToView() {
-    // For testing purposes, let's hard-code a subAreaId value
-    var subAreaId = "subarea_case";  // You can change this value for testing different scenarios
-
-    // Extract the entity name from the subarea ID
-    var entityName = subAreaId.replace('subarea_', '');
-
-    // Construct the URL to the main view of the entity
-    var entityUrl = Xrm.Page.context.getClientUrl() + "/main.aspx?etn=" + entityName + "&pagetype=entitylist";
-
-    // For testing, instead of redirecting, let's log the URL to the console
-    console.log(entityUrl);
-}
-
-redirectToView();
-//test4
-function createRecordSession() {
-    // Check if necessary objects/methods are available
-    if (!window.Microsoft || !Microsoft.Apm || typeof Microsoft.Apm.createSession !== 'function') {
-        console.error("Required methods are not available.");
-        return;
-    }
-
-    // Set parameters for the session
-    let parameters = new Map().set("parametersStr", '[["entityName", "bah_interactions"]]');
-
-    try {
-        // Create the session
-        Microsoft.Apm.createSession({
-            templateName: "mcs_vh_interaction_session_template", 
-            sessionContext: parameters,
-            isFocused: true
-        });
-    } catch (err) {
-        console.error("Error creating session:", err);
-    }
-}
 
