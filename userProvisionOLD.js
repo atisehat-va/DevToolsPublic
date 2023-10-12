@@ -225,12 +225,15 @@ function runCSWAutomation() {
 
 //EndTEst
 //Test2
-Microsoft.Apm.getFocusedSession().getContext()
-.then(result => {
-    console.log("Inside .then callback:", result);
-    // Simulate a delay inside the .then callback
-    return new Promise(resolve => setTimeout(() => resolve("Delayed result"), 5000));
-})
-.then(delayedResult => {
-    console.log(delayedResult);
-});
+const session = Microsoft.Apm.getFocusedSession();
+console.log("Session:", session);
+
+if (session) {
+    session.getContext()
+    .then(context => {
+        console.log("Context:", context);
+    })
+    .catch(error => {
+        console.error("Error fetching context:", error);
+    });
+}
