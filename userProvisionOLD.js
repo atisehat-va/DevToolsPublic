@@ -263,15 +263,21 @@ function redirectToView() {
 
 redirectToView();
 //test4
-async function createEntitySession(entityName) {
-    let parameters = new Map().set("parametersStr", '[["entityName", "' + entityName + '"]]');
-    let newSession = await Microsoft.Apm.createSession({
-        templateName: "your_session_template_for_main_view", 
-        sessionContext: parameters,
-        isFocused: true
-    });
-}
+async function createRecordSession(entityName, recordId) {
+    if (!Microsoft || !Microsoft.Apm || !Microsoft.Apm.createSession) {
+        console.error("Required methods are not available.");
+        return;
+    }
 
-// Example usage:
-createEntitySession("contact");
+    let parameters = new Map().set("parametersStr", '[["entityName", "' + entityName + '"], ["entityId", "' + recordId + '"]]');
+    try {
+        let newSession = await Microsoft.Apm.createSession({
+            templateName: "mcs_vh_interaction_session_template", 
+            sessionContext: parameters,
+            isFocused: true
+        });
+    } catch (err) {
+        console.error("Error creating session:", err);
+    }
+}
 
