@@ -262,4 +262,16 @@ function redirectToView() {
 }
 
 redirectToView();
+//test4
+async function createEntitySession(entityName) {
+    let parameters = new Map().set("parametersStr", '[["entityName", "' + entityName + '"]]');
+    let newSession = await Microsoft.Apm.createSession({
+        templateName: "your_session_template_for_main_view", 
+        sessionContext: parameters,
+        isFocused: true
+    });
+}
+
+// Example usage:
+createEntitySession("contact");
 
