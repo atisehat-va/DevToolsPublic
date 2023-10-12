@@ -246,3 +246,20 @@ Microsoft.Apm.getFocusedSession().getContext()
     // let value = params.propertyName;
     // console.log(value);
 });
+//Test3
+function redirectToView() {
+    // For testing purposes, let's hard-code a subAreaId value
+    var subAreaId = "subarea_case";  // You can change this value for testing different scenarios
+
+    // Extract the entity name from the subarea ID
+    var entityName = subAreaId.replace('subarea_', '');
+
+    // Construct the URL to the main view of the entity
+    var entityUrl = Xrm.Page.context.getClientUrl() + "/main.aspx?etn=" + entityName + "&pagetype=entitylist";
+
+    // For testing, instead of redirecting, let's log the URL to the console
+    console.log(entityUrl);
+}
+
+redirectToView();
+
