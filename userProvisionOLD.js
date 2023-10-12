@@ -134,20 +134,48 @@ function runCSWAutomation() {
         debugger;
         var csw = Microsoft.Apm;
         var recordSessionIdMap = new Map();
+        var testSession = [];
 
         if (csw) {
-            //Test
-            Microsoft.Apm.getFocusedSession().getContext()
-            .then(result => {
-                let params = result.parameters;
-                console.log(params);
-                
-                // If there's a specific property you're interested in:
-                // let value = params.propertyName;
-                // console.log(value);
-            });
-            //EndTest
+            //Test              
             
+            var entitySession = {};
+
+            let allSessions = Microsoft.Apm.getAllSessions();
+
+            for (let session of allSessions) {
+                await csw.getSession(session).getContext().then(function (context) {
+                    let params = context.parameters;
+                    let sessionId = session;
+
+                    // Initialize object
+                    if (!entitySession.hasOwnProperty(sessionId)) {
+                        entitySession[sessionId] = {
+                            entityName: null, 
+                            interactionId: null,
+                            vetId: null
+                        };
+                    }
+                    
+                    if (params.hasOwnProperty('anchor.entityName')) {
+                        entitySession[sessionId].entityName = params['anchor.entityName'];
+                    }
+
+                    
+                    if (params.hasOwnProperty('csw_custom_interactionid')) {
+                        entitySession[sessionId].interactionId = params['csw_custom_interactionid'];
+                    }
+                    
+                    if (params.hasOwnProperty('csw_custom_contactid')) {
+                        entitySession[sessionId].vetId = params['csw_custom_contactid'];
+                    }
+                    
+                    console.log(entitySession);
+                });
+            }
+            
+            //EndTest
+
             // if chat hide mpi tab
             await csw.getFocusedSession().getContext().then(function (context) {
                 var liveWorkItemId = context.parameters["LiveWorkItemId"] ? context.parameters["LiveWorkItemId"] : "";
@@ -234,7 +262,6 @@ function runCSWAutomation() {
             }
         }
     }
-
 //EndTEst
 //Test2
 var entitySession = {};
