@@ -244,9 +244,15 @@ let allSessions = Microsoft.Apm.getAllSessions();
 for (let session of allSessions) {
     Microsoft.Apm.getSession(session).getContext().then(function (context) {
         let params = context.parameters;
-        let sessionId = session;
+        let sessionId = session.sessionId;
 
-        entitySession[sessionId] = {};
+        // Initialize the object for sessionId only if it doesn't exist
+        if (!entitySession.hasOwnProperty(sessionId)) {
+            entitySession[sessionId] = {
+                entityName: null, // Initialize to null
+                interactionId: null // Initialize to null
+            };
+        }
 
         // If 'anchor.entityName' exists, set it
         if (params.hasOwnProperty('anchor.entityName')) {
@@ -259,6 +265,6 @@ for (let session of allSessions) {
         }
 
         // Logging for verification
-        console.log(entitySession); 
+        console.log(entitySession);
     });
 }
