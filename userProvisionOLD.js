@@ -237,19 +237,16 @@ function runCSWAutomation() {
 
 //EndTEst
 //Test2
-(async () => {
-    var entitySession = {};
+var entitySession = {};
 
-    let allSessions = Microsoft.Apm.getAllSessions();
-    
-    for (let session of allSessions) {
-        // Assuming getSession() can retrieve the session context. Modify as per actual API
-        let context = await session.getContext(); 
+let allSessions = Microsoft.Apm.getAllSessions();
+
+for (let session of allSessions) {
+    Microsoft.Apm.getSession(session).getContext().then(function (context) {
         let params = context.parameters;
+        let sessionId = session;
 
-        let sessionId = session.sessionId;
-
-        entitySession[sessionId] = {}; 
+        entitySession[sessionId] = {};
 
         // If 'anchor.entityName' exists, set it
         if (params.hasOwnProperty('anchor.entityName')) {
@@ -260,8 +257,8 @@ function runCSWAutomation() {
         if (params.hasOwnProperty('anchor.interactionId')) {
             entitySession[sessionId].interactionId = params['anchor.interactionId'];
         }
-    }
 
-    // Logging for verification
-    console.log(entitySession); 
-})();
+        // Logging for verification
+        console.log(entitySession); 
+    });
+}
