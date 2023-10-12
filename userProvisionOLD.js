@@ -225,9 +225,12 @@ function runCSWAutomation() {
 
 //EndTEst
 //Test2
-window.globalContext = null;
-Microsoft.Apm.getFocusedSession().getContext().then(result => {
-    window.globalContext = result;
-    console.log("Global context has been set!");
+Microsoft.Apm.getFocusedSession().getContext()
+.then(result => {
+    let params = result.parameters;
+    console.log(params);
+    
+    // If there's a specific property you're interested in:
+    // let value = params.propertyName;
+    // console.log(value);
 });
-console.log(globalContext);
