@@ -225,15 +225,12 @@ function runCSWAutomation() {
 
 //EndTEst
 //Test2
-const session = Microsoft.Apm.getFocusedSession();
-console.log("Session:", session);
-
-if (session) {
-    session.getContext()
-    .then(context => {
-        console.log("Context:", context);
-    })
-    .catch(error => {
-        console.error("Error fetching context:", error);
-    });
-}
+Microsoft.Apm.getFocusedSession().getContext()
+.then(result => {
+    alert("Promise resolved!");
+    console.log(result);
+})
+.catch(error => {
+    alert("Promise rejected!");
+    console.error(error);
+});
