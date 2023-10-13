@@ -345,31 +345,33 @@ function setupSection4FormListeners() {
 
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
-        
+
         let startDate = createDateObject(startDateStr);
         let totalAddedDays = daysToAdd;
-        let holidaysCount = 0;
         let weekendsCount = 0;
-        let addedForCurrentDay = false;
-
+        let holidaysCount = 0;
+        
         while (totalAddedDays > 0) {
-            startDate.setUTCDate(startDate.getUTCDate() + 1);
-            const dateString = startDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
-            addedForCurrentDay = false;
+            let addedForCurrentDay = false;
+            let newDate = new Date(startDate);
+            newDate.setUTCDate(startDate.getUTCDate() + 1); // Add 1 day
 
-            if (listOfHolidays.includes(dateString) && isAddScheduleChecked) {
-                holidaysCount++;
-                addedForCurrentDay = true;
-            } 
-            
-            if ((startDate.getUTCDay() === 6 || startDate.getUTCDay() === 0) && isAddWeekendsChecked) {
+            if (isAddWeekendsChecked && (newDate.getUTCDay() === 6 || newDate.getUTCDay() === 0)) {
                 weekendsCount++;
                 addedForCurrentDay = true;
             }
-
+            
+            const newDateString = newDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
+            if (isAddScheduleChecked && listOfHolidays.includes(newDateString)) {
+                holidaysCount++;
+                addedForCurrentDay = true;
+            }
+            
             if (!addedForCurrentDay) {
                 totalAddedDays--;
             }
+            
+            startDate = newDate;
         }
 
         // Update the display
