@@ -353,15 +353,18 @@ function setupSection4FormListeners() {
         
         while (totalAddedDays < daysToAdd) {
             startDate.setUTCDate(startDate.getUTCDate() + 1); // Add 1 day to the current start date
+            totalAddedDays++;  // We consider this day added
             
             const currentDateString = startDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
-
+            
             if (isAddWeekendsChecked && (startDate.getUTCDay() === 6 || startDate.getUTCDay() === 0)) {
                 weekendsCount++;
-            } else if (isAddScheduleChecked && listOfHolidays.includes(currentDateString)) {
+                totalAddedDays--;  // Decrement as we don't want to count this day
+            }
+            
+            if (isAddScheduleChecked && listOfHolidays.includes(currentDateString)) {
                 holidaysCount++;
-            } else {
-                totalAddedDays++;  // Only count towards added days if it's neither a weekend nor a holiday
+                totalAddedDays--;  // Decrement as we don't want to count this day
             }
         }
 
