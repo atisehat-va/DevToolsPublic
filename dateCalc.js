@@ -348,18 +348,21 @@ function setupSection4FormListeners() {
         let finalDate = new Date(startDate);
         finalDate.setUTCDate(startDate.getUTCDate() + totalAddedDays);
 
-        let weekendsCount = 0, holidaysCount = 0;
-        
+        let extraDays = 0;
+
         do {
-            weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
-            holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
-            if(weekendsCount || holidaysCount) {
-                totalAddedDays += weekendsCount + holidaysCount;
+            extraDays = 0;
+            let weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
+            let holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
+            extraDays = weekendsCount + holidaysCount;
+
+            if (extraDays > 0) {
+                totalAddedDays += extraDays;
                 finalDate = new Date(startDate);
                 finalDate.setUTCDate(startDate.getUTCDate() + totalAddedDays);
             }
-        } while (weekendsCount || holidaysCount);
-        
+        } while (extraDays > 0);
+
         // Update the display
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
