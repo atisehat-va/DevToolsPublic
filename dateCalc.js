@@ -337,7 +337,7 @@ function setupSection4FormListeners() {
     section4SubmitBtn.addEventListener('click', function() {
         const startDateStr = document.getElementById('pickDate').value;
         const daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10);
-        
+
         if (!startDateStr || isNaN(daysToAdd)) {
             showCustomAlert("Please provide both Start Date and Days to Add.");
             return;
@@ -350,16 +350,24 @@ function setupSection4FormListeners() {
         let totalAddedDays = daysToAdd;
         let holidaysCount = 0;
         let weekendsCount = 0;
+        let addedForCurrentDay = false;
 
         while (totalAddedDays > 0) {
             startDate.setUTCDate(startDate.getUTCDate() + 1);
             const dateString = startDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
-            
+            addedForCurrentDay = false;
+
             if (listOfHolidays.includes(dateString) && isAddScheduleChecked) {
                 holidaysCount++;
-            } else if ((startDate.getUTCDay() === 6 || startDate.getUTCDay() === 0) && isAddWeekendsChecked) {
+                addedForCurrentDay = true;
+            } 
+            
+            if ((startDate.getUTCDay() === 6 || startDate.getUTCDay() === 0) && isAddWeekendsChecked) {
                 weekendsCount++;
-            } else {
+                addedForCurrentDay = true;
+            }
+
+            if (!addedForCurrentDay) {
                 totalAddedDays--;
             }
         }
