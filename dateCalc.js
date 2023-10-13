@@ -348,31 +348,20 @@ function setupSection4FormListeners() {
 
         let startDate = createDateObject(startDateStr);
         let finalDate = new Date(startDate);
-        finalDate.setUTCDate(startDate.getUTCDate() + daysToAdd);
-
         let totalAddedDays = daysToAdd;
         let weekendsCount = 0;
         let holidaysCount = 0;
-        
-        while (true) {
+
+        while (totalAddedDays > 0) {
+            finalDate.setUTCDate(finalDate.getUTCDate() + 1);
             const finalDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
-            let addedDay = false;
 
             if ((finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) && isAddWeekendsChecked) {
-                totalAddedDays++;
                 weekendsCount++;
-                addedDay = true;
             } else if (listOfHolidays.includes(finalDateString) && isAddScheduleChecked) {
-                totalAddedDays++;
                 holidaysCount++;
-                addedDay = true;
-            }
-
-            if (addedDay) {
-                finalDate = new Date(startDate);
-                finalDate.setUTCDate(startDate.getUTCDate() + totalAddedDays);
             } else {
-                break;
+                totalAddedDays--;
             }
         }
 
