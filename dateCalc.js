@@ -286,49 +286,39 @@ function setupDateFormListeners() {
         if (!calcDateDays.startDate || !calcDateDays.endDate) {
             showCustomAlert(`Please provide both Start Date and End Date.`);            
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
-            return; // Exit the function
+            return;
         }
         if (calcDateDays.endDate < calcDateDays.startDate) {
             showCustomAlert("End Date cannot be less than Start Date.");
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
-            return; // Exit the function
+            return;
         }
 
         const daysDifference = calculateDateDifference(calcDateDays.startDate, calcDateDays.endDate);
 
-        // Check if 'Exclude Selected Schedule Days' checkbox is checked
         const isExcludeScheduleChecked = document.getElementById('excludeSchedule').checked;
         const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calcDateDays.startDate, calcDateDays.endDate) : 0;
 
-        // Check if 'Exclude Weekends' checkbox is checked
         const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
         const weekendsCount = isExcludeWeekendsChecked ? countWeekendsBetweenDates(calcDateDays.startDate, calcDateDays.endDate) : 0;
 
-        // Get user-specified excluded days
-        const additionalExcludedDays = document.getElementById('daysCount').value || 0;
+        let remainingDays = daysDifference - holidaysCount - weekendsCount;
 
-        // Update the displayed days difference
-        document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Day(s)`;
+        const additionalExcludedDays = Math.min(remainingDays, document.getElementById('daysCount').value || 0);
 
-        // Update the displayed holidays count
-        document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `${holidaysCount} Day(s)`;
-
-        // Update the displayed weekends count
+        document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Day(s)`;        
+        document.querySelector(".calculationRow:nth-child(2) span:nth-child(2)").textContent = `${holidaysCount} Day(s)`;        
         document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `${weekendsCount} Day(s)`;
-
-        // Update the displayed additional excluded days
         document.querySelector(".calculationRow:nth-child(4) span:nth-child(2)").textContent = `${additionalExcludedDays} Day(s)`;
 
-        // Calculate total number of days
-        const totalDays = daysDifference - holidaysCount - weekendsCount - additionalExcludedDays;
-
-        // Update the total number of days
+        const totalDays = remainingDays - additionalExcludedDays;
         document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
             totalDays < 0 ? `${totalDays} Day(s)` : `${totalDays} Day(s)`;
 
         console.log(calcDateDays);
     });
 }
+
 
 //FinalDateSection 
 function setupSection4FormListeners() {
