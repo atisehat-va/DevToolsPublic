@@ -337,7 +337,7 @@ function setupSection4FormListeners() {
     section4SubmitBtn.addEventListener('click', function() {
         const startDateStr = document.getElementById('pickDate').value;
         const daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10);
-
+        
         if (!startDateStr || isNaN(daysToAdd)) {
             showCustomAlert("Please provide both Start Date and Days to Add.");
             return;
@@ -345,21 +345,20 @@ function setupSection4FormListeners() {
 
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
-
+        
         let startDate = createDateObject(startDateStr);
-        let finalDate = new Date(startDate);
         let totalAddedDays = daysToAdd;
-        let weekendsCount = 0;
         let holidaysCount = 0;
+        let weekendsCount = 0;
 
         while (totalAddedDays > 0) {
-            finalDate.setUTCDate(finalDate.getUTCDate() + 1);
-            const finalDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
-
-            if ((finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) && isAddWeekendsChecked) {
-                weekendsCount++;
-            } else if (listOfHolidays.includes(finalDateString) && isAddScheduleChecked) {
+            startDate.setUTCDate(startDate.getUTCDate() + 1);
+            const dateString = startDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
+            
+            if (listOfHolidays.includes(dateString) && isAddScheduleChecked) {
                 holidaysCount++;
+            } else if ((startDate.getUTCDay() === 6 || startDate.getUTCDay() === 0) && isAddWeekendsChecked) {
+                weekendsCount++;
             } else {
                 totalAddedDays--;
             }
@@ -369,7 +368,7 @@ function setupSection4FormListeners() {
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAdd} Day(s)`;
-        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${finalDate.toISOString().split('T')[0]}`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${startDate.toISOString().split('T')[0]}`;
     });
 }
 
