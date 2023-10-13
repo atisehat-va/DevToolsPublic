@@ -333,35 +333,48 @@ function setupDateFormListeners() {
 //FinalDateSection 
 function setupSection4FormListeners() {
     const section4SubmitBtn = document.getElementById('section4SubmitBtn');
+
     section4SubmitBtn.addEventListener('click', function() {
         const startDateStr = document.getElementById('pickDate').value;
         const daysToAdd = parseInt(document.getElementById('addDaysCount').value, 10);
+
         if (!startDateStr || isNaN(daysToAdd)) {
             showCustomAlert("Please provide both Start Date and Days to Add.");
             return;
         }
+
         const isAddWeekendsChecked = document.getElementById('addWeekends').checked;
         const isAddScheduleChecked = document.getElementById('addSchedule').checked;
+
         let startDate = createDateObject(startDateStr);
+        let finalDate = new Date(startDate);
+        finalDate.setUTCDate(startDate.getUTCDate() + daysToAdd);
 
         let totalAddedDays = daysToAdd;
-        let finalDate = new Date(startDate);
-        finalDate.setUTCDate(startDate.getUTCDate() + totalAddedDays);
+        let weekendsCount = 0;
+        let holidaysCount = 0;
+        
+        while (true) {
+            const finalDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
+            let addedDay = false;
 
-        let extraDays = 0;
+            if ((finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0) && isAddWeekendsChecked) {
+                totalAddedDays++;
+                weekendsCount++;
+                addedDay = true;
+            } else if (listOfHolidays.includes(finalDateString) && isAddScheduleChecked) {
+                totalAddedDays++;
+                holidaysCount++;
+                addedDay = true;
+            }
 
-        do {
-            extraDays = 0;
-            let weekendsCount = isAddWeekendsChecked ? countWeekendsBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
-            let holidaysCount = isAddScheduleChecked ? getHolidaysBetweenDates(startDate.toISOString().split('T')[0], finalDate.toISOString().split('T')[0]) : 0;
-            extraDays = weekendsCount + holidaysCount;
-
-            if (extraDays > 0) {
-                totalAddedDays += extraDays;
+            if (addedDay) {
                 finalDate = new Date(startDate);
                 finalDate.setUTCDate(startDate.getUTCDate() + totalAddedDays);
+            } else {
+                break;
             }
-        } while (extraDays > 0);
+        }
 
         // Update the display
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
