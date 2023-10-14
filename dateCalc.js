@@ -303,7 +303,7 @@ function setupDateFormListeners() {
 
         const daysDifference = calculateDateDifference(calcDateDays.startDate, calcDateDays.endDate);       
         
-        const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
+        const isExcludeScheduleChecked = document.getElementById('excludeSchedule').checked;
         const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calcDateDays.startDate, calcDateDays.endDate, isExcludeWeekendsChecked) : 0;
         
         const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
