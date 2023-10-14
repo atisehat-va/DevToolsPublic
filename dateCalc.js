@@ -39,9 +39,7 @@ async function fetchAllHolidaySchedules() {
 async function setupHolidayScheduleDropdown() {
     const schedules = await fetchAllHolidaySchedules();
     const dropdown = document.getElementById('holidayScheduleDropdown');
-    let defaultScheduleName = '';
-
-    // Map schedules to options and find the default schedule
+    let defaultScheduleName = '';    
     const options = schedules.map(schedule => {
         const option = document.createElement('option');
         option.value = schedule.name;
@@ -101,12 +99,8 @@ function formatHolidays(entities) {
 
 async function displayHolidays(scheduleName) {
     try {
-        const holidays = await getHolidaysForSchedule(scheduleName);
-
-        // listOfHolidays with the fetched holidays
-        listOfHolidays = holidays.map(holiday => holiday.date.toISOString());      
-
-        // Sort holidays by date
+        const holidays = await getHolidaysForSchedule(scheduleName);       
+        listOfHolidays = holidays.map(holiday => holiday.date.toISOString());              
         holidays.sort((a, b) => a.date - b.date);
 
         const holidaysList = document.getElementById('holidaysList');
@@ -124,7 +118,6 @@ async function displayHolidays(scheduleName) {
     }
 }
 
-// Construct the modal content
 function createModalContent() {
     const container = document.createElement('div');
     container.className = 'commonPopup';    
@@ -338,31 +331,27 @@ function setupSection4FormListeners() {
         let holidaysCount = 0;
         
         while (totalAddedDays < daysToAdd) {
-            finalDate.setUTCDate(finalDate.getUTCDate() + 1); // Move to the next day
+            finalDate.setUTCDate(finalDate.getUTCDate() + 1); // Next day
             const currentDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
             
             if (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0)) {
                 weekendsCount++;
-                continue; // Skip the weekend and go to the next iteration
+                continue; 
             }
-
             if (isAddScheduleChecked && listOfHolidays.includes(currentDateString)) {
                 holidaysCount++;
-                continue; // Skip the holiday and go to the next iteration
-            }
-            
-            totalAddedDays++; // Count this day since it's neither a weekend nor a holiday
+                continue; 
+            }            
+            totalAddedDays++; 
         }
         
-        // Update the display
+        const formattedFinalDate = `${finalDate.getUTCMonth() + 1}-${finalDate.getUTCDate()}-${finalDate.getUTCFullYear()}`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(1) span:nth-child(2)').textContent = `${holidaysCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(2) span:nth-child(2)').textContent = `${weekendsCount} Day(s)`;
         document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(3) span:nth-child(2)').textContent = `${daysToAdd} Day(s)`;
-        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = `${finalDate.toISOString().split('T')[0]}`;
+        document.querySelector('.addCalculationsWrapper .calculationRow:nth-child(5) span:nth-child(2)').textContent = formattedFinalDate;
     });
 }
-
-//EndDinalDate
 
 function attachModalEventHandlers(container) {
     const backButton = container.querySelector('#commonback-button');
@@ -428,7 +417,7 @@ function initCalendar(holidays) {
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
     
-    // Convert dates in holidays array to string representation
+    // Convert dates in holidays to string.
     const holidayDates = new Set(holidays.map(h => (h.date instanceof Date ? h.date.toISOString() : h.date).split('T')[0]));
 
     function displayCalendar(holidays, month, year) {
@@ -440,17 +429,14 @@ function initCalendar(holidays) {
         const todayMonth = today.getMonth();
         const todayYear = today.getFullYear();
     
-        let calendarHTML = '';
-    
-        // Empty days before the start of the month
+        let calendarHTML = '';    
+        
         for (let i = 0; i < firstDayOfMonth; i++) {
             calendarHTML += '<div></div>';
-        }
-    
-        // Populate the days of the month
+        }    
+        
         for (let i = 1; i <= daysInMonth; i++) {
-            let currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`; // Outputs 'YYYY-MM-DD'
-
+            let currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`; 
             let dateClass = '';
             let titleAttr = '';
             
@@ -462,10 +448,9 @@ function initCalendar(holidays) {
                 const holidayName = holidayObject ? holidayObject.name : "Unknown Holiday";
                 dateClass = 'holidayDate';
                 titleAttr = `title="${holidayName}"`;
-            }
- 
+            } 
             if (i === todayDate && month === todayMonth && year === todayYear) {
-                dateClass += ' todayDate'; // Adding a class for today's date
+                dateClass += ' todayDate'; 
             }    
             calendarHTML += `<div class="${dateClass}" ${titleAttr}>${i}</div>`;
         }
