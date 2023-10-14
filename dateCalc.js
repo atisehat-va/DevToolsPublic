@@ -1,17 +1,8 @@
 let listOfHolidays = [];
-//new 10/13/23
-let weekendsCount = 0;
-let holidaysCount = 0;
-//end
 
 let calcDateDays = {
     startDate: null,    
     endDate: null
-}; 
-
-let calcFutureDate = {
-    pickDate: null,    
-    finalDate: null
 }; 
 
 const typeNames = {
@@ -290,30 +281,21 @@ function setupDateFormListeners() {
         if (!calcDateDays.startDate || !calcDateDays.endDate) {
             showCustomAlert(`Please provide both Start Date and End Date.`);            
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
-            return; // Exit the function
+            return; 
         }
         if (calcDateDays.endDate < calcDateDays.startDate) {
             showCustomAlert("End Date cannot be less than Start Date.");
             document.querySelectorAll('.calculationRow span:nth-child(2)').forEach(span => span.textContent = "-- ");
-            return; // Exit the function
+            return; 
         }
 
-        const daysDifference = calculateDateDifference(calcDateDays.startDate, calcDateDays.endDate);
-
-        // Check if 'Exclude Weekends' checkbox is checked
-        const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
-
-        // Check if 'Exclude Selected Schedule Days' checkbox is checked
+        const daysDifference = calculateDateDifference(calcDateDays.startDate, calcDateDays.endDate);        
+        const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;        
         const isExcludeScheduleChecked = document.getElementById('excludeSchedule').checked;
-        const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calcDateDays.startDate, calcDateDays.endDate, isExcludeWeekendsChecked) : 0;
-
-        // If Exclude Weekends is checked, count them
+        const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calcDateDays.startDate, calcDateDays.endDate, isExcludeWeekendsChecked) : 0;        
         const weekendsCount = isExcludeWeekendsChecked ? countWeekendsBetweenDates(calcDateDays.startDate, calcDateDays.endDate) : 0;
-
-        // Calculate remaining days
-        let remainingDays = daysDifference - holidaysCount - weekendsCount;
-
-        // Get user-specified excluded days, ensuring it doesn't exceed remaining days
+        
+        let remainingDays = daysDifference - holidaysCount - weekendsCount;        
         const additionalExcludedDays = Math.min(remainingDays, document.getElementById('daysCount').value || 0);
 
         document.querySelector(".calculationRow span:nth-child(2)").textContent = `${daysDifference} Day(s)`;        
@@ -321,21 +303,19 @@ function setupDateFormListeners() {
         document.querySelector(".calculationRow:nth-child(3) span:nth-child(2)").textContent = `${weekendsCount} Day(s)`;
         document.querySelector(".calculationRow:nth-child(4) span:nth-child(2)").textContent = `${additionalExcludedDays} Day(s)`;
 
-        // Update total days
+        // Set total days
         const totalDays = remainingDays - additionalExcludedDays;
         document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
             totalDays < 0 ? `${totalDays} Day(s)` : `${totalDays} Day(s)`;
         
-        // Dynamically show the note
+        // Show note
         const noteElement = document.querySelector('.notes');
         if (noteElement) {
             noteElement.style.display = 'block';
-        }
-        console.log(calcDateDays);
+        }        
     });
 }
 
-//FinalDateSection 
 function setupSection4FormListeners() {
     const section4SubmitBtn = document.getElementById('section4SubmitBtn');
 
@@ -523,11 +503,6 @@ function initCalendar(holidays) {
 }
 
 function createDateObject(dateString) {
-    if (typeof dateString !== 'string') {
-        console.warn("createDateObject() called with non-string value:", dateString);
-        return null; // or return new Date(); if you want a default date
-    }
-
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
 }
@@ -557,7 +532,6 @@ function getHolidaysBetweenDates(startDate, endDate, excludeWeekends = false) {
                 count++;
             }
         }
-
         return count;
     }, 0);
 }
@@ -575,7 +549,6 @@ function countWeekendsBetweenDates(startDate, endDate) {
     }
     return count;
 }
-//EndSection3DateCalculation
 
 function appendStylesToDocument(styles) {
     const styleSheet = document.createElement("style");
