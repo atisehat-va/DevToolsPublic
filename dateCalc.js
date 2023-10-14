@@ -191,19 +191,19 @@ function createModalContent() {
                 </div>                          
                 <div class="calculationsWrapper">
                     <div class="calculationRow">
-                        <span>Number of Days from Start Date to End Date:</span>
+                        <span>Days from Start Date to End Date:</span>
                         <span>--  </span>
                     </div>
                     <div class="calculationRow">
-                        <span>Exclude Schedule Days:</span>
+                        <span>Excluded Schedule Days:</span>
                         <span>--  </span>
                     </div>
                     <div class="calculationRow">
-                        <span>Exclude Weekends:</span>
+                        <span>Excluded Weekends:</span>
                         <span>--  </span>
                     </div>
                     <div class="calculationRow">
-                        <span>Exclude Additional Days:</span>
+                        <span>Excluded Additional Days:</span>
                         <span>--  </span>
                     </div>                   
                     <hr class="separator">
@@ -226,11 +226,11 @@ function createModalContent() {
                         <h4>Settings:</h4>                    
                         <div class="checkboxWrapper">
                             <input type="checkbox" id="addSchedule" name="addOptions" value="addSchedule">
-                            <label for="addSchedule">Add Selected Schedule Days</label>
+                            <label for="addSchedule">Exclude Selected Schedule Days</label>
                         </div>                    
                         <div class="checkboxWrapper">
                             <input type="checkbox" id="addWeekends" name="addOptions" value="addWeekends">
-                            <label for="addWeekends">Add Weekends</label>
+                            <label for="addWeekends">Exclude Weekends</label>
                         </div>                                            
                     </div>                
                     <div class="dateSection">
@@ -246,15 +246,15 @@ function createModalContent() {
                     </div>                          
                     <div class="addCalculationsWrapper">                        
                         <div class="calculationRow">
-                            <span>Added Schedule Days:</span>
+                            <span>Excluded Schedule Days:</span>
                             <span>--  </span>
                         </div>
                         <div class="calculationRow">
-                            <span>Added Weekends:</span>
+                            <span>Excluded Weekends:</span>
                             <span>--  </span>
                         </div>
                         <div class="calculationRow">
-                            <span>Added Days:</span>
+                            <span>Excluded Days:</span>
                             <span>--  </span>
                         </div>                   
                         <hr class="addDateSeparator">
