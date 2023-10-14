@@ -220,6 +220,13 @@ function createModalContent() {
                         <span><strong>Total Days:</strong></span>
                         <span><strong>--  </strong></span>
                     </div>
+                    <div class="notes">
+                        <strong>Note:</strong>
+                        <ul>
+                            <li>Calculation will count the End Date as a full date (1 Day).</li>
+                            <li>Schedule date is excluded if "Not in Weekends".</li>
+                        </ul>
+                    </div>
                 </div>                
             </div>
             <div class="section3-submitBtn">
@@ -314,6 +321,12 @@ function setupDateFormListeners() {
         const totalDays = remainingDays - additionalExcludedDays;
         document.querySelector(".calculationRow:nth-child(6) span:nth-child(2)").textContent = 
             totalDays < 0 ? `${totalDays} Day(s)` : `${totalDays} Day(s)`;
+
+        // Dynamically show the note
+        const noteElement = document.querySelector('.notes');
+        if (noteElement) {
+            noteElement.style.display = 'block';
+        }
 
         console.log(calcDateDays);
     });
