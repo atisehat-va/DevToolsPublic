@@ -220,7 +220,7 @@ function createModalContent() {
                         <span><strong>Total Days:</strong></span>
                         <span><strong>--  </strong></span>
                     </div>
-                    <div style="display: none;">
+                    <div class="notes">
                         <strong>Note:</strong>
                         <ul>
                             <li>Calculation will count the End Date as a full date (1 Day).</li>
@@ -428,7 +428,8 @@ const styles = `
     .section3-submitBtn { margin-top: 15px; text-align: center; }
     #section3SubmitBtn { padding: 8px; font-size: 15px; width: 150px; background-color: #102e55; color: white; cursor: pointer; border-radius: 20px; transition: background-color 0.3s; }
     #section3SubmitBtn:hover { background-color: #103e89; }
-    .separator { border-top: 2px solid black; margin: 10px 0; }   
+    .separator { border-top: 2px solid black; margin: 10px 0; } 
+    .notes { display: none; }
 
     /* Right Section */ 
     .addSettingsWrapper { border: 1px solid #d4d4d4; padding: 11px; border-radius: 5px; margin-bottom: 10px; margin-top: 10px; background-color: #f5f5f5; }
