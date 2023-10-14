@@ -220,7 +220,7 @@ function createModalContent() {
                         <span><strong>Total Days:</strong></span>
                         <span><strong>--  </strong></span>
                     </div>
-                    <div class="notes">
+                    <div style="display: none;">
                         <strong>Note:</strong>
                         <ul>
                             <li>Calculation will count the End Date as a full date (1 Day).</li>
