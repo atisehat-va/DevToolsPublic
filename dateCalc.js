@@ -301,10 +301,11 @@ function setupDateFormListeners() {
             return;
         }
 
-        const daysDifference = calculateDateDifference(calcDateDays.startDate, calcDateDays.endDate);
+        const daysDifference = calculateDateDifference(calcDateDays.startDate, calcDateDays.endDate);       
+        
+        const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
+        const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calcDateDays.startDate, calcDateDays.endDate, isExcludeWeekendsChecked) : 0;
 
-        const isExcludeScheduleChecked = document.getElementById('excludeSchedule').checked;
-        const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calcDateDays.startDate, calcDateDays.endDate) : 0;
 
         const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
         const weekendsCount = isExcludeWeekendsChecked ? countWeekendsBetweenDates(calcDateDays.startDate, calcDateDays.endDate) : 0;
@@ -538,15 +539,22 @@ function calculateDateDifference(startDate, endDate) {
     return Math.round(diffInDays); 
 }
 
-function getHolidaysBetweenDates(startDate, endDate) {
+function getHolidaysBetweenDates(startDate, endDate, excludeWeekends) {
     const start = createDateObject(startDate);
     const end = createDateObject(endDate);
 
     return listOfHolidays.reduce((count, holidayDateStr) => {
         const holiday = new Date(holidayDateStr);
         const dayOfWeek = holiday.getUTCDay();
-        if (holiday >= start && holiday <= end && dayOfWeek !== 6 && dayOfWeek !== 0) { // 6 is Saturday, 0 is Sunday in UTC
-            count++;
+        
+        if (holiday >= start && holiday <= end) {
+            if (excludeWeekends) {
+                if (dayOfWeek !== 6 && dayOfWeek !== 0) {
+                    count++;
+                }
+            } else {
+                count++;
+            }
         }
         return count;
     }, 0);
