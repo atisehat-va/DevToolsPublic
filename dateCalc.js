@@ -305,8 +305,7 @@ function setupDateFormListeners() {
         
         const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
         const holidaysCount = isExcludeScheduleChecked ? getHolidaysBetweenDates(calcDateDays.startDate, calcDateDays.endDate, isExcludeWeekendsChecked) : 0;
-
-
+        
         const isExcludeWeekendsChecked = document.getElementById('excludeWeekends').checked;
         const weekendsCount = isExcludeWeekendsChecked ? countWeekendsBetweenDates(calcDateDays.startDate, calcDateDays.endDate) : 0;
 
