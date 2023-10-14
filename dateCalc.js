@@ -128,13 +128,13 @@ function createModalContent() {
          <div class="securityPopup-row">
             <div class="section1-row1" id="section1">
                 <div class="headerWrapper">
-                    <h3 style="margin-bottom: 20px;">System Schedule(s):</h3>                    
+                    <h3 style="margin-bottom: 12px;">System Schedule(s):</h3>                    
                     <select id="holidayScheduleDropdown"></select> <!-- Directly embedded dropdown -->
                 </div>
                 <div class="holidaysList" id="holidaysList"></div>     			      
             </div>
             <div class="section1-row1" id="section2">
-                <h3 style="margin-bottom: 20px;">Calendar:</h3>
+                <h3 style="margin-bottom: 12px;">Calendar:</h3>
                 <div class="calendar" id="calendar">
                     <div class="calendarHeader" id="calendarHeader">
                         <button id="prevMonth">&lt;</button>
