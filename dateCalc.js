@@ -226,11 +226,8 @@ function createModalContent() {
                 <button id="section3SubmitBtn">Submit</button>
             </div>
             <div class="notes">
-                <strong>Note:</strong>
-                <ul>
-                    <li>Calculation will count the End Date as a full date (1 Day).</li>
-                    <li>Schedule date is excluded if "Not in Weekends".</li>
-                </ul>
+                <strong>Note:</strong>                
+                <span>Calculation will count the End Date as a full date (1 Day).</span>                          
             </div>
             </div>            
              <div class="commonSection section1-row2" id="section4">                                 
