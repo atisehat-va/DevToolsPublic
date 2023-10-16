@@ -84,11 +84,11 @@ function openPopup() {
                       <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>		      
 		    </div>
 		    <div class="dropdown">
-		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
-		      <div id="dropdown-content" class="dropdown-content">		        
+		      <button onclick="toggleDropdownMenu('dropdown-content1');">Update Security</button>
+		      <div id="dropdown-content1" class="dropdown-content">		        
 			${userProvisionButton}
 		         <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
-		    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
+		         <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
 		      </div>
 		    </div>
 		  </div>		  
@@ -105,12 +105,19 @@ function openPopup() {
 		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
 		  </div>
     		  <div class="button-row">
-		    <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
+		    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>
 		    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
 		  </div>
     		  <div class="button-row">		    
       		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
-		    <button onclick="closePopup(); openUrl('userProvision');">User Provision Tool</button>
+		    <div class="dropdown">
+		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
+		      <div id="dropdown-content" class="dropdown-content">		        
+			${userProvisionButton}
+		         <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
+		         <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
+		      </div>
+		    </div>
 		  </div>
 		    <button onclick="closePopup();" class="close-btn">Close</button>
 		</div>
