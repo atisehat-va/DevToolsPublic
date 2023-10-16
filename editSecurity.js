@@ -1,4 +1,4 @@
-function securityUpdate2() {        	
+function editSecurity() {        	
 	let businessUnits = null;
 	let selectedUserId = null;
 	let selectedUserFullName = null;	
