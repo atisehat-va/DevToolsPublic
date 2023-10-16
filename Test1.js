@@ -30,7 +30,6 @@ loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Name
 loadScript('fieldsControl.js', () => console.log('Fields Control loaded!'));
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
-loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 loadScript('copySecurity1.js', () => console.log('Security loaded!'));
 loadScript('assignUserSecurity.js', () => console.log('Security loaded!')); //Assign Security
 loadScript('security1.js', () => console.log('Security loaded!'));
