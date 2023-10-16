@@ -84,29 +84,25 @@ function openPopup() {
 		    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Show Entity Info</button>
 		  </div>	  		  
 		  <div class="button-row">
-		    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Show Entity Info</button>
+		    <button onclick="showAllTabsAndSections();">Show Hidden Items</button>
 		    <button onclick="renameTabsSectionsFields();">Show Logical Names</button>
 		  </div>
-		  <div class="button-row">
-		    <button onclick="showAllTabsAndSections();">Show Hidden Items</button>
+		  <div class="button-row">		    
 		    <button onclick="unlockAllFields();">Unlock All Fields</button>
-		  </div>
-		  <div class="button-row">
-		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
-		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
-		  </div>
+      		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
+		  </div>		  
     		  <div class="button-row">
 		    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>
 		    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
-		  </div>
+		  </div>		  
     		  <div class="button-row">		    
-      		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
+      		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
 		    <div class="dropdown">
-		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
-		      <div id="dropdown-content" class="dropdown-content">		        
-			${userProvisionButton}
-		         <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
-		         <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
+		      <button onclick="toggleDropdownMenu('dropdown-content');">Extra</button>
+		      <div id="dropdown-content" class="dropdown-content">
+		         <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
+	   		 <button onclick="closePopup(); dateCalc();">Date Calc</button>
+			${userProvisionButton}	        
 		      </div>
 		    </div>
 		  </div>
