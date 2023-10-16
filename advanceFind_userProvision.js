@@ -25,7 +25,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     makePopupMovable(newContainer);
 }
 
-function openUrl(pageType) { debugger;
+function openUrl(pageType) { 
     const clientUrl = Xrm.Page.context.getClientUrl();
     if (pageType === "advanceFind") {       
         const timestamp = new Date().getTime();
@@ -35,7 +35,7 @@ function openUrl(pageType) { debugger;
         const windowOptions = "height=650,width=950,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
         window.open(advancedFindUrl, windowName, windowOptions);        
     } else if (pageType === "userProvision") {
-        const entityName = "vhacrm_userprovision1";
+        const entityName = "vhacrm_userprovision";
         const formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
          
         // Check if the entity exists
