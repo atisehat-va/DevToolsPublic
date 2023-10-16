@@ -1,7 +1,5 @@
 async function openRestBuilder(orgUrl) {
   closeIframe();
-  var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm#';
-  var restBuilderUrl = orgUrl + restBuilderPath;
   var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
 
   // Query metadata to check if the web resource exists
@@ -10,7 +8,10 @@ async function openRestBuilder(orgUrl) {
     var results = await Xrm.WebApi.retrieveMultipleRecords("webresource", query);
     
     if (results.entities.length > 0) {
-      // If the web resource is found, open it
+      // If the web resource is found, construct the URL using the 'name' field
+      var restBuilderPath = `/WebResources/${results.entities[0].name}#`;
+      var restBuilderUrl = orgUrl + restBuilderPath;
+
       window.open(restBuilderUrl, "REST Builder", windowOptions);
     } else {
       alert("This tool isn't available...");
