@@ -111,7 +111,7 @@ function openPopup() {
 		      <button onclick="toggleDropdownMenu('dropdown-content');">Extra</button>
 		      <div id="dropdown-content" class="dropdown-content">		        
 		   	${userProvisionButton}
-		      	<button onclick="closePopup(); dateCalc();">Date Calc</button>		    	 	                		        
+		      	<button onclick="closePopup(); dateCalc();">Date Calc</button>    	 	                		        
 		      </div>
 		    </div>
 	 	   
