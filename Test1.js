@@ -23,7 +23,7 @@ function loadScript(src, callback) {
   document.head.appendChild(script);
 }
 
-// Load scripts
+// Load scripts 
 loadScript('common.js', () => console.log('commonJS loaded!')); 
 loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
 loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
