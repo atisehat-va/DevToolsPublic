@@ -100,7 +100,7 @@ function openPopup() {
 		    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
 		  </div>
     		  <div class="button-row">
-		    ${userProvisionButton}``
+		    ${userProvisionButton}
 		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
 		  </div>
     		  <div class="button-row">		    
