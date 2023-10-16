@@ -98,7 +98,11 @@ function openPopup() {
     		  <div class="button-row">
 		    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>
 		    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
-		  </div>		  
+		  </div>
+    		  <div class="button-row">
+		    ${userProvisionButton}``
+		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
+		  </div>
     		  <div class="button-row">		    
       		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
 		    <div class="dropdown">
