@@ -57,12 +57,12 @@ function openUrl(pageType) {
         req.send();
   }
 }
-//RestBuilder
+
 async function openRestBuilder(orgUrl) {  
   var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
   
   try {
-    var query = "?$select=displayname,name&$filter=displayname eq 'Xrm.RESTBuilder1.htm'";
+    var query = "?$select=displayname,name&$filter=displayname eq 'Xrm.RESTBuilder.htm'";
     var results = await Xrm.WebApi.retrieveMultipleRecords("webresource", query);
     
     if (results.entities.length > 0) {
