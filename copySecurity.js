@@ -1,5 +1,4 @@
-function securityUpdate() {
-	debugger;
+function copySecurity() {	
 	let selectedUserId2 = null; 
 	let selectedUserName2 = '';
 	let selectedUserId = null;
