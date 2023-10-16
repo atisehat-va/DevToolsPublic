@@ -30,9 +30,9 @@ loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Name
 loadScript('fieldsControl.js', () => console.log('Fields Control loaded!'));
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
 loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
-loadScript('copySecurity1.js', () => console.log('Security loaded!'));
-loadScript('assignUserSecurity.js', () => console.log('Security loaded!')); //Assign Security
-loadScript('security1.js', () => console.log('Security loaded!'));
+loadScript('copySecurity.js', () => console.log('Security loaded!'));
+loadScript('editSecurity.js', () => console.log('Security loaded!')); //Assign Security
+loadScript('commonSecurity.js', () => console.log('Security loaded!'));
 loadScript('dateCalc.js', () => console.log('Date Calc loaded!'));
 
 function openPopup() {
@@ -86,8 +86,8 @@ function openPopup() {
 	    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
 	  </div>   	 
 	  <div class="button-row">
-	    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>
-	    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
+	    <button onclick="closePopup(); editSecurity();">Assign User Security</button>
+	    <button onclick="closePopup(); copySecurity();">Copy User Security</button>
 	  </div>    		  
 	  <div class="button-row">		    
 	    <button onclick="closePopup(); dateCalc();">Date Calc</button>
