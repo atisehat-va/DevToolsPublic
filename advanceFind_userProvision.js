@@ -55,6 +55,6 @@ function openUrl(pageType) { debugger;
           }
         };
         req.send();
-      }
-    }
+  }
 }
+
