@@ -16,24 +16,35 @@ function loadCSS(href) {
 // Load CSS
 loadCSS('styles.css');
 
-function loadScript(src, callback) {
-  const script = document.createElement('script');
-  script.src = baseUrl + src;
-  script.onload = callback;
-  document.head.appendChild(script);
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => resolve();
+    script.onerror = (error) => reject(new Error(`Script load error for ${src}: ${error}`));
+    document.head.append(script);
+  });
 }
 
 // Load scripts 
-loadScript('common.js', () => console.log('commonJS loaded!')); 
-loadScript('aFuPrB.js', () => console.log('Advanced find & User Provision loaded!'));
-loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
-loadScript('fieldsControl.js', () => console.log('Fields Control loaded!'));
-loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
-loadScript('showDirtyFields.js', () => console.log('Show Modified Fields loaded!'));
-loadScript('copySecurity.js', () => console.log('Security loaded!'));
-loadScript('editSecurity.js', () => console.log('Security loaded!')); //Assign Security
-loadScript('commonSecurity.js', () => console.log('Security loaded!'));
-loadScript('dateCalc.js', () => console.log('Date Calc loaded!'));
+Promise.all([
+  loadScript('common.js');
+  loadScript('aFuPrB.js');
+  loadScript('entityInfo.js');
+  loadScript('fieldsControl.js');
+  loadScript('showHiddenItems_UnlockFields.js');
+  loadScript('showDirtyFields.js');
+  loadScript('copySecurity.js');
+  loadScript('editSecurity.js');
+  loadScript('commonSecurity.js');
+  loadScript('dateCalc.js');
+])
+.then(() => {
+  console.log('All scripts loaded');
+})
+.catch(error => {
+  console.error('Some scripts failed to load', error);
+});
 
 function openPopup() {
   closeSubPopups();
