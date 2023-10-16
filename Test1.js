@@ -90,7 +90,11 @@ function openPopup() {
 		  <div class="button-row">		    
 		    <button onclick="unlockAllFields();">Unlock All Fields</button>
       		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
-		  </div>		  
+		  </div>
+		  <div class="button-row">
+		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
+		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
+		  </div>	  
     		  <div class="button-row">
 		    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>
 		    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
@@ -99,9 +103,8 @@ function openPopup() {
       		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
 		    <div class="dropdown">
 		      <button onclick="toggleDropdownMenu('dropdown-content');">Extra</button>
-		      <div id="dropdown-content" class="dropdown-content">
-		         <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
-	   		 <button onclick="closePopup(); dateCalc();">Date Calc</button>
+		      <div id="dropdown-content" class="dropdown-content">			 
+		         <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>	   		 
 			${userProvisionButton}	        
 		      </div>
 		    </div>
