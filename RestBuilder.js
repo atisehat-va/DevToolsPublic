@@ -1,26 +1,28 @@
-async function openRestBuilder(orgUrl) {
+function openRestBuilder(orgUrl) {
   closeIframe();
   var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm#';
   var restBuilderUrl = orgUrl + restBuilderPath;
   var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
 
-  // Check if the web resource is available
-  try {
-    const response = await fetch(restBuilderUrl, {
-      method: 'HEAD' // Using 'HEAD' to just fetch the headers and not the entire body
-    });
-    
-    // If the web resource is available, open the window
-    if (response.ok) {
-      window.open(restBuilderUrl, "REST Builder", windowOptions);
-    } else {
-      alert("This tool isn't available.");
-    }
-  } catch (error) {
-    // Handle any network errors
-    console.error('Network error occurred:', error);
+  // Create a hidden iframe
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.src = restBuilderUrl;
+
+  iframe.onload = function() {
+    // If the iframe loads successfully, the web resource is available
+    document.body.removeChild(iframe); // Remove the iframe
+    window.open(restBuilderUrl, "REST Builder", windowOptions);
+  };
+
+  iframe.onerror = function() {
+    // If an error occurs while loading the iframe, the web resource is unavailable
+    document.body.removeChild(iframe); // Remove the iframe
     alert("This tool isn't available.");
-  }
+  };
+
+  // Append the iframe to the body to trigger loading
+  document.body.appendChild(iframe);
 }
 
 function getOrgUrl() {
