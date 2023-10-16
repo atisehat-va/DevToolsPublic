@@ -61,8 +61,7 @@ function openUrl(pageType) {
 
 //RestBuilder
 function openRestBuilder() {
-// closeIframe();
-  var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder1.htm#';
+  var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm#';
   var restBuilderUrl = clientUrl + restBuilderPath;
   var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
   
@@ -80,14 +79,3 @@ function openRestBuilder() {
   };
   req.send();
 }
-/*
-function getOrgUrl() {
-  if (typeof Xrm !== 'undefined' && Xrm.Page && Xrm.Page.context) {
-    //return Xrm.Page.context.getClientUrl();
-      clientUrl = Xrm.Page.context.getClientUrl();
-  } else {
-    console.error('Unable to retrieve organization URL. Pleaes run this within a Dynamics CRM environment.');
-    return '';
-  }
-} */
-
