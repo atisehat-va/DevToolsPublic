@@ -13,7 +13,7 @@ async function openRestBuilder(orgUrl) {
       // If the web resource is found, open it
       window.open(restBuilderUrl, "REST Builder", windowOptions);
     } else {
-      alert("This tool isn't available.");
+      alert("This tool isn't available...");
     }
   } catch (error) {
     console.error("An error occurred while querying the web resource:", error);
