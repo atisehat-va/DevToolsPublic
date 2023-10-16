@@ -1,5 +1,4 @@
-function securityUpdate2() {        
-	debugger;
+function securityUpdate2() {        	
 	let businessUnits = null;
 	let selectedUserId = null;
 	let selectedUserFullName = null;	
@@ -99,12 +98,10 @@ function securityUpdate2() {
 	  });
 	}
 	
-	function toggleCheckboxes(action, classNames) {
-	  // Accept either a single class name or an array of class names
+	function toggleCheckboxes(action, classNames) {	  
 	  const classes = Array.isArray(classNames) ? classNames : [classNames];
 	  classes.forEach(className => {
-	    const checkboxes = document.querySelectorAll(`.${className}`);
-	    
+	    const checkboxes = document.querySelectorAll(`.${className}`);	    
 	    checkboxes.forEach(checkbox => {
 	      if (action === 'disable') {
 	        checkbox.checked = false;
@@ -116,9 +113,8 @@ function securityUpdate2() {
 	
 	function renderGenericList(entities, selectCallback, sectionId, searchInputId, classNamePrefix, textProperty, idProperty, skipSectionWrapper = false) {
 	    const listDiv = document.getElementById(sectionId);
-	    listDiv.innerHTML = '';
-	
-	    // Add "No Change" radio button if it's a Business Unit
+	    listDiv.innerHTML = '';	
+	    
 	    if (classNamePrefix === 'businessUnit') {
 	        addNoChangeRadioButton(listDiv, sectionId);
 	    }
@@ -199,13 +195,11 @@ function securityUpdate2() {
 	}
 	
 	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {
-	    // Clear the existing content
-	    targetElement.innerHTML = '';
-	
-	    // Choose the appropriate array to check the state
+	    // Clear
+	    targetElement.innerHTML = '';	    
 	    const relevantStateArray = stateArray[itemType] || [];
 	
-	    // Loop through each item in the array
+	    // Loop through each item
 	    itemArray.forEach(item => {
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
@@ -221,13 +215,12 @@ function securityUpdate2() {
 	        assignCheckbox.value = item[valueKey];
 	        assignCheckbox.className = additionalClassNames;
 	
-	        // Check if this checkbox was selected earlier
+	        // Check if checkbox is selected
 	        if (relevantStateArray.includes(assignCheckbox.value)) {
 	            assignCheckbox.checked = true;
 	        }
 	
-	        assignCheckbox.addEventListener('change', function() {
-	            // Update the relevantStateArray
+	        assignCheckbox.addEventListener('change', function() {	            
 	            if (this.checked) {
 	                if (!relevantStateArray.includes(this.value)) {
 	                    relevantStateArray.push(this.value);
@@ -237,9 +230,8 @@ function securityUpdate2() {
 	                if (index > -1) {
 	                    relevantStateArray.splice(index, 1);
 	                }
-	            }
+	            }	            
 	            
-	            // Add or remove from teamsCheckedValues or rolesCheckedValues
 	            const arrayToUse = (itemType === 'team') ? teamsCheckedValues : rolesCheckedValues;
 	            if (this.checked) {
 	                if (!arrayToUse.includes(this.value)) {
@@ -282,7 +274,7 @@ function securityUpdate2() {
 		            selectedBusinessUnitId = user._businessunitid_value;
 			    selectedUserFullName = user.fullname;
 				
-   			    //clear Selected Values			    
+   			    //clear 
 			    stateArray['team'] = [];
 			    stateArray['role'] = [];
 		        }
@@ -327,21 +319,18 @@ function securityUpdate2() {
 				   return listItem;
 				});
 				appendLists();				
-			});			
-			// Target the teamsList div where you'll populate the team information
+			});						
 		        const teamsList = document.getElementById('teamsList');
 		        teamsList.innerHTML = '';
 		
-		       // Fetch the teams
+		       // Fetch teams
 			fetchTeams(function(teams) {
 			    if (!teams || !teams.entities) {
 			        console.error('Teams not found');
 			        return;
-			    }						    
-				
+			    }			
 			    const teamsList = document.getElementById('teamsList');
-			    teamsList.innerHTML = '';
-			
+			    teamsList.innerHTML = '';			
 			    const teamDetailsArr = teams.entities.map(team => ({
 				    name: team.name, 
 				    teamid: team.teamid, 
@@ -349,19 +338,16 @@ function securityUpdate2() {
 			    }));						
 		            teamDetailsArr.sort((a, b) => {
 			            return a.name.localeCompare(b.name);
-			    });	
-					    	
+			    });						    	
 			    addSearchFunctionality(teamDetailsArr, 'searchInput3', (filteredItems) => {
-			    	const teamsList = document.getElementById('teamsList');
-			   	 // Added 'team' as the last argument for item type
+			    	const teamsList = document.getElementById('teamsList');			   	 
 			   	 createAndAppendItems(filteredItems, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'teamsCheckbox', 'team');
-				});
-				// Added 'team' as the last argument for item type
+				});				
 				createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'teamsCheckbox', 'team');
 			   });
 			
 			if (sectionPrefix === '1') {
-			    // Fetch roles specific to the user and display them under section4
+			    // Fetch user roles
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
 			    rolesListUser.innerHTML = '';
 			
@@ -387,8 +373,7 @@ function securityUpdate2() {
 			        });								
 				createAndAppendItems(roleDetailsArr, rolesListUser, 'checkbox', 'roleid', ['name'], 'rolesCheckbox', 'role');
 				    
-			        Promise.all(rolePromises).then(() => {
-			            // Using localeCompare for sorting
+			        Promise.all(rolePromises).then(() => {			            
 			            roleDetailsArr.sort((a, b) => {
 			                return a.name.localeCompare(b.name);
 			            });
@@ -400,18 +385,15 @@ function securityUpdate2() {
 			        });
 			    });     	 		    			
 			     
-			    // Fetch roles based on the business unit and display them under section6
+			    // Fetch roles based on BU
 			    const rolesListBusinessUnit = document.getElementById('section6').querySelector('#securityRolesList');
-				rolesListBusinessUnit.innerHTML = '';
-				
+				rolesListBusinessUnit.innerHTML = '';				
 				fetchSecurityRoles(selectedBusinessUnitId, function(response) {
 				    if (!response || !response.entities) {
 				        console.error('Roles not found');
 				        return;
 				    }		        
-				    const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));
-				    
-				    // Using localeCompare for sorting
+				    const roleDetailsArr = response.entities.map(role => ({name: role.name, roleid: role.roleid}));				    				    
 				    roleDetailsArr.sort((a, b) => {
 				        return a.name.localeCompare(b.name);
 				    });				
@@ -468,14 +450,12 @@ function securityUpdate2() {
 		element[key] = value;
 	    });
 	    return element;
-	}
+	}	
 	
-	// Helper function to toggle element visibility
 	function toggleElementDisplay(element, state = 'none') {
 	    if (element) element.style.display = state;
-	}	
-
-	// This function handles the logic on submit button click
+	}
+	
 	async function handleSubmitButtonClick(event) {
 	    console.log("submitButton clicked.");	
 	    if (typeof updateUserDetails === "function") {					    
@@ -490,9 +470,8 @@ function securityUpdate2() {
 	    } else {
 	        console.log("updateUserDetails is NOT accessible");
 	    }
-	} 
+	}	
 	
-	// This function will only be invoked when you explicitly call it, like on clicking the submit button.
 	function initSubmitButton() {
 	    const submitButton = document.getElementById('assignSubmitButton');
 	    if (submitButton) {
@@ -542,7 +521,7 @@ function securityUpdate2() {
 	    }
 	}
 	
-	// Function to add radio buttons to a given section
+	// Add radio buttons
 	function addRadioButtonsToSection(options) {	    
 	    const { sectionId, headingText, radioName, radioData, inputIds, inputId, radioButtonClassName } = options;
 	    const sectionElement = document.getElementById(sectionId); 
@@ -558,7 +537,7 @@ function securityUpdate2() {
 	        sectionElement.appendChild(heading);
 	    }
 		
-	    // Exit if radioData is not provided or not an array
+	    // Exit if no radioData
 	    if (!radioData || !Array.isArray(radioData)) {
 	        return;
 	    }     
