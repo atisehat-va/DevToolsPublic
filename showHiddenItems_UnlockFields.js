@@ -7,14 +7,13 @@ function unlockAllFields() {
     closeIframe();
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && unlockAllFieldsBtnClickStatus) {
-	showCustomAlert('Unlock All Fields button has already been clicked!!');	
-        //return;
+	showCustomAlert('Unlock All Fields button has already been clicked!!');	        
     }
     var allControls = Xrm.Page.ui.controls.get();
     for (var i in allControls) {
 	var control = allControls[i];
 	if (control) {
-		control.setDisabled(false);
+	    control.setDisabled(false);
 	}
     }
     unlockAllFieldsBtnClickStatus = true;
@@ -25,12 +24,11 @@ function showAllTabsAndSections() {
     closeIframe();	
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
     if (lastUpdatedFormId === currentFormId && showAllTabsAndSectionsBtnClickStatus) {
-	showCustomAlert('Show Hidden Items button has already been clicked!!');		
-        //return;
+	showCustomAlert('Show Hidden Items button has already been clicked!!');		        
     }
     Xrm.Page.ui.tabs.forEach(function(tab) {
 	if (!tab.getVisible()) {
-		tab.setVisible(true);			
+	    tab.setVisible(true);			
 	}
 	tab.sections.forEach(function(section) {
 	    if (!section.getVisible()) {
