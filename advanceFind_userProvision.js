@@ -1,5 +1,3 @@
-let clientUrl = Xrm.Page.context.getClientUrl();
-
 function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     const newContainer = document.createElement('div');
     newContainer.className = 'commonPopup';    
@@ -27,7 +25,8 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     makePopupMovable(newContainer);
 }
 
-function openUrl(pageType) {     
+function openUrl(pageType) {
+    let clientUrl = Xrm.Page.context.getClientUrl();
     if (pageType === "advanceFind") {       
         const timestamp = new Date().getTime();
         const windowName = "Advanced Find Classic " + timestamp;
@@ -60,9 +59,10 @@ function openUrl(pageType) {
 }
 
 //RestBuilder
-function openRestBuilder() {
+function openRestBuilder(orgUrl) {
+  //closeIframe();
   var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm#';
-  var restBuilderUrl = clientUrl + restBuilderPath;
+  var restBuilderUrl = orgUrl + restBuilderPath;
   var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
   
   // Check if the URL exists
@@ -78,4 +78,13 @@ function openRestBuilder() {
     }
   };
   req.send();
+}
+
+function getOrgUrl() {
+  if (typeof Xrm !== 'undefined' && Xrm.Page && Xrm.Page.context) {
+    return Xrm.Page.context.getClientUrl();
+  } else {
+    console.error('Unable to retrieve organization URL. Pleaes run this within a Dynamics CRM environment.');
+    return '';
+  }
 }
