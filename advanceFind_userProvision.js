@@ -25,7 +25,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     makePopupMovable(newContainer);
 }
 
-function openUrl(pageType) {    
+function openUrl(pageType) { debugger;
     const clientUrl = Xrm.Page.context.getClientUrl();
     if (pageType === "advanceFind") {       
         const timestamp = new Date().getTime();
