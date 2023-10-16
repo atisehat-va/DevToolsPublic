@@ -84,8 +84,8 @@ function openPopup() {
                       <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>		      
 		    </div>
 		    <div class="dropdown">
-		      <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
-		      <div id="dropdown-content" class="dropdown-content">		        
+		      <button onclick="toggleDropdownMenu('dropdown-content1');">Update Security</button>
+		      <div id="dropdown-content1" class="dropdown-content">		        
 			${userProvisionButton}
 		         <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
 		    	 <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
