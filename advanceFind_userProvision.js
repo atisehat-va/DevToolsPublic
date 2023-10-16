@@ -1,3 +1,5 @@
+let clientUrl = Xrm.Page.context.getClientUrl();
+
 function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     const newContainer = document.createElement('div');
     newContainer.className = 'commonPopup';    
@@ -25,8 +27,7 @@ function appendUserProvisionPopupToBody(html, iframeUrl = null) {
     makePopupMovable(newContainer);
 }
 
-function openUrl(pageType) { 
-    const clientUrl = Xrm.Page.context.getClientUrl();
+function openUrl(pageType) {     
     if (pageType === "advanceFind") {       
         const timestamp = new Date().getTime();
         const windowName = "Advanced Find Classic " + timestamp;
@@ -57,4 +58,36 @@ function openUrl(pageType) {
         req.send();
   }
 }
+
+//RestBuilder
+function openRestBuilder() {
+// closeIframe();
+  var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder1.htm#';
+  var restBuilderUrl = clientUrl + restBuilderPath;
+  var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
+  
+  // Check if the URL exists
+  var req = new XMLHttpRequest();
+  req.open('HEAD', restBuilderUrl, true);
+  req.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        window.open(restBuilderUrl, "REST Builder", windowOptions);
+      } else {        
+        showCustomAlert(`This tool isn't available.`);
+      }
+    }
+  };
+  req.send();
+}
+/*
+function getOrgUrl() {
+  if (typeof Xrm !== 'undefined' && Xrm.Page && Xrm.Page.context) {
+    //return Xrm.Page.context.getClientUrl();
+      clientUrl = Xrm.Page.context.getClientUrl();
+  } else {
+    console.error('Unable to retrieve organization URL. Pleaes run this within a Dynamics CRM environment.');
+    return '';
+  }
+} */
 
