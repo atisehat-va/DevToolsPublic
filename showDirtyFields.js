@@ -47,6 +47,5 @@ function showDirtyFields() {
             ${dirtyFieldsHtml}
         </div>
     `;
-
     appendDirtyFieldsPopupToBody(popupHtml);
 }
