@@ -90,7 +90,7 @@ function openPopup() {
 	    <button onclick="closePopup(); copySecurity();">Copy User Security</button>
 	  </div>    		  
 	  <div class="button-row">		    
-	    <button onclick="closePopup(); dateCalc();">Date Calc</button>
+	    <button onclick="closePopup(); dateCalc();">Date Calculator</button>
 	    <div class="dropdown">
 	      <button onclick="toggleDropdownMenu('dropdown-content');">Extra</button> 
 	      <div id="dropdown-content" class="dropdown-content">			 
