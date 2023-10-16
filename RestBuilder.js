@@ -1,14 +1,12 @@
-async function openRestBuilder(orgUrl) {
-  closeIframe();
+async function openRestBuilder(orgUrl) {  
   var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
-
-  // Query metadata to check if the web resource exists
+  
   try {
     var query = "?$select=displayname,name&$filter=displayname eq 'Xrm.RESTBuilder1.htm'";
     var results = await Xrm.WebApi.retrieveMultipleRecords("webresource", query);
     
     if (results.entities.length > 0) {
-      // If the web resource is found, construct the URL using the 'name' field
+      // Check if WebResource exist
       var restBuilderPath = `/WebResources/${results.entities[0].name}#`;
       var restBuilderUrl = orgUrl + restBuilderPath;
 
