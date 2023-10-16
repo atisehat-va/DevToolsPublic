@@ -37,7 +37,7 @@ function openUrl(pageType) {
     } else if (pageType === "userProvision") {
         const entityName = "vhacrm_userprovision1";
         const formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
-        
+         
         // Check if the entity exists
         const req = new XMLHttpRequest();
         req.open("GET", `${clientUrl}/api/data/v9.0/EntityDefinitions(LogicalName='${entityName}')`, true);
