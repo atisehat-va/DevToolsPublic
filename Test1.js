@@ -65,13 +65,8 @@ function openPopup() {
     		.popup button:hover { background-color: #3c6690; transform: translateY(-2px); box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25); }
       		.popup button:active { transform: translateY(0); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }		
 		.button-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
-		.button-row button { width: calc(50% - 5px); }
-		.dropdown button { width: 100%; }
-		.button-row .full-width { width: 100%; }
-		.dropdown-row { display: flex; justify-content: space-between; flex-direction: row; width: 100%; }
-		.dropdown { position: relative; display: inline-block; width: calc(50% - 5px); }
-		.dropdown-content { display: none; position: absolute; min-width: 100%; z-index: 1; }
-		.dropdown-content button { display: block; background-color: white; color: black; padding: 10px; text-align: center; border: none; width: 100%; }
+		.button-row button { width: calc(50% - 5px); }		
+		.button-row .full-width { width: 100%; }		
   		.popup button.close-btn { margin-top: 10px; font-size: 15px; }
 	    </style>
 	    <div class="popup">
@@ -102,17 +97,7 @@ function openPopup() {
     		  <div class="button-row">
 		    ${userProvisionButton}
 		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
-		  </div>
-    		  <div class="button-row">		    
-      		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
-		    <div class="dropdown">
-		      <button onclick="toggleDropdownMenu('dropdown-content');">Extra</button>
-		      <div id="dropdown-content" class="dropdown-content">			 
-		         <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>	   		 
-			${userProvisionButton}	        
-		      </div>
-		    </div>
-		  </div>
+		  </div>    		  
 		    <button onclick="closePopup();" class="close-btn">Close</button>
 		</div>
 	        <div id="popupContent" class="content"></div>	
@@ -193,14 +178,6 @@ function makePopupMovable(newContainer) {
   }
 }
 
-function toggleDropdownMenu(dropdownId) {
-  var dropdownContent = document.getElementById(dropdownId);
-  if (dropdownContent.style.display === 'block') {
-    dropdownContent.style.display = 'none';
-  } else {
-    dropdownContent.style.display = 'block';
-  }
-}
 
 function closePopup() {
     closeIframe();    
@@ -233,7 +210,6 @@ window.fetchEntityFields = fetchEntityFields;
 window.unlockAllFields = unlockAllFields;
 window.showAllTabsAndSections = showAllTabsAndSections;
 window.renameTabsSectionsFields = renameTabsSectionsFields;
-window.toggleDropdownMenu = toggleDropdownMenu;
 window.closePopup = closePopup;
 window.openUrl = openUrl;
 window.showDirtyFields = showDirtyFields;
