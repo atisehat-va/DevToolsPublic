@@ -77,8 +77,13 @@ function openPopup() {
 	    <div class="popup">
      		<div class="commonPopup-header">	            
 	            Admin Plus
-	        </div> 
+	        </div>
 	    	<div class="button-container">
+      		  <div class="button-row">
+		    <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>
+		    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Show Entity Info</button>
+		  </div>
+    
 		  <div class="dropdown-row">
 		    <div class="dropdown">
                       <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>		      
