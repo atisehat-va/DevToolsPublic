@@ -94,7 +94,7 @@ function openPopup() {
 	    <div class="dropdown">
 	      <button onclick="toggleDropdownMenu('dropdown-content');">Extra</button>
 	      <div id="dropdown-content" class="dropdown-content">			 
-		 <button onclick="openRestBuilder();">Open REST Builder</button>
+		 <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
 		 <button onclick="closePopup(); openUrl('userProvision');">User Provision Tool</button>		
 	      </div>
 	    </div>
