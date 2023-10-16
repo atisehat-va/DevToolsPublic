@@ -102,10 +102,14 @@ function openPopup() {
 		  </div>
 		  <div class="button-row">
 		    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
-		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
+		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
 		  </div>
     		  <div class="button-row">
-		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
+		    <button onclick="toggleDropdownMenu('dropdown-content');">Update Security</button>
+		    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
+		  </div>
+    		  <div class="button-row">		    
+      		    <button onclick="openRestBuilder(getOrgUrl());">Open REST Builder</button>
 		    <button onclick="closePopup(); openUrl('userProvision');">User Provision Tool</button>
 		  </div>
 		    <button onclick="closePopup();" class="close-btn">Close</button>
