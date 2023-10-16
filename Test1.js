@@ -85,11 +85,7 @@ function openPopup() {
 	  <div class="button-row">		    
 	    <button onclick="unlockAllFields();">Unlock All Fields</button>
 	    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
-	  </div>
-   	<div class="button-row">
-	    <button onclick="closePopup(); securityUpdate2();">TEst</button>
-	    <button onclick="openRestBuilder(getOrgUrl());">TestRest</button>
-	  </div> 
+	  </div>   	 
 	  <div class="button-row">
 	    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>
 	    <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
