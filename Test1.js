@@ -106,7 +106,7 @@ function openPopup() {
 		  </div>
     		  <div class="button-row">
 		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
-		    <button onclick="clearCacheFunction();">None</button>
+		    <button onclick="closePopup(); openUrl('userProvision');">User Provision Tool</button>
 		  </div>
 		    <button onclick="closePopup();" class="close-btn">Close</button>
 		</div>
