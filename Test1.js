@@ -53,9 +53,8 @@ function openPopup() {
     return;    
   }
 
-//check if User provision table exist
- checkIfEntityExists('vhacrm_userprovision', function(entityExists) {
-    	var userProvisionButton = entityExists ? '<button onclick="closePopup(); openUrl(\'userProvision\');">User Provision Tool</button>' : '';
+
+
 	 
 	  var popupHtml = `  
 	    <style>       
@@ -120,34 +119,10 @@ function openPopup() {
 	  document.body.appendChild(newContainer);
 	  
 	  makePopupMovable(newContainer);
-	});
+	
 }
 function clearCacheFunction() {
     location.reload(true); // The 'true' argument forces a hard reload, bypassing the cache.
-}
-
-function checkIfEntityExists(entityLogicalName, callback) {
-  var clientURL = Xrm.Page.context.getClientUrl();
-  var req = new XMLHttpRequest();
-  req.open("GET", `${clientURL}/api/data/v9.0/EntityDefinitions(LogicalName='${entityLogicalName}')`, true);
-  req.setRequestHeader("OData-MaxVersion", "4.0");
-  req.setRequestHeader("OData-Version", "4.0");
-  req.setRequestHeader("Accept", "application/json");
-  req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-  req.onreadystatechange = function () {
-    if (this.readyState === 4) {
-      req.onreadystatechange = null;
-      if (this.status === 200) {        
-        callback(true);
-      } else if (this.status === 404) {
-        console.log("User Provision Entity does not exist");
-        callback(false);
-      } else {
-        console.log(this.statusText);
-      }
-    }
-  };
-  req.send();
 }
 
 function closeIframe(url) { 
