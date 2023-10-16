@@ -11,8 +11,8 @@ function openRestBuilder(orgUrl) {
     if (this.readyState === 4) {
       if (this.status === 200) {
         window.open(restBuilderUrl, "REST Builder", windowOptions);
-      } else {
-        Xrm.Navigation.openAlertDialog({ text: "This tool isn't available." });
+      } else {        
+        showCustomAlert(`This tool isn't available.`);
       }
     }
   };
