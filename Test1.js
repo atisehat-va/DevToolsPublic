@@ -25,7 +25,7 @@ function loadScript(src, callback) {
 
 // Load scripts 
 loadScript('common.js', () => console.log('commonJS loaded!')); 
-loadScript('advanceFind_userProvision.js', () => console.log('Advanced find & User Provision loaded!'));
+loadScript('aFuPrB.js', () => console.log('Advanced find & User Provision loaded!'));
 loadScript('entityInfo.js', () => console.log('EntityInfo and Field Logical Names loaded!'));
 loadScript('fieldsControl.js', () => console.log('Fields Control loaded!'));
 loadScript('showHiddenItems_UnlockFields.js', () => console.log('Show Hidden Items and Unlock Fields loaded!'));
@@ -34,7 +34,6 @@ loadScript('copySecurity1.js', () => console.log('Security loaded!'));
 loadScript('assignUserSecurity.js', () => console.log('Security loaded!')); //Assign Security
 loadScript('security1.js', () => console.log('Security loaded!'));
 loadScript('dateCalc.js', () => console.log('Date Calc loaded!'));
-loadScript('RestBuilder.js', () => console.log('Rest Builder loaded!'));
 
 function openPopup() {
   closeSubPopups();
