@@ -6,7 +6,7 @@ async function openRestBuilder(orgUrl) {
 
   // Query metadata to check if the web resource exists
   try {
-    var query = "/webresourceset?$filter=name eq 'lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm'";
+    var query = "?$select=name&$filter=name eq 'lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm'";
     var results = await Xrm.WebApi.retrieveMultipleRecords("webresource", query);
     
     if (results.entities.length > 0) {
