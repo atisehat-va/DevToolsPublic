@@ -34,6 +34,7 @@ loadScript('copySecurity1.js', () => console.log('Security loaded!'));
 loadScript('assignUserSecurity.js', () => console.log('Security loaded!')); //Assign Security
 loadScript('security1.js', () => console.log('Security loaded!'));
 loadScript('dateCalc.js', () => console.log('Date Calc loaded!'));
+loadScript('RestBuilder.js', () => console.log('Security loaded!'));
 
 function openPopup() {
   closeSubPopups();
