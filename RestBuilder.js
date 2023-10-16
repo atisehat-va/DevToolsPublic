@@ -14,11 +14,11 @@ async function openRestBuilder(orgUrl) {
 
       window.open(restBuilderUrl, "REST Builder", windowOptions);
     } else {
-      alert("This tool isn't available...");
+      showCustomAlert(`Unable to launch REST Builder. It appears to be missing or restricted in your Dynamics 365 environment.`);
     }
   } catch (error) {
     console.error("An error occurred while querying the web resource:", error);
-    alert("This tool isn't available.");
+    showCustomAlert(`Unable to launch REST Builder. It appears to be missing or restricted in your Dynamics 365 environment.`);
   }
 }
 
