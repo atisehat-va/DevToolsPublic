@@ -88,7 +88,7 @@ function openPopup() {
 		      <div id="dropdown-content" class="dropdown-content">		        
 			${userProvisionButton}
 		         <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
-		    <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
+		    	 <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
 		      </div>
 		    </div>
 		  </div>		  
@@ -106,7 +106,15 @@ function openPopup() {
 		  </div>
     		  <div class="button-row">
 		    <button onclick="closePopup(); dateCalc();">Date Calc</button>
-		    <button onclick="clearCacheFunction();">None</button>
+
+		    <div class="dropdown">
+		      <button onclick="toggleDropdownMenu('dropdown-content');">Extra</button>
+		      <div id="dropdown-content" class="dropdown-content">		        
+		   	${userProvisionButton}
+		      	<button onclick="closePopup(); dateCalc();">Date Calc</button>		    	 	                		        
+		      </div>
+		    </div>
+	 	   
 		  </div>
 		    <button onclick="closePopup();" class="close-btn">Close</button>
 		</div>
