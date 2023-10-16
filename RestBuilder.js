@@ -1,28 +1,24 @@
-function openRestBuilder(orgUrl) {
+async function openRestBuilder(orgUrl) {
   closeIframe();
-  var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder1.htm#';
+  var restBuilderPath = '/WebResources/lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm#';
   var restBuilderUrl = orgUrl + restBuilderPath;
   var windowOptions = "height=600,width=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,titlebar=no,toolbar=no";
 
-  // Create a hidden iframe
-  var iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  iframe.src = restBuilderUrl;
-
-  iframe.onload = function() {
-    // If the iframe loads successfully, the web resource is available
-    document.body.removeChild(iframe); // Remove the iframe
-    window.open(restBuilderUrl, "REST Builder", windowOptions);
-  };
-
-  iframe.onerror = function() {
-    // If an error occurs while loading the iframe, the web resource is unavailable
-    document.body.removeChild(iframe); // Remove the iframe
+  // Query metadata to check if the web resource exists
+  try {
+    var query = "/webresourceset?$filter=name eq 'lat_/CRMRESTBuilder/Xrm.RESTBuilder.htm'";
+    var results = await Xrm.WebApi.retrieveMultipleRecords("webresource", query);
+    
+    if (results.entities.length > 0) {
+      // If the web resource is found, open it
+      window.open(restBuilderUrl, "REST Builder", windowOptions);
+    } else {
+      alert("This tool isn't available.");
+    }
+  } catch (error) {
+    console.error("An error occurred while querying the web resource:", error);
     alert("This tool isn't available.");
-  };
-
-  // Append the iframe to the body to trigger loading
-  document.body.appendChild(iframe);
+  }
 }
 
 function getOrgUrl() {
