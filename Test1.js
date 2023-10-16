@@ -82,21 +82,7 @@ function openPopup() {
       		  <div class="button-row">
 		    <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>
 		    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Show Entity Info</button>
-		  </div>
-    
-		  <div class="dropdown-row">
-		    <div class="dropdown">
-                      <button onclick="closePopup(); openUrl('advanceFind');">Advanced Find Classic</button>		      
-		    </div>
-		    <div class="dropdown">
-		      <button onclick="toggleDropdownMenu('dropdown-content1');">Update Security</button>
-		      <div id="dropdown-content1" class="dropdown-content">		        
-			${userProvisionButton}
-		         <button onclick="closePopup(); securityUpdate();">Copy User Security</button>
-		         <button onclick="closePopup(); securityUpdate2();">Assign User Security</button>	                		        
-		      </div>
-		    </div>
-		  </div>		  
+		  </div>	  		  
 		  <div class="button-row">
 		    <button onclick="closePopup(); setTimeout(fetchEntityFields, 0);">Show Entity Info</button>
 		    <button onclick="renameTabsSectionsFields();">Show Logical Names</button>
