@@ -295,3 +295,10 @@ for (let session of allSessions) {
         console.log(entitySession);
     });
 }
+
+Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
+        let params = context.parameters;
+     if (params.hasOwnProperty('anchor.entityName')) {
+
+     }
+ });
