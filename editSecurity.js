@@ -346,7 +346,7 @@ function editSecurity() {
 				createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'teamsCheckbox', 'team');
 			   });
 			
-			if (sectionPrefix === '1') {
+			if (sectionPrefix === '1') { debugger;
 			    // Fetch user roles
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
 			    rolesListUser.innerHTML = '';
