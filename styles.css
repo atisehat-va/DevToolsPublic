@@ -65,7 +65,7 @@
 .user:hover { background-color: #f0f0f0; }    
 #sectionsRow { white-space: nowrap; }
 
-.businessUnit-list-container { flex: 1; max-height: 145px; overflow-y: auto; text-align: left; }
+.businessUnit-list-container { flex: 1; max-height: 100px; overflow-y: auto; text-align: left; }
 .teamsRoles-list-container { flex: 1; max-height: 145px; overflow-y: auto; text-align: left; }
 .sectionWrapper { display: flex; }
 .assignCheckbox { margin: 0px 5px 0 0; width: 20px !important; height: 15px; }
