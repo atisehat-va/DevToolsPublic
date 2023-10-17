@@ -154,7 +154,8 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
   };
   
   console.log(`Associating role using URL: ${associateRoleUrl}`);
-  
+  console.log(`Associate Role Data: ${JSON.stringify(associateRoleData)}`);
+
   try {
     const response = await fetch(associateRoleUrl, {
       method: "POST",
