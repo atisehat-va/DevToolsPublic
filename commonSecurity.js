@@ -143,7 +143,6 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
 
 //Test 10/16/2023
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
-  // Validate input
   if (!selectedUserId || !selectedRoleIds || !clientUrl) {
     console.error("Invalid parameters.");
     return;
@@ -170,12 +169,12 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
     
     if (!response.ok) {
       const responseData = await response.json();
-      console.error('Error:', responseData);
+      console.error('Server returned:', responseData);
     } else {
       console.log('Successfully associated role to user.');
     }
     
   } catch (error) {
-    console.error('Fetch Error:', error);
+    console.error('Fetch failed:', error);
   }
 }
