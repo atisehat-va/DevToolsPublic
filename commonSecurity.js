@@ -128,7 +128,7 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
     body: JSON.stringify(associateTeamData)
   });
 }
-
+/*
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
   const associateRoleUrl = `${clientUrl}/api/data/v9.2/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
   const associateRoleData = {
@@ -139,4 +139,35 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify(associateRoleData)
   });
+}*/
+
+//Test 10/16/2023
+async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
+  const associateRoleUrl = `${clientUrl}/api/data/v9.2/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
+  const associateRoleData = {
+    "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
+  };
+  
+  try {
+    const response = await fetch(associateRoleUrl, {
+      method: "POST",
+      headers: { 
+        "OData-MaxVersion": "4.0", 
+        "OData-Version": "4.0", 
+        "Accept": "application/json", 
+        "Content-Type": "application/json; charset=utf-8" 
+      },
+      body: JSON.stringify(associateRoleData)
+    });
+
+    if (!response.ok) {
+      const responseData = await response.json();
+      console.error('Error:', responseData);
+    } else {
+      console.log('Successfully associated role to user.');
+    }
+
+  } catch (error) {
+    console.error('Fetch Error:', error);
+  }
 }
