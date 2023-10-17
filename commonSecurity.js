@@ -148,7 +148,7 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
     return;
   }
 
-  const associateRoleUrl = `${clientUrl}/api/data/v9.2/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
+  const associateRoleUrl = `${clientUrl}/api/data/v9.2/roles(${selectedRoleIds})/systemuserroles_association/$ref?`;
   const associateRoleData = {
     "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
   };
