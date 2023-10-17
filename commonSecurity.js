@@ -143,10 +143,18 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
 
 //Test 10/16/2023
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
+  // Validate input
+  if (!selectedUserId || !selectedRoleIds || !clientUrl) {
+    console.error("Invalid parameters.");
+    return;
+  }
+
   const associateRoleUrl = `${clientUrl}/api/data/v9.2/roles(${selectedRoleIds})/systemuserroles_association/$ref`;
   const associateRoleData = {
     "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
   };
+  
+  console.log(`Associating role using URL: ${associateRoleUrl}`);
   
   try {
     const response = await fetch(associateRoleUrl, {
@@ -155,18 +163,18 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
         "OData-MaxVersion": "4.0", 
         "OData-Version": "4.0", 
         "Accept": "application/json", 
-        "Content-Type": "application/json; charset=utf-8" 
+        "Content-Type": "application/json; charset=utf-8"
       },
       body: JSON.stringify(associateRoleData)
     });
-
+    
     if (!response.ok) {
       const responseData = await response.json();
       console.error('Error:', responseData);
     } else {
       console.log('Successfully associated role to user.');
     }
-
+    
   } catch (error) {
     console.error('Fetch Error:', error);
   }
