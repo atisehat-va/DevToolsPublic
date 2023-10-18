@@ -339,10 +339,14 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 </body>
 </html>
 
-if (typeof Microsoft !== 'undefined' && typeof Microsoft.Apm !== 'undefined') {
-    Microsoft.Apm.getSession("session-id-0").focus();
-} else {
-    console.log("Microsoft.Apm not available.");
+try {
+    if (Microsoft.Apm) {
+        Microsoft.Apm.getSession("session-id-0").focus();
+    }
+} catch (e) {
+    if (e instanceof ReferenceError) {
+        console.log("Microsoft.Apm is not available:", e);
+    }
 }
 
 //ENDTestHTMLJS
