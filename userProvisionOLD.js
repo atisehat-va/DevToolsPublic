@@ -309,25 +309,21 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
     <title>Navigate to Entity</title>
     <script>
         function navigateToEntity() {
-            // Get title parameter from the URL
-            var paramsFromURL = new URLSearchParams(window.location.search);
-            var title = paramsFromURL.has('title') ? paramsFromURL.get('title') : "Cases";
-
-            // Dynamics 365 entity details
+            // Prepare entity and view information
             var entityName = "incident";  // Logical name for Cases entity
-            var params = `?data=title:${title}`;
-
-            // Define page input and navigation options
+            
+            // Page Input
             var pageInput = {
-                entityName: entityName,
-                // Add other configurations if needed
+                pageType: "entitylist",
+                entityName: entityName
             };
+            
+            // Navigation options
             var navigationOptions = {
-                target: 2, // Target is an entity
-                // Add other navigation options if needed
+                target: 2  // Open an entity list
             };
 
-            // Execute navigation
+            // Navigate to the entity list
             parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then(
                 function success() {
                     console.log("Navigation successful.");
@@ -342,6 +338,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <body onload="navigateToEntity()">
 </body>
 </html>
+
 
 
 //ENDTestHTMLJS
