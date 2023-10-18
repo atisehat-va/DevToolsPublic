@@ -309,7 +309,12 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
     <title>Navigate to Entity</title>
     <script>
         function navigateToEntity() {
-            var title = "Cases"; // Hard-coded for example
+            var title = "Cases"; // Fallback if parameter is not provided
+            var paramsFromURL = new URLSearchParams(window.location.search);
+            if (paramsFromURL.has('title')) {
+                title = paramsFromURL.get('title');
+            }
+
             var entityName = "incident"; // Logical name for Cases entity
             var params = `?data=title:${title}`;
             var url = `${parent.Xrm.Utility.getGlobalContext().getClientUrl()}/main.aspx?etn=${entityName}&pagetype=entitylist${params}`;
