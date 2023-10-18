@@ -302,3 +302,25 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 
      }
  });
+//TestHTMLJS
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigate to Entity</title>
+    <script>
+        function navigateToEntity() {
+            var title = "Cases"; // Hard-coded for example
+            var entityName = "incident"; // Logical name for Cases entity
+            var params = `?data=title:${title}`;
+            var url = `${parent.Xrm.Utility.getGlobalContext().getClientUrl()}/main.aspx?etn=${entityName}&pagetype=entitylist${params}`;
+            parent.window.location.replace(url);
+        }
+    </script>
+</head>
+<body onload="navigateToEntity()">
+</body>
+</html>
+
+
+//ENDTestHTMLJS
+
