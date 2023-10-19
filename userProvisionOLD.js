@@ -476,16 +476,16 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
             }
         }
 
-        async function navigateToEntity() {
+       async function navigateToEntity() {
             if (window.parent.Microsoft.Apm) {
                 const dataParam = getQueryParameterByName('Data');
                 const table = new URLSearchParams(dataParam).get('table');
-
+        
                 try {                    
                     const context = await window.parent.Microsoft.Apm.getSession("session-id-0").getContext();
                     const { parameters } = context;                    
                     var visibleTabs = parameters.hasOwnProperty('visibleTabs') ? JSON.parse(parameters['visibleTabs']) : {};
-
+        
                     if (visibleTabs.hasOwnProperty(table)) {
                         handleTabDisplay(visibleTabs[table]);
                     } else {
@@ -495,9 +495,17 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                         
                         var newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
                         newSession.focus();
+        
                         let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true };
-                        await window.parent.Microsoft.Apm.createTab(newTabTemp);
-
+        
+                        try {
+                            console.log("Before creating a new tab");
+                            await window.parent.Microsoft.Apm.createTab(newTabTemp);
+                            console.log("After creating a new tab");
+                        } catch (e) {
+                            console.error("Error while creating new tab:", e);
+                        }
+        
                         updateVisibleTabsContext(visibleTabs, table, newSession);
                     }                   
                     
@@ -508,7 +516,6 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                 console.log("Microsoft.Apm not available.");
             }
         }
-
         function handleTabDisplay(tabNeedFocus) {
             var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
             tab.close();
