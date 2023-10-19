@@ -455,6 +455,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <head>
     <title>Navigate to Entity</title>
     <script>
+        // Function to get query parameters
         function getQueryParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
@@ -465,14 +466,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        function handleInteraction(interactionParam) {
-            var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
-            tab.close();
-            window.parent.Microsoft.Apm.getSession("session-id-0").focus();                        
-            window.parent.Microsoft.Apm.focusTab(interactionParam);
-            console.log(interactionParam);
-        }
-
+        // Function to navigate to an entity list
         function navigateToEntityList(table) {
             var pageInput = {
                 pageType: "entitylist",
@@ -502,8 +496,10 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                 try {
                     const context = await window.parent.Microsoft.Apm.getSession("session-id-0").getContext();
                     const { parameters } = context;
-                    if (parameters.hasOwnProperty('interactionTabId') && parameters['interactionTabId'] !== null) {
-                        handleInteraction(parameters['interactionTabId']);
+                    var visibleTabs = parameters.hasOwnProperty('visibleTabs') ? JSON.parse(parameters['visibleTabs']) : {};
+
+                    if (visibleTabs.hasOwnProperty(table)) {
+                        handleInteraction(visibleTabs[table]);
                     } else {
                         navigateToEntityList(table);
                     }
@@ -514,6 +510,16 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                 console.log("Microsoft.Apm not available.");
             }
         }
+
+        function handleInteraction(interactionParam) {
+            var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+            tab.close();
+
+            window.parent.Microsoft.Apm.getSession("session-id-0").focus();
+            window.parent.Microsoft.Apm.focusTab(interactionParam);
+            console.log(interactionParam);
+        }
+
     </script>
 </head>
 <body onload="navigateToEntity()">
