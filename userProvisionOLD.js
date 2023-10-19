@@ -481,21 +481,26 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                         var thisSession = window.parent.Microsoft.Apm.getFocusedSession();
                         var thistab = thisSession.getFocusedTab();
                         thistab.close();
-                        
+                
                         let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: false};
                         var newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
-                        var sessionFocus = newSession.focus();
-                        var newTab = window.parent.Microsoft.Apm.createTab(newTabTemp);
-                        var newTabFocus = window.parent.Microsoft.Apm.focusTab(newTab);
+                        await newSession.focus();  // assuming focus() returns a promise, otherwise remove await
+                
+                        // Assuming createTab returns a Promise
+                        var newTab = await window.parent.Microsoft.Apm.createTab(newTabTemp);
+                
+                        // Assuming focusTab returns a Promise
+                        var newTabFocus = await window.parent.Microsoft.Apm.focusTab(newTab);
                 
                         // Append the new table to visibleTabs object
-                        visibleTabs[table] = newTabFocus.tabId;
-
-                        // Update the session context
-                        newSession.updateContext({
-                            "visibleTabs": JSON.stringify(visibleTabs)
-                        });
-                       
+                        if (newTabFocus && newTabFocus.tabId) {
+                            visibleTabs[table] = newTabFocus.tabId;
+                
+                            // Update the session context
+                            await newSession.updateContext({
+                                "visibleTabs": JSON.stringify(visibleTabs)
+                            });
+                        }                       
                     }
                 } catch (e) {
                     console.error("Error occurred:", e);
