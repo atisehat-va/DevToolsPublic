@@ -465,10 +465,11 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         } 
 
-        function updateVisibleTabsContext(visibleTabs, table, newTabFocus, newSession) {
+        function updateVisibleTabsContext(visibleTabs, table, newSession) {
             if (!visibleTabs.hasOwnProperty(table)) {
+                var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
                 // Append the new table to visibleTabs object
-                visibleTabs[table] = newTabFocus.tabId;
+                visibleTabs[table] = tab.tabId;
                 // Update the session context
                 newSession.updateContext({
                     "visibleTabs": JSON.stringify(visibleTabs)
@@ -497,17 +498,9 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                         let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true};
                         var newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
                         var sessionFocus = newSession.focus();
-                        window.parent.Microsoft.Apm.createTab(newTabTemp);
-                        var newTabFocus = sessionFocus.getFocusedTab();
-                
-                        // Append the new table to visibleTabs object
-                        visibleTabs[table] = newTabFocus.tabId;
+                        await window.parent.Microsoft.Apm.createTab(newTabTemp);                        
 
-                        // Update the session context
-                        newSession.updateContext({
-                            "visibleTabs": JSON.stringify(visibleTabs)
-                        });
-                       
+                        updateVisibleTabsContext(visibleTabs, table, newSession);                      
                     }
                 } catch (e) {
                     console.error("Error occurred:", e);
