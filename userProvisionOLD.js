@@ -455,7 +455,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <head>
     <title>Navigate to Entity</title>
     <script>
-        function getQueryParameterByName(name, url) {
+        function getQueryParameterByName(name, url) {debugger;
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
             var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -492,14 +492,15 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                         var thisSession = window.parent.Microsoft.Apm.getFocusedSession();
                         var thistab = thisSession.getFocusedTab();
                         thistab.close();
-
-                        let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true };
+                        
                         var newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
                         newSession.focus();
-                        window.parent.Microsoft.Apm.createTab(newTabTemp);
-                        
+                        let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true };
+                        await window.parent.Microsoft.Apm.createTab(newTabTemp);
+
                         updateVisibleTabsContext(visibleTabs, table, newSession);
-                    }
+                    }                   
+                    
                 } catch (e) {
                     console.error("Error occurred:", e);
                 }
