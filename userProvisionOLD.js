@@ -455,7 +455,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <head>
     <title>Navigate to Entity</title>
     <script>
-        function getQueryParameterByName(name, url) {debugger;
+        function getQueryParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
             var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -472,51 +472,64 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                 newSession.updateContext({
                     "visibleTabs": JSON.stringify(visibleTabs)
                 });
-                console.log("Updated context: ", JSON.stringify(visibleTabs));  
+                console.log("Updated context: ", JSON.stringify(visibleTabs));
             }
         }
 
-       async function navigateToEntity() {
+        async function getSessionContext(sessionId) {
+            try {
+                return await window.parent.Microsoft.Apm.getSession(sessionId).getContext();
+            } catch (e) {
+                console.error("Could not get session context", e);
+                return null;
+            }
+        }
+
+        async function createTab(templateName, appContext) {
+            try {
+                return await window.parent.Microsoft.Apm.createTab({ templateName, appContext, isFocused: true });
+            } catch (e) {
+                console.error("Could not create tab", e);
+                return null;
+            }
+        }
+
+        async function navigateToEntity() {
             if (!window.parent.Microsoft.Apm) {
                 console.log("Microsoft.Apm not available.");
                 return;
             }
 
-            try {
-                const dataParam = getQueryParameterByName('Data');
-                const table = new URLSearchParams(dataParam).get('table');
-                const context = await window.parent.Microsoft.Apm.getSession("session-id-0").getContext();
+            const dataParam = getQueryParameterByName('Data');
+            const table = new URLSearchParams(dataParam).get('table');
+            const context = await getSessionContext("session-id-0");
+            
+            if (!context || !context.parameters) {
+                console.log("No session context found");
+                return;
+            }
+
+            let visibleTabs = context.parameters.hasOwnProperty('visibleTabs') ? JSON.parse(context.parameters['visibleTabs']) : {};
+
+            if (visibleTabs.hasOwnProperty(table)) {
+                handleTabDisplay(visibleTabs[table]);
+            } else {
+                const thisSession = window.parent.Microsoft.Apm.getFocusedSession();
+                const thisTab = thisSession.getFocusedTab();
+                if (thisTab) {
+                    thisTab.close();
+                }
+
+                const newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
+                newSession.focus();
                 
-                if (!context || !context.parameters) {
-                    console.log("No session context found");
-                    return;
-                }
-
-                let visibleTabs = context.parameters.hasOwnProperty('visibleTabs') ? JSON.parse(context.parameters['visibleTabs']) : {};
-
-                if (visibleTabs.hasOwnProperty(table)) {
-                    handleTabDisplay(visibleTabs[table]);
+                const newTab = await createTab("test_tab", new Map().set("entityName", table));
+                
+                if (newTab) {
+                    updateVisibleTabsContext(visibleTabs, table, newSession);
                 } else {
-                    const thisSession = window.parent.Microsoft.Apm.getFocusedSession();
-                    const thistab = thisSession.getFocusedTab();
-                    if (thistab) {
-                        thistab.close();
-                    }
-
-                    const newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
-                    newSession.focus();
-                    
-                    let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true };
-                    const newTab = await window.parent.Microsoft.Apm.createTab(newTabTemp);
-                    
-                    if (newTab) {
-                        updateVisibleTabsContext(visibleTabs, table, newSession);
-                    } else {
-                        console.log("Failed to create new tab");
-                    }
+                    console.log("Failed to create new tab");
                 }
-            } catch (e) {
-                console.error("Error occurred:", e);
             }
         }
 
@@ -532,6 +545,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <body onload="navigateToEntity()">
 </body>
 </html>
+
 
 //EndEnhTestHTMLJS
 
