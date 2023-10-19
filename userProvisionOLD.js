@@ -302,7 +302,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 
      }
  });
-//TestHTMLJS
+//TestHTMLJS Working
 <!DOCTYPE html>
 <html>
 <head>
@@ -353,14 +353,86 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                             function error() {
                                 console.log("Navigation error.");
                             }
-                        ); 
+                        );                     
+                    }
+                });
+                
+            } else {
+               //
+            }            
+        }
+    </script>
+</head>
+<body onload="navigateToEntity()">
+</body>
+</html>
+//ENDTestHTMLJS
+
+//TestHTMLJS new
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigate to Entity</title>
+    <script>
+
+        function getQueryParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        function navigateToEntity() {            
+            if (window.parent.Microsoft.Apm) {debugger;
+                var entityId = getQueryParameterByName('id');
+                console.log("Entity ID: " + entityId);
+            
+                window.parent.Microsoft.Apm.getSession("session-id-0").getContext().then(function (context) {
+                let params = context.parameters;
+                    if (params.hasOwnProperty('interactionTabId') && params['interactionTabId'] != null) {
+                        interactionParam = params['interactionTabId'];
                         
-                        window.parent.Microsoft.Apm.getSession("session-id-0").getContext().then(function (context) {
-                            let params = context.parameters;
-                            console.log(params);
+                        var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+                        tab.close();
+                        
+                        window.parent.Microsoft.Apm.getSession("session-id-0").focus();                        
+                        window.parent.Microsoft.Apm.focusTab(interactionParam);
+                        console.log(interactionParam);
+                    }
+                    else {
+                        var thisSession = window.parent.Microsoft.Apm.getFocusedSession();
+                        var thistab = thisSession.getFocusedTab();                
+                        thisSession.updateContext({ 
+                            "interactionTabId": thistab.tabId
                         });
                         
-                        //Microsoft.Apm.getSession("session-id-0").focus();
+                        
+                        // Prepare entity and view information
+                        var entityName = "bah_interactions"; 
+                        
+                        // Page Input
+                        var pageInput = {
+                            pageType: "entitylist",
+                            entityName: entityName
+                        };
+                        
+                        // Navigation options
+                        var navigationOptions = {
+                            target: 1  
+                        };
+
+                        // Navigate to the entity list
+                        parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then(
+                            function success() {
+                                console.log("Navigation successful.");
+                            },
+                            function error() {
+                                console.log("Navigation error.");
+                            }
+                        );                     
                     }
                 });
                 
@@ -374,6 +446,5 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 </body>
 </html>
 
-
-//ENDTestHTMLJS
+//EndTestHTMLJS New
 
