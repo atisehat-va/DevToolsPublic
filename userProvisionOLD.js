@@ -308,35 +308,49 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <head>
     <title>Navigate to Entity</title>
     <script>
-        function navigateToEntity() {            
-            if (window.parent.Microsoft.Apm) {
-                window.parent.Microsoft.Apm.getSession("session-id-0").focus();            
-        
-                // Prepare entity and view information
-                var entityName = "bah_interactions"; 
-                
-                // Page Input
-                var pageInput = {
-                    pageType: "entitylist",
-                    entityName: entityName
-                };
-                
-                // Navigation options
-                var navigationOptions = {
-                    target: 1  
-                };
+        function navigateToEntity() {
+            try {
+                if (window.parent.Microsoft.Apm) {
+                    window.parent.Microsoft.Apm.getSession("session-id-0").focus();
 
-                // Navigate to the entity list
-                parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then(
-                    function success() {
-                        console.log("Navigation successful.");
-                    },
-                    function error() {
-                        console.log("Navigation error.");
-                    }
-                );
-            } else {
-                console.log("Microsoft.Apm not available.");
+                    // Prepare entity and view information
+                    var entityName = "bah_interactions";
+
+                    // Page Input
+                    var pageInput = {
+                        pageType: "entitylist",
+                        entityName: entityName
+                    };
+
+                    // Navigation options
+                    var navigationOptions = {
+                        target: 1
+                    };
+
+                    // Navigate to the entity list
+                    parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then(
+                        function success() {
+                            console.log("Navigation successful.");
+                            // Close the window
+                            window.close();
+                        },
+                        function error() {
+                            console.log("Navigation error.");
+                            // Optionally close the window even on error
+                            window.close();
+                        }
+                    );
+                } else {
+                    console.log("Microsoft.Apm not available.");
+                    // Optionally close the window if Microsoft.Apm is not available
+                    window.close();
+                }
+            } catch (e) {
+                if (e instanceof ReferenceError) {
+                    console.log("Microsoft.Apm is not available:", e);
+                    // Optionally close the window if an error occurs
+                    window.close();
+                }
             }
         }
     </script>
@@ -344,5 +358,6 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <body onload="navigateToEntity()">
 </body>
 </html>
+
 //ENDTestHTMLJS
 
