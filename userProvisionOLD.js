@@ -308,56 +308,72 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <head>
     <title>Navigate to Entity</title>
     <script>
-        function navigateToEntity() {
-            try {
-                if (window.parent.Microsoft.Apm) {
-                    window.parent.Microsoft.Apm.getSession("session-id-0").focus();
+        function navigateToEntity() {            
+            if (window.parent.Microsoft.Apm) {debugger;
+            
+                window.parent.Microsoft.Apm.getSession("session-id-0").getContext().then(function (context) {
+                let params = context.parameters;
+                    if (params.hasOwnProperty('interactionTabId') && params['interactionTabId'] != null) {
+                        interactionParam = params['interactionTabId'];
+                        
+                        var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+                        tab.close();
+                        
+                        window.parent.Microsoft.Apm.getSession("session-id-0").focus();                        
+                        window.parent.Microsoft.Apm.focusTab(interactionParam);
+                        console.log(interactionParam);
+                    }
+                    else {
+                        var thisSession = window.parent.Microsoft.Apm.getFocusedSession();
+                        var thistab = thisSession.getFocusedTab();                
+                        thisSession.updateContext({ 
+                            "interactionTabId": thistab.tabId
+                        });
+                        
+                        
+                        // Prepare entity and view information
+                        var entityName = "bah_interactions"; 
+                        
+                        // Page Input
+                        var pageInput = {
+                            pageType: "entitylist",
+                            entityName: entityName
+                        };
+                        
+                        // Navigation options
+                        var navigationOptions = {
+                            target: 1  
+                        };
 
-                    // Prepare entity and view information
-                    var entityName = "bah_interactions";
-
-                    // Page Input
-                    var pageInput = {
-                        pageType: "entitylist",
-                        entityName: entityName
-                    };
-
-                    // Navigation options
-                    var navigationOptions = {
-                        target: 1
-                    };
-
-                    // Navigate to the entity list
-                    parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then(
-                        function success() {
-                            console.log("Navigation successful.");
-                            // Close the window
-                            window.close();
-                        },
-                        function error() {
-                            console.log("Navigation error.");
-                            // Optionally close the window even on error
-                            window.close();
-                        }
-                    );
-                } else {
-                    console.log("Microsoft.Apm not available.");
-                    // Optionally close the window if Microsoft.Apm is not available
-                    window.close();
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    console.log("Microsoft.Apm is not available:", e);
-                    // Optionally close the window if an error occurs
-                    window.close();
-                }
-            }
+                        // Navigate to the entity list
+                        parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then(
+                            function success() {
+                                console.log("Navigation successful.");
+                            },
+                            function error() {
+                                console.log("Navigation error.");
+                            }
+                        ); 
+                        
+                        window.parent.Microsoft.Apm.getSession("session-id-0").getContext().then(function (context) {
+                            let params = context.parameters;
+                            console.log(params);
+                        });
+                        
+                        //Microsoft.Apm.getSession("session-id-0").focus();
+                    }
+                });
+                
+            } else {
+               //
+            }            
         }
     </script>
 </head>
 <body onload="navigateToEntity()">
 </body>
 </html>
+
 
 //ENDTestHTMLJS
 
