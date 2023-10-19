@@ -387,8 +387,8 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 
         function navigateToEntity() {            
             if (window.parent.Microsoft.Apm) {debugger;
-                var entityId = getQueryParameterByName('id');
-                console.log("Entity ID: " + entityId);
+                var subAreaId = getQueryParameterByName('subAreaId');
+                console.log('Sub Area ID:', subAreaId);
             
                 window.parent.Microsoft.Apm.getSession("session-id-0").getContext().then(function (context) {
                 let params = context.parameters;
