@@ -368,7 +368,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 </html>
 //ENDTestHTMLJS
 
-//TestHTMLJS new
+//TestHTMLJS working2
 <!DOCTYPE html>
 <html>
 <head>
@@ -446,5 +446,79 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <body onload="navigateToEntity()">
 </body>
 </html>
-//EndTestHTMLJS New
+//EndTestHTMLJS working2
+
+//EnhTestHTMLJS
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigate to Entity</title>
+    <script>
+        function getQueryParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        function handleInteraction(interactionParam) {
+            var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+            tab.close();
+            window.parent.Microsoft.Apm.getSession("session-id-0").focus();                        
+            window.parent.Microsoft.Apm.focusTab(interactionParam);
+            console.log(interactionParam);
+        }
+
+        function navigateToEntityList(table) {
+            var pageInput = {
+                pageType: "entitylist",
+                entityName: table  // dynamically set the table
+            };
+            
+            var navigationOptions = {
+                target: 1  
+            };
+
+            parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then(
+                function success() {
+                    console.log("Navigation successful.");
+                },
+                function error() {
+                    console.log("Navigation error.");
+                }
+            );
+        }
+
+        async function navigateToEntity() {
+            if (window.parent.Microsoft.Apm) {
+                const dataParam = getQueryParameterByName('Data');
+                const table = new URLSearchParams(dataParam).get('table');
+                console.log('Table:', table);
+
+                try {
+                    const context = await window.parent.Microsoft.Apm.getSession("session-id-0").getContext();
+                    const { parameters } = context;
+                    if (parameters.hasOwnProperty('interactionTabId') && parameters['interactionTabId'] !== null) {
+                        handleInteraction(parameters['interactionTabId']);
+                    } else {
+                        navigateToEntityList(table);
+                    }
+                } catch (e) {
+                    console.error("Error occurred:", e);
+                }
+            } else {
+                console.log("Microsoft.Apm not available.");
+            }
+        }
+    </script>
+</head>
+<body onload="navigateToEntity()">
+</body>
+</html>
+
+//EndEnhTestHTMLJS
 
