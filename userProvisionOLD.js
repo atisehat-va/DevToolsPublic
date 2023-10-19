@@ -446,6 +446,5 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <body onload="navigateToEntity()">
 </body>
 </html>
-
 //EndTestHTMLJS New
 
