@@ -494,7 +494,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                         var thistab = thisSession.getFocusedTab();
                         thistab.close();
                         
-                        let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: false};
+                        let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true};
                         var newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
                         var sessionFocus = newSession.focus();
                         window.parent.Microsoft.Apm.createTab(newTabTemp);
