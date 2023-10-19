@@ -470,7 +470,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
         function navigateToEntityList(table) {
             var pageInput = {
                 pageType: "entitylist",
-                entityName: table  // dynamically set the table
+                entityName: table
             };
             
             var navigationOptions = {
@@ -501,6 +501,17 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                     if (visibleTabs.hasOwnProperty(table)) {
                         handleInteraction(visibleTabs[table]);
                     } else {
+                        var thisSession = window.parent.Microsoft.Apm.getFocusedSession();
+                        var thistab = thisSession.getFocusedTab();
+
+                        // Append the new table to the visibleTabs object
+                        visibleTabs[table] = thistab.tabId;
+
+                        // Update the session context
+                        thisSession.updateContext({
+                            "visibleTabs": JSON.stringify(visibleTabs)
+                        });
+
                         navigateToEntityList(table);
                     }
                 } catch (e) {
@@ -525,6 +536,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <body onload="navigateToEntity()">
 </body>
 </html>
+
 
 //EndEnhTestHTMLJS
 
