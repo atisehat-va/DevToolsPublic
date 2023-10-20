@@ -540,59 +540,69 @@ main.aspx/webresources/mcs_vh_test_temp.html?Data=table=bah_interactions&title=i
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Navigate to Entity</title>
+    <title>Navigation Control</title>
     <script>
         function getQueryParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(url);
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
             if (!results) return null;
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
-
-        async function navigateToEntity() {
+        
+       async function navigateToEntity() {
             if (!window.parent.Microsoft.Apm) {
                 console.log("Microsoft.Apm not available.");
                 return;
             }
-
-            try {
+               
+            try {                
                 const dataParam = getQueryParameterByName('Data');
-                const urlParams = new URLSearchParams(dataParam);
-                const table = urlParams.get('table');
-
-                const array = await window.parent.Microsoft.Apm.getSession("session-id-0").getAllTabsForTemplate("test_tab");
-                const firstItem = array[0];
-
-                const currentSession = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
-
-                if (firstItem) {
-                    const homeSession = window.parent.Microsoft.Apm.getSession("session-id-0");
-                    const hometab = homeSession.getTab(firstItem);
-                    hometab.close();
-                    currentSession.close();
-                    homeSession.focus();
-                } else {
-                    currentSession.close();
+                const tableName = new URLSearchParams(dataParam).get('tableName');                                
+                const array = await window.parent.Microsoft.Apm.getSession("session-id-0").getAllTabsForTemplate("mcs_vh_homeTab");                        
+                const tabId = array[0];
+                
+                const focusedTab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+                const newTabTemp = { templateName: "mcs_vh_homeTab", appContext: new Map().set("entityName", tableName), isFocused: true };
+                
+                if(tabId) {                    
+                    const homeSession = window.parent.Microsoft.Apm.getSession("session-id-0");                    
+                    const hometab = homeSession.getTab(tabId);
+                    
+                    await hometab.close();
+                    await focusedTab.close();                    
+                    await homeSession.focus();                                       
+                    
+                } else {                    
+                    await focusedTab.close();                                                            
                 }
-
-                const newTabTemp = {
-                    templateName: "test_tab",
-                    appContext: new Map().set("entityName", table),
-                    isFocused: true
-                };
                 
                 window.parent.Microsoft.Apm.createTab(newTabTemp);
-
+                
             } catch (error) {
                 console.error("An error occurred: ", error);
-            }
-        }
+            }             
+        }        
     </script>
 </head>
 <body onload="navigateToEntity()">
 </body>
 </html>
 
+//Extra
+const alertStrings = {
+        text: "A portal account is required. Please send a portal invitation for an account to be created.",
+        title: "Validation Error"
+    };
+
+    const alertOptions = { height: 200, width: 300 };
+    Xrm.Navigation.openAlertDialog(alertStrings, alertOptions)
+    .then(success => {
+        Xrm.Navigation.closeForm(CommCare.Shared.FormContext.getAttribute(optionSet).setValue(null));
+    })
+    .catch(error => {
+        console.log("Error in closing dialog", error);
+    });
+}		
