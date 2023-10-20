@@ -455,7 +455,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 <head>
     <title>Navigate to Entity</title>
     <script>
-        function getQueryParameterByName(name, url) {
+        function getQueryParameterByName(name, url) {debugger;
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
             var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -492,14 +492,7 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
                     return;
                 }
 
-                let visibleTabs = {};
-                if (context.parameters.hasOwnProperty('visibleTabs')) {
-                    try {
-                        visibleTabs = JSON.parse(context.parameters['visibleTabs']);
-                    } catch (e) {
-                        console.error("Error parsing visibleTabs JSON:", e);
-                    }
-                }
+                let visibleTabs = context.parameters.hasOwnProperty('visibleTabs') ? JSON.parse(context.parameters['visibleTabs']) : {};
 
                 if (visibleTabs.hasOwnProperty(table)) {
                     handleTabDisplay(visibleTabs[table]);
