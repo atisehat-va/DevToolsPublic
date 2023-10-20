@@ -535,3 +535,63 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 
 //EndEnhTestHTMLJS
 main.aspx/webresources/mcs_vh_test_temp.html?Data=table=bah_interactions&title=interactions
+
+//Final
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigate to Entity</title>
+    <script>
+        function getQueryParameterByName(name, url) {debugger;
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        
+       async function navigateToEntity() {
+            if (!window.parent.Microsoft.Apm) {
+                console.log("Microsoft.Apm not available.");
+                return;
+            }           
+                
+            try {
+                const dataParam = getQueryParameterByName('Data');
+                const table = new URLSearchParams(dataParam).get('table');
+                const title = new URLSearchParams(dataParam).get('title');
+                
+                const array = await window.parent.Microsoft.Apm.getSession("session-id-0").getAllTabsForTemplate("test_tab");                        
+                const firstItem = array[0];
+                
+                if(firstItem) {                    
+                    const homeSession = window.parent.Microsoft.Apm.getSession("session-id-0");
+                    const currentSession = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+                    const hometab = homeSession.getTab(firstItem);                    
+                    hometab.close();
+                    currentSession.close();
+                    
+                    homeSession.focus();
+                    
+                    let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true };
+                    window.parent.Microsoft.Apm.createTab(newTabTemp);
+                    
+                } else {
+                    const currentSession = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+                    currentSession.close();
+                    
+                    let newTabTemp = { templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true };
+                    window.parent.Microsoft.Apm.createTab(newTabTemp);
+                }
+                
+            } catch (error) {
+                console.error("An error occurred: ", error);
+            }             
+        }        
+    </script>
+</head>
+<body onload="navigateToEntity()">
+</body>
+</html>
