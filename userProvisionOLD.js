@@ -467,8 +467,8 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
 
         function updateVisibleTabsContext(visibleTabs, table, newSession) {
             if (!visibleTabs.hasOwnProperty(table)) {
-                var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();                
-                visibleTabs[table] = tab.tabId;                
+                var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
+                visibleTabs[table] = tab.tabId;
                 newSession.updateContext({
                     "visibleTabs": JSON.stringify(visibleTabs)
                 });
@@ -476,76 +476,64 @@ Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
             }
         }
 
-        async function getSessionContext(sessionId) {
-            try {
-                return await window.parent.Microsoft.Apm.getSession(sessionId).getContext();
-            } catch (e) {
-                console.error("Could not get session context", e);
-                return null;
-            }
-        }
-
-        async function createTab(templateName, appContext) {
-            try {
-                return await window.parent.Microsoft.Apm.createTab({ templateName, appContext, isFocused: true });
-            } catch (e) {
-                console.error("Could not create tab", e);
-                return null;
-            }
-        }
-
-        async function navigateToEntity() {
-            if (!window.parent.Microsoft.Apm) {
-                console.log("Microsoft.Apm not available.");
-                return;
-            }
-
-            const dataParam = getQueryParameterByName('Data');
-            const table = new URLSearchParams(dataParam).get('table');
-            const context = await getSessionContext("session-id-0");
-            
-            if (!context || !context.parameters) {
-                console.log("No session context found");
-                return;
-            }
-
-            let visibleTabs = context.parameters.hasOwnProperty('visibleTabs') ? JSON.parse(context.parameters['visibleTabs']) : {};
-
-            if (visibleTabs.hasOwnProperty(table)) {
-                handleTabDisplay(visibleTabs[table]);
-            } else {
-                const thisSession = window.parent.Microsoft.Apm.getFocusedSession();
-                const thisTab = thisSession.getFocusedTab();
-                if (thisTab) {
-                    thisTab.close();
-                }
-
-                const newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
-                newSession.focus();
-                
-                const newTab = await createTab("test_tab", new Map().set("entityName", table));
-                
-                if (newTab) {
-                    updateVisibleTabsContext(visibleTabs, table, newSession);
-                } else {
-                    console.log("Failed to create new tab");
-                }
-            }
-        }
-
         function handleTabDisplay(tabNeedFocus) {
             var tab = window.parent.Microsoft.Apm.getFocusedSession().getFocusedTab();
             tab.close();
-            
             window.parent.Microsoft.Apm.getSession("session-id-0").focus();
             window.parent.Microsoft.Apm.focusTab(tabNeedFocus);
+        }
+
+        async function navigateToEntity() {
+            if (window.parent.Microsoft.Apm) {
+                const dataParam = getQueryParameterByName('Data');
+                const table = new URLSearchParams(dataParam).get('table');
+
+                try {
+                    const context = await window.parent.Microsoft.Apm.getSession("session-id-0").getContext();
+                    const { parameters } = context;
+                    var visibleTabs = parameters.hasOwnProperty('visibleTabs') ? JSON.parse(parameters['visibleTabs']) : {};
+
+                    const initialTabCount = window.parent.Microsoft.Apm.getFocusedSession().getAllTabs().length;
+
+                    if (visibleTabs.hasOwnProperty(table)) {
+                        handleTabDisplay(visibleTabs[table]);
+                    } else {
+                        var thisSession = window.parent.Microsoft.Apm.getFocusedSession();
+                        var thisTab = thisSession.getFocusedTab();
+                        thisTab.close();
+
+                        var newSession = window.parent.Microsoft.Apm.getSession("session-id-0");
+                        newSession.focus();
+                        window.parent.Microsoft.Apm.createTab({ templateName: "test_tab", appContext: new Map().set("entityName", table), isFocused: true });
+
+                        let tabCreated = false;
+                        for (let i = 0; i < 10; i++) {
+                            const currentTabCount = window.parent.Microsoft.Apm.getFocusedSession().getAllTabs().length;
+                            if (currentTabCount > initialTabCount) {
+                                tabCreated = true;
+                                break;
+                            }
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                        }
+
+                        if (tabCreated) {
+                            updateVisibleTabsContext(visibleTabs, table, newSession);
+                        } else {
+                            console.log("Failed to confirm tab creation.");
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error occurred:", e);
+                }
+            } else {
+                console.log("Microsoft.Apm not available.");
+            }
         }
     </script>
 </head>
 <body onload="navigateToEntity()">
 </body>
 </html>
-
 
 //EndEnhTestHTMLJS
 
