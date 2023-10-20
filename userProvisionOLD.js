@@ -605,4 +605,38 @@ const alertStrings = {
     .catch(error => {
         console.log("Error in closing dialog", error);
     });
-}		
+}
+
+function showAlert(text, title) {
+  return new Promise((resolve, reject) => {
+    const alertStrings = {
+      text: text,
+      title: title
+    };
+
+    const alertOptions = { height: 200, width: 300 };
+
+    Xrm.Navigation.openAlertDialog(alertStrings, alertOptions)
+    .then(success => {
+      resolve(success);
+    })
+    .catch(error => {
+      console.log("Error in closing dialog", error);
+      reject(error);
+    });
+  });
+}
+
+// Usage
+showAlert(
+  "A portal account is required. Please send a portal invitation for an account to be created.",
+  "Validation Error"
+)
+.then(success => {
+   Xrm.Navigation.closeForm(CommCare.Shared.FormContext.getAttribute(optionSet).setValue(null));
+})
+.catch(error => {
+  // Handle any errors here
+});
+
+
