@@ -76,7 +76,7 @@ function updateOptionSetValues(control) {
     }   
 }
 
-function processAndRenameFieldsInFormComponents() {
+function processAndRenameFieldsInFormComponents() { debugger;
     try {
         Xrm.Page.ui.controls.forEach(function(control) {
             if (control.getControlType() === "lookup") {
@@ -120,4 +120,4 @@ function logAllControls() {
     }
 }
 
-logAllControls();
+//logAllControls();
