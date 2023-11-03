@@ -124,7 +124,7 @@ function processAndRenameFieldsInFormComponents() { debugger;
 
 function renameFormComponentFields() {
     try {
-        // Select all elements with a data-control-name attribute that may represent different field types
+        // Select all elements with a data-control-name attribute
         var fieldElements = document.querySelectorAll('[data-control-name]');
 
         // Loop through each element and set its display name
@@ -133,11 +133,11 @@ function renameFormComponentFields() {
             var controlName = field.getAttribute('data-control-name');
             var label;
 
-            // Check if the field is a date field, you might need a different selector based on your form's structure
-            if (field.classList.contains('date-field-class')) { // Replace 'date-field-class' with the actual class used for date fields
-                label = field.closest('div').querySelector('.date-label-class'); // Replace '.date-label-class' with the correct selector for date labels
+            // Determine if it's a date field and select its label differently
+            if (field.classList.contains('class-for-date-fields')) { // replace with actual class if it's class-based
+                label = field.closest('.parent-class-for-date').querySelector('.label-class-for-date'); // adjust the selectors based on actual structure
             } else {
-                // For other fields, assume the label is in a span within a sibling div
+                // For other types of fields, assume label is in a span within a sibling div
                 label = field.closest('div').querySelector('span');
             }
 
