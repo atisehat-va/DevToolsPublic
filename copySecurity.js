@@ -204,57 +204,57 @@ function copySecurity() {
 	}
 
 	function displayPopup(users) {
-		users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
-		const newContainer = createAppendSecurityPopup();
-		renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
-		renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
-		setupSearchFilter('searchInput1');
-		setupSearchFilter('searchInput2');	
+	    users.entities.sort((a, b) => a.fullname.localeCompare(b.fullname));
+	    const newContainer = createAppendSecurityPopup();
+	    renderUserList(users.entities, user => selectUser(user, '1'), 'userList1', 'searchInput1');
+	    renderUserList(users.entities, user => selectUser(user, '2'), 'userList2', 'searchInput2');
+	    setupSearchFilter('searchInput1');
+	    setupSearchFilter('searchInput2');	
 
-		const submitButton = document.getElementById("submitButton");
-		if (submitButton) {
-			console.log("Found submitButton element, adding event listener.");
-			submitButton.addEventListener("click", async function() {
-			    console.log("submitButton clicked.");
-			
-			    var userId = Xrm.Utility.getGlobalContext().userSettings.userId;
-			    userId = userId.replace(/[{}]/g, "");
-			
-			    if (selectedUserId2.toLowerCase() === userId.toLowerCase()) {
-			        // If the selected user to update is the current user.
-			        showCustomAlert("You are not allowed to change your own security settings.");
-			    } else {
-			        try {
-			            showLoadingDialog("Your update is in progress, please be patient...");
-			            const actionType = "Change BUTR"; // BUTR = Business Unit, Teams, Roles
-			            if (typeof updateUserDetails === "function") {
-			                // Await the updateUserDetails function and check for its return value or errors
-			                const updateResult = await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType);
-			                // Check if the updateResult indicates a successful update, you need to define the success criteria
-			                if (updateResult.success) {
-			                    showCustomAlert(`Security updated for ${selectedUserName2}`);
-			                } else {
-			                    // Handle cases where updateResult indicates failure
-			                    showCustomAlert(updateResult.errorMessage);
-			                }
-			            } else {
-			                console.log("updateUserDetails is NOT accessible");
-			                showCustomAlert("Unable to update security settings. The function is not accessible.");
-			            }
-			        } catch (error) {
-			            // Catch and display any errors that occur during the update process
-			            console.error("Error during update:", error);
-			            showCustomAlert("An error occurred while updating security settings.");
-			        } finally {
-			            // Close the loading dialog regardless of whether an error occurred
-			            closeLoadingDialog();
-			        }
-			    }
-			});
-		} else {
-			console.log("submitButton element not found");
-		}		
-		updateSubmitButtonVisibility();
+	    const submitButton = document.getElementById("submitButton");
+	    if (submitButton) {
+	        console.log("Found submitButton element, adding event listener.");
+	        submitButton.addEventListener("click", async function() {
+	            console.log("submitButton clicked.");
+	            
+	            var userId = Xrm.Utility.getGlobalContext().userSettings.userId;        
+	            userId = userId.replace(/[{}]/g, "");
+	
+	            if (selectedUserId2.toLowerCase() === userId.toLowerCase()) {
+	                showCustomAlert("You are not allowed to change your own security settings.");                
+	                return;
+	            } else {
+	                showLoadingDialog("Your update is in progress, please be patient...");
+	                const actionType = "Change BUTR"; // BUTR = Business Unit, Teams, Roles
+	                let updateWasSuccessful = true;
+	                if (typeof updateUserDetails === "function") {
+	                    try {
+	                        await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType);
+	                    } catch (error) {
+	                        console.error("An error occurred during the update process:", error);
+	                        showCustomAlert(`An error occurred: ${error.message}`);
+	                        updateWasSuccessful = false;
+	                    } finally {
+	                        closeLoadingDialog();
+	                    }
+	                    if (updateWasSuccessful) {
+	                        showCustomAlert(`Security updated for ${selectedUserName2}`);
+	                    }
+	                } else {
+	                    console.log("updateUserDetails is NOT accessible");
+	                    updateWasSuccessful = false;
+	                }
+	
+	                if (!updateWasSuccessful) {
+	                    // Handle the error situation, for example:
+	                    showCustomAlert("Failed to update security settings. Please check the logs for more details.");
+	                }
+	            }
+	        });
+	    } else {
+	        console.log("submitButton element not found");
+	    }       
+	    updateSubmitButtonVisibility();
 	}
 	fetchUsers(function(users) {
 		displayPopup(users);
