@@ -148,19 +148,36 @@ function renameFormComponentFields() {
 // Invoke the function to update field names
 renameFormComponentFields();
 
-function processAndRenameFieldsInFormComponents() {
-    Xrm.Page.ui.controls.forEach(function (control) {
-        var controlType = control.getControlType();
-        if (controlType === "lookup" || controlType === "datetime") {
-            try {
-                var controlName = control.getName();
-                control.setLabel(controlName);
-            } catch (e) {
-                console.error("Could not set label for control: " + control.getName(), e);
+function renameFormComponentFields() {
+    // Function to handle renaming logic
+    const renameFields = () => {
+        const fieldElements = document.querySelectorAll('[data-control-name]');
+
+        fieldElements.forEach(function (field) {
+            const controlName = field.getAttribute('data-control-name');
+            let label = field.closest('div').querySelector('span'); // Adjust the selector as needed
+
+            if (label) {
+                label.textContent = controlName; // Set label text to the control name
+            }
+        });
+    };
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(function (mutationsList, observer) {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                renameFields(); // Call your rename function
             }
         }
     });
+
+    // Start observing the target node for configured mutations
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Later, you can stop observing
+    // observer.disconnect();
 }
 
-processAndRenameFieldsInFormComponents();
+renameFormComponentFields();
 
