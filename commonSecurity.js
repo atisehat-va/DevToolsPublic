@@ -131,26 +131,25 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
 } */
 
 // This function associates the user to a team without checking the team type
-async function associateUserToTeam(selectedUserId, selectedTeamId) {
-  try {
-    // Prepare the association data
-    const association = {
-      "@odata.id": `${Xrm.Page.context.getClientUrl()}/api/data/v9.2/systemusers(${selectedUserId})`
-    };
+async function associateUserToTeam(selectedUserId, selectedTeamId, clientUrl) {
+  const associationEntity = {
+    "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
+  };
 
-    // Associate the user to the team
-    await Xrm.WebApi.online.associateRecord(
-      "team",
+  try {
+    const result = await Xrm.WebApi.online.associate(
+      "teams",
       selectedTeamId,
       "teammembership_association",
-      "systemuser",
+      "systemusers",
       selectedUserId,
-      association
+      associationEntity
     );
 
-    console.log("User successfully associated to the team");
+    console.log("User successfully associated with the team");
+    // You might want to do something after the successful association
   } catch (error) {
-    console.error("Error associating user to team:", error.message);
+    console.error("Error associating user with team:", error.message);
     // Handle the error as needed
   }
 }
