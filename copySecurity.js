@@ -227,7 +227,7 @@ function copySecurity() {
 			
 			    if (selectedUserId2.toLowerCase() === userId.toLowerCase()) {
 			        // If selected user to update is current user.
-			        showCustomAlert("You are not allowed to update your own security settings.");
+			        showCustomAlert("You are not allowed to change your own security settings.");
 			        console.log("User attempted to update their own security settings, which is not allowed.");
 				return;
 			    } else {
