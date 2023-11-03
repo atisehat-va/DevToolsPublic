@@ -6,10 +6,10 @@ var showAllTabsAndSectionsBtnClickStatus = false;
 function renameTabsSectionsFields() {      
     try {
         var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-     /*   if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+        if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
             showCustomAlert('Show Logical Names button has already been clicked!!');
             return;
-        } */
+        }
         Xrm.Page.ui.tabs.forEach(function(tab) {
             var logicalName = tab.getName();
             tab.setLabel(logicalName);
@@ -43,31 +43,18 @@ function renameHeaderFields() {
 function renameControlAndUpdateOptionSet(control) {
     try {
         if (control && typeof control.getAttribute === 'function') {
-            // Wait for the subform to be fully loaded
-            waitForSubformToLoad(control, function() {
-                var attribute = control.getAttribute();
-                if (attribute && typeof attribute.getName === 'function') {
-                    var logicalName = attribute.getName();
-                    control.setLabel(logicalName);
-                    if (control.getControlType() === "optionset") {
-                        updateOptionSetValues(control);            
-                    }
+            var attribute = control.getAttribute();
+            if (attribute && typeof attribute.getName === 'function') {
+                var logicalName = attribute.getName();
+                control.setLabel(logicalName);
+                if (control.getControlType() === "optionset") {
+                    updateOptionSetValues(control);            
                 }
-            });
+            }
         }
     } catch (e) {
         console.error("Error in renameControlAndUpdateOptionSet:", e);
     }
-}
-
-function waitForSubformToLoad(control, callback) {
-    // Example function to wait for subform to load - implementation may vary
-    var checkLoaded = setInterval(function() {
-        if (control.getFormContext && control.getFormContext().ui) { // Check if subform is loaded
-            clearInterval(checkLoaded);
-            callback(); // Call your function after subform is confirmed to be loaded
-        }
-    }, 500); // Check every 500ms - adjust as needed
 }
 
 function updateOptionSetValues(control) {
@@ -89,11 +76,11 @@ function updateOptionSetValues(control) {
     }   
 }
 
-function processAndRenameFieldsInFormComponents() { debugger;
+function processAndRenameFieldsInFormComponents() { 
     try {
         Xrm.Page.ui.controls.forEach(function(control) {
-            if (control.getControlType() === "lookup") {
-                var formComponentControlName = control.getName() + "1"; 
+            if (control.getControlType() === "formcomponent") {
+                var formComponentControlName = control.getName(); 
                 var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
 
                 // Check if formComponentControl and formComponentControl.data are defined
@@ -113,63 +100,6 @@ function processAndRenameFieldsInFormComponents() { debugger;
                             var logicalName = section.getName();
                             section.setLabel(logicalName);
                         });
-                    });
-                }
-            }
-        });
-    } catch (e) {
-        console.error("Error in processAndRenameFieldsInFormComponents:", e);
-    }
-}
-
-function renameFormComponentFields() {
-    try {
-        // Select all elements with a data-control-name attribute
-        var fieldElements = document.querySelectorAll('[data-control-name]');
-
-        // Loop through each element and set its display name
-        fieldElements.forEach(function(field) {
-            // Extract the control name from the data-control-name attribute
-            var controlName = field.getAttribute('data-control-name');
-
-            // Attempt to find the label by assuming it's in a span within a sibling div
-            var label = field.closest('div').querySelector('span');
-
-            // Check if the label exists and update its text content
-            if(label) {
-                label.textContent = controlName; // Set label text to the control name
-            }
-        });
-    } catch (e) {
-        console.error("Error in renameFormComponentFields:", e);
-    }
-}
-
-// Invoke the function to update field names
-renameFormComponentFields();
-
-function processAndRenameFieldsInFormComponents() {
-    try {
-        Xrm.Page.ui.controls.forEach(function(control) {
-            // Check if the control is a 'formcomponent'
-            if (control.getControlType() === "formcomponent") {
-                // Get the actual formComponent control
-                var formComponentControl = control;
-                
-                // Check if formComponentControl and formComponentControl.data are defined
-                if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
-                    var formComponentData = formComponentControl.data.entity.attributes;
-
-                    // Loop through all attributes and set their labels
-                    formComponentData.forEach(function(attribute) {
-                        var logicalName = attribute.getName();
-                        var formComponentFieldControl = formComponentControl.getControl(logicalName);
-                        
-                        // Check if we have a control for the attribute and if it has the setLabel method
-                        if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
-                            var displayName = attribute.getDisplayName();
-                            formComponentFieldControl.setLabel(displayName);
-                        }
                     });
                 }
             }
