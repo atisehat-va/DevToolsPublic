@@ -108,3 +108,16 @@ function processAndRenameFieldsInFormComponents() {
         console.error("Error in processAndRenameFieldsInFormComponents:", e);
     }
 }
+function logAllControls() {
+    try {
+        Xrm.Page.ui.controls.forEach(function(control) {
+            var controlName = control.getName();
+            var controlType = control.getControlType();
+            console.log('Control Name:', controlName, 'Control Type:', controlType);
+        });
+    } catch (e) {
+        console.error("Error in logAllControls:", e);
+    }
+}
+
+logAllControls();
