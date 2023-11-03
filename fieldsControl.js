@@ -149,28 +149,32 @@ function renameFormComponentFields() {
 renameFormComponentFields();
 
 function processAndRenameFieldsInFormComponents() {
-    Xrm.Page.ui.controls.forEach(function(control) {
-        if (control.getControlType() === "lookup") {
-            // No need to append "1" to the control name, working directly with the control
-            var formComponentControl = control;
+    try {
+        Xrm.Page.ui.controls.forEach(function(control) {
+            // Check if the control is a 'formcomponent'
+            if (control.getControlType() === "formcomponent") {
+                // Get the actual formComponent control
+                var formComponentControl = control;
+                
+                // Check if formComponentControl and formComponentControl.data are defined
+                if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
+                    var formComponentData = formComponentControl.data.entity.attributes;
 
-            // Check if formComponentControl and formComponentControl.data are defined
-            if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
-                var formComponentData = formComponentControl.data.entity.attributes;
-
-                formComponentData.forEach(function(attribute) {
-                    var logicalName = attribute.getName();
-                    var formComponentFieldControl = formComponentControl.getControl(logicalName);
-                    if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
-                        formComponentFieldControl.setLabel(attribute.getDisplayName());
-                    }
-                });
+                    // Loop through all attributes and set their labels
+                    formComponentData.forEach(function(attribute) {
+                        var logicalName = attribute.getName();
+                        var formComponentFieldControl = formComponentControl.getControl(logicalName);
+                        
+                        // Check if we have a control for the attribute and if it has the setLabel method
+                        if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
+                            var displayName = attribute.getDisplayName();
+                            formComponentFieldControl.setLabel(displayName);
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
+    } catch (e) {
+        console.error("Error in processAndRenameFieldsInFormComponents:", e);
+    }
 }
-
-// Run the function to process the renaming
-processAndRenameFieldsInFormComponents();
-
-
