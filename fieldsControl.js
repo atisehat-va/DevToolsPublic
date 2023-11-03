@@ -149,43 +149,28 @@ function renameFormComponentFields() {
 renameFormComponentFields();
 
 function processAndRenameFieldsInFormComponents() {
-    try {
-        Xrm.Page.ui.controls.forEach(function (control) {
-            if (control.getControlType() === "lookup") {
-                // Check if control name ends with a number
-                var controlName = control.getName();
-                var endsWithNumber = /\d$/.test(controlName);
-                // Append "1" only if the control name does not end with a number
-                var formComponentControlName = endsWithNumber ? controlName : controlName + "1";
-                
-                var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
+    Xrm.Page.ui.controls.forEach(function(control) {
+        if (control.getControlType() === "lookup") {
+            // No need to append "1" to the control name, working directly with the control
+            var formComponentControl = control;
 
-                // Check if formComponentControl and formComponentControl.data are defined
-                if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
-                    var formComponentData = formComponentControl.data.entity.attributes;
+            // Check if formComponentControl and formComponentControl.data are defined
+            if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
+                var formComponentData = formComponentControl.data.entity.attributes;
 
-                    formComponentData.forEach(function (attribute) {
-                        var logicalName = attribute.getName();
-                        var formComponentFieldControl = formComponentControl.getControl(logicalName);
-                        if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
-                            formComponentFieldControl.setLabel(logicalName);
-                        }
-                    });
-
-                    formComponentControl.ui.tabs.forEach(function (tab) {
-                        tab.sections.forEach(function (section) {
-                            var logicalName = section.getName();
-                            section.setLabel(logicalName);
-                        });
-                    });
-                }
+                formComponentData.forEach(function(attribute) {
+                    var logicalName = attribute.getName();
+                    var formComponentFieldControl = formComponentControl.getControl(logicalName);
+                    if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
+                        formComponentFieldControl.setLabel(attribute.getDisplayName());
+                    }
+                });
             }
-        });
-    } catch (e) {
-        console.error("Error in processAndRenameFieldsInFormComponents:", e);
-    }
+        }
+    });
 }
 
-// Run the function
+// Run the function to process the renaming
 processAndRenameFieldsInFormComponents();
+
 
