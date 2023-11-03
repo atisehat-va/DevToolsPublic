@@ -6,10 +6,10 @@ var showAllTabsAndSectionsBtnClickStatus = false;
 function renameTabsSectionsFields() {      
     try {
         var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-        if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
+      /*  if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
             showCustomAlert('Show Logical Names button has already been clicked!!');
             return;
-        }
+        } */
         Xrm.Page.ui.tabs.forEach(function(tab) {
             var logicalName = tab.getName();
             tab.setLabel(logicalName);
