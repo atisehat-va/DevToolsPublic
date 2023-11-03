@@ -90,8 +90,7 @@ function copySecurity() {
 	}
 
 	function selectUser(user, sectionPrefix) {		
-		try {		
-
+		try {	
 			document.querySelectorAll('.user' + sectionPrefix).forEach(el => el.classList.remove('selected'));
 			const userDiv = document.getElementById('userList' + sectionPrefix).querySelector(`[data-id='${user.systemuserid}']`);
 			userDiv.classList.add('selected');
@@ -126,14 +125,12 @@ function copySecurity() {
 				}
 
 				const businessUnitName = response.entities[0].businessunitid.name;
-
 				if (sectionPrefix === '1') {
 					selectedBusinessUnitId = user._businessunitid_value;
 				}
 
 				businessUnitListItem = document.createElement('li');
 				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
-
 				appendLists();
 			});
 
@@ -155,7 +152,6 @@ function copySecurity() {
 					listItem.textContent = 'Team: ' + team.name;
 					return listItem;
 				});
-
 				appendLists();
 			});
 
@@ -171,7 +167,6 @@ function copySecurity() {
 				rolesList.innerHTML = '';
 
 				const roleDetailsArr = [];
-
 				const rolePromises = roles.entities.map(role => {
 				  const roleId = role['roleid'];	
 				  if (sectionPrefix === '1') {
@@ -227,15 +222,13 @@ function copySecurity() {
 			
 			    if (selectedUserId2.toLowerCase() === userId.toLowerCase()) {
 			        // If selected user to update is current user.
-			        showCustomAlert("You are not allowed to change your own security settings.");
-			        console.log("User attempted to update their own security settings, which is not allowed.");
+			        showCustomAlert("You are not allowed to change your own security settings.");			        
 				return;
 			    } else {
 			        showLoadingDialog("Your update is in progress, please be patient...");
 			        const actionType = "Change BUTR"; // BUTR = Business Unit, Teams, Roles
 			        if (typeof updateUserDetails === "function") {
-			            await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 
-			            console.log("updateUserDetails function called.");
+			            await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 			            
 			            closeLoadingDialog();
 			            showCustomAlert(`Security updated for ${selectedUserName2}`);
 			        } else {
