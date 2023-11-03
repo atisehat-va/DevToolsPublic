@@ -117,7 +117,6 @@ async function disassociateUserFromTeams(selectedUserId, clientUrl) {
   }));
 }
 
-/*
 async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
   const associateTeamUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})/teammembership_association/$ref`;
   const associateTeamData = {
@@ -128,31 +127,7 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify(associateTeamData)
   });
-} */
-
-// This function associates the user to a team without checking the team type
-async function associateUserToTeam(selectedUserId, selectedTeamId, clientUrl) {
-  const associationEntity = {
-    "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
-  };
-
-  try {
-    const result = await Xrm.WebApi.online.associate(
-      "teams",
-      selectedTeamId,
-      "teammembership_association",
-      "systemusers",
-      selectedUserId,
-      associationEntity
-    );
-
-    console.log("User successfully associated with the team");
-    // You might want to do something after the successful association
-  } catch (error) {
-    console.error("Error associating user with team:", error.message);
-    // Handle the error as needed
-  }
-}
+} 
 
 /*
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
