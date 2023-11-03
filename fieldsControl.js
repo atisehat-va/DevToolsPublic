@@ -122,24 +122,39 @@ function processAndRenameFieldsInFormComponents() { debugger;
     }
 }
 
-(function updateFieldDisplayNames() {
-    // Query all the labels of the form controls
-    var labels = document.querySelectorAll('label');
+function processAndRenameFieldsInFormComponents() {
+    debugger; // Triggers a breakpoint in the debugger.
+    try {
+        Xrm.Page.ui.controls.forEach(function(control) {
+            if (control.getControlType() === "subgrid") { // assuming we want to work with subgrids
+                var formComponentControlName = control.getName() + "1"; 
+                var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
 
-    // Loop over each label element
-    labels.forEach(function(label) {
-        // Attempt to find a corresponding input or select element
-        var input = document.querySelector('#' + label.htmlFor) || document.querySelector('[data-id="' + label.htmlFor + '"]');
-        
-        if(input) {
-            // Get the name of the field from the input's data attributes or other attributes
-            var fieldName = input.getAttribute('data-fieldname') || input.name;
-            
-            if(fieldName) {
-                // For demonstration, just appending '(Updated)' to the original label text
-                // Here you would replace with the actual logic you need to determine the new label text
-                label.textContent = fieldName + ' (Updated)';
+                // Check if formComponentControl is defined
+                if (formComponentControl && typeof formComponentControl.getGrid === 'function') {
+                    var formComponentData = formComponentControl.getGrid().getRows();
+
+                    formComponentData.forEach(function(row) {
+                        var formComponentFields = row.data.entity.attributes.get();
+                        formComponentFields.forEach(function(attribute) {
+                            var logicalName = attribute.getName(); // Get the logical name
+                            var displayName = attribute.controls.get(0).getLabel(); // Assuming the first control is the right one
+
+                            // Attempt to get the control for the attribute on the form
+                            var formComponentFieldControl = row.getCellByName(logicalName);
+                            if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
+                                formComponentFieldControl.setLabel(displayName);
+                            }
+                        });
+                    });
+                }
             }
-        }
-    });
-})();
+        });
+    } catch (e) {
+        console.error("Error in processAndRenameFieldsInFormComponents:", e);
+    }
+}
+
+// Trigger the function
+processAndRenameFieldsInFormComponents();
+
