@@ -124,19 +124,20 @@ function processAndRenameFieldsInFormComponents() { debugger;
 
 function renameFormComponentFields() {
     try {
-        // Select all elements with a data-id attribute that includes '_modelFormComponent_'
-        var fieldElements = document.querySelectorAll('[data-id*="_modelFormComponent_"]');
+        // Select all elements with a data-control-name attribute
+        var fieldElements = document.querySelectorAll('[data-control-name]');
 
         // Loop through each element and set its display name
         fieldElements.forEach(function(field) {
-            // Extract the field name from the data-id attribute
-            var fieldName = field.getAttribute('data-id');
-            // Find the label element associated with the field, assumed to be preceding the input in the DOM
-            var label = field.previousElementSibling;
+            // Extract the control name from the data-control-name attribute
+            var controlName = field.getAttribute('data-control-name');
+
+            // Attempt to find the label by assuming it's in a span within a sibling div
+            var label = field.closest('div').querySelector('span');
 
             // Check if the label exists and update its text content
-            if(label && label.tagName.toLowerCase() === 'label') {
-                label.textContent = fieldName; // Set label text to the field name
+            if(label) {
+                label.textContent = controlName; // Set label text to the control name
             }
         });
     } catch (e) {
