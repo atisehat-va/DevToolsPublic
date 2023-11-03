@@ -148,38 +148,44 @@ function renameFormComponentFields() {
 // Invoke the function to update field names
 renameFormComponentFields();
 
-function renameFormComponentFields() {
+function processAndRenameFieldsInFormComponents() {
     try {
-        // Select all input and select elements with a data-control-name attribute, which may represent various field types
-        var fieldElements = document.querySelectorAll('[data-control-name]');
+        Xrm.Page.ui.controls.forEach(function (control) {
+            if (control.getControlType() === "lookup") {
+                // Check if control name ends with a number
+                var controlName = control.getName();
+                var endsWithNumber = /\d$/.test(controlName);
+                // Append "1" only if the control name does not end with a number
+                var formComponentControlName = endsWithNumber ? controlName : controlName + "1";
+                
+                var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
 
-        // Loop through each field element to find its label and set a new name
-        fieldElements.forEach(function(field) {
-            // Extract the control name from the data-control-name attribute
-            var controlName = field.getAttribute('data-control-name');
-            // Find the label associated with the field. We assume it is either a parent or previous sibling
-            var label = field.closest('.ui-widget').querySelector('label') || field.previousElementSibling;
+                // Check if formComponentControl and formComponentControl.data are defined
+                if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
+                    var formComponentData = formComponentControl.data.entity.attributes;
 
-            if(label) {
-                // If it's a date field with a separate label element, we directly set its text
-                if (field.type === 'date' && label.tagName.toLowerCase() === 'label') {
-                    label.textContent = controlName;
-                } else {
-                    // For other field types, the label might include a span element
-                    var span = label.querySelector('span');
-                    if (span) {
-                        span.textContent = controlName;
-                    } else {
-                        // If there's no span, we fall back to setting the text of the label itself
-                        label.textContent = controlName;
-                    }
+                    formComponentData.forEach(function (attribute) {
+                        var logicalName = attribute.getName();
+                        var formComponentFieldControl = formComponentControl.getControl(logicalName);
+                        if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
+                            formComponentFieldControl.setLabel(logicalName);
+                        }
+                    });
+
+                    formComponentControl.ui.tabs.forEach(function (tab) {
+                        tab.sections.forEach(function (section) {
+                            var logicalName = section.getName();
+                            section.setLabel(logicalName);
+                        });
+                    });
                 }
             }
         });
     } catch (e) {
-        console.error("Error in renameFormComponentFields:", e);
+        console.error("Error in processAndRenameFieldsInFormComponents:", e);
     }
 }
 
-// Invoke the function to update field names
-renameFormComponentFields();
+// Run the function
+processAndRenameFieldsInFormComponents();
+
