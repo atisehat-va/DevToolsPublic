@@ -121,16 +121,25 @@ function processAndRenameFieldsInFormComponents() { debugger;
         console.error("Error in processAndRenameFieldsInFormComponents:", e);
     }
 }
-function logAllControls() {
-    try {
-        Xrm.Page.ui.controls.forEach(function(control) {
-            var controlName = control.getName();
-            var controlType = control.getControlType();
-            console.log('Control Name:', controlName, 'Control Type:', controlType);
-        });
-    } catch (e) {
-        console.error("Error in logAllControls:", e);
-    }
-}
 
-//logAllControls();
+(function updateFieldDisplayNames() {
+    // Query all the labels of the form controls
+    var labels = document.querySelectorAll('label');
+
+    // Loop over each label element
+    labels.forEach(function(label) {
+        // Attempt to find a corresponding input or select element
+        var input = document.querySelector('#' + label.htmlFor) || document.querySelector('[data-id="' + label.htmlFor + '"]');
+        
+        if(input) {
+            // Get the name of the field from the input's data attributes or other attributes
+            var fieldName = input.getAttribute('data-fieldname') || input.name;
+            
+            if(fieldName) {
+                // For demonstration, just appending '(Updated)' to the original label text
+                // Here you would replace with the actual logic you need to determine the new label text
+                label.textContent = fieldName + ' (Updated)';
+            }
+        }
+    });
+})();
