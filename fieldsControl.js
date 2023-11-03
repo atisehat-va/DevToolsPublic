@@ -123,33 +123,34 @@ function processAndRenameFieldsInFormComponents() { debugger;
 }
 
 function renameFormComponentFields() {
-    try {
-        // Select all elements with a data-control-name attribute
-        var fieldElements = document.querySelectorAll('[data-control-name]');
+    // Function to handle renaming logic
+    const renameFields = () => {
+        const fieldElements = document.querySelectorAll('[data-control-name]');
 
-        // Loop through each element and set its display name
-        fieldElements.forEach(function(field) {
-            // Extract the control name from the data-control-name attribute
-            var controlName = field.getAttribute('data-control-name');
-            var label;
+        fieldElements.forEach(function (field) {
+            const controlName = field.getAttribute('data-control-name');
+            let label = field.closest('div').querySelector('span'); // Adjust the selector as needed
 
-            // Determine if it's a date field and select its label differently
-            if (field.classList.contains('class-for-date-fields')) { // replace with actual class if it's class-based
-                label = field.closest('.parent-class-for-date').querySelector('.label-class-for-date'); // adjust the selectors based on actual structure
-            } else {
-                // For other types of fields, assume label is in a span within a sibling div
-                label = field.closest('div').querySelector('span');
-            }
-
-            // Check if the label exists and update its text content
-            if(label) {
+            if (label) {
                 label.textContent = controlName; // Set label text to the control name
             }
         });
-    } catch (e) {
-        console.error("Error in renameFormComponentFields:", e);
-    }
+    };
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(function (mutationsList, observer) {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                renameFields(); // Call your rename function
+            }
+        }
+    });
+
+    // Start observing the target node for configured mutations
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Later, you can stop observing
+    // observer.disconnect();
 }
 
-// Invoke the function to update field names
 renameFormComponentFields();
