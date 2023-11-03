@@ -220,18 +220,27 @@ function copySecurity() {
 		if (submitButton) {
 			console.log("Found submitButton element, adding event listener.");
 			submitButton.addEventListener("click", async function() {
-				console.log("submitButton clicked.");
+			    console.log("submitButton clicked.");	
+			    
+			    var userId = Xrm.Utility.getGlobalContext().userSettings.userId;		    
+			    userId = userId.replace(/[{}]/g, "");
 			
-				showLoadingDialog("Your update is in progress, please be patient...");
-				const actionType = "Change BUTR"; //BUTR = Business Unit, Teams, Roles
-				if (typeof updateUserDetails === "function") {
-					await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 
-					console.log("updateUserDetails function called.");
-					closeLoadingDialog();
-		    			showCustomAlert(`Security updated for ${selectedUserName2}`);				
-				} else {
-					console.log("updateUserDetails is NOT accessible");
-				}
+			    if (selectedUserId2.toLowerCase() === userId.toLowerCase()) {
+			        // If selected user to update is current user.
+			        showLoadingDialog("You are not allowed to update your own security settings.");
+			        console.log("User attempted to update their own security settings, which is not allowed.");
+			    } else {
+			        showLoadingDialog("Your update is in progress, please be patient...");
+			        const actionType = "Change BUTR"; // BUTR = Business Unit, Teams, Roles
+			        if (typeof updateUserDetails === "function") {
+			            await updateUserDetails(selectedUserId2, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType); 
+			            console.log("updateUserDetails function called.");
+			            closeLoadingDialog();
+			            showCustomAlert(`Security updated for ${selectedUserName2}`);
+			        } else {
+			            console.log("updateUserDetails is NOT accessible");
+			        }
+			    }
 			});
 		} else {
 			console.log("submitButton element not found");
