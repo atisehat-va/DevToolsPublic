@@ -43,18 +43,31 @@ function renameHeaderFields() {
 function renameControlAndUpdateOptionSet(control) {
     try {
         if (control && typeof control.getAttribute === 'function') {
-            var attribute = control.getAttribute();
-            if (attribute && typeof attribute.getName === 'function') {
-                var logicalName = attribute.getName();
-                control.setLabel(logicalName);
-                if (control.getControlType() === "optionset") {
-                    updateOptionSetValues(control);            
+            // Wait for the subform to be fully loaded
+            waitForSubformToLoad(control, function() {
+                var attribute = control.getAttribute();
+                if (attribute && typeof attribute.getName === 'function') {
+                    var logicalName = attribute.getName();
+                    control.setLabel(logicalName);
+                    if (control.getControlType() === "optionset") {
+                        updateOptionSetValues(control);            
+                    }
                 }
-            }
+            });
         }
     } catch (e) {
         console.error("Error in renameControlAndUpdateOptionSet:", e);
     }
+}
+
+function waitForSubformToLoad(control, callback) {
+    // Example function to wait for subform to load - implementation may vary
+    var checkLoaded = setInterval(function() {
+        if (control.getFormContext && control.getFormContext().ui) { // Check if subform is loaded
+            clearInterval(checkLoaded);
+            callback(); // Call your function after subform is confirmed to be loaded
+        }
+    }, 500); // Check every 500ms - adjust as needed
 }
 
 function updateOptionSetValues(control) {
