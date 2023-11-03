@@ -122,39 +122,27 @@ function processAndRenameFieldsInFormComponents() { debugger;
     }
 }
 
-function processAndRenameFieldsInFormComponents() {
-    debugger; // Triggers a breakpoint in the debugger.
+function renameFormComponentFields() {
     try {
-        Xrm.Page.ui.controls.forEach(function(control) {
-            if (control.getControlType() === "subgrid") { // assuming we want to work with subgrids
-                var formComponentControlName = control.getName() + "1"; 
-                var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
+        // Select all elements with a data-id attribute that includes '_modelFormComponent_'
+        var fieldElements = document.querySelectorAll('[data-id*="_modelFormComponent_"]');
 
-                // Check if formComponentControl is defined
-                if (formComponentControl && typeof formComponentControl.getGrid === 'function') {
-                    var formComponentData = formComponentControl.getGrid().getRows();
+        // Loop through each element and set its display name
+        fieldElements.forEach(function(field) {
+            // Extract the field name from the data-id attribute
+            var fieldName = field.getAttribute('data-id');
+            // Find the label element associated with the field, assumed to be preceding the input in the DOM
+            var label = field.previousElementSibling;
 
-                    formComponentData.forEach(function(row) {
-                        var formComponentFields = row.data.entity.attributes.get();
-                        formComponentFields.forEach(function(attribute) {
-                            var logicalName = attribute.getName(); // Get the logical name
-                            var displayName = attribute.controls.get(0).getLabel(); // Assuming the first control is the right one
-
-                            // Attempt to get the control for the attribute on the form
-                            var formComponentFieldControl = row.getCellByName(logicalName);
-                            if (formComponentFieldControl && typeof formComponentFieldControl.setLabel === 'function') {
-                                formComponentFieldControl.setLabel(displayName);
-                            }
-                        });
-                    });
-                }
+            // Check if the label exists and update its text content
+            if(label && label.tagName.toLowerCase() === 'label') {
+                label.textContent = fieldName; // Set label text to the field name
             }
         });
     } catch (e) {
-        console.error("Error in processAndRenameFieldsInFormComponents:", e);
+        console.error("Error in renameFormComponentFields:", e);
     }
 }
 
-// Trigger the function
-processAndRenameFieldsInFormComponents();
-
+// Invoke the function to update field names
+renameFormComponentFields();
