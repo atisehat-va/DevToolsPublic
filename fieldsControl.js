@@ -150,27 +150,30 @@ renameFormComponentFields();
 
 function renameFormComponentFields() {
     try {
-        // Select all elements with a data-control-name attribute that may represent various fields
+        // Select all input and select elements with a data-control-name attribute, which may represent various field types
         var fieldElements = document.querySelectorAll('[data-control-name]');
 
-        // Loop through each element and set its display name
+        // Loop through each field element to find its label and set a new name
         fieldElements.forEach(function(field) {
             // Extract the control name from the data-control-name attribute
             var controlName = field.getAttribute('data-control-name');
-            var label;
+            // Find the label associated with the field. We assume it is either a parent or previous sibling
+            var label = field.closest('.ui-widget').querySelector('label') || field.previousElementSibling;
 
-            // Attempt to find the label. The assumption here is that for date fields, the label might be a sibling or a child of a sibling div.
-            if (field.tagName.toLowerCase() === 'input' && field.type === 'date') {
-                // Date inputs might have a different structure, adjust the selector accordingly
-                label = field.closest('div').previousElementSibling.querySelector('label span');
-            } else {
-                // For other types of inputs, assume label is in a span within a sibling div
-                label = field.closest('div').querySelector('span');
-            }
-
-            // Check if the label exists and update its text content
             if(label) {
-                label.textContent = controlName; // Set label text to the control name
+                // If it's a date field with a separate label element, we directly set its text
+                if (field.type === 'date' && label.tagName.toLowerCase() === 'label') {
+                    label.textContent = controlName;
+                } else {
+                    // For other field types, the label might include a span element
+                    var span = label.querySelector('span');
+                    if (span) {
+                        span.textContent = controlName;
+                    } else {
+                        // If there's no span, we fall back to setting the text of the label itself
+                        label.textContent = controlName;
+                    }
+                }
             }
         });
     } catch (e) {
