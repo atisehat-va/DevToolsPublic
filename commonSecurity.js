@@ -20,35 +20,12 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
       case 'ChangeBU':
         await changeBusinessUnit(selectedUserId, selectedBusinessUnitId);
         break;
-      /*
+
       case 'AddTeams':
         for (const teamId of selectedTeamIds) {
           await associateUserToTeam(selectedUserId, teamId, clientUrl);
         }
         break;
-      */      
-      case 'AddTeams':
-        let errorOccurred = false;
-        for (const teamId of selectedTeamIds) {
-          try {
-            await associateUserToTeam(selectedUserId, teamId, clientUrl);
-          } catch (error) {
-            // If there is only one team ID, re-throw the error.
-            if (selectedTeamIds.length === 1) {
-              throw error;
-            } else {
-              // If there are multiple team IDs, show the error but do not throw it.
-              showCustomAlert(error.message);
-              errorOccurred = true; // Flag that an error occurred
-            }
-          }
-        }
-        // If an error occurred with multiple team IDs, you may want to notify that the process will continue.
-        if (errorOccurred && selectedTeamIds.length > 1) {
-          showCustomAlert("An error occurred with one of the teams, but the update will continue for the rest.");
-        }
-        break;
-        
       case 'RemoveAllTeams':
         await disassociateUserFromTeams(selectedUserId, clientUrl);
         break;
@@ -75,8 +52,8 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
         console.error(`Invalid actionType: ${actionType}`);
         break;
     }
-  } catch (error) {    
-    throw error;
+  } catch (error) {
+    console.error('An error occurred:', error);
   }
 }
 
@@ -139,7 +116,7 @@ async function disassociateUserFromTeams(selectedUserId, clientUrl) {
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
-/*
+
 async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
   const associateTeamUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})/teammembership_association/$ref`;
   const associateTeamData = {
@@ -150,48 +127,7 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify(associateTeamData)
   });
-} */
-
-//newCode
-async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
-  // Get details of the team to check the team type
-  const teamDetailsUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})?$select=teamtype`;
-  try {
-    const teamDetailsResponse = await fetch(teamDetailsUrl, {
-      method: "GET",
-      headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" }
-    });
-    const teamDetails = await teamDetailsResponse.json();
-
-    // Assuming teamDetails is an array and teamtype is a property of the team object:
-    const teamType = teamDetails.value && teamDetails.value[0] && teamDetails.value[0].teamtype;
-
-    // Check if the team type is either "Owner" (0) or "Access" (1)
-    if (teamType !== 0 && teamType !== 1) {
-      throw new Error("You are not allowed to Associate a Team with Type other than Owner/Access.");
-    }
-
-    // If the team type is valid, proceed with the association
-    const associateTeamUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})/teammembership_association/$ref`;
-    const associateTeamData = {
-      "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
-    };
-    const response = await fetch(associateTeamUrl, {
-      method: "POST",
-      headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify(associateTeamData)
-    });
-
-    if (!response.ok) {
-      // If the HTTP response status code is not successful, throw an error
-      throw new Error(`Failed to associate user to team. Status: ${response.status}`);
-    }
-
-  } catch (error) {    
-    throw error; // Rethrow the error so it can be caught by the calling function
-  }
-}
-//EndNewCode
+} 
 
 /*
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
