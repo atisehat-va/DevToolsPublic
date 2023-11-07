@@ -28,15 +28,16 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
         break;
         */
       case 'AddTeams':
-        try {
-          for (const teamId of selectedTeamIds) {
+        for (const teamId of selectedTeamIds) {
+          try {
             await associateUserToTeam(selectedUserId, teamId, clientUrl);
+          } catch (error) {
+            showCustomAlert(error.message);
+            throw error; // Rethrow the error to stop further execution
           }
-        } catch (error) {
-          showCustomAlert(error.message); // This will show the team type alert
-          throw error; // Re-throw the error to prevent further execution
         }
         break;
+        
       case 'RemoveAllTeams':
         await disassociateUserFromTeams(selectedUserId, clientUrl);
         break;
