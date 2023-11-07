@@ -519,8 +519,7 @@ function editSecurity() {
 		      // If everything goes well, show success message
 		      showCustomAlert(`Security updated for ${selectedUserFullName}`);
 		    } catch (error) {
-		      // If an error occurs, log it and show an error message
-		      console.error('An error occurred during the update:', error);		      
+		      // 		      
 		    } finally {
 		      // This will execute regardless of try / catch outcome
 		      closeLoadingDialog();
