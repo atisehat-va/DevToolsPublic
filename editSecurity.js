@@ -520,8 +520,7 @@ function editSecurity() {
 		      showCustomAlert(`Security updated for ${selectedUserFullName}`);
 		    } catch (error) {
 		      // If an error occurs, log it and show an error message
-		      console.error('An error occurred during the update:', error);
-		      showCustomAlert('An error occurred while updating security settings. Please try again.');
+		      console.error('An error occurred during the update:', error);		      
 		    } finally {
 		      // This will execute regardless of try / catch outcome
 		      closeLoadingDialog();
