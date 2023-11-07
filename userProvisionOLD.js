@@ -638,5 +638,25 @@ showAlert(
 .catch(error => {
   // Handle any errors here
 });
+//newTest11/07
+// NOTE: Associate Request in Xrm.WebApi supports multiple children, you can add them inside the relatedEntities array
+var associateRequest = {
+	target: { entityType: "team", id: "6d30cc96-2680-eb11-a812-001dd802f618" },
+	relatedEntities: [
+			{ entityType: "systemuser", id: "3bc59980-9f74-ec11-8f8e-001dd8020615" }
+	],
+	relationship: "teammembership_association",
+	getMetadata: function () { return { boundParameter: null, parameterTypes: {}, operationType: 2, operationName: "Associate" }; }
+};
+
+Xrm.WebApi.execute(associateRequest).then(
+	function success(response) {
+		if (response.ok) {
+			console.log("Success");
+		}
+	}
+).catch(function (error) {
+	console.log(error.message);
+});
 
 
