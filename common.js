@@ -22,8 +22,7 @@ function fetchSecurityRoles(businessUnitId, callback) {
 }
 
 //Make window movable
-function makePopupMovable(newContainer) {
-   console.log("MakePopupMovable");
+function makePopupMovable(newContainer) {   
    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;   
   
    var header = newContainer.querySelector('.commonPopup-header');   
