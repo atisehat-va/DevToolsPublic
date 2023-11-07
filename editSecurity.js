@@ -245,19 +245,11 @@ function editSecurity() {
 	            }
 	        });
 	
-	        const label = document.createElement('label');
-	        label.textContent = textKeys.map(key => item[key]).join(' ');	
-	        
-		const clickableDiv = document.createElement('div');
-		clickableDiv.className = 'clickableTeamItem'; // Add a class for styling if needed
-		clickableDiv.appendChild(assignCheckbox);
-		clickableDiv.appendChild(label);
-		clickableDiv.style.cursor = 'pointer'; // Optional: Change the cursor on hover
-		clickableDiv.onclick = function() {
-		   // Simulate a click on the checkbox when the parent div is clicked
-		   assignCheckbox.click();
-		};
-		
+		const label = document.createElement('label');
+		label.appendChild(assignCheckbox);
+		label.appendChild(document.createTextNode(textKeys.map(key => item[key]).join(' ')));
+		label.style.cursor = 'pointer'; 
+		    
 	        wrapperDiv.appendChild(label);	
 	        targetElement.appendChild(wrapperDiv);
 	    });	    
