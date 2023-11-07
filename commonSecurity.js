@@ -28,15 +28,26 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
         break;
       */      
       case 'AddTeams':
+        let errorOccurred = false;
         for (const teamId of selectedTeamIds) {
           try {
             await associateUserToTeam(selectedUserId, teamId, clientUrl);
           } catch (error) {
-            showCustomAlert(error.message);
-            throw error; // Rethrow the error to stop further execution
+            // If there is only one team ID, re-throw the error.
+            if (selectedTeamIds.length === 1) {
+              throw error;
+            } else {
+              // If there are multiple team IDs, show the error but do not throw it.
+              showCustomAlert(error.message);
+              errorOccurred = true; // Flag that an error occurred
+            }
           }
         }
-        break; 
+        // If an error occurred with multiple team IDs, you may want to notify that the process will continue.
+        if (errorOccurred && selectedTeamIds.length > 1) {
+          showCustomAlert("An error occurred with one of the teams, but the update will continue for the rest.");
+        }
+        break;
         
       case 'RemoveAllTeams':
         await disassociateUserFromTeams(selectedUserId, clientUrl);
