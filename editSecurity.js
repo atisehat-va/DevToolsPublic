@@ -456,8 +456,7 @@ function editSecurity() {
 	    if (element) element.style.display = state;
 	}
 	
-	async function handleSubmitButtonClick(event) {
-	    console.log("submitButton clicked.");	
+	async function handleSubmitButtonClick(event) {	    
 	    if (typeof updateUserDetails === "function") {					    
 	        toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 	        await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);					    
