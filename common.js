@@ -15,7 +15,7 @@ function fetchBusinessUnits(callback) {
 	Xrm.WebApi.retrieveMultipleRecords('businessunit', '?$select=businessunitid,name').then(callback);
 }
 function fetchTeams(callback) {
-	Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name&$expand=businessunitid($select=name)').then(callback);
+	Xrm.WebApi.retrieveMultipleRecords('team', '?$select=teamid,name&$expand=businessunitid($select=name)&$filter=teamtype eq 0 or teamtype eq 1').then(callback);
 }
 function fetchSecurityRoles(businessUnitId, callback) {
 	Xrm.WebApi.retrieveMultipleRecords('role', `?$select=roleid,name&$filter=_businessunitid_value eq ${businessUnitId}`).then(callback);
