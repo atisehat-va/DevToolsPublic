@@ -141,7 +141,7 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
     const teamDetails = await teamDetailsResponse.json();
 
     // Check if the team type is either "Owner" or "Access"
-    if (teamDetails.teamtype !== "Owner" && teamDetails.teamtype !== "Access") {
+    if (teamDetails.teamtype !== 0 && teamDetails.teamtype !== 1) {
       showCustomAlert("You are not allowed to Associate a Team with Type other than Owner/Access.");
       return; // Exit the function if the condition is met
     }
