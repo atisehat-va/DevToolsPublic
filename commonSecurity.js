@@ -116,7 +116,7 @@ async function disassociateUserFromTeams(selectedUserId, clientUrl) {
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
 }
-
+/*
 async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
   const associateTeamUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})/teammembership_association/$ref`;
   const associateTeamData = {
@@ -127,7 +127,41 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify(associateTeamData)
   });
-} 
+} */
+
+//newCode
+async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
+  // Get details of the team to check the team type
+  const teamDetailsUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})?$select=teamtype`;
+  try {
+    const teamDetailsResponse = await fetch(teamDetailsUrl, {
+      method: "GET",
+      headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" }
+    });
+    const teamDetails = await teamDetailsResponse.json();
+
+    // Check if the team type is either "Owner" or "Access"
+    if (teamDetails.teamtype !== "Owner" && teamDetails.teamtype !== "Access") {
+      showCustomAlert("You are not allowed to Associate a Team with Type other than Owner/Access.");
+      return; // Exit the function if the condition is met
+    }
+
+    // If the team type is valid, proceed with the association
+    const associateTeamUrl = `${clientUrl}/api/data/v9.2/teams(${selectedTeamIds})/teammembership_association/$ref`;
+    const associateTeamData = {
+      "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
+    };
+    await fetch(associateTeamUrl, {
+      method: "POST",
+      headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify(associateTeamData)
+    });
+
+  } catch (error) {
+    console.error('Error during association process:', error);
+  }
+}
+//EndNewCode
 
 /*
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
