@@ -20,14 +20,13 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
       case 'ChangeBU':
         await changeBusinessUnit(selectedUserId, selectedBusinessUnitId);
         break;
-      
+      /*
       case 'AddTeams':
         for (const teamId of selectedTeamIds) {
           await associateUserToTeam(selectedUserId, teamId, clientUrl);
         }
         break;
-        
-      /*
+      */      
       case 'AddTeams':
         for (const teamId of selectedTeamIds) {
           try {
@@ -37,7 +36,7 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
             throw error; // Rethrow the error to stop further execution
           }
         }
-        break; */
+        break; 
         
       case 'RemoveAllTeams':
         await disassociateUserFromTeams(selectedUserId, clientUrl);
