@@ -20,10 +20,21 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
       case 'ChangeBU':
         await changeBusinessUnit(selectedUserId, selectedBusinessUnitId);
         break;
-
+      /*
       case 'AddTeams':
         for (const teamId of selectedTeamIds) {
           await associateUserToTeam(selectedUserId, teamId, clientUrl);
+        }
+        break;
+        */
+      case 'AddTeams':
+        try {
+          for (const teamId of selectedTeamIds) {
+            await associateUserToTeam(selectedUserId, teamId, clientUrl);
+          }
+        } catch (error) {
+          showCustomAlert(error.message); // This will show the team type alert
+          throw error; // Re-throw the error to prevent further execution
         }
         break;
       case 'RemoveAllTeams':
@@ -142,8 +153,9 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
 
     // Check if the team type is either "Owner" or "Access"
     if (teamDetails.teamtype !== 0 && teamDetails.teamtype !== 1) {
-      showCustomAlert("You are not allowed to Associate a Team with Type other than Owner/Access.");
-      return; // Exit the function if the condition is met
+      throw new Error("You are not allowed to Associate a Team with Type other than Owner/Access.");
+      //showCustomAlert("You are not allowed to Associate a Team with Type other than Owner/Access.");
+      //return; // Exit the function if the condition is met
     }
 
     // If the team type is valid, proceed with the association
