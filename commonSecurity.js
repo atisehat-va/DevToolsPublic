@@ -64,8 +64,7 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
         console.error(`Invalid actionType: ${actionType}`);
         break;
     }
-  } catch (error) {
-    console.error('An error occurred:', error); 
+  } catch (error) {    
     throw error;
   }
 }
@@ -177,8 +176,7 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
       throw new Error(`Failed to associate user to team. Status: ${response.status}`);
     }
 
-  } catch (error) {
-    console.error('Error during association process:', error);
+  } catch (error) {    
     throw error; // Rethrow the error so it can be caught by the calling function
   }
 }
