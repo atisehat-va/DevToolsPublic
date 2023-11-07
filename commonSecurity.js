@@ -153,11 +153,12 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
     });
     const teamDetails = await teamDetailsResponse.json();
 
-    // Check if the team type is either "Owner" or "Access"
-    if (teamDetails.teamtype !== 0 && teamDetails.teamtype !== 1) {
+    // Assuming teamDetails is an array and teamtype is a property of the team object:
+    const teamType = teamDetails.value && teamDetails.value[0] && teamDetails.value[0].teamtype;
+
+    // Check if the team type is either "Owner" (0) or "Access" (1)
+    if (teamType !== 0 && teamType !== 1) {
       throw new Error("You are not allowed to Associate a Team with Type other than Owner/Access.");
-      //showCustomAlert("You are not allowed to Associate a Team with Type other than Owner/Access.");
-      //return; // Exit the function if the condition is met
     }
 
     // If the team type is valid, proceed with the association
@@ -165,14 +166,20 @@ async function associateUserToTeam(selectedUserId, selectedTeamIds, clientUrl) {
     const associateTeamData = {
       "@odata.id": `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`
     };
-    await fetch(associateTeamUrl, {
+    const response = await fetch(associateTeamUrl, {
       method: "POST",
       headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json", "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify(associateTeamData)
     });
 
+    if (!response.ok) {
+      // If the HTTP response status code is not successful, throw an error
+      throw new Error(`Failed to associate user to team. Status: ${response.status}`);
+    }
+
   } catch (error) {
     console.error('Error during association process:', error);
+    throw error; // Rethrow the error so it can be caught by the calling function
   }
 }
 //EndNewCode
