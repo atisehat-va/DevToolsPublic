@@ -658,5 +658,5 @@ Xrm.WebApi.execute(associateRequest).then(
 ).catch(function (error) {
 	console.log(error.message);
 });
-
+Team with TeamId = 6d30cc96-2680-eb11-a812-001dd802f618 has type = AadGroup. It's not allowed to add team members to AAD security group teams or office group teams: this should be done in AAD.
 
