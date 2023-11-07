@@ -65,7 +65,8 @@ window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId
         break;
     }
   } catch (error) {
-    console.error('An error occurred:', error);    
+    console.error('An error occurred:', error); 
+    throw error;
   }
 }
 
