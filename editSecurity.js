@@ -579,7 +579,7 @@ function editSecurity() {
 	        await performRoleUpdates(rolesRadioSelected, rolesCheckedValues);	
 
 		fetchTeams(function(teams);
-		fetchSecurityRoles(selectedBusinessUnitId, function(response)
+		fetchSecurityRoles(selectedBusinessUnitId, function(response);
 		clearLists();
 	        showCustomAlert(`Security updated for ${selectedUserFullName}`);
 		    
