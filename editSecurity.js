@@ -498,6 +498,7 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
 			} else {
 			    console.log('No update needed on Teams');
+			    showCustomAlert('To update user Teams, please select one or more Teams and one of the followign Actions: Add, Remove, Add + Remove Existing.');
 			}	        
 		    }	
 		    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
@@ -510,13 +511,12 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 			} else {
 			    console.log('No update needed on Teams');
+			    showCustomAlert('To update user roles, please select one or more Roles and one of the followign Actions: Add, Remove, Add + Remove Existing.');
 			}
 		    }
 		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
 		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
-		    closeLoadingDialog();		    
-		    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
-		    toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+		    closeLoadingDialog();	    
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
 	     } else {
 		//initSubmitButton();		
