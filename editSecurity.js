@@ -98,7 +98,7 @@ function editSecurity() {
 	  });
 	}
 	
-	function toggleCheckboxes(action, classNames) {	  
+	function (action, classNames) {	  
 	  const classes = Array.isArray(classNames) ? classNames : [classNames];
 	  classes.forEach(className => {
 	    const checkboxes = document.querySelectorAll(`.${className}`);	    
@@ -516,6 +516,8 @@ function editSecurity() {
 		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
 		    closeLoadingDialog();
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
+		    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+		    toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
 	     } else {
 		//initSubmitButton();		
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
@@ -587,7 +589,7 @@ function editSecurity() {
 	
 	        radioButton.addEventListener('change', function() {		
 	            const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };		    
-	            toggleCheckboxes(selectedAction.action, selectedAction.classes);
+	            (selectedAction.action, selectedAction.classes);
 	
 	            if (radioName === 'teamAction') {
 	                teamsRadioSelected = this.value;		            
