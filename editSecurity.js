@@ -577,9 +577,12 @@ function editSecurity() {
 	
 	        await performTeamUpdates(teamsRadioSelected, teamsCheckedValues);
 	        await performRoleUpdates(rolesRadioSelected, rolesCheckedValues);	
-	        
-	        showCustomAlert(`Security updated for ${selectedUserFullName}`);
+
+		fetchTeams(function(teams);
+		fetchSecurityRoles(selectedBusinessUnitId, function(response)
 		clearLists();
+	        showCustomAlert(`Security updated for ${selectedUserFullName}`);
+		    
 	    } catch (error) {
 	        console.error("An error occurred during update:", error);
 	        showCustomAlert("An error occurred, please try again.");
