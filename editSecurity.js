@@ -253,7 +253,7 @@ function editSecurity() {
 	        wrapperDiv.appendChild(label);	
 	        targetElement.appendChild(wrapperDiv);
 	    });	    
-	    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+	    //toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
 	    toggleCheckboxes('enable', ['assignCheckbox', 'teamsRadioButtons','rolesRadioButtons']);
 	}
 	
@@ -459,7 +459,7 @@ function editSecurity() {
 	
 	async function handleSubmitButtonClick(event) {	    
 	    if (typeof updateUserDetails === "function") {					    
-	        toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
+	        //toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 	        await handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues);					    
 	        toggleCheckboxes('enable', ['teamsRadioButtons', 'rolesRadioButtons', 'businessUnitRadioButtons']);
 	        teamsCheckedValues = [];
