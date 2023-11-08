@@ -98,7 +98,7 @@ function editSecurity() {
 	  });
 	}
 	
-	function (action, classNames) {	  
+	function toggleCheckboxes(action, classNames) {	  
 	  const classes = Array.isArray(classNames) ? classNames : [classNames];
 	  classes.forEach(className => {
 	    const checkboxes = document.querySelectorAll(`.${className}`);	    
@@ -498,7 +498,6 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
 			} else {
 			    console.log('No update needed on Teams');
-			    showCustomAlert(`To update user Teams, please select one or more Teams and one of the followign Actions: Add, Remove, Add Remove Existing.`);
 			}	        
 		    }	
 		    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
@@ -511,12 +510,11 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 			} else {
 			    console.log('No update needed on Teams');
-			    showCustomAlert(`To update user roles, please select one or more roles and one of the following actions: Add, Remove, or Add Remove Existing.`);
 			}
 		    }
 		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
 		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
-		    closeLoadingDialog();	    
+		    closeLoadingDialog();
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
 	     } else {
 		//initSubmitButton();		
@@ -589,7 +587,7 @@ function editSecurity() {
 	
 	        radioButton.addEventListener('change', function() {		
 	            const selectedAction = actionMap[this.value] || { action: 'enable', classes: ['teamsCheckbox', 'rolesCheckbox'] };		    
-	            (selectedAction.action, selectedAction.classes);
+	            toggleCheckboxes(selectedAction.action, selectedAction.classes);
 	
 	            if (radioName === 'teamAction') {
 	                teamsRadioSelected = this.value;		            
