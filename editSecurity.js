@@ -480,6 +480,7 @@ function editSecurity() {
 	        submitButton.addEventListener('click', handleSubmitButtonClick);
 	    }
 	}
+	
 	/*
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if ((businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0) {
@@ -545,118 +546,58 @@ function editSecurity() {
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	} */
-	//new 11/08
-	// Define constants for action types to avoid typos and provide clarity
-	const ACTION_CHANGE_BU = "ChangeBU";
-	const ACTION_ADD_TEAMS = "AddTeams";
-	const ACTION_REMOVE_TEAMS = "RemoveTeams";
-	const ACTION_REMOVE_ALL_TEAMS = "RemoveAllTeams";
-	const ACTION_ADD_ROLES = "AddRoles";
-	const ACTION_REMOVE_ROLES = "RemoveRoles";
-	const ACTION_REMOVE_ALL_ROLES = "RemoveAllRoles";
-	
+
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
-	    // Check if any changes are made to proceed
-	    if (isAnyChangeSelected(businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues)) {
-	        showLoadingDialog("Your update is in progress, please be patient...");
+	    const updatesInProgress = (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0;
 	
-	        try {
-	            // Process Business Unit changes
-	            await processBusinessUnitChange(businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues);
-	
-	            // Process Team changes
-	            await processTeamChanges(teamsRadioSelected, teamsCheckedValues);
-	
-	            // Process Role changes
-	            await processRoleChanges(rolesRadioSelected, rolesCheckedValues);
-	
-	            // Clear UI lists and show success message
-	            clearUILists();
-	            showCustomAlert(`Security updated for ${selectedUserFullName}`);
-	        } catch (error) {
-	            showCustomAlert('An error occurred while updating user security. Please try again.');
-	        } finally {
-	            closeLoadingDialog();
-	        }
-	    } else {
+	    if (!updatesInProgress) {
 	        showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');
-	    }
-	}
-	
-	// Helper functions:
-	
-	function isAnyChangeSelected(businessUnit, teamsValues, rolesValues) {
-	    return (businessUnit && businessUnit !== "noChange") || teamsValues.length > 0 || rolesValues.length > 0;
-	}
-	
-	async function processBusinessUnitChange(businessUnit, teamsValues, rolesValues) {
-	    if (businessUnit && businessUnit !== "noChange") {
-	        await updateUserDetails(selectedUserId, businessUnit, teamsValues, rolesValues, ACTION_CHANGE_BU);
-	        console.log('Business unit selected.');
-	    }
-	}
-	
-	async function processTeamChanges(teamsSelected, teamsValues) {
-	    if (!teamsSelected) {
-	        validateTeamsSelection(teamsValues);
 	        return;
 	    }
+	    
+	    showLoadingDialog("Your update is in progress, please be patient...");
+	    
+	    try {
+	        if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
+	            console.log('Business unit selected.');
+	            await updateUserDetails("ChangeBU");
+	        }
 	
-	    switch (teamsSelected) {
-	        case "addTeam":
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsValues, rolesCheckedValues, ACTION_ADD_TEAMS);
-	            break;
-	        case "removeTeam":
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsValues, rolesCheckedValues, ACTION_REMOVE_TEAMS);
-	            break;
-	        case "addAndRemoveTeam":
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, [], rolesCheckedValues, ACTION_REMOVE_ALL_TEAMS);
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsValues, rolesCheckedValues, ACTION_ADD_TEAMS);
-	            break;
-	        default:
-	            throw new Error('Invalid team action selected.');
+	        await handleTeamUpdates(teamsRadioSelected, teamsCheckedValues);
+	        await handleRoleUpdates(rolesRadioSelected, rolesCheckedValues);
+	
+	        clearLists();
+	        showCustomAlert(`Security updated for ${selectedUserFullName}`);
+	    } catch (error) {
+	        console.error("An error occurred during update:", error);
+	        showCustomAlert("An error occurred, please try again.");
+	    } finally {
+	        closeLoadingDialog();
 	    }
 	}
 	
-	async function processRoleChanges(rolesSelected, rolesValues) {
-	    if (!rolesSelected) {
-	        validateRolesSelection(rolesValues);
-	        return;
+	async function handleTeamUpdates(teamsRadioSelected, teamsCheckedValues) {
+	    if (!teamsRadioSelected || teamsCheckedValues.length === 0) {
+	        throw new Error('Team update conditions not met.');
 	    }
-	
-	    switch (rolesSelected) {
-	        case "addRole":
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesValues, ACTION_ADD_ROLES);
-	            break;
-	        case "removeRole":
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesValues, ACTION_REMOVE_ROLES);
-	            break;
-	        case "addAndRemoveRole":
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, [], ACTION_REMOVE_ALL_ROLES);
-	            await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesValues, ACTION_ADD_ROLES);
-	            break;
-	        default:
-	            throw new Error('Invalid role action selected.');
-	    }
+	    
+	    const action = teamsRadioSelected.replace("Team", "Teams"); // Convert action to match the updateUserDetails function argument
+	    await updateUserDetails(action, teamsCheckedValues);
 	}
 	
-	function validateTeamsSelection(teamsValues) {
-	    if (teamsValues.length > 0) {
-	        throw new Error('Please update user Teams by selecting one or more Teams and an Action: Add, Remove, Add + Remove Existing.');
+	async function handleRoleUpdates(rolesRadioSelected, rolesCheckedValues) {
+	    if (!rolesRadioSelected || rolesCheckedValues.length === 0) {
+	        throw new Error('Role update conditions not met.');
 	    }
+	    
+	    const action = rolesRadioSelected.replace("Role", "Roles"); // Convert action to match the updateUserDetails function argument
+	    await updateUserDetails(action, rolesCheckedValues);
 	}
 	
-	function validateRolesSelection(rolesValues) {
-	    if (rolesValues.length > 0) {
-	        throw new Error('Please update user Roles by selecting one or more Roles and an Action: Add, Remove, Add + Remove Existing.');
-	    }
+	function clearLists() {
+	    document.getElementById('section3').querySelector('ul').innerHTML = ''; // Clear BusinessUnit & Teams List
+	    document.getElementById('section4').querySelector('ul').innerHTML = ''; // Clear Roles List
 	}
-	
-	function clearUILists() {
-	    document.getElementById('section3').querySelector('ul').innerHTML = '';
-	    document.getElementById('section4').querySelector('ul').innerHTML = '';
-	}
-	//EndNew
 	
 	// Add radio buttons
 	function addRadioButtonsToSection(options) {	    
