@@ -487,35 +487,55 @@ function editSecurity() {
 		    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
 		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
 		        console.log('Business unit selected.');
-		    }	    
+		    }	
+		    
 		    if (teamsRadioSelected && teamsCheckedValues.length > 0) {
 		        if (teamsRadioSelected === "addTeam") {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
-			} else if (teamsRadioSelected === "removeTeam") {
+			} 
+			else if (teamsRadioSelected === "removeTeam") {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveTeams");
-			} else if (teamsRadioSelected === "addAndRemoveTeam") {
+			}
+			else if (teamsRadioSelected === "addAndRemoveTeam") {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllTeams");
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
-			} else {			    
+			}
+			else {			    
 			    closeLoadingDialog();
-			    showCustomAlert(`To update user Teams, please select one or more Teams and one of the followign Actions: Add, Remove, Add + Remove Existing.`);
+			    showCustomAlert(`To update user Teams, please choose an action: Add, Remove, or Add + Remove Existing.`);
 		            return;
 			}	        
-		    }	
+		    }
+		    if ((teamsRadioSelected && teamsCheckedValues.length = 0) || (!teamsRadioSelected && teamsCheckedValues.length > 0)) {
+			closeLoadingDialog();
+			showCustomAlert(`Please update user Teams by selecting one or more Teams and an Action: Add, Remove, Add + Remove Existing.`);
+		        return;
+		    }		    
+		    
 		    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
 		        if (rolesRadioSelected === "addRole") {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
-			} else if (rolesRadioSelected === "removeRole") {
+			}
+			else if (rolesRadioSelected === "removeRole") {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveRoles");
-			} else if (rolesRadioSelected === "addAndRemoveRole") {
+			}
+			else if (rolesRadioSelected === "addAndRemoveRole") {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
-			} else {			    
+			}
+			else {			    
 			    closeLoadingDialog();
-			    showCustomAlert(`To update user roles, please select one or more roles and one of the following actions: Add, Remove, or Add + Remove Existing.`);
+			    showCustomAlert(`To update user roles, please choose an action: Add, Remove, or Add + Remove Existing.`);
 			    return;
 			}
 		    }
+		    
+		    if ((rolesRadioSelected && rolesCheckedValues.length = 0) || (!rolesRadioSelected && rolesCheckedValues.length > 0)) {
+			closeLoadingDialog();
+			showCustomAlert(`Please update user Roles by selecting one or more Roles and an Action: Add, Remove, Add + Remove Existing.`);
+		        return;
+		    }		    
+		    
 		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
 		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
 		    closeLoadingDialog();
