@@ -506,7 +506,7 @@ function editSecurity() {
 		            return;
 			}	        
 		    }
-		    if ((teamsRadioSelected && teamsCheckedValues.length = 0) || (!teamsRadioSelected && teamsCheckedValues.length > 0)) {
+		    if ((teamsRadioSelected && teamsCheckedValues.length === 0) || (!teamsRadioSelected && teamsCheckedValues.length > 0)) {
 			closeLoadingDialog();
 			showCustomAlert(`Please update user Teams by selecting one or more Teams and an Action: Add, Remove, Add + Remove Existing.`);
 		        return;
@@ -530,7 +530,7 @@ function editSecurity() {
 			}
 		    }
 		    
-		    if ((rolesRadioSelected && rolesCheckedValues.length = 0) || (!rolesRadioSelected && rolesCheckedValues.length > 0)) {
+		    if ((rolesRadioSelected && rolesCheckedValues.length === 0) || (!rolesRadioSelected && rolesCheckedValues.length > 0)) {
 			closeLoadingDialog();
 			showCustomAlert(`Please update user Roles by selecting one or more Roles and an Action: Add, Remove, Add + Remove Existing.`);
 		        return;
