@@ -497,7 +497,7 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllTeams");
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
 			} else {
-			    console.log('No update needed on Teams');			    
+			    console.log('No update needed on Teams');
 			}	        
 		    }	
 		    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
@@ -509,13 +509,13 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 			} else {
-			    console.log('No update needed on Teams');			    
+			    console.log('No update needed on Teams');
 			}
 		    }
 		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
 		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
-		    closeLoadingDialog();	    
-		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
+		    closeLoadingDialog();
+		    showCustomAlert(`Security updated for ${selectedUserFullName}`);		    
 	     } else {
 		//initSubmitButton();		
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
