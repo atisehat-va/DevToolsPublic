@@ -497,8 +497,7 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllTeams");
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
 			} else {
-			    console.log('No update needed on Teams');
-			    showCustomAlert(`To update user Teams, please select one or more Teams and one of the followign Actions: Add, Remove, Add + Remove Existing.`);
+			    console.log('No update needed on Teams');			    
 			}	        
 		    }	
 		    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
@@ -510,8 +509,7 @@ function editSecurity() {
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
 			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
 			} else {
-			    console.log('No update needed on Teams');
-			    showCustomAlert(`To update user roles, please select one or more roles and one of the following actions: Add, Remove, or Add + Remove Existing.`);
+			    console.log('No update needed on Teams');			    
 			}
 		    }
 		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
