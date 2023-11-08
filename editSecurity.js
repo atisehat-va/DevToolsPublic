@@ -514,10 +514,10 @@ function editSecurity() {
 		    }
 		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
 		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
-		    closeLoadingDialog();
-		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
+		    closeLoadingDialog();		    
 		    toggleCheckboxes('disable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
 		    toggleCheckboxes('enable', ['assignCheckbox', 'teamsCheckbox', 'teamsRadioButtons', 'rolesCheckbox', 'rolesRadioButtons']);
+		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
 	     } else {
 		//initSubmitButton();		
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
