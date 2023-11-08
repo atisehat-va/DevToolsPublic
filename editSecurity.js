@@ -576,10 +576,10 @@ function editSecurity() {
 	        }
 	
 	        await performTeamUpdates(teamsRadioSelected, teamsCheckedValues);
-	        await performRoleUpdates(rolesRadioSelected, rolesCheckedValues);
-	
-	        clearLists();
+	        await performRoleUpdates(rolesRadioSelected, rolesCheckedValues);	
+	        
 	        showCustomAlert(`Security updated for ${selectedUserFullName}`);
+		clearLists();
 	    } catch (error) {
 	        console.error("An error occurred during update:", error);
 	        showCustomAlert("An error occurred, please try again.");
