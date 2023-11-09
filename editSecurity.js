@@ -55,8 +55,7 @@ function editSecurity() {
 	        <h3>Security Roles:</h3>
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
-	        </div>
-		<p><strong>Note:</strong> Your note text here.</p>
+	        </div>		
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section6">	        
 	         <div class="teams-wrapper">	        
@@ -66,7 +65,8 @@ function editSecurity() {
 	       </div>
 	      </div>
 	    </div>
-	    <div class="assignSubmit-button-container">	       
+	    <div class="assignSubmit-button-container">
+     	       <p><strong>Note:</strong> Your note text here.</p>
 	       <button id="assignSubmitButton" style="display: none;">Submit</button>
 	    </div>	    
 	  `;		
