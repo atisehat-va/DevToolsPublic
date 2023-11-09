@@ -56,6 +56,7 @@ function editSecurity() {
 	        <div class="leftRoles-and-teams-list-row">
 	          <ul></ul>
 	        </div>
+		<p><strong>Note:</strong> Your note text here.</p>
 	      </div>
 	      <div class="assignSection rightTeam-section" id="section6">	        
 	         <div class="teams-wrapper">	        
