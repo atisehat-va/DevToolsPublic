@@ -153,9 +153,11 @@ function copySecurity() {
 					listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
 					return listItem;
 				});
-				const nameA = a.innerHTML.replace('Team: ', '');
-				const nameB = b.innerHTML.replace('Team: ', '');
-				return nameA.localeCompare(nameB);
+				teamListItems.sort((a, b) => {
+				   const nameA = a.innerHTML.replace('Team: ', '');
+				   const nameB = b.innerHTML.replace('Team: ', '');
+				   return nameA.localeCompare(nameB);
+				});
 				appendLists();
 			});
 
