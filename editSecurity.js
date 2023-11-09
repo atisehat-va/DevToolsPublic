@@ -301,7 +301,7 @@ function editSecurity() {
 					selectedBusinessUnitId = user._businessunitid_value;
 				}
 				businessUnitListItem = document.createElement('li');
-				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
+				businessUnitListItem.innerHTML = '<strong>Business Unit:</strong> ' + businessUnitName;
 				appendLists();
 			});
 			fetchTeamsForUser(user.systemuserid, function(response) {
@@ -317,8 +317,13 @@ function editSecurity() {
 					selectedTeamIds.push(team.teamid);
 				   }	
 				   const listItem = document.createElement('li');
-				   listItem.textContent = 'Team: ' + team.name;
+				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
 				   return listItem;
+				});
+				teamListItems.sort((a, b) => {
+				   const nameA = a.innerHTML.replace('Team: ', '');
+				   const nameB = b.innerHTML.replace('Team: ', '');
+				   return nameA.localeCompare(nameB);
 				});
 				appendLists();				
 			});						
