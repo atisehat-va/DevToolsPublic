@@ -58,6 +58,7 @@ function copySecurity() {
 			  </div>
 			  <div class="submit-button-container">
 			    <button id="submitButton">Submit</button>
+		            <p><strong>Note: </strong> Only 'Owner' or 'Access' type teams are assignable with this tool.</p>
 			  </div>
 		    `;		
 			document.body.appendChild(newContainer);
