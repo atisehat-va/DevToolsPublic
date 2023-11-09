@@ -145,14 +145,13 @@ function copySecurity() {
 					selectedTeamIds = [];
 				}
 				teamListItems = response.entities[0].teammembership_association.map(team => {
-
-					if (sectionPrefix === '1') {
-						selectedTeamIds.push(team.teamid);
-					}
-
-					const listItem = document.createElement('li');
-					listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
-					return listItem;
+				   if (sectionPrefix === '1') {
+					selectedTeamIds.push(team.teamid);
+				   }
+				   const listItem = document.createElement('li');
+				   const teamTypeText = team['teamtype@OData.Community.Display.V1.FormattedValue']; 
+				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name + ' (Type: ' + teamTypeText + ')';
+				   return listItem; 
 				});
 				teamListItems.sort((a, b) => {
 				   const nameA = a.innerHTML.replace('Team: ', '');
