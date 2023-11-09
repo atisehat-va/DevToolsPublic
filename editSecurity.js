@@ -66,7 +66,7 @@ function editSecurity() {
 	      </div>
 	    </div>
 	    <div class="assignSubmit-button-container">
-     	       <p><strong>Please Note: </strong> When assigning teams, this tool will only associate users with teams categorized under 'Owner' or 'Access' types.</p>
+     	       <p><strong>Note: </strong> Only 'Owner' or 'Access' type teams are assignable with this tool.</p>
 	       <button id="assignSubmitButton" style="display: none;">Submit</button>
 	    </div>	    
 	  `;		
