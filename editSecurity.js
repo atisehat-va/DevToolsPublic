@@ -318,8 +318,13 @@ function editSecurity() {
 				   if (sectionPrefix === '1') {
 					selectedTeamIds.push(team.teamid);
 				   }	
+				  // const listItem = document.createElement('li');
+				  // listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
+				  // return listItem;
+				
 				   const listItem = document.createElement('li');
-				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
+				   const teamTypeText = team['teamtype@OData.Community.Display.V1.FormattedValue']; // Accessing the formatted value
+				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name + ' (Team Type: ' + teamTypeText + ')';
 				   return listItem;
 				});
 				teamListItems.sort((a, b) => {
