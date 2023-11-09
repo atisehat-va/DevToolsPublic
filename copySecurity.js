@@ -131,7 +131,7 @@ function copySecurity() {
 				}
 
 				businessUnitListItem = document.createElement('li');
-				businessUnitListItem.textContent = '<strong>Business Unit:</strong> ' + businessUnitName;
+				businessUnitListItem.innerHTML = '<strong>Business Unit:</strong> ' + businessUnitName;
 				appendLists();			
 			});
 
@@ -150,7 +150,7 @@ function copySecurity() {
 					}
 
 					const listItem = document.createElement('li');
-					listItem.textContent = '<strong>Team:</strong> ' + team.name;
+					listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
 					return listItem;
 				});
 				appendLists();
