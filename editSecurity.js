@@ -324,7 +324,7 @@ function editSecurity() {
 				
 				   const listItem = document.createElement('li');
 				   const teamTypeText = team['teamtype@OData.Community.Display.V1.FormattedValue']; // Accessing the formatted value
-				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name + ' (Team Type: ' + teamTypeText + ')';
+				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name + ' (Type: ' + teamTypeText + ')';
 				   return listItem;
 				});
 				teamListItems.sort((a, b) => {
