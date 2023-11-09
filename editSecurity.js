@@ -195,12 +195,11 @@ function editSecurity() {
 	    });
 	}
 	
-	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {
-	    // Clear
+	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {	    
 	    targetElement.innerHTML = '';	    
 	    const relevantStateArray = stateArray[itemType] || [];
 	
-	    // Loop through each item
+	     Loop through each item
 	    itemArray.forEach(item => {
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
@@ -216,7 +215,7 @@ function editSecurity() {
 	        assignCheckbox.value = item[valueKey];
 	        assignCheckbox.className = additionalClassNames;
 	
-	        // Check if checkbox is selected
+	         Check if checkbox is selected
 	        if (relevantStateArray.includes(assignCheckbox.value)) {
 	            assignCheckbox.checked = true;
 	        }
@@ -275,9 +274,7 @@ function editSecurity() {
 		        if (sectionPrefix === '1') {
 		            selectedUserId = user.systemuserid;
 		            selectedBusinessUnitId = user._businessunitid_value;
-			    selectedUserFullName = user.fullname;
-				
-   			    //clear 
+			    selectedUserFullName = user.fullname;  			    
 			    stateArray['team'] = [];
 			    stateArray['role'] = [];
 		        }
@@ -294,50 +291,46 @@ function editSecurity() {
 		            teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
 		        };
 			fetchBusinessUnitName(user.systemuserid, function(response) {
-				if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
-					console.error('Business unit not found');
-					return;
-				}
-				const businessUnitName = response.entities[0].businessunitid.name;
-				if (sectionPrefix === '1') {
-					selectedBusinessUnitId = user._businessunitid_value;
-				}
-				businessUnitListItem = document.createElement('li');
-				businessUnitListItem.innerHTML = '<strong>Business Unit:</strong> ' + businessUnitName;
-				appendLists();
+			    if (!response || !response.entities[0] || !response.entities[0].businessunitid || !response.entities[0].businessunitid.name) {
+				console.error('Business unit not found');
+				return;
+			    }
+			    const businessUnitName = response.entities[0].businessunitid.name;
+			    if (sectionPrefix === '1') {
+			    	selectedBusinessUnitId = user._businessunitid_value;
+			    }
+			    businessUnitListItem = document.createElement('li');
+			    businessUnitListItem.innerHTML = '<strong>Business Unit:</strong> ' + businessUnitName;
+			    appendLists();
 			});
 			fetchTeamsForUser(user.systemuserid, function(response) {
-				if (!response || !response.entities || !response.entities[0].teammembership_association) {
-					console.error('Teams not found');
-					return;
-				}
-				if (sectionPrefix === '1') {
-					selectedTeamIds = [];
-				}
-				teamListItems = response.entities[0].teammembership_association.map(team => {
-				   if (sectionPrefix === '1') {
-					selectedTeamIds.push(team.teamid);
-				   }	
-				  // const listItem = document.createElement('li');
-				  // listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
-				  // return listItem;
-				
-				   const listItem = document.createElement('li');
-				   const teamTypeText = team['teamtype@OData.Community.Display.V1.FormattedValue']; // Accessing the formatted value
-				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name + ' (Type: ' + teamTypeText + ')';
-				   return listItem;
-				});
-				teamListItems.sort((a, b) => {
-				   const nameA = a.innerHTML.replace('Team: ', '');
-				   const nameB = b.innerHTML.replace('Team: ', '');
-				   return nameA.localeCompare(nameB);
-				});
-				appendLists();				
+			    if (!response || !response.entities || !response.entities[0].teammembership_association) {
+			    	console.error('Teams not found');
+			    	return;
+			    }
+			    if (sectionPrefix === '1') {
+			     	selectedTeamIds = [];
+			    }
+			    teamListItems = response.entities[0].teammembership_association.map(team => {
+			       if (sectionPrefix === '1') {
+			           selectedTeamIds.push(team.teamid);
+			       }			
+			       const listItem = document.createElement('li');
+			       const teamTypeText = team['teamtype@OData.Community.Display.V1.FormattedValue'];
+			       listItem.innerHTML = '<strong>Team:</strong> ' + team.name + ' (Type: ' + teamTypeText + ')';
+			       return listItem;
+			    });
+			       teamListItems.sort((a, b) => {
+			         const nameA = a.innerHTML.replace('Team: ', '');
+			         const nameB = b.innerHTML.replace('Team: ', '');
+			         return nameA.localeCompare(nameB);
+			       });
+			    appendLists();				
 			});						
 		        const teamsList = document.getElementById('teamsList');
 		        teamsList.innerHTML = '';
-		
-		       // Fetch teams
+			
+		        Fetch teams
 			fetchTeams(function(teams) {
 			    if (!teams || !teams.entities) {
 			        console.error('Teams not found');
@@ -360,7 +353,7 @@ function editSecurity() {
 				createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'teamsCheckbox', 'team');
 			   });
 			
-			if (sectionPrefix === '1') { debugger;
+			if (sectionPrefix === '1') { 
 			    // Fetch user roles
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
 			    rolesListUser.innerHTML = '';
@@ -495,41 +488,40 @@ function editSecurity() {
 	
 	async function handleConditions(businessUnitRadioSelected, teamsRadioSelected, teamsCheckedValues, rolesRadioSelected, rolesCheckedValues) {
 	    if ((businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0) {
-		    showLoadingDialog("Your update is in progress, please be patient...");		    
-		    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
-		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
-		        console.log('Business unit selected.');
-		    }	    
-		    if (teamsRadioSelected && teamsCheckedValues.length > 0) {
-		        if (teamsRadioSelected === "addTeam") {
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
-			} else if (teamsRadioSelected === "removeTeam") {
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveTeams");
-			} else if (teamsRadioSelected === "addAndRemoveTeam") {
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllTeams");
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
-			} else {
-			    console.log('No update needed on Teams');
-			}	        
-		    }	
-		    if (rolesRadioSelected && rolesCheckedValues.length > 0) {
-		        if (rolesRadioSelected === "addRole") {
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
-			} else if (rolesRadioSelected === "removeRole") {
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveRoles");
-			} else if (rolesRadioSelected === "addAndRemoveRole") {
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
-			    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
-			} else {
-			    console.log('No update needed on Teams');
-			}
-		    }
-		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
-		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
-		    closeLoadingDialog();
-		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
-	     } else {
-		//initSubmitButton();		
+		showLoadingDialog("Your update is in progress, please be patient...");		    
+		if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
+		    await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
+		    console.log('Business unit selected.');
+		}	    
+		if (teamsRadioSelected && teamsCheckedValues.length > 0) {
+		    if (teamsRadioSelected === "addTeam") {
+		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
+		    } else if (teamsRadioSelected === "removeTeam") {
+			await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveTeams");
+		    } else if (teamsRadioSelected === "addAndRemoveTeam") {
+		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllTeams");
+		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddTeams");
+		    } else {
+		        console.log('No update needed on Teams');
+		    }	        
+	        }	
+		if (rolesRadioSelected && rolesCheckedValues.length > 0) {
+		     if (rolesRadioSelected === "addRole") {
+		         await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
+		     } else if (rolesRadioSelected === "removeRole") {
+			 await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveRoles");
+		     } else if (rolesRadioSelected === "addAndRemoveRole") {
+			 await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "RemoveAllRoles");
+			 await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "AddRoles");
+		     } else {
+			 console.log('No update needed on Teams');
+		     }
+		}
+		document.getElementById('section3').querySelector('ul').innerHTML = '';  
+		document.getElementById('section4').querySelector('ul').innerHTML = '';  
+		closeLoadingDialog();
+		showCustomAlert(`Security updated for ${selectedUserFullName}`);
+	     } else {				
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	}
@@ -550,7 +542,7 @@ function editSecurity() {
 	        sectionElement.appendChild(heading);
 	    }
 		
-	    // Exit if no radioData
+	    //if no radioData
 	    if (!radioData || !Array.isArray(radioData)) {
 	        return;
 	    }     
