@@ -113,7 +113,8 @@ function copySecurity() {
 
 			const appendLists = () => {
 			 	if (businessUnitListItem) {
-					businessUnitAndTeamsList.appendChild(businessUnitListItem);
+				    businessUnitAndTeamsList.appendChild(businessUnitListItem);
+				    businessUnitAndTeamsList.appendChild(document.createElement('br'));
 				}
 				teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
 			};
@@ -131,11 +132,7 @@ function copySecurity() {
 
 				businessUnitListItem = document.createElement('li');
 				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
-				appendLists();
-				
-				const br = document.createElement('br');
-				const parentElement = businessUnitListItem.parentElement;
-				parentElement.appendChild(br);
+				appendLists();			
 			});
 
 			fetchTeamsForUser(user.systemuserid, function(response) {
