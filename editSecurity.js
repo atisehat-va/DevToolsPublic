@@ -243,12 +243,14 @@ function editSecurity() {
 	                    arrayToUse.splice(index, 1);
 	                }
 	            }
-	        });
-	
-	        const label = document.createElement('label');
-	        label.textContent = textKeys.map(key => item[key]).join(' ');
+	        });       
 	
 	        wrapperDiv.appendChild(assignCheckbox);
+		const label = document.createElement('label');
+		label.appendChild(assignCheckbox);
+		label.appendChild(document.createTextNode(textKeys.map(key => item[key]).join(' ')));
+		label.style.cursor = 'pointer';
+		    
 	        wrapperDiv.appendChild(label);	
 	        targetElement.appendChild(wrapperDiv);
 	    });	    
