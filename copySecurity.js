@@ -58,7 +58,7 @@ function copySecurity() {
 			  </div>
 			  <div class="submit-button-container">
 			    <button id="submitButton">Submit</button>
-		            <p style="margin-left: 3%;"><strong>**Note: </strong> Only 'Owner' or 'Access' type teams are assignable with this tool.</p>
+		            <p style="margin-top: 1%; margin-left: 3%;"><strong>**Note: </strong> Only 'Owner' or 'Access' type teams are assignable with this tool.</p>
 			  </div>
 		    `;		
 			document.body.appendChild(newContainer);
