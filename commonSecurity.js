@@ -99,6 +99,7 @@ async function disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds
 }
 //EndNewCode
 
+/*
 async function disassociateUserFromTeams(selectedUserId, clientUrl) {
   const teamsUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/teammembership_association`;
   const response = await fetch(teamsUrl, {
@@ -114,6 +115,27 @@ async function disassociateUserFromTeams(selectedUserId, clientUrl) {
   await Promise.all(results.value.map(async (result) => {
     const disassociateUrl = `${clientUrl}/api/data/v9.2/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
+  }));
+} */
+async function disassociateUserFromTeams(selectedUserId, clientUrl) {
+  // Assuming that teamtype is a property of the team entity and the API supports the $filter query.
+  const teamsUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/teammembership_association?$filter=teamtype eq 0 or teamtype eq 1`;
+  const response = await fetch(teamsUrl, {
+    headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error ${response.status}`);
+  }
+
+  const results = await response.json();
+
+  await Promise.all(results.value.map(async (result) => {
+    // Only disassociate if the teamtype is Owner (0) or Access (1)
+    if (result.teamtype === 0 || result.teamtype === 1) {
+      const disassociateUrl = `${clientUrl}/api/data/v9.2/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`;
+      await fetch(disassociateUrl, { method: "DELETE" });
+    }
   }));
 }
 
