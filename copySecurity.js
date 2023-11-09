@@ -129,12 +129,13 @@ function copySecurity() {
 					selectedBusinessUnitId = user._businessunitid_value;
 				}
 
-				const businessUnitListItem = document.createElement('li');
+				businessUnitListItem = document.createElement('li');
 				businessUnitListItem.textContent = 'Business Unit: ' + businessUnitName;
-				appendLists(businessUnitListItem);
+				appendLists();
 				
-				const lineBr = document.createElement('br');
-    				businessUnitListItem.after(lineBr);
+				const br = document.createElement('br');
+				const parentElement = businessUnitListItem.parentElement;
+				parentElement.appendChild(br);
 			});
 
 			fetchTeamsForUser(user.systemuserid, function(response) {
