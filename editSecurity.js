@@ -288,6 +288,7 @@ function editSecurity() {
 			const appendLists = () => {
 		            if (businessUnitListItem) {
 		                businessUnitAndTeamsList.appendChild(businessUnitListItem);
+				businessUnitAndTeamsList.appendChild(document.createElement('br'));
 		            }
 		            teamListItems.forEach(item => businessUnitAndTeamsList.appendChild(item));
 		        };
