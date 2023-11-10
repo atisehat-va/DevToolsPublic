@@ -660,3 +660,23 @@ Xrm.WebApi.execute(associateRequest).then(
 });
 Team with TeamId = 6d30cc96-2680-eb11-a812-001dd802f618 has type = AadGroup. It's not allowed to add team members to AAD security group teams or office group teams: this should be done in AAD.
 
+//newRoleTest
+// NOTE: Associate Request in Xrm.WebApi supports multiple children, you can add them inside the relatedEntities array
+var associateRequest = {
+	target: { entityType: "role", id: "d008bfde-da92-e111-9d8c-000c2959f9b8" },
+	relatedEntities: [
+			{ entityType: "systemuser", id: "8fd21c2f-e08a-ec11-8d20-001dd804faac" }
+	],
+	relationship: "",
+	getMetadata: function () { return { boundParameter: null, parameterTypes: {}, operationType: 2, operationName: "Associate" }; }
+};
+
+Xrm.WebApi.execute(associateRequest).then(
+	function success(response) {
+		if (response.ok) {
+			console.log("Success");
+		}
+	}
+).catch(function (error) {
+	console.log(error.message);
+});
