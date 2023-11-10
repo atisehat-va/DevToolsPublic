@@ -83,14 +83,16 @@ async function disassociateUserFromRoles(selectedUserId, clientUrl) {
 }
 //NewCode
 // Disassociate user from specific roles
-/*
+
 async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds, clientUrl) {
   await Promise.all(selectedRoleIds.map(async (roleId) => {
     const disassociateUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.2/roles(${roleId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
-} */
+}
+
 //new 11/10
+/*
 async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds) {
   if (!selectedUserId || !selectedRoleIds) {
     console.error("Invalid parameters.");
@@ -128,7 +130,7 @@ async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds
   } catch (error) {
     console.error('Error occurred:', error);
   }
-}
+} */
 
 // Disassociate user from specific teams
 async function disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds, clientUrl) {
