@@ -82,7 +82,7 @@ async function disassociateUserFromRoles(selectedUserId, clientUrl) {
   }));
 }
 
-// Disassociate user from specific roles
+// Disassociate user roles
 async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds, clientUrl) {
   await Promise.all(selectedRoleIds.map(async (roleId) => {
     const disassociateUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.2/roles(${roleId})`;
@@ -90,7 +90,7 @@ async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds
   }));
 }
 
-// Disassociate user from specific teams
+// Disassociate user teams
 async function disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds, clientUrl) {
   await Promise.all(selectedTeamIds.map(async (teamId) => {
     const disassociateUrl = `${clientUrl}/api/data/v9.2/teams(${teamId})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`;
@@ -98,8 +98,7 @@ async function disassociateUserFromSpecificTeams(selectedUserId, selectedTeamIds
   }));
 }
 
-async function disassociateUserFromTeams(selectedUserId, clientUrl) {
-  // Assuming that teamtype is a property of the team entity and the API supports the $filter query.
+async function disassociateUserFromTeams(selectedUserId, clientUrl) {  
   const teamsUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/teammembership_association?$filter=teamtype eq 0 or teamtype eq 1`;
   const response = await fetch(teamsUrl, {
     headers: { "OData-MaxVersion": "4.0", "OData-Version": "4.0", "Accept": "application/json" }
@@ -111,8 +110,7 @@ async function disassociateUserFromTeams(selectedUserId, clientUrl) {
 
   const results = await response.json();
 
-  await Promise.all(results.value.map(async (result) => {
-    // Only disassociate if the teamtype is Owner (0) or Access (1)
+  await Promise.all(results.value.map(async (result) => {    
     if (result.teamtype === 0 || result.teamtype === 1) {
       const disassociateUrl = `${clientUrl}/api/data/v9.2/teams(${result.teamid})/teammembership_association/$ref?$id=${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})`;
       await fetch(disassociateUrl, { method: "DELETE" });
@@ -138,16 +136,16 @@ async function associateUserToRole(selectedUserId, selectedRoleIds) {
     return;
   }
 
-  // Ensure selectedRoleIds is always an array
+  // Check if not array
   if (!Array.isArray(selectedRoleIds)) {
     selectedRoleIds = [selectedRoleIds];
   }
 
-  // Preparing the association request
+  // Association
   var associateRequest = {
-    target: { entityType: "systemuser", id: selectedUserId }, // User ID
+    target: { entityType: "systemuser", id: selectedUserId }, 
     relatedEntities: selectedRoleIds.map(roleId => ({ entityType: "role", id: roleId })),
-    relationship: "systemuserroles_association", // Correct relationship name
+    relationship: "systemuserroles_association", 
     getMetadata: function () {
       return {
         boundParameter: null,
@@ -156,14 +154,12 @@ async function associateUserToRole(selectedUserId, selectedRoleIds) {
         operationName: "Associate"
       };
     }
-  };
-
-  console.log(`Associating user to roles...`);
+  };  
 
   try {
     const response = await Xrm.WebApi.online.execute(associateRequest);
     if (response.ok) {
-      console.log('Successfully associated roles to user.');
+      console.log('Success');
     } else {
       console.error('Association failed:', response);
     }
