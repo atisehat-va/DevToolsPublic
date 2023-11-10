@@ -81,5 +81,5 @@
 .team-action-checkboxes label { margin-right: 16px; }
 .teams-wrapper { display: flex; align-items: flex-start; }
 .assignSubmit-button-container { display: flex; margin-top: 2%; margin-left: 3% }
-#assignSubmitButton { margin-left: 18%; padding: 10px 20px; font-size: 16px; width: 240px; background-color: #102e55; color: white; border: none; cursor: pointer; border-radius: 10px; transition: background-color 0.3s; }      
+#assignSubmitButton { margin-left: 20%; padding: 10px 20px; font-size: 16px; width: 240px; background-color: #102e55; color: white; border: none; cursor: pointer; border-radius: 10px; transition: background-color 0.3s; }      
 #assignSubmitButton:hover { background-color: #103e89; }
