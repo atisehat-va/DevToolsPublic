@@ -165,6 +165,7 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
 }*/
 
 //Test 10/16/2023
+/*
 async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
   if (!selectedUserId || !selectedRoleIds || !clientUrl) {
     console.error("Invalid parameters.");
@@ -200,5 +201,40 @@ async function associateUserToRole(selectedUserId, selectedRoleIds, clientUrl) {
     
   } catch (error) {
     console.error('Fetch failed:', error);
+  }
+} */
+//test11/10
+async function associateUserToRole(selectedUserId, selectedRoleIds) {
+  if (!selectedUserId || !selectedRoleIds) {
+    console.error("Invalid parameters.");
+    return;
+  }
+
+  // Preparing the association request
+  var associateRequest = {
+    target: { entityType: "systemuser", id: selectedUserId }, // User ID
+    relatedEntities: selectedRoleIds.map(roleId => ({ entityType: "role", id: roleId })),
+    relationship: "systemuserroles_association", // Correct relationship name
+    getMetadata: function () {
+      return {
+        boundParameter: null,
+        parameterTypes: {},
+        operationType: 2,
+        operationName: "Associate"
+      };
+    }
+  };
+
+  console.log(`Associating user to roles...`);
+
+  try {
+    const response = await Xrm.WebApi.online.execute(associateRequest);
+    if (response.ok) {
+      console.log('Successfully associated roles to user.');
+    } else {
+      console.error('Association failed:', response);
+    }
+  } catch (error) {
+    console.error('Error occurred:', error);
   }
 }
