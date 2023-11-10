@@ -210,6 +210,11 @@ async function associateUserToRole(selectedUserId, selectedRoleIds) {
     return;
   }
 
+  // Ensure selectedRoleIds is always an array
+  if (!Array.isArray(selectedRoleIds)) {
+    selectedRoleIds = [selectedRoleIds];
+  }
+
   // Preparing the association request
   var associateRequest = {
     target: { entityType: "systemuser", id: selectedUserId }, // User ID
@@ -238,3 +243,4 @@ async function associateUserToRole(selectedUserId, selectedRoleIds) {
     console.error('Error occurred:', error);
   }
 }
+
