@@ -83,11 +83,51 @@ async function disassociateUserFromRoles(selectedUserId, clientUrl) {
 }
 //NewCode
 // Disassociate user from specific roles
+/*
 async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds, clientUrl) {
   await Promise.all(selectedRoleIds.map(async (roleId) => {
     const disassociateUrl = `${clientUrl}/api/data/v9.2/systemusers(${selectedUserId})/systemuserroles_association/$ref?$id=${clientUrl}/api/data/v9.2/roles(${roleId})`;
     await fetch(disassociateUrl, { method: "DELETE" });
   }));
+} */
+//new 11/10
+async function disassociateUserFromSpecificRoles(selectedUserId, selectedRoleIds) {
+  if (!selectedUserId || !selectedRoleIds) {
+    console.error("Invalid parameters.");
+    return;
+  }
+
+  // Ensure selectedRoleIds is always an array
+  if (!Array.isArray(selectedRoleIds)) {
+    selectedRoleIds = [selectedRoleIds];
+  }
+
+  try {
+    await Promise.all(selectedRoleIds.map(async (roleId) => {
+      var disassociateRequest = {
+        target: { entityType: "systemuser", id: selectedUserId },
+        relatedEntities: [{ entityType: "role", id: roleId }],
+        relationship: "systemuserroles_association", // Correct relationship name
+        getMetadata: function () {
+          return {
+            boundParameter: null,
+            parameterTypes: {},
+            operationType: 2, // Disassociate operation
+            operationName: "Disassociate"
+          };
+        }
+      };
+
+      const response = await Xrm.WebApi.online.execute(disassociateRequest);
+      if (!response.ok) {
+        console.error(`Failed to disassociate role ${roleId} from user ${selectedUserId}`);
+      }
+    }));
+
+    console.log('Successfully disassociated specified roles from user.');
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
 }
 
 // Disassociate user from specific teams
