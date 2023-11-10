@@ -71,8 +71,7 @@ function editSecurity() {
 	    </div>	    
 	  `;		
 	  document.body.appendChild(newContainer);
-
-	 document.getElementById('commonback-button').addEventListener('click', function() {
+	  document.getElementById('commonback-button').addEventListener('click', function() {
 	    newContainer.remove();
 	    openPopup();  
 	  });		
