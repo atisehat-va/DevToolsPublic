@@ -1,16 +1,6 @@
 let listOfHolidays = [];
-
-let calcDateDays = {
-    startDate: null,    
-    endDate: null
-}; 
-
-const typeNames = {
-    0: "Default",
-    1: "Customer Service",
-    2: "Holiday Schedule",
-    "-1": "Inner Calendar"
-};
+let calcDateDays = { startDate: null, endDate: null };
+const typeNames = { 0: "Default", 1: "Customer Service", 2: "Holiday Schedule", "-1": "Inner Calendar" };
 
 async function fetchAllHolidaySchedules() {
     const fetchXml = `
@@ -331,7 +321,7 @@ function setupSection4FormListeners() {
         let holidaysCount = 0;
         
         while (totalAddedDays < daysToAdd) {
-            finalDate.setUTCDate(finalDate.getUTCDate() + 1); // Next day
+            finalDate.setUTCDate(finalDate.getUTCDate() + 1); 
             const currentDateString = finalDate.toISOString().split('T')[0] + 'T00:00:00.000Z';
             
             if (isAddWeekendsChecked && (finalDate.getUTCDay() === 6 || finalDate.getUTCDay() === 0)) {
@@ -417,7 +407,7 @@ function initCalendar(holidays) {
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
     
-    // Convert dates in holidays to string.
+    // Converting dates to string.
     const holidayDates = new Set(holidays.map(h => (h.date instanceof Date ? h.date.toISOString() : h.date).split('T')[0]));
 
     function displayCalendar(holidays, month, year) {
