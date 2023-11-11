@@ -1,6 +1,5 @@
 window.updateUserDetails = async function(selectedUserId, selectedBusinessUnitId, selectedTeamIds, selectedRoleIds, actionType) {
   const clientUrl = Xrm.Utility.getGlobalContext().getClientUrl();
-
   try {
     switch (actionType) {
       case 'Change BUTR':
