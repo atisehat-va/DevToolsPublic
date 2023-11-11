@@ -218,11 +218,8 @@ function copySecurity() {
 	    setupSearchFilter('searchInput2');	
 
 	    const submitButton = document.getElementById("submitButton");
-	    if (submitButton) {
-	        console.log("Found submitButton element, adding event listener.");
-	        submitButton.addEventListener("click", async function() {
-	            console.log("submitButton clicked.");
-	            
+	    if (submitButton) {	        
+	        submitButton.addEventListener("click", async function() {            
 	            var userId = Xrm.Utility.getGlobalContext().userSettings.userId;        
 	            userId = userId.replace(/[{}]/g, "");
 	
@@ -251,14 +248,12 @@ function copySecurity() {
 	                    updateWasSuccessful = false;
 	                }
 	
-	                if (!updateWasSuccessful) {
-	                    // Handle the error situation, for example:
+	                if (!updateWasSuccessful) {	                    
 	                    showCustomAlert("Failed to update security settings. Please check the logs for more details.");
 	                }
 	            }
 	        });
-	    } else {
-	        console.log("submitButton element not found");
+	    } else {	        
 	    }       
 	    updateSubmitButtonVisibility();
 	}
