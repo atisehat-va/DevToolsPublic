@@ -194,12 +194,9 @@ function editSecurity() {
 	    });
 	}
 	
-	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {
-	    // Clear
+	function createAndAppendItems(itemArray, targetElement, valueType, valueKey, textKeys, additionalClassNames, itemType) {	    
 	    targetElement.innerHTML = '';	    
-	    const relevantStateArray = stateArray[itemType] || [];
-	
-	    // Loop through each item
+	    const relevantStateArray = stateArray[itemType] || [];    
 	    itemArray.forEach(item => {
 	        const wrapperDiv = document.createElement('div');
 	        wrapperDiv.className = 'sectionWrapper';
@@ -316,13 +313,9 @@ function editSecurity() {
 				teamListItems = response.entities[0].teammembership_association.map(team => {
 				   if (sectionPrefix === '1') {
 					selectedTeamIds.push(team.teamid);
-				   }	
-				  // const listItem = document.createElement('li');
-				  // listItem.innerHTML = '<strong>Team:</strong> ' + team.name;
-				  // return listItem;
-				
+				   }				
 				   const listItem = document.createElement('li');
-				   const teamTypeText = team['teamtype@OData.Community.Display.V1.FormattedValue']; // Accessing the formatted value
+				   const teamTypeText = team['teamtype@OData.Community.Display.V1.FormattedValue']; 
 				   listItem.innerHTML = '<strong>Team:</strong> ' + team.name + ' (Type: ' + teamTypeText + ')';
 				   return listItem;
 				});
@@ -496,8 +489,7 @@ function editSecurity() {
 	    if ((businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") || teamsCheckedValues.length > 0 || rolesCheckedValues.length > 0) {
 		    showLoadingDialog("Your update is in progress, please be patient...");		    
 		    if (businessUnitRadioSelected && businessUnitRadioSelected !== "noChange") {
-		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");
-		        console.log('Business unit selected.');
+		        await updateUserDetails(selectedUserId, businessUnitRadioSelected, teamsCheckedValues, rolesCheckedValues, "ChangeBU");		        
 		    }	    
 		    if (teamsRadioSelected && teamsCheckedValues.length > 0) {
 		        if (teamsRadioSelected === "addTeam") {
@@ -523,12 +515,11 @@ function editSecurity() {
 			    console.log('No update needed on Teams');
 			}
 		    }
-		    document.getElementById('section3').querySelector('ul').innerHTML = '';  //Clear BusinessUnit & Teams List
-		    document.getElementById('section4').querySelector('ul').innerHTML = '';  //Clear Roles List
+		    document.getElementById('section3').querySelector('ul').innerHTML = '';  
+		    document.getElementById('section4').querySelector('ul').innerHTML = '';  
 		    closeLoadingDialog();
 		    showCustomAlert(`Security updated for ${selectedUserFullName}`);
-	     } else {
-		//initSubmitButton();		
+	     } else {		
 		showCustomAlert('To update user security, please select from one of the following categories: Business Unit, Team, or Security Role.');		
 	    }
 	}
