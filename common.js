@@ -151,7 +151,7 @@ function showCustomAlert(message) {
   messageParagraph.id = 'messageParagraph';
   
   const messageWidth = messageParagraph.offsetWidth;
-  const finalWidth = Math.max(messageWidth + 40, 400); // Ensure a minimum width of 400px
+  const finalWidth = Math.max(messageWidth + 40, 400); 
   alertBox.style.width = `${finalWidth}px`;
 }
 
