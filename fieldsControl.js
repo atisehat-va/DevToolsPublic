@@ -5,11 +5,7 @@ var showAllTabsAndSectionsBtnClickStatus = false;
 
 function renameTabsSectionsFields() {      
     try {
-        var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();
-      /*  if (lastUpdatedFormId === currentFormId && logicalNameBtnClickStatus) {
-            showCustomAlert('Show Logical Names button has already been clicked!!');
-            return;
-        } */
+        var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();      
         Xrm.Page.ui.tabs.forEach(function(tab) {
             var logicalName = tab.getName();
             tab.setLabel(logicalName);
@@ -81,9 +77,7 @@ function processAndRenameFieldsInFormComponents() {
         Xrm.Page.ui.controls.forEach(function(control) {
             if (control.getControlType() === "formcomponent") {
                 var formComponentControlName = control.getName(); 
-                var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);
-
-                // Check if formComponentControl and formComponentControl.data are defined
+                var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);                
                 if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
                     var formComponentData = formComponentControl.data.entity.attributes;
 
