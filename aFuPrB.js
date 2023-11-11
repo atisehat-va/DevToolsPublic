@@ -36,9 +36,7 @@ function openUrl(pageType) {
         window.open(advancedFindUrl, windowName, windowOptions);        
     } else if (pageType === "userProvision") {
         const entityName = "vhacrm_userprovision";
-        const formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";
-         
-        // Check if the entity exists
+        const formUrl = clientUrl + "/main.aspx?etn=" + entityName + "&pagetype=entityrecord";       
         const req = new XMLHttpRequest();
         req.open("GET", `${clientUrl}/api/data/v9.0/EntityDefinitions(LogicalName='${entityName}')`, true);
         req.setRequestHeader("OData-MaxVersion", "4.0");
@@ -65,8 +63,7 @@ async function openRestBuilder(orgUrl) {
     var query = "?$select=displayname,name&$filter=displayname eq 'Xrm.RESTBuilder.htm'";
     var results = await Xrm.WebApi.retrieveMultipleRecords("webresource", query);
     
-    if (results.entities.length > 0) {
-      // Check if WebResource exist
+    if (results.entities.length > 0) {      
       var restBuilderPath = `/WebResources/${results.entities[0].name}#`;
       var restBuilderUrl = orgUrl + restBuilderPath;
 
