@@ -150,7 +150,7 @@ function createModalContent() {
                     <h4>Days Between Two Dates:</h4>                    
                     <div class="checkboxWrapper">
                         <input type="checkbox" id="excludeSchedule" name="excludeOptions" value="excludeSchedule">
-                        <label for="excludeSchedule">Exclude Selected Schedule Days</label>
+                        <label for="excludeSchedule">Exclude System Schedule Days</label>
                     </div>                    
                     <div class="checkboxWrapper">
                         <input type="checkbox" id="excludeWeekends" name="excludeOptions" value="excludeWeekends">
@@ -209,7 +209,7 @@ function createModalContent() {
                         <h4>Add Days to a Date:</h4>                    
                         <div class="checkboxWrapper">
                             <input type="checkbox" id="addSchedule" name="addOptions" value="addSchedule">
-                            <label for="addSchedule">Exclude Selected Schedule Days</label>
+                            <label for="addSchedule">Exclude System Schedule Days</label>
                         </div>                    
                         <div class="checkboxWrapper">
                             <input type="checkbox" id="addWeekends" name="addOptions" value="addWeekends">
