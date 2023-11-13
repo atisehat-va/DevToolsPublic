@@ -158,7 +158,7 @@ async function associateUserToRole(selectedUserId, selectedRoleIds) {
   try {
     const response = await Xrm.WebApi.online.execute(associateRequest);
     if (response.ok) {
-      console.log('Success');
+      //      
     } else {
       console.error('Association failed:', response);
     }
