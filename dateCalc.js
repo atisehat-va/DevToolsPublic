@@ -419,8 +419,7 @@ function initCalendar(holidays) {
         const todayMonth = today.getMonth();
         const todayYear = today.getFullYear();
     
-        let calendarHTML = '';    
-        
+        let calendarHTML = '';            
         for (let i = 0; i < firstDayOfMonth; i++) {
             calendarHTML += '<div></div>';
         }    
