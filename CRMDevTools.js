@@ -12,7 +12,6 @@ function loadCSS(href) {
   link.type = 'text/css';
   document.head.appendChild(link); 
 }
-
 // Load CSS
 loadCSS('styles.css');
 
