@@ -352,7 +352,7 @@ function editSecurity() {
 				createAndAppendItems(teamDetailsArr, teamsList, 'checkbox', 'teamid', ['name', 'businessUnitName'], 'teamsCheckbox', 'team');
 			   });
 			
-			if (sectionPrefix === '1') { debugger;
+			if (sectionPrefix === '1') { 
 			    // Fetch user roles
 			    const rolesListUser = document.getElementById('section4').querySelector('ul');
 			    rolesListUser.innerHTML = '';
@@ -540,7 +540,7 @@ function editSecurity() {
 	        sectionElement.appendChild(heading);
 	    }
 		
-	    // Exit if no radioData
+	    // If no radioData
 	    if (!radioData || !Array.isArray(radioData)) {
 	        return;
 	    }     
