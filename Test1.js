@@ -117,7 +117,7 @@ function openPopup() {
 	
 }
 function clearCacheFunction() {
-    location.reload(true); // The 'true' argument forces a hard reload, bypassing the cache.
+    location.reload(true); // Forces a hard reload to bypassing cache.
 }
 
 function closeIframe(url) { 
