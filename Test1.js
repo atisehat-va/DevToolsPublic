@@ -28,8 +28,8 @@ loadScript('common.js');
 loadScript('aFuPrB.js');
 loadScript('entityInfo.js');
 loadScript('fieldsControl.js');
-loadScript('showHiddenItems_UnlockFields.js');
-loadScript('showDirtyFields.js');
+loadScript('shf_uf.js');
+loadScript('dirtyFields.js');
 loadScript('copySecurity.js');
 loadScript('editSecurity.js');
 loadScript('commonSecurity.js');
@@ -83,7 +83,7 @@ function openPopup() {
 	  </div>
 	  <div class="button-row">		    
 	    <button onclick="unlockAllFields();">Unlock All Fields</button>
-	    <button onclick="closePopup(); showDirtyFields();">Show Modified Fields</button>
+	    <button onclick="closePopup(); showDirtyFields();">Show Dirty Fields</button>
 	  </div>   	 
 	  <div class="button-row">
 	    <button onclick="closePopup(); editSecurity();">Assign User Security</button>
