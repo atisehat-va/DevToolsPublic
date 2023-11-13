@@ -30,8 +30,8 @@ loadScript('entityInfo.js');
 loadScript('fieldsControl.js');
 loadScript('shf_uf.js');
 loadScript('dirtyFields.js');
-loadScript('copySecurity.js');
-loadScript('editSecurity.js');
+loadScript('cSecurity.js');
+loadScript('aSecurity.js');
 loadScript('commonSecurity.js');
 loadScript('dateCalc.js');
 
