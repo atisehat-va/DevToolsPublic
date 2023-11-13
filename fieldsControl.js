@@ -43,9 +43,9 @@ function renameControlAndUpdateOptionSet(control) {
             if (attribute && typeof attribute.getName === 'function') {
                 var logicalName = attribute.getName();
                 control.setLabel(logicalName);
-                if (control.getControlType() === "optionset") {
+             /*   if (control.getControlType() === "optionset") {
                     updateOptionSetValues(control);            
-                }
+                } */
             }
         }
     } catch (e) {
