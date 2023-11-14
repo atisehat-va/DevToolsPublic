@@ -18,7 +18,7 @@ function unlockAllFields() {
 }
 
 function showAllTabsAndSections() {
-    closeIframe();	
+    closeIframe();
     var currentFormId = Xrm.Page.ui.formSelector.getCurrentItem().getId();  
     Xrm.Page.ui.tabs.forEach(function(tab) {
 	if (!tab.getVisible()) {
