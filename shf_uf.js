@@ -13,6 +13,7 @@ function unlockAllFields() {
 	    control.setDisabled(false);
 	}
     }
+    unlockFieldsInFormComponents();
     unlockAllFieldsBtnClickStatus = true;
     lastUpdatedFormId = currentFormId;
 }
@@ -37,4 +38,28 @@ function showAllTabsAndSections() {
     });    
    showAllTabsAndSectionsBtnClickStatus = true;
    lastUpdatedFormId = currentFormId;    
+}
+
+function unlockFieldsInFormComponents() { 
+    try {
+        Xrm.Page.ui.controls.forEach(function(control) {
+            if (control.getControlType() === "formcomponent") {
+                var formComponentControlName = control.getName(); 
+                var formComponentControl = Xrm.Page.ui.controls.get(formComponentControlName);                
+                if (formComponentControl && formComponentControl.data && formComponentControl.data.entity) {
+                    var formComponentData = formComponentControl.data.entity.attributes;
+
+                    formComponentData.forEach(function(attribute) {
+                        var logicalName = attribute._attributeName;
+                        var formComponentFieldControl = formComponentControl.getControl(logicalName);
+                        if (formComponentFieldControl && typeof formComponentFieldControl.setDisabled === 'function') {
+                            formComponentFieldControl.setDisabled(false); 
+                        }
+                    });
+                }
+            }
+        });
+    } catch (e) {
+        console.error("Error in unlockFieldsInFormComponents:", e);
+    }
 }
