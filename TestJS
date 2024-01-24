@@ -1,1 +1,20 @@
+function showAlert(executionContext, alertText, title, alertHeight, alertWidth) {
+        return new Promise((resolve, reject) => {
+            const alertStrings = {
+                text: alertText,
+                title: title
+            };
 
+            const alertOptions = { height: alertHeight, width: alertWidth };
+            Xrm.Navigation.openAlertDialog(alertStrings, alertOptions)
+                .then(success => {
+                    resolve(success);
+                })
+                .catch(error => {
+                    console.log("Error in closing dialog", error);
+                    reject(error);
+                });
+        });
+    }
+
+VETHOME.Shared.Functions.showAlert(executionContext, alertText, title, alertHeight, alertWidth)
