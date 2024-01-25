@@ -37,3 +37,53 @@ VETHOME.Shared.Functions.showAlert(executionContext, alertText, title, alertHeig
             }
         );
     }
+
+//sdasdsad
+function showOkCancelAlert(executionContext, title, alertText, alertHeight, alertWidth) {
+    return new Promise((resolve, reject) => {
+        const confirmStrings = {
+            title: title,
+            text: alertText
+        };
+
+        const confirmOptions = { height: alertHeight, width: alertWidth };
+
+        Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+            function (success) {
+                if (success.confirmed) {
+                    // Perform actions when "OK" is clicked
+                    resolve();
+                } else {
+                    // Perform actions when "Cancel" is clicked or the dialog is closed
+                    reject("Operation canceled");
+                }
+            }
+        ).catch(error => {
+            console.log("Error in opening confirm dialog", error);
+            reject(error);
+        });
+    });
+}
+
+function handleButtonClick(executionContext) {
+    // Pass in the required parameters
+    const title = "Confirmation";
+    const alertText = "Are you sure you want to save?";
+    const alertHeight = 200;
+    const alertWidth = 400;
+
+    // Call the showOkCancelAlert function
+    showOkCancelAlert(executionContext, title, alertText, alertHeight, alertWidth)
+        .then(() => {
+            // This block will execute when "OK" is clicked
+            console.log("User clicked OK. Saving data...");
+            
+            // Assuming 'formContext' is accessible in this scope
+            formContext.data.save();
+            formContext.ui.close();
+        })
+        .catch(error => {
+            // This block will execute when "Cancel" is clicked or there's an error
+            console.error("Operation canceled or an error occurred:", error);
+        });
+}
