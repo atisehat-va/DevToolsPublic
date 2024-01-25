@@ -18,3 +18,22 @@ function showAlert(executionContext, alertText, title, alertHeight, alertWidth) 
     }
 
 VETHOME.Shared.Functions.showAlert(executionContext, alertText, title, alertHeight, alertWidth)
+
+ //Alert with only Cancel/OK button
+    function showOkCancelAlert(executionContext, title, alertText, alertHeight, alertWidth) {
+        var confirmStrings = {
+            title: title,
+            text: alertText            
+        };
+        var confirmOptions = { height: alertHeight, width: alertWidth };
+        args.preventDefault();
+
+        Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+            function(success) {							
+                if (success.confirmed) {
+                    formContext.data.save();
+                    formContext.ui.close();
+                }
+            }
+        );
+    }
