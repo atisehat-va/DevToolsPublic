@@ -87,3 +87,34 @@ function handleButtonClick(executionContext) {
             console.error("Operation canceled or an error occurred:", error);
         });
 }
+
+//test
+function confirmSaveAndClose(executionContext) {
+	var formContext = executionContext.getFormContext();
+	var args = executionContext.getEventArgs();   
+
+	if (args.getSaveMode() === 2) {
+		if (Microsoft.Apm && formContext.ui.getFormType() !== VETHOME.Task.Constants.CREATE_FORM) {
+			Microsoft.Apm.getFocusedSession().getContext().then(function (context) {
+				var entityName = context.parameters["anchor.entityName"];
+				if (entityName && entityName === "mcs_vethometasks") {
+					var confirmStrings = {
+						text: "The selected action will close the session along with its related tab(s).",
+						title: "WARNING!"
+					};
+					var confirmOptions = { height: 200, width: 300 };
+					args.preventDefault();
+
+					Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+						function(success) {							
+							if (success.confirmed) {
+								formContext.data.save();
+                                formContext.ui.close();                                		
+							}
+						}
+					);
+				}
+			});
+		}
+	}
+}
