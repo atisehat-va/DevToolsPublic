@@ -68,16 +68,14 @@ window.devplusTrack = (function() {
 
   return function(eventName, params) {
     try {
-      var payload = JSON.stringify({
-        client_id: cid,
-        events: [{ name: eventName, params: Object.assign({ engagement_time_msec: 1 }, params || {}) }]
-      });
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(GA_ENDPOINT, new Blob([payload], { type: 'application/json' }));
-      } else {
-        var origFetch = window.__devplusOrigFetch || window.fetch;
-        origFetch(GA_ENDPOINT, { method: 'POST', body: payload }).catch(function() {});
-      }
+      var origFetch = window.__devplusOrigFetch || window.fetch;
+      origFetch(GA_ENDPOINT, {
+        method: 'POST',
+        body: JSON.stringify({
+          client_id: cid,
+          events: [{ name: eventName, params: Object.assign({ engagement_time_msec: 1 }, params || {}) }]
+        })
+      }).catch(function() {});
     } catch(e) {}
   };
 })();
